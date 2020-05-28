@@ -1,0 +1,268 @@
+Aedes albopictus,co1,261
+Pantala flavescens,co1,1
+Lucilia sericata,co1,1
+Liriomyza sativae,co1,0
+Periplaneta americana,co1,0
+Scatella stagnalis,co1,0
+Birgus latro,co1,0
+Neoscona theisi,co1,1
+Paratrechina longicornis,co1,1
+Rattus rattus,co1,4
+Sarcophaga peregrina,co1,0
+Planococcus citri,co1,1
+Pheidole megacephala,co1,0
+Monomorium floricola,co1,0
+Dysmicoccus neobrevipes,co1,0
+Sarcophaga misera,co1,1
+Drosophila ananassae,co1,0
+Coccophagus ceroplastae,co1,0
+Ferrisia virgata,co1,0
+Nylanderia vaga,co1,0
+Tapinoma melanocephalum,co1,1
+Plexippus paykulli,co1,0
+Nylanderia bourbonica,co1,0
+Lepidodactylus lugubris,co1,1
+Dysmicoccus brevipes,co1,0
+Hypolimnas bolina,co1,0
+Coptotermes formosanus,co1,1
+Hypoponera punctatissima,co1,0
+Hemidactylus frenatus,co1,58
+Thrips hawaiiensis,co1,0
+Agrius cingulata,co1,1
+Coenobita brevimanus,co1,0
+Xyleborus perforans,co1,0
+Tetramorium bicarinatum,co1,0
+Metaphycus flavus,co1,0
+Polistes aurifer,co1,1
+Cardiocondyla emeryi,co1,0
+Ischnura aurora,co1,1
+Chrysodeixis eriosoma,co1,0
+Strumigenys emmae,co1,0
+Fregata minor,co1,0
+Phaethon lepturus,co1,0
+Aleurodicus dispersus,co1,5
+Cardiocondyla minutior,co1,0
+Atherigona orientalis,co1,1
+Calidris alba,co1,0
+Coleosoma floridanum,co1,0
+Sceliphron caementarium,co1,1
+Arenaria interpres,co1,0
+Cardisoma carnifex,co1,0
+Pluvialis fulva,co1,0
+Dohrniphora cornuta,co1,0
+Philonthus discoideus,co1,0
+Phaethon rubricauda,co1,0
+Hasarius adansoni,co1,0
+Supella longipalpa,co1,0
+Stoeberhinus testaceus,co1,0
+Piletocera signiferalis,co1,0
+Fannia pusio,co1,0
+Diploptera punctata,co1,0
+Styringomyia didyma,co1,0
+Sula leucogaster,co1,0
+Chaetanaphothrips orchidii,co1,0
+Sula sula,co1,0
+Onychoprion fuscatus,co1,0
+Periplaneta australasiae,co1,0
+Parajapyx isabellae,co1,0
+Atractomorpha sinensis,co1,0
+Sula dactylatra,co1,0
+Ligia vitiensis,co1,1
+Anax junius,co1,0
+Rhyzobius lophanthae,co1,4
+Numenius tahitiensis,co1,0
+Gygis alba,co1,0
+Heteropoda venatoria,co1,3
+Selenothrips rubrocinctus,co1,0
+Anous stolidus,co1,0
+Pachodynerus nasidens,co1,0
+Pycnoscelus surinamensis,co1,3
+Chelonus blackburni,co1,3
+Conoderus pallipes,co1,0
+Evania appendigaster,co1,1
+Nesticodes rufipes,co1,0
+Menemerus bivittatus,co1,0
+Tringa incana,co1,0
+Dactylosternum abdominale,co1,0
+Anous minutus,co1,0
+Oxya japonica,co1,0
+Urophorus humeralis,co1,0
+Curinus coeruleus,co1,0
+Gastrocopta servilis,co1,0
+Eobia bicolor,co1,0
+Cryptamorpha desjardinsii,co1,0
+Syritta aenigmatopatria,co1,0
+Sarcophaga gressitti,co1,0
+Mastophorus muris,co1,0
+Euborellia annulipes,co1,0
+Ocypode cordimanus,co1,0
+Erechthias simulans,co1,0
+Pseudocaecilius citricola,co1,0
+Geotomus pygmaeus,co1,0
+Truncatella guerinii,co1,0
+Merothrips floridensis,co1,0
+Melanozosteria soror,co1,0
+Isometrus maculatus,co1,0
+Hypothenemus areccae,co1,0
+Echmepteryx madagascariensis,co1,0
+Blepyrus insularis,co1,0
+Anchiphiloscia pilosa,co1,0
+Karnyothrips flavipes,co1,0
+Geograpsus grayi,co1,0
+Halmus chalybeus,co1,0
+Phintella versicolor,co1,0
+Coenobita perlatus,co1,0
+Teleogryllus oceanicus,co1,0
+Syllophopsis sechellensis,co1,0
+Tuerkayana rotundum,co1,0
+Trigoniulus corallinus,co1,3
+Trichiorhyssemus esakii,co1,0
+Thesiastes femoratus,co1,0
+Speonemobius tigrinus,co1,0
+Siphunculina striolata,co1,0
+Rhegmoclema,co1,0
+Reductoniscus costulatus,co1,0
+Pupoidopsis hawaiiensis,co1,0
+Pseudeuxesta prima,co1,0
+Psectrosciara,co1,0
+Projectothrips palmyrae,co1,0
+Phisis holdhausi,co1,0
+Oxydema fusiforme,co1,0
+Onchostylus notulatus,co1,0
+Omphalotropis,co1,0
+Olfesia aenescens,co1,0
+Nocticanace marshallensis,co1,0
+Nagurus sundaicus,co1,0
+Mymaromma,co1,0
+Moranila californica,co1,0
+Mauia subnotatus,co1,0
+Littorphiloscia,co1,0
+Littorphiloscia,co1,0
+Lamellidea pusilla,co1,0
+Lamellidea oblonga,co1,0
+Ketapangia leucochorda,co1,0
+Hybodillo,co1,0
+Hostis guamensis,co1,0
+Endynomena pradieri,co1,0
+Elasmius apertum,co1,0
+Derolathrus atomus,co1,0
+Dasyrhicnoessa,co1,0
+Dasyrhicnoessa,co1,0
+Cyptophania marginata,co1,0
+Cubris,co1,0
+Coquillettomyia,co1,0
+Conocephalus saltator,co1,0
+Colobostema,co1,0
+Conocephalus,co1,0
+Aschistodesmini,co1,0
+Allopea gracile,co1,0
+Alloniscus oahuensis,co1,0
+Aleurodothrips fasciapennis,co1,0
+Abraeomorphus atomarius,co1,0
+Thalassomya setosipennis,co1,0
+Opeas hennense,co1,0
+Cephalochrysa maxima,co1,0
+Cadrema pallida,co1,0
+Perigonia nigriceps,co1,0
+Lepidopsocus pallidus,co1,0
+Lepidopsocus maculatus,co1,0
+Messua felix,co1,0
+Holocneminus piritarsis,co1,0
+Saprosites pygmaeus,co1,0
+Opopaea deserticola,co1,0
+Ischnothyreus velox,co1,0
+Heterocaecilius dybasi,co1,0
+Diocalandra taitensis,co1,0
+Cacoxenus perspicax,co1,0
+Neocalosoter,co1,0
+Karnyothrips melaleucus,co1,0
+Calliscelio elegans,co1,0
+Probaryconus,co1,1
+Geograpsus stormi,co1,0
+Agonoxena argaula,co1,0
+Geograpsus crinipes,co1,0
+Eobia kanack,co1,0
+Eobia bilineata,co1,0
+Sybra alternans,co1,0
+Milichiella lacteipennis,co1,0
+Melittobia chalybii,co1,0
+Chrysosoma molestum,co1,0
+Chrysosoma complicatum,co1,0
+Ceresium unicolor,co1,0
+Chrysosoma megacephala,co1,0
+Lamprolonchaea metatarsata,co1,0
+Sticholotis ruficeps,co1,0
+Icerya purchase,co1,0
+Ceraphron,co1,0
+Ornithoica vicina,co1,0
+Sierola,co1,0
+Ptinella,co1,0
+Cephalochrysa,co1,0
+Scytodes longipes,co1,0
+Grapsus grapsus tenuicrustatus,co1,0
+Scholastes palmyra,co1,0
+Mecistocephalus,co1,0
+Sunius,co1,0
+Anatrachyntis incertulella,co1,0
+Leucothrips piercei,co1,0
+Discocerina,co1,0
+Araecerus vieillardi,co1,0
+Microterys nietneri,co1,0
+Gryon,co1,5
+Chiromantes,co1,0
+Pulvinaria urbicola,co1,0
+Nephus roepkei,co1,0
+Goniozus,co1,0
+Clunio,co1,46
+Ornebius,co1,0
+Liposcelis,co1,2
+Echmepteryx lunulata,co1,0
+Crocothemis servilla,co1,0
+Lepidodactylus,co1,1
+Neochrysocharis,co1,0
+Opogona aurisquamosa,co1,0
+Myrmecophilus,co1,0
+Encyrtus aurantii,co1,0
+Ganaspis,co1,0
+Ganaspis,co1,0
+Sclerodermus,co1,1
+Blattella germanica,co1,1
+Orthoperus aequalis,co1,0
+Idris,co1,2
+Anthicus oceanicus,co1,0
+Encarsia,co1,2
+Hypothenemus ruficeps,co1,0
+Hypothenemus pubescens,co1,0
+Baryscapus,co1,0
+Aphytis,co1,0
+Ectopsocus thysanus,co1,0
+Ectopsocus denervus,co1,0
+Ectopsocus spilotus,co1,0
+Coccophagus,co1,0
+Gaurax bicoloripes,co1,0
+Melampus luteus,co1,0
+Haplothrips williamsi,co1,0
+Haplothrips gowdeyi,co1,0
+Parapanteles,co1,25
+Ocypode ceratophthalma,co1,0
+Megachile fullawayi,co1,0
+Uca tetragonum,co1,0
+Aprostocetus hagenowii,co1,0
+Peripsocus,co1,0
+Culex quinquefasciatus,co1,6
+Spodoptera litura,co1,14
+Leptocera,co1,0
+Dasyhelea,co1,0
+Dasyhelea,co1,0
+Dasyhelea,co1,0
+Chrysotus cockerellae,co1,0
+Chrysotus,co1,0
+Psychoda,co1,0
+Telenomus,co1,7
+Bradysia,co1,0
+Valenzuela leuroceps,co1,0
+Valenzuela kraussi,co1,0
+Xenasteia,co1,0
+Carabodes,co1,0
+Cheyletus,co1,0
+Megamareta,co1,0

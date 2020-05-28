@@ -1,0 +1,193 @@
+---
+title: 'First Steps: stage structure and body size ratios'
+author: "Ana Miller-ter Kuile"
+date: "5/22/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Packages ####
+library(tidyverse)
+library(here)
+library(ggplot2)
+library(ggfortify)
+library(GUniFrac)
+library(vegan)
+library(iNEXT)
+library(cowplot)
+library(ecodist)
+library(lme4)
+library(broom)
+library(MASS)
+library(ggeffects)
+library(glmmTMB)
+library(DHARMa)
+library(MuMIn)
+library(effects)
+```
+
+
+```{r}
+comm <- read.csv(here("data", "dada_may", "combined", "ASVs_counts_all.tsv"), sep = "\t")
+
+#rename columns for simplicity
+colnames(comm) <- sapply(str_split(colnames(comm), "_"), function(x){return(x[[1]])})
+colnames(comm) <- str_remove(colnames(comm), "\\.")
+
+comm <- comm %>%
+  rename("ASV" = "X")
+
+colSums(comm[,2:364])
+
+```
+
+Negatives (skipping for now because of issues with fitting distributions to the data, probs because of many zeros)
+
+```{r, eval = FALSE, include = FALSE}
+#Negative from run D removed by DADA2, so nothing removed from any D-run samples. for other runs, need to determine the negative correction. For run B, this may include removing more from the SME samples than from the others (based on the SME negative high read values, suggesting contamination)
+neg <- comm %>%
+  dplyr::select(ASV, NEGa, NEGb, NEGc, SMEb)
+
+neg_long <- neg %>%
+  gather(sample, reads, NEGa:SMEb) 
+
+ggplot(neg_long, aes(x = reads)) +
+  geom_histogram() + facet_wrap(~sample)
+```
+
+```{r, eval = FALSE, include = FALSE}
+#DHARMA diagnostics not working for any of these 
+model_a <- glmmTMB(NEGa ~ 1,
+                  family = "genpois",
+                  data = neg)
+
+model_anb <- glmmTMB(NEGa ~ 1,
+                  family = "nbinom2",
+                  data = neg)
+
+AICc(model_a, model_anb) #NB better fit
+
+model_b <- glmmTMB(NEGb ~ 1,
+                  family = "genpois",
+                  data = neg)
+
+model_bnb <- glmmTMB(NEGb ~ 1,
+                  family = "nbinom2",
+                  data = neg)
+
+AICc(model_b, model_bnb) #NB better fit 
+
+model_b2 <- glmmTMB(SMEb ~ 1,
+                  family = "genpois",
+                  data = neg)
+
+model_b2nb <- glmmTMB(SMEb ~ 1,
+                  family = "nbinom2",
+                  data = neg)
+
+AICc(model_b2, model_b2nb) #NB better fit
+
+model_c <- glmmTMB(NEGc ~ 1,
+                  family = "genpois",
+                  data = neg)
+
+model_cnb <- glmmTMB(NEGc ~ 1,
+                  family = "nbinom2",
+                  data = neg)
+
+AICc(model_c, model_cnb) #NB *slightly* better fit
+```
+
+```{r, eval = FALSE, include = FALSE}
+library(fitdistrplus)
+        
+fitdistr(neg$NEGa, "negative binomial") #0.003776884, 0.986441340 
+fitdistr(neg$NEGb, "negative binomial") # 0.003819531   0.132833327 
+fitdistr(neg$SMEb, "negative binomial") #0.004815162   57.545762712 
+fitdistr(neg$NEGc, "negative binomial") #0.003043986   0.083461994 
+```
+
+
+#Import Taxonomies
+
+```{r}
+IDs_ncbi <- read.csv(here("data", "dada_may", "combined", "taxonomies", "ncbi.csv"))
+
+#set as factors
+IDs_ncbi <- IDs_ncbi %>%
+  mutate_if(is.factor, as.character)
+
+#set an ID column based on the lowest taxonomic assignment
+IDs_ncbi$ID_ncbi <- ifelse(IDs_ncbi$Species != "", IDs_ncbi$Species,
+                           ifelse(IDs_ncbi$Genus != "", IDs_ncbi$Genus,
+                                  ifelse(IDs_ncbi$Family != "", IDs_ncbi$Family,
+                                         ifelse(IDs_ncbi$Order != "", IDs_ncbi$Order,
+                                                ifelse(IDs_ncbi$Class != "", IDs_ncbi$Class,
+                                                       ifelse(IDs_ncbi$Phylum != "", IDs_ncbi$Phylum, IDs_ncbi$Domain))))))
+
+#set a level at which the ID has been made
+IDs_ncbi$ID_level <- ifelse(IDs_ncbi$Species != "", "Species",
+                           ifelse(IDs_ncbi$Genus != "", "Genus",
+                                  ifelse(IDs_ncbi$Family != "", "Family",
+                                         ifelse(IDs_ncbi$Order != "", "Order",
+                                                ifelse(IDs_ncbi$Class != "", "Class",
+                                                       ifelse(IDs_ncbi$Phylum != "", "Phylum", "Domain"))))))
+
+#remove the weird thing that MEGAN puts in front of the ID in that column
+#so that it is just the ID from that column
+IDs_ncbi$ID_ncbi <- sapply(str_split(IDs_ncbi$ID_ncbi, "_"), function(x){return(x[[3]])})
+
+
+
+bold1 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_0.csv"))
+bold2 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_1.csv"))
+bold3 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_2.csv"))
+bold4 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_3.csv"))
+bold5 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_4.csv"))
+bold6 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_5.csv"))
+bold7 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_6.csv"))
+bold8 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_7.csv"))
+bold9 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_8.csv"))
+bold10 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_9.csv"))
+bold11 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_10.csv"))
+bold12 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_11.csv"))
+bold13 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_12.csv"))
+bold14 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_13.csv"))
+bold15 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_14.csv"))
+bold16 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_15.csv"))
+bold17 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_16.csv"))
+bold18 <- read.csv(here("data", "dada_may", "combined", "taxonomies", "BOLD_17.csv"))
+
+all_bold <- bold1 %>%
+  bind_rows(bold2) %>%
+  bind_rows(bold3) %>%
+  bind_rows(bold4) %>%
+  bind_rows(bold5) %>%
+  bind_rows(bold6) %>%
+  bind_rows(bold7) %>%
+  bind_rows(bold8) %>%
+  bind_rows(bold9) %>%
+  bind_rows(bold10) %>%
+  bind_rows(bold11) %>%
+  bind_rows(bold12) %>%
+  bind_rows(bold13) %>%
+  bind_rows(bold14) %>%
+  bind_rows(bold15) %>%
+  bind_rows(bold16) %>%
+  bind_rows(bold17) %>%
+  bind_rows(bold18) %>%
+  filter(!Best.ID == "No match") %>%
+  rename("ID_bold" = "Best.ID", "ASV" = "Query.ID") 
+
+#export so I can add taxonomic levels to this database
+#write.csv(all_bold, here("data", "dada_may", "combined", "taxonomies", #"bold.csv"))
+
+IDs_bold <- read.csv(here("data", "dada_may", "combined", "taxonomies", "bold.csv"))
+
+IDs <- IDs_ncbi %>%
+  full_join(IDs_bold, by = "ASV")
+```

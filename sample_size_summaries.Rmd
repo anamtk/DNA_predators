@@ -1,0 +1,134 @@
+---
+title: "Chapter 3 Musings"
+author: "Ana Miller-ter Kuile"
+date: "3/25/2020"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(here)
+library(ape)
+```
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, fig.align = "center", out.width = "100%")
+```
+
+**Working Title:** 
+Does DNA metabarcoding reveal important rules governing predator-prey interactions related to predator body size, identity, or feeding mode?
+
+**Author List:** 
+A. Miller-ter Kuile, A. Apigo, D. Preston, H. Young
+
+**Target Journal:** 
+General ecology journal (i.e. Ecology, Proc. B.)
+
+**Guiding Question:**
+How does predator body size, identity, and foraging mode influence the outcomes of predator-prey interactions? 
+
+**Potential Directions:**
+This could include food web questions related to scale of analyses:
+
+1. Individual vs. population interaction strengths, diet breadth, etc. (Ings et al. 2009)
+
+2. Are there individual specialists in a generalist population vs. individual generalists in a generalist population (or thinking about nestedness, ex.)?
+
+3. Predator-prey body size ratios based on feeding mode, predator size, predator identity? Or some other traits of prey from literature (max. size, defenses, etc).
+	
+This could look at the importance of species, body size, or predator foraging mode on diet “community” of predators, diet richness, phylogenetic breadth, etc (i.e. Rudolf et al. 2014)
+
+**Dataset:** 
+467 predator individuals of 10 species with body size (length) information
+
+Individual-level (or in some cases multiple individuals of the same size from the same habitat) DNA gut content data resolved to mostly species, genus, or family level. 
+
+```{r dataset, include=FALSE}
+data <- read.csv(here("data", "Sample_metadata.csv"))
+data$Date.Collected <- as.character(data$Date.Collected)
+data$Extraction.ID <- as.character(data$Extraction.ID)
+data$Isotope_ID <- as.character(data$Isotope_ID)
+```
+
+```{r data summaries, include=FALSE}
+species_num <- data %>%
+  group_by(Date.Collected, Island, Habitat, Method) %>%
+  summarize(species_num = n_distinct(ID)) 
+
+indiv_num <- data %>%
+  group_by(Date.Collected, Island, Habitat, Method) %>%
+  summarize(indiv_num = n())
+
+communities <- species_num %>%
+  left_join(indiv_num, by = c("Date.Collected", "Island", "Habitat", "Method"))
+
+fogging_comm <- communities %>%
+  filter(Method == "Fogging") %>%
+  unite("Tree_ID", Island, Habitat, Date.Collected, remove = FALSE)
+
+soil <- data %>%
+  filter(ID %in% c("Centipede", "Euborellia annulipes"))
+
+soil_method <- data %>%
+  filter(Method == "Soil")
+soil$Method[which(soil$Method == "Hand")] <- "Soil"
+
+data <- data %>%
+  filter(Source == "FIELD") %>%
+  filter(Sterilized == "NS" | is.na(Sterilized))
+
+hab_generalists <- soil %>%
+  group_by(ID, Habitat, Method) %>%
+  summarize(individuals = n())
+
+species_indivs <- data %>%
+  group_by(ID) %>%
+  summarize(individuals = n())
+
+data1 <- data %>%
+  left_join(species_indivs, by = "ID")
+```
+
+## Body size distribution of all predators
+```{r graph of body size dist, echo=FALSE}
+ggplot(data1, aes(x = Length_mm)) +
+  geom_density(fill = "#a6cee3") + theme_bw() +
+  labs(x = "Predator body length (mm)", y = "Density", 
+       title = "Predator body size distribution")
+```
+
+## Body size distributions of by predator species
+```{r graph of body size dists by species, echo = FALSE, fig.height = 8}
+ggplot(data1, aes(x = Length_mm, fill = ID)) +
+  geom_histogram(binwidth = 0.5) +
+  scale_fill_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a", "#33a02c",
+    "#fb9a99","#e31a1c", "#fdbf6f", "#ff7f00", "#cab2d6", "#6a3d9a",
+    "#ffff99")) + theme_bw() +
+  facet_wrap(~ID, ncol = 2) +
+  geom_text(aes(x = 39, y = 15, label = individuals), color = "black") +
+  annotate("text", x = 33, y = 15, label = "N =") +
+  labs(x = "Predator body length (mm)", y = "Individual count", 
+       title = "Predator body size distributions and sample sizes (N)")
+```
+
+## Phylogenetic diversity at the order level of DNA data
+```{r phyl order, echo=FALSE, fig.height = 8}
+ord_tree <- read.tree(here("data", "ch3_23_mar_order.tre"))
+plot(ord_tree)
+```
+
+## Phylogenetic diversity at the family level of DNA data
+```{r phyl family, echo=FALSE, fig.height = 12}
+fam_tree <- read.tree(here("data", "ch3_23_mar_family.tre"))
+plot(fam_tree)
+```
+**Some theoretical inspirations:**
+Gravel et al. 2011. Trophic theory of island biogeography. Ecology Letters.
+
+Ings et al. 2009. Ecological networks – beyond food webs. J. of Animal Ecology
+
+Rudolf et al. 2014. Resolving the roles of body size and species identity in driving functional diversity. Proc. B. 

@@ -1,0 +1,268 @@
+Aedes albopictus
+Pantala flavescens
+Lucilia sericata
+Liriomyza sativae
+Periplaneta americana
+Scatella stagnalis
+Birgus latro
+Neoscona theisi
+Paratrechina longicornis
+Rattus rattus
+Sarcophaga peregrina
+Planococcus citri
+Pheidole megacephala
+Monomorium floricola
+Dysmicoccus neobrevipes
+Sarcophaga misera
+Drosophila ananassae
+Coccophagus ceroplastae
+Ferrisia virgata
+Nylanderia vaga
+Tapinoma melanocephalum
+Plexippus paykulli
+Nylanderia bourbonica
+Lepidodactylus lugubris
+Dysmicoccus brevipes
+Hypolimnas bolina
+Coptotermes formosanus
+Hypoponera punctatissima
+Hemidactylus frenatus
+Thrips hawaiiensis
+Agrius cingulata
+Coenobita brevimanus
+Xyleborus perforans
+Tetramorium bicarinatum
+Metaphycus flavus
+Polistes aurifer
+Cardiocondyla emeryi
+Ischnura aurora
+Chrysodeixis eriosoma
+Strumigenys emmae
+Fregata minor
+Phaethon lepturus
+Aleurodicus dispersus
+Cardiocondyla minutior
+Atherigona orientalis
+Calidris alba
+Coleosoma floridanum
+Sceliphron caementarium
+Arenaria interpres
+Cardisoma carnifex
+Pluvialis fulva
+Dohrniphora cornuta
+Philonthus discoideus
+Phaethon rubricauda
+Hasarius adansoni
+Supella longipalpa
+Stoeberhinus testaceus
+Piletocera signiferalis
+Fannia pusio
+Diploptera punctata
+Styringomyia didyma
+Sula leucogaster
+Chaetanaphothrips orchidii
+Sula sula
+Onychoprion fuscatus
+Periplaneta australasiae
+Parajapyx isabellae
+Atractomorpha sinensis
+Sula dactylatra
+Ligia vitiensis
+Anax junius
+Rhyzobius lophanthae
+Numenius tahitiensis
+Gygis alba
+Heteropoda venatoria
+Selenothrips rubrocinctus
+Anous stolidus
+Pachodynerus nasidens
+Pycnoscelus surinamensis
+Chelonus blackburni
+Conoderus pallipes
+Evania appendigaster
+Nesticodes rufipes
+Menemerus bivittatus
+Tringa incana
+Dactylosternum abdominale
+Anous minutus
+Oxya japonica
+Urophorus humeralis
+Curinus coeruleus
+Gastrocopta servilis
+Eobia bicolor
+Cryptamorpha desjardinsii
+Syritta aenigmatopatria
+Sarcophaga gressitti
+Mastophorus muris
+Euborellia annulipes
+Ocypode cordimanus
+Erechthias simulans
+Pseudocaecilius citricola
+Geotomus pygmaeus
+Truncatella guerinii
+Merothrips floridensis
+Melanozosteria soror
+Isometrus maculatus
+Hypothenemus areccae
+Echmepteryx madagascariensis
+Blepyrus insularis
+Anchiphiloscia pilosa
+Karnyothrips flavipes
+Geograpsus grayi
+Halmus chalybeus
+Phintella versicolor
+Coenobita perlatus
+Teleogryllus oceanicus
+Syllophopsis sechellensis
+Tuerkayana rotundum
+Trigoniulus corallinus
+Trichiorhyssemus esakii
+Thesiastes femoratus
+Speonemobius tigrinus
+Siphunculina striolata
+Rhegmoclema 
+Reductoniscus costulatus
+Pupoidopsis hawaiiensis
+Pseudeuxesta prima
+Psectrosciara 
+Projectothrips palmyrae
+Phisis holdhausi
+Oxydema fusiforme
+Onchostylus notulatus
+Omphalotropis 
+Olfesia aenescens
+Nocticanace marshallensis
+Nagurus sundaicus
+Mymaromma 
+Moranila californica
+Mauia subnotatus
+Littorphiloscia 
+Littorphiloscia 
+Lamellidea pusilla
+Lamellidea oblonga
+Ketapangia leucochorda
+Hybodillo 
+Hostis guamensis
+Endynomena pradieri
+Elasmius apertum
+Derolathrus atomus
+Dasyrhicnoessa 
+Dasyrhicnoessa 
+Cyptophania marginata
+Cubris 
+Coquillettomyia 
+Conocephalus saltator
+Colobostema 
+Conocephalus 
+Aschistodesmini 
+Allopea gracile
+Alloniscus oahuensis
+Aleurodothrips fasciapennis
+Abraeomorphus atomarius
+Thalassomya setosipennis
+Opeas hennense
+Cephalochrysa maxima
+Cadrema pallida
+Perigonia nigriceps
+Lepidopsocus pallidus
+Lepidopsocus maculatus
+Messua felix
+Holocneminus piritarsis
+Saprosites pygmaeus
+Opopaea deserticola
+Ischnothyreus velox
+Heterocaecilius dybasi
+Diocalandra taitensis
+Cacoxenus perspicax
+Neocalosoter 
+Karnyothrips melaleucus
+Calliscelio elegans
+Probaryconus 
+Geograpsus stormi
+Agonoxena argaula
+Geograpsus crinipes
+Eobia kanack
+Eobia bilineata
+Sybra alternans
+Milichiella lacteipennis
+Melittobia chalybii
+Chrysosoma molestum
+Chrysosoma complicatum
+Ceresium unicolor
+Chrysosoma megacephala
+Lamprolonchaea metatarsata
+Sticholotis ruficeps
+Icerya purchase
+Ceraphron 
+Ornithoica vicina
+Sierola 
+Ptinella 
+Cephalochrysa 
+Scytodes longipes
+Grapsus grapsus tenuicrustatus
+Scholastes palmyra
+Mecistocephalus 
+Sunius 
+Anatrachyntis incertulella
+Leucothrips piercei
+Discocerina 
+Araecerus vieillardi
+Microterys nietneri
+Gryon 
+Chiromantes 
+Pulvinaria urbicola
+Nephus roepkei
+Goniozus 
+Clunio 
+Ornebius 
+Liposcelis 
+Echmepteryx lunulata
+Crocothemis servilla
+Lepidodactylus 
+Neochrysocharis 
+Opogona aurisquamosa
+Myrmecophilus 
+Encyrtus aurantii
+Ganaspis 
+Ganaspis 
+Sclerodermus 
+Blattella germanica
+Orthoperus aequalis
+Idris 
+Anthicus oceanicus
+Encarsia 
+Hypothenemus ruficeps
+Hypothenemus pubescens
+Baryscapus 
+Aphytis 
+Ectopsocus thysanus
+Ectopsocus denervus
+Ectopsocus spilotus
+Coccophagus 
+Gaurax bicoloripes
+Melampus luteus
+Haplothrips williamsi
+Haplothrips gowdeyi
+Parapanteles 
+Ocypode ceratophthalma
+Megachile fullawayi
+Uca tetragonum
+Aprostocetus hagenowii
+Peripsocus 
+Culex quinquefasciatus
+Spodoptera litura
+Leptocera 
+Dasyhelea 
+Dasyhelea 
+Dasyhelea 
+Chrysotus cockerellae
+Chrysotus 
+Psychoda 
+Telenomus 
+Bradysia 
+Valenzuela leuroceps
+Valenzuela kraussi
+Xenasteia 
+Carabodes 
+Cheyletus 
+Megamareta

@@ -1,0 +1,268 @@
+Aedes albopictus,coi,1882
+Pantala flavescens,coi,589
+Lucilia sericata,coi,445
+Liriomyza sativae,coi,337
+Periplaneta americana,coi,284
+Scatella stagnalis,coi,300
+Birgus latro,coi,203
+Neoscona theisi,coi,183
+Paratrechina longicornis,coi,166
+Rattus rattus,coi,95
+Sarcophaga peregrina,coi,149
+Planococcus citri,coi,129
+Pheidole megacephala,coi,117
+Monomorium floricola,coi,114
+Dysmicoccus neobrevipes,coi,111
+Sarcophaga misera,coi,106
+Drosophila ananassae,coi,61
+Coccophagus ceroplastae,coi,85
+Ferrisia virgata,coi,83
+Nylanderia vaga,coi,78
+Tapinoma melanocephalum,coi,64
+Plexippus paykulli,coi,65
+Nylanderia bourbonica,coi,63
+Lepidodactylus lugubris,coi,60
+Dysmicoccus brevipes,coi,60
+Hypolimnas bolina,coi,54
+Coptotermes formosanus,coi,56
+Hypoponera punctatissima,coi,38
+Hemidactylus frenatus,coi,56
+Thrips hawaiiensis,coi,44
+Agrius cingulata,coi,39
+Coenobita brevimanus,coi,36
+Xyleborus perforans,coi,34
+Tetramorium bicarinatum,coi,33
+Metaphycus flavus,coi,31
+Polistes aurifer,coi,27
+Cardiocondyla emeryi,coi,24
+Ischnura aurora,coi,24
+Chrysodeixis eriosoma,coi,24
+Strumigenys emmae,coi,23
+Fregata minor,coi,14
+Phaethon lepturus,coi,20
+Aleurodicus dispersus,coi,20
+Cardiocondyla minutior,coi,19
+Atherigona orientalis,coi,19
+Calidris alba,coi,12
+Coleosoma floridanum,coi,17
+Sceliphron caementarium,coi,17
+Arenaria interpres,coi,16
+Cardisoma carnifex,coi,15
+Pluvialis fulva,coi,14
+Dohrniphora cornuta,coi,13
+Philonthus discoideus,coi,12
+Phaethon rubricauda,coi,25
+Hasarius adansoni,coi,11
+Supella longipalpa,coi,11
+Stoeberhinus testaceus,coi,11
+Piletocera signiferalis,coi,11
+Fannia pusio,coi,10
+Diploptera punctata,coi,10
+Styringomyia didyma,coi,10
+Sula leucogaster,coi,9
+Chaetanaphothrips orchidii,coi,8
+Sula sula,coi,8
+Onychoprion fuscatus,coi,8
+Periplaneta australasiae,coi,8
+Parajapyx isabellae,coi,7
+Atractomorpha sinensis,coi,7
+Sula dactylatra,coi,7
+Ligia vitiensis,coi,7
+Anax junius,coi,8
+Rhyzobius lophanthae,coi,7
+Numenius tahitiensis,coi,6
+Gygis alba,coi,6
+Heteropoda venatoria,coi,6
+Selenothrips rubrocinctus,coi,5
+Anous stolidus,coi,5
+Pachodynerus nasidens,coi,5
+Pycnoscelus surinamensis,coi,12
+Chelonus blackburni,coi,4
+Conoderus pallipes,coi,4
+Evania appendigaster,coi,4
+Nesticodes rufipes,coi,4
+Menemerus bivittatus,coi,4
+Tringa incana,coi,3
+Dactylosternum abdominale,coi,3
+Anous minutus,coi,3
+Oxya japonica,coi,3
+Urophorus humeralis,coi,3
+Curinus coeruleus,coi,3
+Gastrocopta servilis,coi,3
+Eobia bicolor,coi,3
+Cryptamorpha desjardinsii,coi,3
+Syritta aenigmatopatria,coi,2
+Sarcophaga gressitti,coi,2
+Mastophorus muris,coi,2
+Euborellia annulipes,coi,0
+Ocypode cordimanus,coi,2
+Erechthias simulans,coi,2
+Pseudocaecilius citricola,coi,1
+Geotomus pygmaeus,coi,1
+Truncatella guerinii,coi,1
+Merothrips floridensis,coi,1
+Melanozosteria soror,coi,1
+Isometrus maculatus,coi,1
+Hypothenemus areccae,coi,1
+Echmepteryx madagascariensis,coi,1
+Blepyrus insularis,coi,1
+Anchiphiloscia pilosa,coi,1
+Karnyothrips flavipes,coi,1
+Geograpsus grayi,coi,1
+Halmus chalybeus,coi,1
+Phintella versicolor,coi,1
+Coenobita perlatus,coi,1
+Teleogryllus oceanicus,coi,1
+Syllophopsis sechellensis,coi,1
+Tuerkayana rotundum,coi,0
+Trigoniulus corallinus,coi,0
+Trichiorhyssemus esakii,coi,0
+Thesiastes femoratus,coi,0
+Speonemobius tigrinus,coi,0
+Siphunculina striolata,coi,0
+Rhegmoclema,coi,0
+Reductoniscus costulatus,coi,0
+Pupoidopsis hawaiiensis,coi,0
+Pseudeuxesta prima,coi,0
+Psectrosciara,coi,0
+Projectothrips palmyrae,coi,0
+Phisis holdhausi,coi,0
+Oxydema fusiforme,coi,0
+Onchostylus notulatus,coi,0
+Omphalotropis,coi,0
+Olfesia aenescens,coi,0
+Nocticanace marshallensis,coi,0
+Nagurus sundaicus,coi,0
+Mymaromma,coi,0
+Moranila californica,coi,0
+Mauia subnotatus,coi,0
+Littorphiloscia,coi,0
+Littorphiloscia,coi,0
+Lamellidea pusilla,coi,0
+Lamellidea oblonga,coi,0
+Ketapangia leucochorda,coi,0
+Hybodillo,coi,0
+Hostis guamensis,coi,0
+Endynomena pradieri,coi,0
+Elasmius apertum,coi,0
+Derolathrus atomus,coi,0
+Dasyrhicnoessa,coi,0
+Dasyrhicnoessa,coi,0
+Cyptophania marginata,coi,0
+Cubris,coi,0
+Coquillettomyia,coi,0
+Conocephalus saltator,coi,0
+Colobostema,coi,0
+Conocephalus,coi,97
+Aschistodesmini,coi,0
+Allopea gracile,coi,0
+Alloniscus oahuensis,coi,0
+Aleurodothrips fasciapennis,coi,0
+Abraeomorphus atomarius,coi,0
+Thalassomya setosipennis,coi,0
+Opeas hennense,coi,0
+Cephalochrysa maxima,coi,0
+Cadrema pallida,coi,0
+Perigonia nigriceps,coi,0
+Lepidopsocus pallidus,coi,0
+Lepidopsocus maculatus,coi,0
+Messua felix,coi,0
+Holocneminus piritarsis,coi,0
+Saprosites pygmaeus,coi,0
+Opopaea deserticola,coi,0
+Ischnothyreus velox,coi,0
+Heterocaecilius dybasi,coi,0
+Diocalandra taitensis,coi,0
+Cacoxenus perspicax,coi,0
+Neocalosoter,coi,2
+Karnyothrips melaleucus,coi,0
+Calliscelio elegans,coi,0
+Probaryconus,coi,2
+Geograpsus stormi,coi,0
+Agonoxena argaula,coi,0
+Geograpsus crinipes,coi,0
+Eobia kanack,coi,0
+Eobia bilineata,coi,0
+Sybra alternans,coi,0
+Milichiella lacteipennis,coi,0
+Melittobia chalybii,coi,0
+Chrysosoma molestum,coi,0
+Chrysosoma complicatum,coi,0
+Ceresium unicolor,coi,0
+Chrysosoma megacephala,coi,0
+Lamprolonchaea metatarsata,coi,0
+Sticholotis ruficeps,coi,0
+Icerya purchase,coi,0
+Ceraphron,coi,7
+Ornithoica vicina,coi,0
+Sierola,coi,8
+Ptinella,coi,8
+Cephalochrysa,coi,9
+Scytodes longipes,coi,0
+Grapsus grapsus tenuicrustatus,coi,0
+Scholastes palmyra,coi,0
+Mecistocephalus,coi,13
+Sunius,coi,14
+Anatrachyntis incertulella,coi,0
+Leucothrips piercei,coi,0
+Discocerina,coi,21
+Araecerus vieillardi,coi,0
+Microterys nietneri,coi,0
+Gryon,coi,23
+Chiromantes,coi,32
+Pulvinaria urbicola,coi,0
+Nephus roepkei,coi,0
+Goniozus,coi,36
+Clunio,coi,37
+Ornebius,coi,50
+Liposcelis,coi,68
+Echmepteryx lunulata,coi,0
+Crocothemis servilla,coi,0
+Lepidodactylus,coi,98
+Neochrysocharis,coi,100
+Opogona aurisquamosa,coi,0
+Myrmecophilus,coi,75
+Encyrtus aurantii,coi,0
+Ganaspis,coi,121
+Ganaspis,coi,121
+Sclerodermus,coi,140
+Blattella germanica,coi,89
+Orthoperus aequalis,coi,0
+Idris,coi,165
+Anthicus oceanicus,coi,0
+Encarsia,coi,373
+Hypothenemus ruficeps,coi,0
+Hypothenemus pubescens,coi,0
+Baryscapus,coi,407
+Aphytis,coi,415
+Ectopsocus thysanus,coi,0
+Ectopsocus denervus,coi,0
+Ectopsocus spilotus,coi,0
+Coccophagus,coi,453
+Gaurax bicoloripes,coi,0
+Melampus luteus,coi,0
+Haplothrips williamsi,coi,0
+Haplothrips gowdeyi,coi,2
+Parapanteles,coi,652
+Ocypode ceratophthalma,coi,0
+Megachile fullawayi,coi,0
+Uca tetragonum,coi,0
+Aprostocetus hagenowii,coi,0
+Peripsocus,coi,940
+Culex quinquefasciatus,coi,1324
+Spodoptera litura,coi,96
+Leptocera,coi,2939
+Dasyhelea,coi,4474
+Dasyhelea,coi,4474
+Dasyhelea,coi,4474
+Chrysotus cockerellae,coi,0
+Chrysotus,coi,4535
+Psychoda,coi,7155
+Telenomus,coi,9391
+Bradysia,coi,9597
+Valenzuela leuroceps,coi,0
+Valenzuela kraussi,coi,0
+Xenasteia,coi,0
+Carabodes,coi,99
+Cheyletus,coi,142
+Megamareta,coi,0

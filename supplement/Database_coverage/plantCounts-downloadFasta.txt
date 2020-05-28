@@ -1,0 +1,4 @@
+Encelia californica,rbcl,1
+Eriogonum fasciculatum,rbcl,1
+Eschscholzia californica,rbcl,10
+Lupinus bicolor,rbcl,6
