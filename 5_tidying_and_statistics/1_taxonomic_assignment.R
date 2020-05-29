@@ -284,3 +284,5 @@ all_IDs %>%
 all_IDs %>%
   group_by(ID_level) %>%
   tally()
+
+write.csv(all_IDs, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
