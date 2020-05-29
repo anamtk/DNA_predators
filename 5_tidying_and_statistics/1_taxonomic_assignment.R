@@ -205,4 +205,4 @@ IDs_same_level <- IDs %>%
   filter(ID_level_ncbi == ID_level_bold) %>%
   dplyr::select(ID_ncbi, ID_bold)
 
-View(IDs_species)
+View(IDs_same_level)
