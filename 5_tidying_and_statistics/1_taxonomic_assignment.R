@@ -131,9 +131,10 @@ IDs_bold$ID_level_bold <- ifelse(IDs_bold$Species != "", "Species",
 
 #Again,  I want to keep track of where the taxonomies are coming from, so I
 #am going to rename columns
-IDs_bold <- IDs_bold
-  dplyr::select(-Domain, -Search.DB, -Top.., -Low.., -X, -X.1) %>% #remove weird rows from BOLD
-  rename(Phylum_bold = Phylum, #rename columns
+IDs_bold <- IDs_bold %>%
+  dplyr::select(-Search.DB, -Top.., -Low.., -X, -X.1) %>% #remove weird rows from BOLD
+  rename(Domain_bold = Domain,
+         Phylum_bold = Phylum, #rename columns
          Class_bold = Class,
          Order_bold = Order,
          Family_bold = Family,
@@ -148,10 +149,60 @@ IDs_bold <- IDs_bold
 #do some initial cleaning
 IDs <- IDs_ncbi %>%
   full_join(IDs_bold, by = "ASV") %>% #join them both
-  filter(type %!in% c("unclear", "non-diet")) #remove things that got multiple taxonomic
+  filter(!Type %in% c("unclear", "non-diet")) %>% #remove things that got multiple taxonomic
 #matches from BOLD
-
+  replace(., is.na(.), "") #replace NA values with nothing for ease of sorting later
 #####################
-#Determine IDs which don't match between BOld and NCBI####
+#Make a combined ID from best knowledge of both databases####
 #####################
 
+#This dataset now includes four types of IDs:
+#1. Those which matched to NCBI and not BOLD
+#2. Those which matched to BOLD but not NCBI
+#3. Those which matched to both and are the same
+#4. Those which matched to both and are different
+
+#I am going to break the dataframe into these four component parts (for now)
+#just because that makes it easier for me to see what the composition of
+#these four types are
+
+#NCBI only
+IDs_ncbi_only <- IDs %>%
+  filter(ID_ncbi != "" & ID_bold == "")
+
+#get stats on this:
+IDs_ncbi_only %>%
+  tally()
+
+IDs_ncbi_only %>%
+  group_by(ID_level_ncbi) %>%
+  tally()
+
+#BOLD only
+IDs_bold_only <- IDs %>%
+  filter(ID_bold != "" & ID_ncbi == "")
+
+#get stats on this:
+IDs_bold_only %>%
+  tally()
+
+IDs_bold_only %>%
+  group_by(ID_level_bold) %>%
+  tally()
+
+#Both Databases
+IDs_both <- IDs %>%
+  filter(ID_bold != "", ID_ncbi != "")
+
+IDs_both %>%
+  tally()
+
+IDs_both %>%
+  group_by(ID_level_bold, ID_level_ncbi) %>%
+  tally()
+
+IDs_same_level <- IDs %>%
+  filter(ID_level_ncbi == ID_level_bold) %>%
+  dplyr::select(ID_ncbi, ID_bold)
+
+View(IDs_species)
