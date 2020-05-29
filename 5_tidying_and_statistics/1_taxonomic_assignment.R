@@ -281,6 +281,10 @@ all_IDs$ID_level <- ifelse(all_IDs$Species != "", "Species",
 all_IDs %>%
   tally()
 
+all_IDs$ID_level <- factor(all_IDs$ID_level, levels = c("Domain", "Phylum",
+                                                           "Class", "Order", "Family",
+                                                           "Genus", "Species"))
+
 all_IDs %>%
   group_by(ID_level) %>%
   tally()
