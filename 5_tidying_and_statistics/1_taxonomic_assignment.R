@@ -152,8 +152,9 @@ IDs <- IDs_ncbi %>%
   filter(!Type %in% c("unclear", "non-diet")) %>% #remove things that got multiple taxonomic
 #matches from BOLD
   replace(., is.na(.), "") #replace NA values with nothing for ease of sorting later
+
 #####################
-#Make a combined ID from best knowledge of both databases####
+#Find sources and matches/mismatches of taxonomies####
 #####################
 
 #This dataset now includes four types of IDs:
@@ -166,9 +167,15 @@ IDs <- IDs_ncbi %>%
 #just because that makes it easier for me to see what the composition of
 #these four types are
 
+#While I'm at it, I'm also going to give each set of data a master "unique_ID" 
+#that will be it's identifier later. I think that since most of the data came
+#from NCBI, I'm going to defer to the NCBI ID here (and will use the database
+#coverage supplement to support this decision)
+
 #NCBI only
 IDs_ncbi_only <- IDs %>%
-  filter(ID_ncbi != "" & ID_bold == "")
+  filter(ID_ncbi != "" & ID_bold == "") %>%
+  mutate(unique_ID = ID_ncbi)
 
 #get stats on this:
 IDs_ncbi_only %>%
@@ -180,7 +187,8 @@ IDs_ncbi_only %>%
 
 #BOLD only
 IDs_bold_only <- IDs %>%
-  filter(ID_bold != "" & ID_ncbi == "")
+  filter(ID_bold != "" & ID_ncbi == "") %>%
+  mutate(unique_ID = ID_bold)
 
 #get stats on this:
 IDs_bold_only %>%
@@ -201,8 +209,78 @@ IDs_both %>%
   group_by(ID_level_bold, ID_level_ncbi) %>%
   tally()
 
-IDs_same_level <- IDs %>%
-  filter(ID_level_ncbi == ID_level_bold) %>%
-  dplyr::select(ID_ncbi, ID_bold)
+IDs_same_level <- IDs_both %>%
+  filter(ID_level_ncbi == ID_level_bold) 
 
-View(IDs_same_level)
+#some of these are the same, but with different 
+#names or spellings (e.g. different genus, but
+#same species, or with an "sp" after a family)
+IDs_same_level %>%
+  dplyr::select(ASV, ID_ncbi, ID_bold) %>% #select columns for easy viewing
+  filter(ID_ncbi != ID_bold) #look at mismatches to find real vs. not real
+
+#based on this, only two ASVs have been assigned to different things
+#in the two databases:
+#ASV_1123
+#ASV_1171
+
+same_unmatched <- c("ASV_1123", "ASV_1171") #mismatched taxnomies
+
+IDs_same_level <- IDs_same_level %>%
+  filter(!ASV %in% same_unmatched) %>% #remove mismatches
+  mutate(unique_ID = ID_ncbi) #add Unique_ID based on ID_ncbi, since it gave more data
+
+#now all I have left are things not matched to the same level:
+IDs_diff_level <- IDs_both %>%
+  filter(ID_level_ncbi != ID_level_bold) 
+
+#View(IDs_diff_level) to see unmatched
+
+#These are the differences 
+diff_unmatched <- c("ASV_123", "ASV_186", "ASV_872", "ASV_1230", "ASV_1027")
+
+IDs_diff_level <- IDs_diff_level %>%
+  filter(!ASV %in% diff_unmatched) %>% #remove mismatched taxonomies
+  mutate(unique_ID = ID_ncbi) #create a unique ID based on NCBI
+
+#####################
+#Combine all taxonomies and create a master taxonomic ID column####
+#####################
+
+#combine final taxonomic assignments
+all_IDs <- IDs_ncbi_only %>%
+  bind_rows(IDs_bold_only) %>%
+  bind_rows(IDs_same_level) %>%
+  bind_rows(IDs_diff_level) 
+
+#Now let's make a master level of every taxonomic assignment based on NCBI first
+all_IDs$Domain <- ifelse(all_IDs$Domain_ncbi == "", all_IDs$Domain_bold, 
+                         all_IDs$Domain_ncbi)
+all_IDs$Phylum <- ifelse(all_IDs$Phylum_ncbi == "", all_IDs$Phylum_bold, 
+                         all_IDs$Phylum_ncbi)
+all_IDs$Class <- ifelse(all_IDs$Class_ncbi == "", all_IDs$Class_bold, 
+                         all_IDs$Class_ncbi)
+all_IDs$Order <- ifelse(all_IDs$Order_ncbi == "", all_IDs$Order_bold, 
+                         all_IDs$Order_ncbi)
+all_IDs$Family <- all_IDs$Family_ncbi #since nothing was below order level for BOLD
+all_IDs$Genus <- all_IDs$Genus_ncbi #nothing below order for BOLD only
+all_IDs$Species <- all_IDs$Species_ncbi #nothing below order for BOLD only
+
+all_IDs <- all_IDs %>%
+  dplyr::select(ASV, unique_ID, Domain, Phylum, Class, Order, Family, Genus, Species) %>%
+  mutate(Domain = ifelse(Domain == "", "d_Eukaryota", Domain))
+
+all_IDs$ID_level <- ifelse(all_IDs$Species != "", "Species",
+                                 ifelse(all_IDs$Genus != "", "Genus",
+                                        ifelse(all_IDs$Family != "", "Family",
+                                               ifelse(all_IDs$Order != "", "Order",
+                                                      ifelse(all_IDs$Class != "", "Class",
+                                                             ifelse(all_IDs$Phylum != "", "Phylum", "Domain"))))))
+
+#Summaries of these data now
+all_IDs %>%
+  tally()
+
+all_IDs %>%
+  group_by(ID_level) %>%
+  tally()
