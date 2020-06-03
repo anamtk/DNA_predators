@@ -292,13 +292,14 @@ all_IDs %>%
 write.csv(all_IDs, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
 
 #####################
-#See how many ASVs are assigned taxonomies####
+#See how many ASVs are assigned target taxonomies####
 #####################
 
 all_ASVS <- read.csv(here("data", "denoised_data", "dada_may", "combined", "ASVs_counts_all.tsv"), sep = "\t")
 
 all_ASVS <- all_ASVS %>%
-  dplyr::select(X)
+  dplyr::select(X) %>%
+  rename("ASV" = "X")
 
 all <- all_ASVS %>%
   tally()
@@ -309,5 +310,37 @@ assigned <- all_IDs %>%
 #Total assigned to potential prey:
 assigned/all #45% assigned to potential prey
 
-#Next steps: May want to subset entire taxonomic tree from MEGAN to get the total numer
-#assigned to anything vs. not assigned at all... May matter or not, we shall see.
+#####################
+#See how many ASVs are assigned all taxonomies####
+#####################
+target <- all_IDs %>% #just says that all the ones we already had were target DNA
+  mutate(taxonomy = "target") %>%
+  dplyr::select(ASV, taxonomy)
+
+#this is all assigned, including those that are def not diet items
+all_ncbi <- read.csv(here("2_taxonomic_assignment", "taxonomies", "ncbi_all.csv"))
+
+non_target <- all_ncbi %>%
+  anti_join(all_IDs, by = "ASV") %>% #removes those already in target
+  mutate(taxonomy = "non-target") %>% #gives category - non-target
+  dplyr::select(ASV, taxonomy)
+
+hits <- target %>% #combine these to each other
+  bind_rows(non_target)
+
+no_hit <- all_ASVS %>% 
+  anti_join(hits, by = "ASV") %>% #removes all ASVs with hits to include those that had no assignment
+  mutate(taxonomy = "no-hit")
+
+asv_tax <- hits %>% #combine them all
+  bind_rows(no_hit)
+
+asv_tax %>% #total number of ASVs
+  tally()
+
+asv_tax %>% #total by category as well as proportion of total
+  group_by(taxonomy) %>%
+  summarise(value = n(), proportion = value/1738)
+
+#Write these total ASV assignments by category to a DF for later 
+write.csv(asv_tax, here("data", "outputs", "1_taxonomic_assignment", "all_ASV_tax.csv"))
