@@ -290,3 +290,24 @@ all_IDs %>%
   tally()
 
 write.csv(all_IDs, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
+
+#####################
+#See how many ASVs are assigned taxonomies####
+#####################
+
+all_ASVS <- read.csv(here("data", "denoised_data", "dada_may", "combined", "ASVs_counts_all.tsv"), sep = "\t")
+
+all_ASVS <- all_ASVS %>%
+  dplyr::select(X)
+
+all <- all_ASVS %>%
+  tally()
+
+assigned <- all_IDs %>%
+  tally()
+
+#Total assigned to potential prey:
+assigned/all #45% assigned to potential prey
+
+#Next steps: May want to subset entire taxonomic tree from MEGAN to get the total numer
+#assigned to anything vs. not assigned at all... May matter or not, we shall see.
