@@ -16,7 +16,7 @@ library(here)
 library(ggplot2)
 #library(ggfortify)
 #library(GUniFrac)
-#library(vegan)
+library(vegan)
 library(iNEXT)
 #library(cowplot)
 #library(ecodist)
@@ -78,10 +78,86 @@ ggiNEXT(seq_depth, type=1, facet.var="none", grey = T, se = F) +
 ###########################
 #Sequencing depth analysis by species####
 ###########################
+
+#I wonder if this would be different if I concatenated the shared taxonomies together
+#First. The few samples which have really low read abundance, according to the above
+#analysis, are sequenced well (which I don't believe), so I am thinking it might
+#be judicious to concatenate shared taxonomic IDs/categories prior to running this
+#sequencing depth analysis to see if the cutoff changes. 
+
+###########################
+#Attach and Concatenate taxonomies ####
+###########################
 #Maybe I should attach taxonomy first and then concatenate by taxonomies
 #prior to sequencing depth analysis? 
 
-#This will require also including taxonomies that are non-diet in the initial
-#taxonomy DF... ok. or creating a new "non-diet" taxonomy DF, yes, that.
+taxonomies <- read.csv(here("data", "outputs", "1_taxonomic_assignment", 
+                            "ASV_taxonomies.csv"))
+
+#summarise target DNA
+target_comm <- comm %>%
+  rename("ASV" = "X") %>%
+  gather(sample, reads, CEN10b:SMEb) %>%
+  left_join(taxonomies, by = "ASV") %>%
+  group_by(sample, unique_ID) %>%
+  summarise(reads = sum(reads)) %>%
+  filter(!sample %in% c("CL12a", "CL12b", "CL12c", "CL12d", "CL42a", "CL42b", "CL42c",
+                        "CL42d", "NEGa", "NEGb", "NEGc", "QC1a", "QC1b", "QC1c", "QC1d",
+                        "SMEb")) %>%
+  pivot_wider(names_from = sample, 
+              values_from = reads) 
+
+target_comm$unique_ID[is.na(target_comm$unique_ID)] <- "non-target"
+  
+target_comm <- target_comm %>%
+  column_to_rownames(var = "unique_ID")
+
+###########################
+#Seq depth on concatenated DNA sequences####
+###########################
+
+seq_depth_cat <- iNEXT(target_comm, q=0, datatype="abundance") #this determines sequencing depth for each sample
+
+seq_depth_cat$DataInfo$SC
+sample_depth_cat <- seq_depth_cat$DataInfo
+
+#graph the interpolated and extrapolated sampling depth per sample
+ggiNEXT(seq_depth_cat, type=1, facet.var="none", grey = T, se = F) + 
+  # can set se = F to remove shaded regions to see lines better 
+  theme_bw() +
+  labs(x = "Sequencing Depth", y = "ASV Richness", title = "DADA2 Sequencing Depth") +
+  theme(legend.position = "none", axis.text = element_text(size = 20), 
+        axis.title = element_text(size = 25))
+
+
+###########################
+#How else to make a cutoff for low sequencing depth... GRRRR ####
+###########################
+#summarise target DNA
+low <- comm %>%
+  rename("ASV" = "X") %>%
+  gather(sample, reads, CEN10b:SMEb) %>%
+  left_join(taxonomies, by = "ASV") %>%
+  group_by(sample, unique_ID) %>%
+  summarise(reads = sum(reads)) %>%
+  filter(!sample %in% c("CL12a", "CL12b", "CL12c", "CL12d", "CL42a", "CL42b", "CL42c",
+                        "CL42d", "NEGa", "NEGb", "NEGc", "QC1a", "QC1b", "QC1c", "QC1d",
+                        "SMEb"))  %>%
+  filter(reads > 0)
+
+###########################
+#Non target considerations below####
+###########################
+
+tax_categories <- read.csv(here("data", "outputs", "1_taxonomic_assignment", 
+                                "all_ASV_tax.csv"))
+
+
+non_target <- comm %>%
+  rename("ASV" = "X") %>%
+  gather(sample, reads, CEN10b:SMEb) %>%
+  left_join(tax_categories, by = "ASV") %>%
+  filter(taxonomy != "target") %>%
+  mutate(unique_ID = "non-target")
 
 
