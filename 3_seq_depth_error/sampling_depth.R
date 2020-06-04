@@ -107,9 +107,6 @@ cross <- depth %>%
   pivot_wider(names_from = sample, #make wide again
               values_from = reads)
  
-#export wide format for rarefying 
-write.csv(cross, here("data", "outputs", "3_depth_corrected", "cross_run_samples.csv"))
-
 #Aside:
 #these were on run D for the sterilization study, but I will not be including them
 #duplicated for the community study. Currently they live no-where
@@ -187,7 +184,13 @@ all_data <- all_data %>%
   pivot_wider(names_from= sample,
               values_from = reads)
 
-#write both to CSVs for next step, which is rarefying
+###########################
+#Export for Rarefying####
+###########################
+
+#export wide format for rarefying 
+write.csv(cross, here("data", "outputs", "3_depth_corrected", "cross_run_samples.csv"))
+
 write.csv(all_data, here("data", "outputs", "3_depth_corrected", "all_samples.csv"))
 
 write.csv(data, here("data", "outputs", "3_depth_corrected", "depth_subset_samples.csv"))
