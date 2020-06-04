@@ -14,20 +14,7 @@
 library(tidyverse)
 library(here)
 library(ggplot2)
-#library(ggfortify)
-#library(GUniFrac)
-#library(vegan)
 library(iNEXT)
-#library(cowplot)
-#library(ecodist)
-#library(lme4)
-#library(broom)
-#library(MASS)
-#library(ggeffects)
-#library(glmmTMB)
-#library(DHARMa)
-#library(MuMIn)
-#library(effects)
 
 ###########################
 #Load data ####
@@ -92,14 +79,16 @@ ggplot(quants, aes(x = number, y = reads)) +
 
 
 ###########################
-#Subset samples with sufficient sequencing depth####
+#Subset samples for cross run comparisons####
 ###########################
-#samples with sequencing depth below 11211 will be removed for community analyses
 
+#samples with sequencing depth below 11211 will be removed for community analyses
+#I want DF to be exported in wide format, since this is how they will be rarefied
+#in the next script
 #subset samples for cross-run comparsions (none of these are below the
 #sampling depth threshold)
 cross <- depth %>%
-  rownames_to_column(var = "ASV") %>%
+  rownames_to_column(var = "ASV") %>% #take out row name
   dplyr::select("ASV", "HEV07a", "HEV10a", "HEV11a", "HEV12a", "HEV13a", 
                 "HEV14a", "HEV15a", "HEV16a", "HEV17a", "HEV18a", "HEV20a", "HEV21a", "HEV22a",
                 "HEV23a", "HEV24a", "HEV25a", "HEV26a", "HEV27a", "HEV29a",
@@ -112,15 +101,25 @@ cross <- depth %>%
                 "HEV07d", "HEV10d", "HEV11d", "HEV12d", "HEV13d", "HEV14d", "HEV15d", "HEV16d",
                 "HEV17d", "HEV18d", "HEV20d", "HEV21d", "HEV22d", "HEV23d", "HEV24d", "HEV25d",
                 "HEV26d", "HEV27d", "HEV29d") %>%
-  gather(sample, reads, HEV07a:HEV29d) %>%
+  gather(sample, reads, HEV07a:HEV29d) %>% #make long
   group_by(ASV) %>% #group by ASV so we can filter zero ASVs out from all
-  filter(sum(reads) != 0) #delete all ASVs that add to zero acros all samples
-
+  filter(sum(reads) != 0) %>% #delete all ASVs that add to zero acros all samples
+  pivot_wider(names_from = sample, #make wide again
+              values_from = reads)
+ 
+#export wide format for rarefying 
 write.csv(cross, here("data", "outputs", "3_depth_corrected", "cross_run_samples.csv"))
+
+#Aside:
 #these were on run D for the sterilization study, but I will not be including them
 #duplicated for the community study. Currently they live no-where
 #"HEV65d"  "HEV66d"  "HEV67d"  "HEV68d"  "HEV70d"  "HEV71d"  "HEV74d"  "HEV76d" 
 #[341] "HEV79d"  "HEV81d"  "HEV82d"  "HEV83d"  "HEV87d"  "HEV88d"  "HEV89d" 
+
+###########################
+#Subset samples for community analyses####
+###########################
+#again, these will only include samples above our sequencing cut-off
 
 #these are the samples which were sampled deeply enough based on
 #our quantile cutoff
@@ -131,6 +130,7 @@ deep <- sample_depth %>%
 deep <- as.vector(deep$site)
 
 #these are the data for community analyses, which still inculdes the 
+#samples which were not sequenced deeply enough
 all_data <- depth %>%
   rownames_to_column(var = "ASV") %>%
   dplyr::select("ASV", "HEV01a", "HEV02a", "HEV03a", "HEV04a", "HEV05a", "HEV07a", "HEV10a", "HEV11a",
@@ -170,22 +170,25 @@ all_data <- depth %>%
   gather(sample, reads, HEV01a:HEV99d) %>%
   group_by(ASV) %>% #group by ASV so we can filter zero ASVs out from all
   filter(sum(reads) != 0) #delete all ASVs that add to zero acros all samples
+  
+#40 samples had too-low sequencing, which included all ISO samples, so
+#I'll be removing those samples from the dataframe for overall analyses
+#I may still try to salvage data from the low samples, but we will seee
 
+data <- all_data %>%
+  filter(sample %in% deep) %>% #select only samples in the deep enough DF
+  group_by(ASV) %>% #group by ASV so we can filter zero ASVs out from all
+  filter(sum(reads) != 0)  %>%#delete all ASVs that add to zero acros all samples
+  pivot_wider(names_from = sample, #make wide for rarefying
+              values_from = reads)
+
+#now we can make all_data wide as well for rarefying
+all_data <- all_data %>%
+  pivot_wider(names_from= sample,
+              values_from = reads)
+
+#write both to CSVs for next step, which is rarefying
 write.csv(all_data, here("data", "outputs", "3_depth_corrected", "all_samples.csv"))
 
-all_data %>%
-  group_by(sample) %>%
-  summarise(sum = sum(reads))
-
-#40 samples had too-low sequencing, which included all ISO samples, but also 
-data <- all_data %>%
-  filter(sample %in% deep) %>%
-  group_by(ASV) %>% #group by ASV so we can filter zero ASVs out from all
-  filter(sum(reads) != 0) #delete all ASVs that add to zero acros all samples
-
 write.csv(data, here("data", "outputs", "3_depth_corrected", "depth_subset_samples.csv"))
-
-data %>%
-  group_by(sample) %>%
-  summarise(sum = sum(reads))
 
