@@ -16,7 +16,7 @@ library(here)
 library(ggplot2)
 #library(ggfortify)
 #library(GUniFrac)
-library(vegan)
+#library(vegan)
 library(iNEXT)
 #library(cowplot)
 #library(ecodist)
@@ -24,9 +24,9 @@ library(iNEXT)
 #library(broom)
 #library(MASS)
 #library(ggeffects)
-library(glmmTMB)
-library(DHARMa)
-library(MuMIn)
+#library(glmmTMB)
+#library(DHARMa)
+#library(MuMIn)
 #library(effects)
 
 ###########################
@@ -63,9 +63,6 @@ seq_depth <- iNEXT(depth, q=0, datatype="abundance") #this determines sequencing
 seq_depth$DataInfo$SC
 sample_depth <- seq_depth$DataInfo
 
-quantile(sample_depth$n)
-boxplot.stats(sample_depth$n)$out
-
 #graph the interpolated and extrapolated sampling depth per sample
 ggiNEXT(seq_depth, type=1, facet.var="none", grey = T, se = F) + 
   # can set se = F to remove shaded regions to see lines better 
@@ -81,7 +78,7 @@ quants <- as.data.frame(quantile(sample_depth$n, c(.05, .06, .07, .08,
                                                    .09, .10, .11, .12, .13, .14, 
                                                    .15, .16, .17, .18, .19, .2)))
 
-colnames(quants)
+
 quants <- quants %>%
   rename("reads" = "quantile(sample_depth$n, c(0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15, 0.16, 0.17, 0.18, 0.19, 0.2))") %>%
   rownames_to_column(var = "quantile") %>%
@@ -92,6 +89,16 @@ ggplot(quants, aes(x = number, y = reads)) +
   geom_point() +theme_bw() +
   geom_hline(yintercept = 11211, linetype = "dashed") +
   labs(y = "Sequence reads", x = "Quantile")
+
+
+###########################
+#Subset samples with sufficient sequencing depth####
+###########################
+#samples with sequencing depth below 11211 will be removed for analyses from here
+#on out
+depth %>%
+  rownames_to_column(var = "ASV") %>%
+  gather(sample, reads, HEV01a:HEV89d)
 
 ###########################
 #Sequencing depth analysis by species####
