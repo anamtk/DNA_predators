@@ -48,68 +48,6 @@ comm_long <- comm_long %>%
 taxa_comm <- comm_long %>%
   left_join(taxa, by = "ASV")
 
-
-###########################
-#subset to sort ####
-###########################
-#Right now  this dataset includes a few kinds of data
-#1. ASVs that are not predators
-#2. ASVs where pred_ID and unique_ID match
-#3. ASVs where pred_ID and some level of taxonomic assignment match
-#4. ASVs where pred_ID and some level of BOLD assignment match
-
-#ASVs that ARE predators (some of these are duplicate right now)
-
-a <- taxa_comm %>%
-  dplyr::filter(pred_ID == unique_ID)
-
-b <- taxa_comm %>%
-  filter(pred_ID == ID_bold)
-
-c <- taxa_comm %>%
-  filter(pred_Genus == unique_ID)
-
-d <- taxa_comm %>%
-  filter(pred_Family == unique_ID)
-
-e <- taxa_comm %>%
-  filter(pred_Order == unique_ID & pred_Order == "Geophilomorpha")
-
-f <- taxa_comm %>%
-  filter(pred_Order == ID_bold & pred_Order == "Odonata")
-
-g <- taxa_comm %>%
-  filter(pred_Order == ID_bold & pred_Order == "Dermaptera")
-
-predator_ASVs <- a %>%
-  bind_rows(b) %>%
-  bind_rows(c) %>%
-  bind_rows(d) %>%
-  bind_rows(e) %>%
-  bind_rows(f) %>%
-  bind_rows(g) %>%
-  group_by(ASV, sample, reads, pred_ID, unique_ID) %>%
-  distinct()
-
-#230 total samples
-all_taxa <- taxa_comm %>% 
-  ungroup() %>%
-  distinct(sample)
-
-#176 of 230 samples got a predator taxonomy... i don't believe it...
-assigned <- predator_ASVs %>%
-  ungroup() %>%
-  distinct(sample)
-
-#these are those samples
-unassigned <- taxa_comm %>%
-  anti_join(assigned, by = "sample")
-
-#MY approach will be: remove the predator ASVs from other samples
-#Then export the per ASV read abundance, fit a distribution (like Jerde)
-#and then use this to inform a high-end cutoff for the samples
-#that didn't get an assignmen
-
 ###########################
 #subset by species to sort ####
 ###########################
@@ -135,14 +73,14 @@ HEV <- taxa_comm %>%
 
 #ID matched to genus?
 #HEV %>% 
-#  filter(pred_Genus == unique_ID)
+ # filter(pred_Genus == unique_ID)
 
 #ID matched to family?
-HEV %>% 
+heva <- HEV %>% 
   filter(pred_Family == unique_ID)
 
 #ID matched on bold?
-HEV %>% 
+hevb <- HEV %>% 
   filter(pred_ID == ID_bold)
 
 ###########################
@@ -153,19 +91,19 @@ NEO <- taxa_comm %>%
   filter(sample_str == "NEO")
 
 #ID matched to species?
-NEO %>% 
+neoa <- NEO %>% 
   filter(pred_ID == unique_ID)
 
 #ID matched to genus?
-NEO %>% 
+neob <- NEO %>% 
   filter(pred_Genus == unique_ID)
 
 #ID matched to family?
 #NEO %>% 
- # filter(pred_Family == unique_ID)
+#  filter(pred_Family == unique_ID)
 
 #ID matched to bold?
-NEO %>% 
+neoc <- NEO %>% 
   filter(pred_ID == ID_bold)
 
 ###########################
@@ -188,7 +126,7 @@ SCY <- taxa_comm %>%
 #filter(pred_Family == unique_ID)
 
 #ID matched to bold?
-SCY %>% 
+scya <- SCY %>% 
   filter(pred_ID == ID_bold)
 
 ###########################
@@ -200,7 +138,7 @@ CEN <- taxa_comm %>%
   filter(sample_str == "CEN")
 
 #ID matched to order?
-CEN %>% 
+cena <- CEN %>% 
   filter(pred_ID == unique_ID)
 
 #ID matched to bold?
@@ -228,11 +166,11 @@ PHH <- taxa_comm %>%
 # filter(pred_Family == unique_ID)
 
 #ID matched to order? - not sure i trust this, want to be able to distinguish pred from non
-PHH %>%
+phha <- PHH %>%
   filter(pred_Order == unique_ID)
 
 #ID matched to bold order?
-PHH %>% 
+phhb <- PHH %>% 
   filter(pred_Order == ID_bold)
 
 ###########################
@@ -244,7 +182,7 @@ SME <- taxa_comm %>%
   filter(sample_str == "SME")
 
 #ID matched to species?
-SME %>% 
+smea <- SME %>% 
   filter(pred_ID == unique_ID)
 
 #ID matched to genus?
@@ -256,7 +194,7 @@ SME %>%
 # filter(pred_Family == unique_ID)
 
 #ID matched to bold?
-SME %>% 
+smeb <- SME %>% 
   filter(pred_ID == ID_bold)
 
 ###########################
@@ -287,7 +225,7 @@ EUB <- taxa_comm %>%
 #  filter(pred_ID == ID_bold)
 
 #Order matched bold ID?
-EUB %>% 
+euba <- EUB %>% 
   filter(pred_Order == ID_bold)
 
 ###########################
@@ -299,7 +237,7 @@ LRS <- taxa_comm %>%
   filter(sample_str == "LRS")
 
 #ID matched to species?
-LRS %>% 
+lrsa <- LRS %>% 
   filter(pred_ID == unique_ID)
 
 #ID matched to genus?
@@ -322,7 +260,7 @@ PAN <- taxa_comm %>%
   filter(sample_str == "PAN")
 
 #ID matched to species?
-PAN %>% 
+pana <- PAN %>% 
   filter(pred_ID == unique_ID)
 
 #ID matched to genus?
@@ -338,26 +276,173 @@ PAN %>%
 #  filter(pred_Order == unique_ID)
 
 #ID matched to bold?
-PAN %>% 
+panb <- PAN %>% 
   filter(pred_ID == ID_bold)
 
-#Heteropoda venatoria
-#Neoscona theisi
-#Scyotodes Striatipes
-#Centipede - Geophilomorpha, Tygarrup javanicus
-#Phisis holdhausi, Tettigoniidae
-#Smeringopus palidus
-#Euborellia annulipes
-#Pantala flavescens
-#Keijia mneon, Platnickina mneon
+###########################
+#Bind them all together and only take the unique ones ####
+###########################
+known_pred <- heva %>%
+  bind_rows(hevb) %>%
+  bind_rows(neoa) %>%
+  bind_rows(neob) %>%
+  bind_rows(neoc) %>%
+  bind_rows(scya) %>%
+  bind_rows(cena) %>%
+  bind_rows(phha) %>%
+  bind_rows(phhb) %>%
+  bind_rows(smea) %>%
+  bind_rows(smeb) %>%
+  bind_rows(euba) %>%
+  bind_rows(lrsa) %>%
+  bind_rows(pana) %>%
+  bind_rows(panb) %>%
+  group_by(ASV, sample, reads, pred_ID, unique_ID) %>%
+  distinct()
 
-#Geophilomorpha
-#Keijia mneon
-#Neoscona theisi
-#Neoscona
-#Pantala flavescens
-#Smeringopus pallidus
-#Sparassidae
-#Tygarrup javanicus
-#Tettigoniidae
+###########################
+#Use abundances to inform unknowns####
+###########################
+
+#Based on this, it looks like there are a lot of zeros, but also a lot
+#of high-read ASVs. IF we subset just thoes high read ASVs, we'll get the
+#ASVs from samples that maybe didn't get close enough taxonomies to subset
+#to be able to subset predator DNA that has high read and a higher-level
+#taxonomic assignment that *could* match predator (or prey) DNA
+
+pred_dist <- known_pred %>%
+  filter(reads > 0)
+
+hist(pred_dist$reads)
+
+pred_reads <- as.data.frame(quantile(pred_dist$reads, c(.86, .87, .88, .89, .9, .91, .92, .93, .94, .95, 
+                            .96, .97, .98, .99, 1)))
+
+pred_reads <- pred_reads %>%
+  rename("reads" = "quantile(pred_dist$reads, c(0.86, 0.87, 0.88, 0.89, 0.9, 0.91, 0.92, 0.93, 0.94, 0.95, 0.96, 0.97, 0.98, 0.99, 1))") %>%
+  rownames_to_column(var = "quantile") %>%
+  mutate(number = 1:n()) %>%
+  mutate(number = number+85)
+
+ggplot(pred_reads, aes(x = number, y = reads)) +
+  geom_point() +theme_bw() +
+  geom_hline(yintercept = 6158, linetype = "dashed") +
+  labs(y = "Sequence reads", x = "Quantile")
+
+#According to this, I'd be pretty confident that anything above 6158 sequence
+#reads AND that matched a higher-order taxonomy of the predator species 
+#in question, that it would likely ALSO be predator DNA. 
+
+###########################
+#Revisit predator-subset DF to remove these high abundances ####
+###########################
+
+#none in this DF above our cutoff
+HEV_prey <- HEV %>%
+  anti_join(heva, by = c("sample", "ASV")) %>%
+  anti_join(hevb, by = c("sample", "ASV"))
+
+#here, too, nothing above our cutoff
+PAN_prey <- PAN %>%
+  anti_join(pana, by = c("sample", "ASV")) %>%
+  anti_join(panb, by = c("sample", "ASV"))
+
+#some still in here 
+CEN_prey <- CEN %>%
+  anti_join(cena, by = c("sample", "ASV")) %>%
+  filter(Class != "Chilopoda") %>% #some chilopoda were not removed above
+  filter(reads < 6158) #some "arthropod" DNA had 10,000+ reads, probs predator
+
+#save that additional predator DNA for later
+cenb <- CEN %>%
+  anti_join(cena, by = c("sample", "ASV")) %>%
+  filter(Class == "Chilopoda") %>% 
+  filter(reads > 6158) 
+
+#nothing in here
+EUB_prey <- EUB %>%
+  anti_join(euba, by = c("sample", "ASV"))
+
+#still some high reads in here
+LRS_prey <- LRS %>%
+  anti_join(lrsa, by = c("sample", "ASV")) %>%
+  filter(reads < 6158)
+
+#save the additional predaot DNA for later
+lrsb <- LRS %>%
+  anti_join(lrsa, by = c("sample", "ASV")) %>%
+  filter(reads > 6158)
+
+#still some in here too
+NEO_prey <- NEO %>%
+  anti_join(neoa, by = c("sample", "ASV")) %>%
+  anti_join(neob, by = c("sample", "ASV")) %>%
+  anti_join(neoc, by = c("sample", "ASV")) %>%
+  filter(reads < 6158)
+
+#save the additional predator DNA for later
+neod <- NEO %>%
+  anti_join(neoa, by = c("sample", "ASV")) %>%
+  anti_join(neob, by = c("sample", "ASV")) %>%
+  anti_join(neoc, by = c("sample", "ASV")) %>%
+  filter(reads > 6158)
+
+#none in here
+PHH_prey <- PHH %>%
+  anti_join(phha, by = c("sample", "ASV")) %>%
+  anti_join(phhb, by = c("sample", "ASV")) 
+
+#still some high ones in here
+SCY_prey <- SCY %>%
+  anti_join(scya, by = c("sample", "ASV")) %>%
+  filter(reads < 6158)
+
+#save predator DNA for later 
+scyb <- SCY %>%
+  anti_join(scya, by = c("sample", "ASV")) %>%
+  filter(reads > 6158)
+
+#none in here
+SME_prey <- SME %>%
+  anti_join(smea, by = c("sample", "ASV")) %>%
+  anti_join(smeb, by = c("sample", "ASV"))
+
+###########################
+#Bind them all back together ####
+###########################
+#predator - add additional 
+predator_DNA <- known_pred %>%
+  bind_rows(cenb) %>%
+  bind_rows(lrsb) %>%
+  bind_rows(neod) %>%
+  bind_rows(scyb)
+
+other_DNA <- HEV_prey %>%
+  bind_rows(PAN_prey) %>%
+  bind_rows(CEN_prey) %>%
+  bind_rows(EUB_prey) %>%
+  bind_rows(LRS_prey) %>%
+  bind_rows(NEO_prey) %>%
+  bind_rows(PHH_prey) %>%
+  bind_rows(SCY_prey) %>%
+  bind_rows(SME_prey) #319352
+
+prey_DNA <- other_DNA %>%
+  filter(unique_ID != "NA") %>% #remove unassigned, total 152861
+  group_by(sample, unique_ID, pred_ID, Phylum, Class, Order, Family, 
+           Genus, Species, ID_level) %>% #select only variables i wnat going forward
+  summarise(reads = sum(reads)) %>% #summarise reads by unique ID
+  rename("Phylum_prey" = "Phylum",
+         "Class_prey" = "Class",
+         "Order_prey" = "Order",
+         "Family_prey" = "Family",
+         "Genus_prey" = "Genus",
+         "Species_prey" = "Species") #rename taxonomy columns so they clearly correspond to prey (not predator)
+
+write.csv(predator_DNA, here("data", "outputs", "5_rarefied_taxonomic_sort", "predator_DNA.csv"))
+
+write.csv(prey_DNA, here("data", "outputs", "5_rarefied_taxonomic_sort", "prey_DNA.csv"))
+
+write.csv(other_DNA, here("data", "outputs", "5_rarefied_taxonomic_sort", "non-predator_DNA.csv"))
+
 
