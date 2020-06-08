@@ -49,6 +49,15 @@ IDs_ncbi$ID_level_ncbi <- ifelse(IDs_ncbi$Species != "", "Species",
 #so that it is just the ID from that column
 IDs_ncbi$ID_ncbi <- sapply(str_split(IDs_ncbi$ID_ncbi, "_"), function(x){return(x[[3]])})
 
+IDs_ncbi <- IDs_ncbi %>%
+  mutate(Domain = str_sub(Domain, 4, -1)) %>%
+  mutate(Phylum = str_sub(Phylum, 4, -1)) %>%
+  mutate(Class = str_sub(Class, 4, -1)) %>%
+  mutate(Order = str_sub(Order, 4, -1)) %>%
+  mutate(Family = str_sub(Family, 4, -1)) %>%
+  mutate(Genus = str_sub(Genus, 4, -1)) %>%
+  mutate(Species = str_sub(Species, 4, -1))
+
 #before we bind to bold, I want to ensure I keep track of which taxonomies
 #come from where, so I'm going to rename the taxonomy columns to indicate
 #which DB they came from
@@ -274,7 +283,7 @@ all_IDs$Species <- all_IDs$Species_ncbi #nothing below order for BOLD only
 all_IDs <- all_IDs %>%
   dplyr::select(ASV, unique_ID, Domain, Phylum, Class, Order, Family, Genus, Species,
                 Class_bold, Order_bold, Family_bold, Genus_bold, Species_bold, ID_bold) %>%
-  mutate(Domain = ifelse(Domain == "", "d_Eukaryota", Domain))
+  mutate(Domain = ifelse(Domain == "", "Eukaryota", Domain))
 
 all_IDs$ID_level <- ifelse(all_IDs$Species != "", "Species",
                                  ifelse(all_IDs$Genus != "", "Genus",
