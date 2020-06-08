@@ -31,11 +31,58 @@ comm <- comm %>%
   dplyr::select(-X) 
 
 ###########################
-#Manipulate Data to Long and Assign Predator IDs ####
+#Manipulate Data to Long and Attach Predator IDs ####
 ###########################
-
+#make long by sample and read abundance
 comm_long <- comm %>%
   gather(sample, reads, HEV01a:HEV99d)
+
+#this  binds to the predator ID DF, detecting the string from the sample_str
+#column in the predator DF in each sample name. 
+comm_long <- comm_long %>%
+  fuzzy_inner_join(preds, by = c("sample" = "sample_str"), match_fun = str_detect)
+
+###########################
+#Attach prey IDs for each ASV ####
+###########################
+taxa_comm <- comm_long %>%
+  left_join(taxa, by = "ASV")
+
+
+###########################
+#subset to sort ####
+###########################
+#Right now  this dataset includes a few kinds of data
+#1. ASVs that are not predators
+#2. ASVs where pred_ID and unique_ID match
+#3. ASVs where pred_ID and some level of taxonomic assignment match
+#4. ASVs where pred_ID and some level of BOLD assignment match
+
+#ASVs that ARE predators (some of these are duplicate right now)
+
+a <- taxa_comm %>%
+  dplyr::filter(pred_ID == unique_ID)
+
+b <- taxa_comm %>%
+  filter(pred_ID == ID_bold)
+
+c <- taxa_comm %>%
+  filter(pred_Genus == unique_ID)
+
+d <- taxa_comm %>%
+  filter(pred_Family == unique_ID)
+
+a %>%
+  anti_join(b)
+
+#these both led to no new taxonomies
+#taxa_comm %>%
+#  filter(pred_Genus == ID_bold & ID_bold != "")
+
+#taxa_comm %>%
+#  filter(pred_Family == ID_bold & ID_bold != "")
+
+
 
 #Heteropoda venatoria
 #Neoscona theisi
@@ -56,5 +103,4 @@ comm_long <- comm %>%
 #Sparassidae
 #Tygarrup javanicus
 #Tettigoniidae
-comm_long <- comm_long %>%
-  fuzzy_inner_join(preds, by = c("sample" = "sample_str"), match_fun = str_detect)
+
