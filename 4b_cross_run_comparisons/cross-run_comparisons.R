@@ -106,16 +106,13 @@ all_run$sample <- as.factor(all_run$sample)
 ###########################
 #going to do presence-absence analysis
 
-
 mod1 <- glmmTMB(presence ~ run + (1|sample) + (1|ASV),
                 data = all_run,
-                family = 'binomial',
-                REML = FALSE)
+                family = 'binomial')
 
 mod_null <- glmmTMB(presence ~ 1 + (1|sample) + (1|ASV),
                 data = all_run,
-                family = 'binomial',
-                REML = FALSE)
+                family = 'binomial')
 
 AICc(mod1, mod_null)
 
@@ -123,146 +120,44 @@ mod1 <- glmmTMB(presence ~ run + (1|sample) + (1|ASV),
                     data = all_run,
                     family = 'binomial')
 
-binned_residuals(mod1)
-simulationOutput <- simulateResiduals(fittedModel = mod1) 
-fit <- plot(simulationOutput, asFactor=TRUE)
+binned_residuals(mod1) #looks not great, but not terrible
+simulationOutput <- simulateResiduals(fittedModel = mod1) #ok
+fit <- plot(simulationOutput, asFactor=TRUE) #ok
 
-plot(allEffects(mod1))
+plot(allEffects(mod1)) #b is higher, C and D lower
 em <- emmeans(mod1, "run")
-pairs(em)
+pairs(em) #B-C and B-D different
 
-#B-C and B-D different
+###########################
+#Visualizations####
+###########################
+
+#by sample ASV presence
+ggplot(all_run, aes(x = run, y = presence, fill = ASV)) +
+  geom_bar(stat = "identity", position = "fill", color = "black") +
+  facet_wrap(~sample) + theme(legend.position = "none") 
+
 
 sum_ASV <- all_run %>%
   group_by(run, ASV) %>%
   summarise(mean= mean(presence))
 
-ggplot(all_run, aes(x = run, y = presence, fill = ASV)) +
-  geom_bar(stat = "identity", position = "fill", color = "black") +
-  facet_wrap(~sample) + theme(legend.position = "none") 
-
+#all-around ASVs per run
 ggplot(sum_ASV, aes(x = run, y = mean, fill = ASV)) +
-  geom_bar(stat = "identity", position = "fill", color = "black") +
+  geom_bar(stat = "identity", position = "stack", color = "black") +
   theme(legend.position = "none") 
 
-###########################
-#Cross-run comparison removing predator DNA####
-###########################
+sum_ASV %>%
+  group_by(run) %>%
+  filter(mean > 0) %>%
+  tally()
 
-predator <- taxa %>%
-  filter(unique_ID == "Sparassidae") %>%
-  dplyr::select(ASV)
+#non-zero ASVs per sample
+num_ASV <- all_run %>%
+  group_by(run, sample) %>%
+  filter(reads > 0) %>%
+  tally()
 
-predator <- as.vector(predator$ASV)
-run_prey <- all_run %>%
-  filter(!ASV %in% predator) %>%
-  left_join(taxa, by = "ASV") %>%
-  group_by(sample, run, unique_ID) %>%
-  summarise(reads = sum(reads)) %>%
-  dplyr::select(sample, reads, run, unique_ID) %>%
-  mutate(presence = ifelse(reads > 0, 1, 0)) %>%
-  filter(unique_ID != "NA")
-
-mod1 <- glmmTMB(reads ~ run + (1|sample) + (1|unique_ID),
-                data = run_prey,
-                family = 'genpois',
-                REML = FALSE)
-
-mod_null <- glmmTMB(reads ~ 1 + (1|sample) + (1|unique_ID),
-                    data = run_prey,
-                    family = 'genpois',
-                    REML = FALSE)
-
-AICc(mod1, mod_null)
-
-mod1 <- glmmTMB(reads ~ run + (1|sample) + (1|unique_ID),
-                data = run_prey,
-                family = 'genpois')
-
-plot(residuals(mod1))
-
-simulationOutput <- simulateResiduals(fittedModel = mod1) 
-fit <- plot(simulationOutput, asFactor=TRUE)
-zi <- testZeroInflation(simulationOutput) 
-od <- testDispersion(simulationOutput)
-
-plot(allEffects(mod1))
-
-em <- emmeans(mod1, "run")
-pairs(em)
-#B-D different
-
-ggplot(run_prey, aes(x = sample, y = reads, color = run)) +
-  geom_boxplot() + scale_y_log10()
-
-ggplot(run_prey, aes(x = run, y = reads, fill = sample)) +
-  geom_boxplot() + scale_y_log10() +
-  theme_bw()
-
-###########################
-#Cross-run comparison of PRESENCE removing predator DNA####
-###########################
-
-mod2 <- glmmTMB(presence ~ run + (1|sample) + (1|unique_ID),
-                data = run_prey,
-                family = 'binomial')
-
-mod2_null <- glmmTMB(presence ~ 1 + (1|sample) + (1|unique_ID),
-                    data = run_prey,
-                    family = 'binomial')
-
-AICc(mod2, mod2_null)
-
-binned_residuals(mod2)
-
-simulationOutput <- simulateResiduals(fittedModel = mod2) 
-fit <- plot(simulationOutput, asFactor=TRUE)
-
-plot(allEffects(mod2))
-em <- emmeans(mod2, "run")
-pairs(em)
-#A-D, B-D significant
-
-ggplot(run_prey, aes(x = run, y = presence, fill = unique_ID)) +
-  geom_bar(stat = "identity", position = "fill", color = "black") +
-  facet_wrap(~sample) 
-
-sum_prey <- run_prey %>%
-  group_by(run, unique_ID) %>%
-  summarise(mean= mean(presence))
-
-ggplot(sum_prey, aes(x = run, y = mean, fill = unique_ID)) +
-  geom_bar(stat = "identity", position = "fill", color = "black")
-
-###########################
-#Cross-run comparison removing predator DNA by sample####
-###########################
-#total non-predator DNA
-sample <- run_prey %>%
-  group_by(sample, run) %>%
-  summarise(reads = sum(reads))
-
-ggplot(sample, aes(x = run, y = reads)) +
-  geom_boxplot() + scale_y_log10() +theme_bw() +
-  labs(y = "non-predator reads per sample")
-
-ggplot(sample, aes(x = sample, y = reads, color = run)) +
-  geom_point() + scale_y_log10() +theme_bw() +
-  labs(y = "non-predator reads per sample")
-
-###########################
-#Cross-run comparison removing predator DNA by ASV####
-###########################
-#total sequencing of each ASV
-ASV <- run_prey %>%
-  group_by(ASV, run) %>%
-  summarise(reads = sum(reads))
-
-ggplot(ASV, aes(x = run, y = reads)) +
-  geom_boxplot() + scale_y_log10() + theme_bw() +
-  labs(y = "reads per ASV")
-
-ggplot(ASV, aes(x = ASV, y = reads, color = run)) +
-  geom_point() + scale_y_log10() + theme_bw() +
-  labs(y = "reads per ASV")
-
+ggplot(num_ASV, aes(x = run, y = n)) +
+  geom_boxplot() + theme_bw() +
+  labs(x = "Sequencing run", y = "ASVs per sample")
