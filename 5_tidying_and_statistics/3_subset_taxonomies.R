@@ -14,6 +14,7 @@
 ###########################
 library(here)
 library(tidyverse)
+library(fuzzyjoin) #fuzzy inner join for string detection join
 
 ###########################
 #Load Data ####
@@ -21,6 +22,7 @@ library(tidyverse)
 #Prey DNA taxonomies
 taxa <- read.csv(here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
 
+preds <- read.csv(here("data", "Predator_IDs.csv"))
 #load community data
 comm <- read.csv(here("data", "outputs", "4_rarefied", "community_rare.csv"))
 
@@ -54,10 +56,5 @@ comm_long <- comm %>%
 #Sparassidae
 #Tygarrup javanicus
 #Tettigoniidae
-
-
-
-
-preds <- preds %>% 
-  dplyr::mutate(pred_ID=ifelse(str_detect(sample, "PAN"),
-                               "Pantala flavescens","Neoscona theisi"))
+comm_long <- comm_long %>%
+  fuzzy_inner_join(preds, by = c("sample" = "sample_str"), match_fun = str_detect)
