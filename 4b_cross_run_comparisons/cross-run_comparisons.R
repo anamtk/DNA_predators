@@ -4,7 +4,7 @@
 #June 4, 2020
 ###########################
 
-#This script looks at how ASV assignments and abundances varied from run to
+#This script looks at how ASV assignments and presence varied from run to
 #run for a set of samples I ran on every single sequencing run that is part
 #of this study. 
 #I'll be treating this like a repeated measures ANOVA in mixed model format
@@ -12,14 +12,9 @@
 #across different runs given a grouping by the ASVs that were assigned to
 #each sample across each run
 
-#Does each run vary in the abundance of each ASV assigned to each sample?
+#Does each run vary in the presence of each ASV assigned to each sample?
 
-#reads ~ run + (1|Sample/ASV)
-
-#Could also do something where we ask about the ASVs assigned, specifically
-#summing each run by the total amount of each ASV in each run (across samples)
-
-#reads ~ run + (1|ASV)
+#presence ~ run + (1|Sample/ASV)
 
 ###########################
 #Load Packages####
@@ -129,35 +124,30 @@ em <- emmeans(mod1, "run")
 pairs(em) #B-C and B-D different
 
 ###########################
-#Visualizations####
+#Visualization and summary####
 ###########################
-
-#by sample ASV presence
-ggplot(all_run, aes(x = run, y = presence, fill = ASV)) +
-  geom_bar(stat = "identity", position = "fill", color = "black") +
-  facet_wrap(~sample) + theme(legend.position = "none") 
-
-
-sum_ASV <- all_run %>%
-  group_by(run, ASV) %>%
-  summarise(mean= mean(presence))
-
-#all-around ASVs per run
-ggplot(sum_ASV, aes(x = run, y = mean, fill = ASV)) +
-  geom_bar(stat = "identity", position = "stack", color = "black") +
-  theme(legend.position = "none") 
-
-sum_ASV %>%
-  group_by(run) %>%
-  filter(mean > 0) %>%
-  tally()
-
 #non-zero ASVs per sample
 num_ASV <- all_run %>%
   group_by(run, sample) %>%
   filter(reads > 0) %>%
-  tally()
+  tally(name = "ASVs")
 
-ggplot(num_ASV, aes(x = run, y = n)) +
+ggplot(num_ASV, aes(x = run, y = ASVs)) +
   geom_boxplot() + theme_bw() +
   labs(x = "Sequencing run", y = "ASVs per sample")
+
+#summary, showing that on average, run B has 5 more ASVs per sample than
+#run D, and 3 more ASVs per sample than run C
+#not really sure how to correct this in the data... hmm...will think on it
+num_ASV %>%
+  group_by(run) %>%
+  summarise(mean = mean(ASVs), total = n(), sd = sd(ASVs), se = sd/total)
+
+###########################
+#Supplement: By Sample visualization####
+###########################
+#by sample ASV presence
+ggplot(all_run, aes(x = run, y = presence, fill = ASV)) +
+  geom_bar(stat = "identity", position = "fill", color = "black") +
+  facet_wrap(~sample)
+
