@@ -273,8 +273,7 @@ all_IDs$Species <- all_IDs$Species_ncbi #nothing below order for BOLD only
 #ID for the unique_ID assigned to each ASV
 all_IDs <- all_IDs %>%
   dplyr::select(ASV, unique_ID, Domain, Phylum, Class, Order, Family, Genus, Species,
-                Class_bold, Order_bold, Family_bold, Genus_bold, Species_bold, ID_bold,
-                ID_level_bold) %>%
+                Class_bold, Order_bold, Family_bold, Genus_bold, Species_bold, ID_bold) %>%
   mutate(Domain = ifelse(Domain == "", "d_Eukaryota", Domain))
 
 all_IDs$ID_level <- ifelse(all_IDs$Species != "", "Species",
