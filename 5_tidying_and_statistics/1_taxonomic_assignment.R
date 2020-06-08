@@ -235,6 +235,8 @@ IDs_diff_level <- IDs_both %>%
   filter(ID_level_ncbi != ID_level_bold) 
 
 #View(IDs_diff_level) to see unmatched
+IDs_diff_level %>%
+  dplyr::select(ASV, ID_ncbi, ID_bold)
 
 #These are the differences 
 diff_unmatched <- c("ASV_123", "ASV_186", "ASV_872", "ASV_1230", "ASV_1027")
@@ -266,8 +268,13 @@ all_IDs$Family <- all_IDs$Family_ncbi #since nothing was below order level for B
 all_IDs$Genus <- all_IDs$Genus_ncbi #nothing below order for BOLD only
 all_IDs$Species <- all_IDs$Species_ncbi #nothing below order for BOLD only
 
+#going to keep the BOLD IDs in, since they are more specific, so they can be used
+#to sort out predator DNA when we sort DNA, but still deferring to the NCBI
+#ID for the unique_ID assigned to each ASV
 all_IDs <- all_IDs %>%
-  dplyr::select(ASV, unique_ID, Domain, Phylum, Class, Order, Family, Genus, Species) %>%
+  dplyr::select(ASV, unique_ID, Domain, Phylum, Class, Order, Family, Genus, Species,
+                Class_bold, Order_bold, Family_bold, Genus_bold, Species_bold, ID_bold,
+                ID_level_bold) %>%
   mutate(Domain = ifelse(Domain == "", "d_Eukaryota", Domain))
 
 all_IDs$ID_level <- ifelse(all_IDs$Species != "", "Species",
