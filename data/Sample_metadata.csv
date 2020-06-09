@@ -1,20 +1,20 @@
 Method,Island,Habitat,Microhabitat,Year,Order,ID,Date Collected ,Extraction ID,Extr_ID2,No. Individuals,Length_mm,Sterilized,Source,Isotope_ID
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,7/24/17,CEN1,,1,20,NA,FIELD,NA
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,8/18/17,CEN10,,1,21.7,NA,FIELD,NA
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,8/18/17,CEN11,,1,37.7,NA,FIELD,NA
-Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Centipede,8/19/17,CEN12,,1,30.1,NA,FIELD,NA
-Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Centipede,8/19/17,CEN13,,1,36.4,NA,FIELD,NA
-Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Centipede,8/19/17,CEN14,,1,36.8,NA,FIELD,NA
-Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Centipede,8/19/17,CEN15,,1,29.2,NA,FIELD,NA
-Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Centipede,8/19/17,CEN16,,1,23,NA,FIELD,NA
-Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Centipede,8/19/17,CEN17,,1,15,NA,FIELD,NA
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,8/3/17,CEN2,,1,22.4,NA,FIELD,NA
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,8/3/17,CEN3,,1,17.1,NA,FIELD,NA
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,8/3/17,CEN4,,1,38.4,NA,FIELD,NA
-Hand,Sand,PG,Soil,2017,Class: Chilopoda,Centipede,8/6/17,CEN6,,1,40.8,NA,FIELD,NA
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,8/7/17,CEN7,,1,16.9,NA,FIELD,NA
-Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Centipede,8/18/17,CEN8,,1,19.3,NA,FIELD,NA
-Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Centipede,8/19/17,CEN9,,1,27.7,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,7/24/17,CEN1,,1,20,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,8/18/17,CEN10,,1,21.7,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,8/18/17,CEN11,,1,37.7,NA,FIELD,NA
+Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Geophilomorpha,8/19/17,CEN12,,1,30.1,NA,FIELD,NA
+Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Geophilomorpha,8/19/17,CEN13,,1,36.4,NA,FIELD,NA
+Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Geophilomorpha,8/19/17,CEN14,,1,36.8,NA,FIELD,NA
+Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Geophilomorpha,8/19/17,CEN15,,1,29.2,NA,FIELD,NA
+Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Geophilomorpha,8/19/17,CEN16,,1,23,NA,FIELD,NA
+Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Geophilomorpha,8/19/17,CEN17,,1,15,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,8/3/17,CEN2,,1,22.4,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,8/3/17,CEN3,,1,17.1,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,8/3/17,CEN4,,1,38.4,NA,FIELD,NA
+Hand,Sand,PG,Soil,2017,Class: Chilopoda,Geophilomorpha,8/6/17,CEN6,,1,40.8,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,8/7/17,CEN7,,1,16.9,NA,FIELD,NA
+Hand,Cooper,CN,Soil,2017,Class: Chilopoda,Geophilomorpha,8/18/17,CEN8,,1,19.3,NA,FIELD,NA
+Hand,North Fighter,PF,Soil,2017,Class: Chilopoda,Geophilomorpha,8/19/17,CEN9,,1,27.7,NA,FIELD,NA
 Fogging,Sand,PG,Canopy,2017,Dermaptera,Euborellia annulipes,7/26/17,EUB1,,5,2.7,NA,FIELD,NA
 Fogging,Sand,PG,Canopy,2017,Dermaptera,Euborellia annulipes,7/26/17,EUB1,,5,2.8,NA,FIELD,NA
 Fogging,Sand,PG,Canopy,2017,Dermaptera,Euborellia annulipes,7/26/17,EUB1,,5,2.6,NA,FIELD,NA
@@ -70,94 +70,94 @@ Fogging,Sand,PG,Canopy,2017,Dermaptera,Euborellia annulipes,7/26/17,EUB7,,1,9.9,
 Fogging,Sand,PG,Canopy,2017,Dermaptera,Euborellia annulipes,7/26/17,EUB8,,2,9,NA,FIELD,NA
 Fogging,Sand,PG,Canopy,2017,Dermaptera,Euborellia annulipes,7/26/17,EUB8,,2,10.3,NA,FIELD,NA
 Fogging,Sand,PG,Canopy,2017,Dermaptera,Euborellia annulipes,7/26/17,EUB9,,1,11.2,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-01,,3,2.3,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-01,,3,2.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-01,,3,2.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-02,,3,2.9,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-02,,3,3,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-02,,3,3.3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV-03,,3,2.4,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV-03,,3,2.5,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV-03,,3,2.6,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV-04,,3,4.9,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV-04,,3,5.2,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV-04,,3,6.4,NA,FIELD,NA
-Fogging,Cooper,TA,Canopy,2017,Araneae ,Heteropoda venatoria,7/25/17,HEV-05,,3,2.4,NA,FIELD,NA
-Fogging,Cooper,TA,Canopy,2017,Araneae ,Heteropoda venatoria,7/25/17,HEV-05,,3,3.1,NA,FIELD,NA
-Fogging,Cooper,TA,Canopy,2017,Araneae ,Heteropoda venatoria,7/25/17,HEV-05,,3,3.1,NA,FIELD,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,7/29/17,HEV-07,,1,15.5,SS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,7/29/17,HEV-10,,1,16.9,SS,LAB,NA
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-100,,1,16.7,NS,FIELD,East 11
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-101,,1,16.7,SS,FIELD,Holei 1
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-102,,1,12.2,SS,FIELD,Holei 2
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-103,,1,13.5,SS,FIELD,Holei 3
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-104,,1,13.2,SS,FIELD,Holei 4
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-105,,1,13.4,SS,FIELD,Holei 5
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-106,,1,15,NS,FIELD,Holei 6
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-107,,1,11.4,NS,FIELD,Holei 7
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-108,,1,11.5,NS,FIELD,Holei 8
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-109,,1,12.8,NS,FIELD,Holei 9
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV-11,,1,17.6,SS,LAB,NA
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-110,,1,9.8,NS,FIELD,Holei 10
-Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-111,,1,7.4,NS,FIELD,Holei 11
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-12,,1,17.8,SS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,7/29/17,HEV-13,,1,18.6,SS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-14,,1,18.8,SS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/19/17,HEV-15,,1,20.2,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV-16,,1,20.9,SS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV-17,,1,21,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/19/17,HEV-18,,1,21.1,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/16/17,HEV-20,,1,21.4,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/19/17,HEV-21,,1,22.1,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV-22,,1,22.6,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/14/17,HEV-23,,1,24.3,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/16/17,HEV-24,,1,24.3,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/14/17,HEV-25,,1,24.6,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/16/17,HEV-26,,1,24.7,NS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV-27,,1,25.4,SS,LAB,NA
-Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/14/17,HEV-29,,1,27.5,NS,LAB,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV-32,,3,3.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV-32,,3,4,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV-32,,3,4.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV-34,,2,4.9,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV-34,,2,5.3,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-38,,3,3,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-38,,3,3.1,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-38,,3,3.6,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-39,,3,3.7,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-39,,3,3.9,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-39,,3,4,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-40,,2,4.4,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV-40,,2,4.5,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae,Heteropoda venatoria,7/26/17,HEV-42,,1,17.5,NA,FIELD,NA
-Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-45,,1,18.3,NA,FIELD,Sand 11
-Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-49,,1,12.7,NA,FIELD,Sand 5
-Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-50,,1,9.6,NA,FIELD,Sand 6
-Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-52,,1,10.1,NA,FIELD,Sand 8
-Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-65,,1,22.6,SS,FIELD,Fern 5
-Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-66,,1,17.2,SS,FIELD,Fern 4
-Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-68,,1,13.2,SS,FIELD,Fern 7
-Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-70,,1,17.7,SS,FIELD,Fern 8
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-71,,1,21.2,SS,FIELD,Leslie 3
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-74,,1,19.5,SS,FIELD,Leslie 11
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-76,,1,16.2,SS,FIELD,Leslie 13
-Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-79,,1,18.4,NS,FIELD,Fern 6
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-81,,1,16,NS,FIELD,Leslie 6
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-82,,1,15.6,NS,FIELD,Leslie 5
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-83,,1,21.3,NS,FIELD,Leslie 2
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-87,,1,16.3,NS,FIELD,Leslie 8
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-88,,1,20.1,NS,FIELD,Leslie 4
-Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV-89,,1,23.8,NS,FIELD,Leslie 1
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-90,,1,14.1,SS,FIELD,East 1
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-91,,1,17.5,SS,FIELD,East 2
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-92,,1,20.5,SS,FIELD,East 3
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-93,,1,10.2,SS,FIELD,East 4
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-94,,1,14.5,SS,FIELD,East 5
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-95,,1,13.4,NS,FIELD,East 6
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-96,,1,15.9,NS,FIELD,East 7
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-97,,1,14.5,NS,FIELD,East 8
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-98,,1,22.2,NS,FIELD,East 9
-Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV-99,,1,20.1,NS,FIELD,East 10
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV01,,3,2.3,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV01,,3,2.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV01,,3,2.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV02,,3,2.9,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV02,,3,3,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV02,,3,3.3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV03,,3,2.4,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV03,,3,2.5,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV03,,3,2.6,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV04,,3,4.9,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV04,,3,5.2,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/3/17,HEV04,,3,6.4,NA,FIELD,NA
+Fogging,Cooper,TA,Canopy,2017,Araneae ,Heteropoda venatoria,7/25/17,HEV05,,3,2.4,NA,FIELD,NA
+Fogging,Cooper,TA,Canopy,2017,Araneae ,Heteropoda venatoria,7/25/17,HEV05,,3,3.1,NA,FIELD,NA
+Fogging,Cooper,TA,Canopy,2017,Araneae ,Heteropoda venatoria,7/25/17,HEV05,,3,3.1,NA,FIELD,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,7/29/17,HEV07,,1,15.5,SS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,7/29/17,HEV10,,1,16.9,SS,LAB,NA
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV100,,1,16.7,NS,FIELD,East 11
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV101,,1,16.7,SS,FIELD,Holei 1
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV102,,1,12.2,SS,FIELD,Holei 2
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV103,,1,13.5,SS,FIELD,Holei 3
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV104,,1,13.2,SS,FIELD,Holei 4
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV105,,1,13.4,SS,FIELD,Holei 5
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV106,,1,15,NS,FIELD,Holei 6
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV107,,1,11.4,NS,FIELD,Holei 7
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV108,,1,11.5,NS,FIELD,Holei 8
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV109,,1,12.8,NS,FIELD,Holei 9
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV11,,1,17.6,SS,LAB,NA
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV110,,1,9.8,NS,FIELD,Holei 10
+Hand,Holei,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV111,,1,7.4,NS,FIELD,Holei 11
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV12,,1,17.8,SS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,7/29/17,HEV13,,1,18.6,SS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV14,,1,18.8,SS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/19/17,HEV15,,1,20.2,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV16,,1,20.9,SS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV17,,1,21,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/19/17,HEV18,,1,21.1,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/16/17,HEV20,,1,21.4,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/19/17,HEV21,,1,22.1,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/2/17,HEV22,,1,22.6,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/14/17,HEV23,,1,24.3,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/16/17,HEV24,,1,24.3,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/14/17,HEV25,,1,24.6,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/16/17,HEV26,,1,24.7,NS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae ,Heteropoda venatoria,8/7/17,HEV27,,1,25.4,SS,LAB,NA
+Hand,Cooper,Lab area,Understory,2017,Araneae,Heteropoda venatoria,8/14/17,HEV29,,1,27.5,NS,LAB,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV32,,3,3.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV32,,3,4,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV32,,3,4.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV34,,2,4.9,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Heteropoda venatoria,8/8/17,HEV34,,2,5.3,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV38,,3,3,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV38,,3,3.1,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV38,,3,3.6,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV39,,3,3.7,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV39,,3,3.9,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV39,,3,4,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV40,,2,4.4,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Heteropoda venatoria,7/26/17,HEV40,,2,4.5,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae,Heteropoda venatoria,7/26/17,HEV42,,1,17.5,NA,FIELD,NA
+Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV45,,1,18.3,NA,FIELD,Sand 11
+Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV49,,1,12.7,NA,FIELD,Sand 5
+Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV50,,1,9.6,NA,FIELD,Sand 6
+Hand,Sand,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV52,,1,10.1,NA,FIELD,Sand 8
+Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV65,,1,22.6,SS,FIELD,Fern 5
+Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV66,,1,17.2,SS,FIELD,Fern 4
+Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV68,,1,13.2,SS,FIELD,Fern 7
+Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV70,,1,17.7,SS,FIELD,Fern 8
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV71,,1,21.2,SS,FIELD,Leslie 3
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV74,,1,19.5,SS,FIELD,Leslie 11
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV76,,1,16.2,SS,FIELD,Leslie 13
+Hand,Fern,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV79,,1,18.4,NS,FIELD,Fern 6
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV81,,1,16,NS,FIELD,Leslie 6
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV82,,1,15.6,NS,FIELD,Leslie 5
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV83,,1,21.3,NS,FIELD,Leslie 2
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV87,,1,16.3,NS,FIELD,Leslie 8
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV88,,1,20.1,NS,FIELD,Leslie 4
+Hand,Leslie,Unknown,Understory,2015,Araneae,Heteropoda venatoria,2015,HEV89,,1,23.8,NS,FIELD,Leslie 1
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV90,,1,14.1,SS,FIELD,East 1
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV91,,1,17.5,SS,FIELD,East 2
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV92,,1,20.5,SS,FIELD,East 3
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV93,,1,10.2,SS,FIELD,East 4
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV94,,1,14.5,SS,FIELD,East 5
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV95,,1,13.4,NS,FIELD,East 6
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV96,,1,15.9,NS,FIELD,East 7
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV97,,1,14.5,NS,FIELD,East 8
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV98,,1,22.2,NS,FIELD,East 9
+Hand,Eastern,Unknown,Understory,2015,Araneae ,Heteropoda venatoria,2015,HEV99,,1,20.1,NS,FIELD,East 10
 Fogging,North Fighter,PF,Canopy,2017,Scorpiones,Isometrus maculatus,7/27/17,ISO1,,1,19.4,NA,FIELD,NA
 Fogging,North Fighter,PF,Canopy,2017,Scorpiones,Isometrus maculatus,8/8/17,ISO10,,3,4.8,NA,FIELD,NA
 Fogging,North Fighter,PF,Canopy,2017,Scorpiones,Isometrus maculatus,8/8/17,ISO10,,3,4.7,NA,FIELD,NA
@@ -215,120 +215,120 @@ Fogging,North Fighter,PF,Canopy,2017,Scorpiones,Isometrus maculatus,8/8/17,ISO8,
 Fogging,North Fighter,PF,Canopy,2017,Scorpiones,Isometrus maculatus,8/8/17,ISO8,,2,5.1,NA,FIELD,NA
 Fogging,North Fighter,PF,Canopy,2017,Scorpiones,Isometrus maculatus,8/8/17,ISO9,,2,6.2,NA,FIELD,NA
 Fogging,North Fighter,PF,Canopy,2017,Scorpiones,Isometrus maculatus,8/8/17,ISO9,,2,6.4,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,7/27/17,LRS2-2,,4,2.2,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,7/27/17,LRS2-2,,4,1.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,7/27/17,LRS2-2,,4,2.5,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,7/27/17,LRS2-2,,4,2,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,LRS-2,7/26/17,LRS2-3,,6,2.1,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,LRS-2,7/26/17,LRS2-3,,6,2.1,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,LRS-2,7/26/17,LRS2-3,,6,2.3,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,LRS-2,7/26/17,LRS2-3,,6,2.1,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,LRS-2,7/26/17,LRS2-3,,6,1.7,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,LRS-2,7/26/17,LRS2-3,,6,2.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,2.3,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,2.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,1.8,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,2.2,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,2,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,2.2,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,2.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,LRS-2,8/8/17,LRS2-5,,8,2.5,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,LRS-2,8/3/17,LRS2-6,,3,1,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,LRS-2,8/3/17,LRS2-6,,3,1.2,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,LRS-2,8/3/17,LRS2-6,,3,1.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-7,,5,2.2,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-7,,5,1.8,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-7,,5,2,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-7,,5,1.9,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-7,,5,1.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-8,,4,2.2,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-8,,4,1.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-8,,4,1.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,LRS-2,8/2/17,LRS2-8,,4,1.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.4,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.6,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,1.8,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,2.2,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,2.3,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi ,8/2/17,NEO1,NEO01,12,2.3,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,2.2,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,2.4,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,2.5,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,2.6,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,2.6,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,2.8,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,3.2,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,3.3,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO10,NEO10,9,3.4,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO11,NEO11,5,4.1,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO11,NEO11,5,4.1,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO11,NEO11,5,4.5,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO11,NEO11,5,4.7,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO11,NEO11,5,4.9,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO12,NEO12,3,4.9,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO12,NEO12,3,5,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO12,NEO12,3,5,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO13,NEO13,1,5.2,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO14,NEO14,3,5.6,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO14,NEO14,3,6.2,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO14,NEO14,3,6.9,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO15,NEO15,1,9,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO16,NEO16,1,8.8,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO17,NEO17,2,3.9,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO17,NEO17,2,5.2,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO18,NEO18,2,5.6,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO18,NEO18,2,5.7,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO19,NEO19,2,5.7,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO19,NEO19,2,5.8,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/3/17,NEO2,NEO02,3,2,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/3/17,NEO2,NEO02,3,2,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/3/17,NEO2,NEO02,3,2.9,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO20,NEO20,2,5.9,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO20,NEO20,2,6.5,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO21,NEO21,2,6.6,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO21,NEO21,2,6.8,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO22,NEO22,2,7.3,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO22,NEO22,2,7.5,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO23,NEO23,1,7.9,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO24,NEO24,1,8.1,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO25,NEO25,1,8.8,NA,FIELD,NA
-Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi ,7/31/17,NEO26,NEO26,1,9.3,NA,FIELD,NA
-Fogging,Cooper,TA,Canopy,2017,Araneae ,Neoscona theisi ,7/25/17,NEO3,NEO03,1,2.4,NA,FIELD,NA
-Fogging,Cooper,TA,Canopy,2017,Araneae ,Neoscona theisi ,7/25/17,NEO4,NEO04,1,6.7,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,0.6,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,1.5,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,1.5,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,1.6,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,1.7,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,2.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,2.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,2.1,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,2.3,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO5,NEO05,11,3.2,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO6,NEO06,3,3.5,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO6,NEO06,3,4.2,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO6,NEO06,3,4.4,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO7,NEO07,3,5,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO7,NEO07,3,5.5,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,8/8/17,NEO7,NEO07,3,6,NA,FIELD,NA
-Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi ,7/27/17,NEO8,NEO08,1,6.2,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.1,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.5,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.6,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.6,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.7,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.7,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.9,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,1.9,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,2,NA,FIELD,NA
-Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi ,7/26/17,NEO9,NEO09,10,2,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,7/27/17,LRS2,,4,2.2,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,7/27/17,LRS2,,4,1.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,7/27/17,LRS2,,4,2.5,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,7/27/17,LRS2,,4,2,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Keijia mneon,7/26/17,LRS3,,6,2.1,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Keijia mneon,7/26/17,LRS3,,6,2.1,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Keijia mneon,7/26/17,LRS3,,6,2.3,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Keijia mneon,7/26/17,LRS3,,6,2.1,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Keijia mneon,7/26/17,LRS3,,6,1.7,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Keijia mneon,7/26/17,LRS3,,6,2.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,2.3,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,2.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,1.8,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,2.2,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,2,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,2.2,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,2.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Keijia mneon,8/8/17,LRS5,,8,2.5,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Keijia mneon,8/3/17,LRS6,,3,1,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Keijia mneon,8/3/17,LRS6,,3,1.2,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Keijia mneon,8/3/17,LRS6,,3,1.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS7,,5,2.2,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS7,,5,1.8,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS7,,5,2,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS7,,5,1.9,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS7,,5,1.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS8,,4,2.2,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS8,,4,1.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS8,,4,1.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Keijia mneon,8/2/17,LRS8,,4,1.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.4,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.6,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,1.8,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,2.2,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,2.3,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Neoscona theisi,8/2/17,NEO1,NEO01,12,2.3,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,2.2,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,2.4,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,2.5,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,2.6,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,2.6,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,2.8,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,3.2,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,3.3,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO10,NEO10,9,3.4,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO11,NEO11,5,4.1,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO11,NEO11,5,4.1,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO11,NEO11,5,4.5,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO11,NEO11,5,4.7,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO11,NEO11,5,4.9,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO12,NEO12,3,4.9,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO12,NEO12,3,5,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO12,NEO12,3,5,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO13,NEO13,1,5.2,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO14,NEO14,3,5.6,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO14,NEO14,3,6.2,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO14,NEO14,3,6.9,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO15,NEO15,1,9,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO16,NEO16,1,8.8,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO17,NEO17,2,3.9,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO17,NEO17,2,5.2,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO18,NEO18,2,5.6,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO18,NEO18,2,5.7,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO19,NEO19,2,5.7,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO19,NEO19,2,5.8,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Neoscona theisi,8/3/17,NEO2,NEO02,3,2,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Neoscona theisi,8/3/17,NEO2,NEO02,3,2,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Neoscona theisi,8/3/17,NEO2,NEO02,3,2.9,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO20,NEO20,2,5.9,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO20,NEO20,2,6.5,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO21,NEO21,2,6.6,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO21,NEO21,2,6.8,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO22,NEO22,2,7.3,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO22,NEO22,2,7.5,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO23,NEO23,1,7.9,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO24,NEO24,1,8.1,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO25,NEO25,1,8.8,NA,FIELD,NA
+Hand,Sand,PG,Understory,2017,Araneae ,Neoscona theisi,7/31/17,NEO26,NEO26,1,9.3,NA,FIELD,NA
+Fogging,Cooper,TA,Canopy,2017,Araneae ,Neoscona theisi,7/25/17,NEO3,NEO03,1,2.4,NA,FIELD,NA
+Fogging,Cooper,TA,Canopy,2017,Araneae ,Neoscona theisi,7/25/17,NEO4,NEO04,1,6.7,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,0.6,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,1.5,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,1.5,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,1.6,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,1.7,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,2.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,2.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,2.1,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,2.3,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO5,NEO05,11,3.2,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO6,NEO06,3,3.5,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO6,NEO06,3,4.2,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO6,NEO06,3,4.4,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO7,NEO07,3,5,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO7,NEO07,3,5.5,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,8/8/17,NEO7,NEO07,3,6,NA,FIELD,NA
+Fogging,North Fighter,PF,Canopy,2017,Araneae ,Neoscona theisi,7/27/17,NEO8,NEO08,1,6.2,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.1,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.5,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.6,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.6,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.7,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.7,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.9,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,1.9,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,2,NA,FIELD,NA
+Fogging,Sand,PG,Canopy,2017,Araneae ,Neoscona theisi,7/26/17,NEO9,NEO09,10,2,NA,FIELD,NA
 Net ,Cooper,Lab area,Open,2017,Odonata,Pantala flavescens,7/22/17,PAN1,PAN01,1,38.2,NA,FIELD,NA
 Net ,Cooper,Lab area,Open,2017,Odonata,Pantala flavescens,7/26/17,PAN10,PAN10,1,37.2,NA,FIELD,NA
 Net ,Cooper,Lab area,Open,2017,Odonata,Pantala flavescens,8/18/17,PAN11,PAN11,1,44.1,NA,FIELD,NA
@@ -405,38 +405,38 @@ Fogging,Sand,PG,Canopy,2017,Orthoptera,Phisis holdhausi,7/26/17,PHH74,,1,12.3,NA
 Fogging,Sand,PG,Canopy,2017,Orthoptera,Phisis holdhausi,7/26/17,PHH75,,1,12.9,NA,FIELD,NA
 Hand,Sand,PG,Understory,2017,Orthoptera,Phisis holdhausi,7/31/17,PHH8,,1,15,NA,FIELD,NA
 Fogging,Cooper,TA,Canopy,2017,Orthoptera,Phisis holdhausi,7/25/17,PHH9,,1,13.9,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY10,,1,8.5,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY11,,1,8.6,NA,FIELD,NA
-Hand,Cooper,CN,Understory,2017,Araneae ,Scytodes sp.,8/6/17,SCY12,,1,6.9,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae,Scytodes sp.,8/2/17,SCY15,,1,10,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae,Scytodes sp.,8/3/17,SCY16,,1,11.1,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae,Scytodes sp.,8/3/17,SCY17,,1,9.7,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes sp.,8/2/17,SCY3,,3,2.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes sp.,8/2/17,SCY3,,3,2.4,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes sp.,8/2/17,SCY3,,3,2.4,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes sp.,8/2/17,SCY4,,3,4.5,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes sp.,8/2/17,SCY4,,3,3.3,NA,FIELD,NA
-Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes sp.,8/2/17,SCY4,,3,4.3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.4,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.1,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.2,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.2,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.6,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY7,,9,2.2,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY8,,6,3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY8,,6,3.9,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY8,,6,3.1,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY8,,6,3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY8,,6,2.6,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY8,,6,3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY9,,5,4.3,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY9,,5,4.4,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY9,,5,3.5,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY9,,5,4.4,NA,FIELD,NA
-Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes sp.,8/3/17,SCY9,,5,3.7,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY10,,1,8.5,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY11,,1,8.6,NA,FIELD,NA
+Hand,Cooper,CN,Understory,2017,Araneae ,Scytodes longipes,8/6/17,SCY12,,1,6.9,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae,Scytodes longipes,8/2/17,SCY15,,1,10,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae,Scytodes longipes,8/3/17,SCY16,,1,11.1,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae,Scytodes longipes,8/3/17,SCY17,,1,9.7,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes longipes,8/2/17,SCY3,,3,2.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes longipes,8/2/17,SCY3,,3,2.4,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes longipes,8/2/17,SCY3,,3,2.4,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes longipes,8/2/17,SCY4,,3,4.5,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes longipes,8/2/17,SCY4,,3,3.3,NA,FIELD,NA
+Fogging,Cooper,CN,Canopy,2017,Araneae ,Scytodes longipes,8/2/17,SCY4,,3,4.3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.4,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.1,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.2,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.2,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.6,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY7,,9,2.2,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY8,,6,3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY8,,6,3.9,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY8,,6,3.1,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY8,,6,3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY8,,6,2.6,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY8,,6,3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY9,,5,4.3,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY9,,5,4.4,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY9,,5,3.5,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY9,,5,4.4,NA,FIELD,NA
+Fogging,Cooper,PF,Canopy,2017,Araneae ,Scytodes longipes,8/3/17,SCY9,,5,3.7,NA,FIELD,NA
 Hand,Cooper,PF,Understory,2017,Araneae ,Smeringopus pallidus,8/18/17,SME1,,2,4.2,NA,FIELD,NA
 Hand,Cooper,PF,Understory,2017,Araneae ,Smeringopus pallidus,8/18/17,SME1,,2,3.9,NA,FIELD,NA
 Hand,North Fighter,PF,Understory,2017,Araneae ,Smeringopus pallidus,8/19/17,SME10,,2,6,NA,FIELD,NA
