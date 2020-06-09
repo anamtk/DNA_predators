@@ -97,9 +97,10 @@ all_run$ASV <- as.factor(all_run$ASV)
 all_run$sample <- as.factor(all_run$sample)
 
 ###########################
-#Cross-run comparison with sample and ASV####
+#Cross-run comparison of ASV composition by sample####
 ###########################
-#going to do presence-absence analysis
+
+#going to do presence-absence composition analysis
 
 mod1 <- glmmTMB(presence ~ run + (1|sample) + (1|ASV),
                 data = all_run,
@@ -124,7 +125,7 @@ em <- emmeans(mod1, "run")
 pairs(em) #B-C and B-D different
 
 ###########################
-#Visualization and summary####
+#total ASVs per sample by run####
 ###########################
 #non-zero ASVs per sample
 num_ASV <- all_run %>%
@@ -132,10 +133,113 @@ num_ASV <- all_run %>%
   filter(reads > 0) %>%
   tally(name = "ASVs")
 
+ASV_mod <- glmmTMB(ASVs ~ run + (1|sample),
+                   data=num_ASV,
+                   family = "genpois",
+                   REML = FALSE)
+
+ASV_null <- glmmTMB(ASVs ~ 1 + (1|sample),
+                   data=num_ASV,
+                   family = "genpois",
+                   REML = FALSE)
+
+AICc(ASV_mod, ASV_null)
+
+ASV_mod <- glmmTMB(ASVs ~ run + (1|sample),
+                   data=num_ASV,
+                   family = "genpois")
+
+simulationOutput <- simulateResiduals(fittedModel = ASV_mod) #ok
+fit <- plot(simulationOutput, asFactor=TRUE) #ok
+zi <- testZeroInflation(simulationOutput)
+od <- testDispersion(simulationOutput)
+
+plot(allEffects(ASV_mod)) 
+em <- emmeans(ASV_mod, "run")
+pairs(em) #A-B diff, A-D diff, B-C diff, B-D diff, C-D diff
+
+###########################
+#Concatenate by species and subset just prey ASVs ####
+###########################
+
+taxa_run <- all_run %>%
+  left_join(taxa, by = "ASV") %>%
+  filter(!unique_ID %in% c("Sparassidae", "Homo sapiens", "Hominidae", NA)) %>%
+  group_by(run, sample, unique_ID) %>%
+  summarise(reads = sum(reads))
+
+prey_count <- taxa_run %>%
+  group_by(run, sample) %>%
+  filter(reads > 0) %>%
+  tally(name = "species")
+
+###########################
+#Cross-run comparison of species composition by sample####
+###########################
+
+taxa_run <- taxa_run %>%
+  mutate(presence = ifelse(reads >0, 1,0))
+
+#going to do presence-absence composition analysis
+
+sp1 <- glmmTMB(presence ~ run + (1|sample) + (1|unique_ID),
+                data = taxa_run,
+                family = 'binomial')
+
+sp_null <- glmmTMB(presence ~ 1 + (1|sample) + (1|unique_ID),
+                    data = taxa_run,
+                    family = 'binomial')
+
+AICc(sp1, sp_null)
+
+binned_residuals(sp1) #looks not great, but not terrible
+simulationOutput <- simulateResiduals(fittedModel = sp1) #ok
+fit <- plot(simulationOutput, asFactor=TRUE) #ok
+
+plot(allEffects(sp1)) #b is higher, C and D lower
+em <- emmeans(sp1, "run")
+pairs(em) #B-D different
+
+###########################
+#total species per sample by run####
+###########################
+
+spec_mod <- glmmTMB(species ~ run + (1|sample),
+                   data=prey_count,
+                   family = "genpois",
+                   REML = FALSE)
+
+spec_null <- glmmTMB(species ~ 1 + (1|sample),
+                    data=prey_count,
+                    family = "genpois",
+                    REML = FALSE)
+
+AICc(spec_mod, spec_null)
+
+spec_mod <- glmmTMB(species ~ run + (1|sample),
+                   data=prey_count,
+                   family = "genpois")
+
+simulationOutput <- simulateResiduals(fittedModel = spec_mod) #ok
+fit <- plot(simulationOutput, asFactor=TRUE) #ok
+zi <- testZeroInflation(simulationOutput)
+od <- testDispersion(simulationOutput)
+
+plot(allEffects(spec_mod)) 
+em <- emmeans(spec_mod, "run")
+pairs(em) #A-D diff, B-C diff, B-D diff, C-D diff
+
+
+###########################
+#Visualization and summary####
+###########################
 ggplot(num_ASV, aes(x = run, y = ASVs)) +
   geom_boxplot() + theme_bw() +
   labs(x = "Sequencing run", y = "ASVs per sample")
 
+ggplot(prey_count, aes(x = run, y = species)) +
+  geom_boxplot() + theme_bw() +
+  labs(x = "Sequencing run", y = "Species per sample")
 #summary, showing that on average, run B has 5 more ASVs per sample than
 #run D, and 3 more ASVs per sample than run C
 #not really sure how to correct this in the data... hmm...will think on it
@@ -151,3 +255,6 @@ ggplot(all_run, aes(x = run, y = presence, fill = ASV)) +
   geom_bar(stat = "identity", position = "fill", color = "black") +
   facet_wrap(~sample)
 
+ggplot(taxa_run, aes(x = run, y = presence, fill = unique_ID)) +
+  geom_bar(stat = "identity", position = "fill", color = "black") +
+  facet_wrap(~sample)
