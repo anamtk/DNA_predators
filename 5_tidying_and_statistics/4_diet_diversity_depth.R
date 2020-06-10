@@ -106,15 +106,16 @@ ggplot(indivs, aes(x = pred_ID, y = species/No..Individuals)) +
 abund_depth <- iNEXT(pred_abund, q=0, datatype="abundance") #this determines sequencing depth for each sample
 
 abund_depth$DataInfo$SC
+abund_depth$AsyEst
 abund <- abund_depth$DataInfo
 
 #graph the interpolated and extrapolated sampling depth per sample
-ggiNEXT(abund_depth, type=1, facet.var="site") + 
+ggiNEXT(abund_depth, type=1, facet.var="none") + 
   # can set se = F to remove shaded regions to see lines better 
   theme_bw() +
-  labs(x = "Sampling Depth", y = "Species Abundance", title = "Number of Individuals") +
+  labs(x = "Sampling Depth", y = "Species Richness") +
   theme(axis.text = element_text(size = 20), 
-        axis.title = element_text(size = 25))
+        axis.title = element_text(size = 25), legend.position = "none") 
 
 pres_depth <- iNEXT(pred_pres, q=0, datatype="abundance")
 
