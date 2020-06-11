@@ -6,10 +6,10 @@
 
 #This code will look at how diet diversity by predator is represented
 #in our dataset
-#Do some predator species have broader diets?
-#Do some predator individuals of different species have more in an individual diet?
+
+#How much diet diversity did we capture per predator individual?
+
 #Did we capture the majority of the diet of our predators?
-#
 ##########################
 #Load packages####
 ###########################
@@ -17,130 +17,121 @@ library(here)
 library(tidyverse)
 library(ggplot2)
 library(iNEXT)
-library(glmmTMB)
-library(effects)
-library(emmeans)
-library(DHARMa)
-library(MuMIn)
-library(vegan)
 
-##########################
+#########################
 #Load data####
 ###########################
 #data from the taxonomic sort, which is already concatenated
 #by unique ID within a predator individual
 dna <- read.csv(here("data", "outputs", "5_rarefied_taxonomic_sort", "prey_DNA.csv"))
 
+#sample metadata for sample sizes
 meta <- read.csv(here("data", "Sample_metadata.csv"))
 
 ##########################
 #Tidy data for analyses####
 ###########################
-dna2 <- dna
-dna2$sample <- str_sub(dna2$sample, start = 1, end =-2) #remove "a" at end
-
-species_counts <- meta %>%
-  distinct(ID, Extraction.ID, No..Individuals) %>%
-  group_by(ID) %>%
-  summarise(individuals = sum(No..Individuals))
-  
-#Do some predator species have broader diets?
-species <- dna2 %>%
-  filter(reads > 0) %>%
-  group_by(pred_ID) %>%
-  summarise(species = n_distinct(unique_ID)) %>%
-  left_join(species_counts, by = c("pred_ID" = "ID")) %>%
-  rename("pred_individuals" = "individuals")
-
-#Do some predator individuals of different species have more in an individual diet?
+#Per predator diet for visualization
 indivs <- dna %>%
-  filter(reads > 0) %>%
-  group_by(sample, pred_ID) %>%
-  tally(name = "species") %>%
-  mutate(run = substr(sample, nchar(sample)-1+1, nchar(sample)))
-
-indivs$sample <- str_sub(indivs$sample, start = 1, end =-2) #remove "a" at end
+  filter(reads > 0) %>% #remove zero reads 
+  group_by(sample, pred_ID) %>% #group by sample and keep predator species
+  tally(name = "species") %>% #count the number of diet items by species
+  mutate(run = substr(sample, nchar(sample)-1+1, nchar(sample))) #indicates the 
+#run it was run on
 
 indivs <- indivs %>%
-  left_join(meta, by = c("sample" = "Extraction.ID")) %>%
+  left_join(meta, by = c("sample" = "Extraction.ID")) %>% #join to metadata
   distinct(sample, pred_ID, species, run, Method, Island, Habitat, Microhabitat,
-           Year, Date.Collected, No..Individuals)
+           Year, Date.Collected, No..Individuals) #keep only distinct values
 
-#Did we capture the majority of the diet of our predators?
-#NEED: SOmethign that iNext can capture... have to think about what this looks like
-#need columns to be summed by predator species, which I think i'll first do
-#by total read counts, and then by incidence? yes
-pred_abund <- dna %>%
-  group_by(pred_ID, unique_ID) %>%
-  summarise(reads = sum(reads, na.rm =T)) %>%
-  pivot_wider(names_from = pred_ID,
-              values_from = reads) %>%
-  column_to_rownames(var = "unique_ID")
+#Presence of DNA of each type in each predator species
+dna$sample <- str_sub(dna$sample, start = 1, end =-2) #remove "a" at end
 
-pred_abund[is.na(pred_abund)] <- 0
-pred_abund <- pred_abund[rowSums(pred_abund) != 0,] #removed 16
-
+#create a DF that summarises the population-level incidience data for 
+#each diet item in each predator species
 pred_pres <- dna %>%
-  group_by(pred_ID, unique_ID) %>%
-  summarise(presence = sum(reads > 0)) %>%
-  pivot_wider(names_from = pred_ID,
+  group_by(pred_ID, unique_ID) %>% #group each predator's diet by species
+  summarise(presence = sum(reads > 0)) %>% #summarize the total number of non-zero reads for each species in pred population
+  pivot_wider(names_from = pred_ID, #make wide for iNext making pred_ID the columns and diet species rows
               values_from = presence) %>%
-  column_to_rownames(var = "unique_ID")
+  column_to_rownames(var = "unique_ID") #set the column to rownames for analysis
 
-pred_pres[is.na(pred_pres)] <- 0
-pred_pres <- pred_pres[rowSums(pred_pres) != 0,] #removed 16
+pred_pres[is.na(pred_pres)] <- 0 #set NA to zero
+pred_pres <- pred_pres[rowSums(pred_pres) != 0,] #remove zero sum diet species, removed 16
+
+#create a df that counts the number of individuals of each species, needed
+#as first column of the DF for iNEXT with incidence data
+species_counts <- dna %>%
+  left_join(meta, by = c("sample" = "Extraction.ID")) %>% #join metadata
+  distinct(ID, sample, No..Individuals) %>% #select only the distinct samples
+  group_by(ID) %>%
+  summarise(count = sum(No..Individuals)) #count the number of individauls of species
+
+#transpose the DF
+sp_count <- as.data.frame(t(species_counts))
+
+colnames(sp_count) <- sp_count[1, ] #make the column names the predator species names
+sp_count <- sp_count[-1,] #remove the predator species column
+row.names(sp_count) <- "total" #set the rowname to "total"
+
+#add the species count column (df) to top of the presence df for iNEXT structure
+pres <- sp_count %>%
+  bind_rows(mutate_all(pred_pres, as.character))  #had to convert to character
+
+rows <- c("total", rownames(pred_pres)) #rownames disappeared, so add them back in
+rownames(pres) <- rows #add row names back in
+
+#convert characters back to numeric for iNEXT
+pres <- pres %>%
+  mutate_if(is.character, as.numeric)
 ##########################
-#quick vis####
+#Per individual diet by species####
 ###########################
-ggplot(species, aes(x = pred_ID, y = species/pred_individuals)) +
-  geom_point()
+#get sum stats
+indivs %>%
+  ungroup() %>%
+  summarise(mean = mean(species), total = n(), sd = sd(species), se= sd/sqrt(total))
 
+#plot per individual diet richness by species
 ggplot(indivs, aes(x = pred_ID, y = species/No..Individuals)) +
-  geom_boxplot() +theme_bw()
+  geom_hline(yintercept = 3.84, linetype = "dashed") +
+  geom_hline(yintercept = 3.84 -0.139, color = "grey") +
+  geom_hline(yintercept = 3.84  +0.139, color = "grey") +
+  geom_boxplot() +theme_bw() 
 
 ##########################
 #iNEXT####
 ###########################
-#need to rethink this part a bit... specifically, need to do:
-#number of observations, by number of new discovered diet species
-abund_depth <- iNEXT(pred_abund, q=0, datatype="abundance") #this determines sequencing depth for each sample
+#sampling depth based on incidence data at population level
+pres_depth <- iNEXT(pres, q=0, datatype="incidence_freq")
 
-abund_depth$DataInfo$SC
-abund_depth$AsyEst
-abund <- abund_depth$DataInfo
-
-#graph the interpolated and extrapolated sampling depth per sample
-ggiNEXT(abund_depth, type=1, facet.var="none") + 
-  # can set se = F to remove shaded regions to see lines better 
-  theme_bw() +
-  labs(x = "Sampling Depth", y = "Species Richness") +
-  theme(axis.text = element_text(size = 20), 
-        axis.title = element_text(size = 25), legend.position = "none") 
-
-pres_depth <- iNEXT(pred_pres, q=0, datatype="abundance")
-
+#examine sampling completeness
 pres_depth$DataInfo$SC
-pres <- pres_depth$DataInfo
+#look at diversity indices and estimates (may want to extract later):
+pres_depth$AsyEst
 
-#graph the interpolated and extrapolated sampling depth per sample
-ggiNEXT(pres_depth, type=1, facet.var="none") + 
+#graph the interpolated and extrapolated species richness per species
+ggiNEXT(pres_depth, type=1, facet.var="none", se=FALSE) + 
   # can set se = F to remove shaded regions to see lines better 
   theme_bw() +
-  labs(x = "Sampling Depth", y = "Species Presence", title = "Number of Individuals") +
+  labs(x = "Number of Individuals", y = "Diet Richness") +
   theme(axis.text = element_text(size = 20), 
         axis.title = element_text(size = 25))
 
 ##########################
-#vegan####
+#SUPPLEMENT: vegan, by species and clunky####
 ###########################
 
-sample_counts <- dna2 %>%
+sample_counts <- dna %>%
   left_join(meta, by = c("sample" = "Extraction.ID")) %>%
   distinct(ID, sample, No..Individuals) %>%
   dplyr::select(ID, sample, No..Individuals)
-  
 
-geo <- dna2 %>%
+##########################
+#vegan: geophilomorpha ####
+###########################
+
+geo <- dna %>%
   filter(pred_ID == "Geophilomorpha") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -156,11 +147,10 @@ geo2 <- specaccum(geo, "random")
 plot(geo1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(geo2, col="yellow", add=TRUE, pch="+")
 
-#"Geophilomorpha"       "Euborellia annulipes" "Heteropoda venatoria"
-##[4] "Keijia mneon"         "Neoscona theisi"      "Pantala flavescens"  
-#[7] "Phisis holdhausi"     "Scytodes longipes"    "Smeringopus pallidus"
-
-eub <- dna2 %>%
+##########################
+#vegan: Euborellia annulipes ####
+###########################
+eub <- dna %>%
   filter(pred_ID == "Euborellia annulipes") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -182,11 +172,10 @@ eub2 <- specaccum(eub, "random", w = eub_wts)
 plot(eub1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(eub2, col="yellow", add=TRUE, pch="+")
 
-#"Geophilomorpha"       "Euborellia annulipes" "Heteropoda venatoria"
-##[4] "Keijia mneon"         "Neoscona theisi"      "Pantala flavescens"  
-#[7] "Phisis holdhausi"     "Scytodes longipes"    "Smeringopus pallidus"
-
-hev <- dna2 %>%
+##########################
+#vegan: "Heteropoda venatoria" ####
+###########################
+hev <- dna %>%
   filter(pred_ID == "Heteropoda venatoria") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -208,11 +197,11 @@ hev2 <- specaccum(hev, "random", w = hev_wts)
 plot(hev1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(hev2, col="yellow", add=TRUE, pch="+")
 
-#"Geophilomorpha"       "Euborellia annulipes" "Heteropoda venatoria"
-##[4] "Keijia mneon"         "Neoscona theisi"      "Pantala flavescens"  
-#[7] "Phisis holdhausi"     "Scytodes longipes"    "Smeringopus pallidus"
+##########################
+#vegan: Keijia mneon ####
+###########################
 
-lrs <- dna2 %>%
+lrs <- dna %>%
   filter(pred_ID == "Keijia mneon") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -234,11 +223,10 @@ lrs2 <- specaccum(lrs, "random", w = lrs_wts)
 plot(lrs1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(lrs2, col="yellow", add=TRUE, pch="+")
 
-#"Geophilomorpha"       "Euborellia annulipes" "Heteropoda venatoria"
-##[4] "Keijia mneon"         "Neoscona theisi"      "Pantala flavescens"  
-#[7] "Phisis holdhausi"     "Scytodes longipes"    "Smeringopus pallidus"
-
-neo <- dna2 %>%
+##########################
+#vegan: Neoscona theisi ####
+###########################
+neo <- dna %>%
   filter(pred_ID == "Neoscona theisi") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -260,11 +248,11 @@ neo2 <- specaccum(neo, "random", w = neo_wts)
 plot(neo1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(neo2, col="yellow", add=TRUE, pch="+")
 
-#"Geophilomorpha"       "Euborellia annulipes" "Heteropoda venatoria"
-##[4] "Keijia mneon"         "Neoscona theisi"      "Pantala flavescens"  
-#[7] "Phisis holdhausi"     "Scytodes longipes"    "Smeringopus pallidus"
+##########################
+#vegan: Pantala flavescens ####
+###########################
 
-pan <- dna2 %>%
+pan <- dna %>%
   filter(pred_ID == "Pantala flavescens") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -284,7 +272,7 @@ boxplot(pan2, col="yellow", add=TRUE, pch="+")
 #Phisis holdausi
 ########################
 
-phh <- dna2 %>%
+phh <- dna %>%
   filter(pred_ID == "Phisis holdhausi") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -306,12 +294,11 @@ phh2 <- specaccum(phh, "random", w=phh_wts)
 plot(phh1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(phh2, col="yellow", add=TRUE, pch="+")
 
+##########################
+#vegan: Scytodes longipes ####
+###########################
 
-#"Geophilomorpha"       "Euborellia annulipes" "Heteropoda venatoria"
-##[4] "Keijia mneon"         "Neoscona theisi"      "Pantala flavescens"  
-#[7] "Phisis holdhausi"     "Scytodes longipes"    "Smeringopus pallidus"
-
-scy <- dna2 %>%
+scy <- dna %>%
   filter(pred_ID == "Scytodes longipes") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
@@ -333,40 +320,10 @@ scy2 <- specaccum(scy, "random", w=scy_wts)
 plot(scy1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
 boxplot(scy2, col="yellow", add=TRUE, pch="+")
 
-
-#"Geophilomorpha"       "Euborellia annulipes" "Heteropoda venatoria"
-##[4] "Keijia mneon"         "Neoscona theisi"      "Pantala flavescens"  
-#[7] "Phisis holdhausi"     "Scytodes longipes"    "Smeringopus pallidus"
-
-sme <- dna2 %>%
-  filter(pred_ID == "Smeringopus pallidus") %>%
-  dplyr::select(sample, unique_ID, reads) %>%
-  group_by(sample, unique_ID) %>%
-  summarise(reads = sum(reads)) %>%
-  pivot_wider(names_from = "unique_ID",
-              values_from = "reads") %>%
-  column_to_rownames(var = "sample")
-
-sme_samps <- sme %>%
-  rownames_to_column(var = "sample") %>%
-  left_join(sample_counts, by = "sample") %>%
-  dplyr::select(sample, No..Individuals)
-
-sme_wts <- sme_samps$No..Individuals
-
-sme1 <- specaccum(sme)
-sme2 <- specaccum(sme, "random", w=sme_wts)
-
-plot(sme1, ci.type="poly", col="blue", lwd=2, ci.lty=0, ci.col="lightblue")
-boxplot(sme2, col="yellow", add=TRUE, pch="+")
-
-
-####################
-#Streamline####
-###################
-
-#extract predator 
-sme <- dna2 %>%
+##########################
+#vegan: Smeringopus pallidus ####
+###########################
+sme <- dna %>%
   filter(pred_ID == "Smeringopus pallidus") %>%
   dplyr::select(sample, unique_ID, reads) %>%
   group_by(sample, unique_ID) %>%
