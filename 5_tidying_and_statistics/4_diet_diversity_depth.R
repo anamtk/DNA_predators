@@ -39,6 +39,9 @@ indivs <- dna %>%
   mutate(run = substr(sample, nchar(sample)-1+1, nchar(sample))) #indicates the 
 #run it was run on
 
+#Presence of DNA of each type in each predator species
+indivs$sample <- str_sub(indivs$sample, start = 1, end =-2) #remove "a" at end
+
 indivs <- indivs %>%
   left_join(meta, by = c("sample" = "Extraction.ID")) %>% #join to metadata
   distinct(sample, pred_ID, species, run, Method, Island, Habitat, Microhabitat,
@@ -107,8 +110,7 @@ pres_depth <- iNEXT(pres, q=0, datatype="incidence_freq")
 
 #examine sampling completeness
 pres_depth$DataInfo$SC
-#look at diversity indices and estimates (may want to extract later):
-pres_depth$AsyEst
+
 
 #graph the interpolated and extrapolated species richness per species
 ggiNEXT(pres_depth, type=1, facet.var="none", se=FALSE) + 
@@ -118,6 +120,29 @@ ggiNEXT(pres_depth, type=1, facet.var="none", se=FALSE) +
   theme(axis.text = element_text(size = 20), 
         axis.title = element_text(size = 25))
 
+##########################
+#Graph observed vs. estimated richness####
+###########################
+#look at diversity indices and estimates (may want to extract later):
+richness <- pres_depth$AsyEst
+
+richness <- richness %>%
+  gather(type, richness, Observed:Estimator) 
+
+richness <- richness %>%
+  mutate(s.e. = ifelse(type == "Observed", richness, s.e.)) %>%
+  mutate(LCL = ifelse(type == "Observed", richness, LCL)) %>%
+  mutate(UCL = ifelse(type == "Observed", richness, UCL))
+
+richness1 <- richness %>%
+  filter(Diversity == "Species richness")
+
+ggplot(richness1, aes(x = Site, y = richness, color = type)) +
+  geom_point(size = 2) + theme_bw() +
+  geom_errorbar(aes(ymin = LCL, ymax = UCL), width = 0.2) +
+  theme(axis.text.x = element_text(angle = 45, hjust =1)) +
+  labs(x = "Predator species", y = "Diet richness")
+  
 ##########################
 #SUPPLEMENT: vegan, by species and clunky####
 ###########################
