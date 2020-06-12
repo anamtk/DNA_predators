@@ -143,6 +143,21 @@ ggplot(richness1, aes(x = Site, y = richness, color = type)) +
   theme(axis.text.x = element_text(angle = 45, hjust =1)) +
   labs(x = "Predator species", y = "Diet richness")
   
+
+##########################
+#Interaction strength: eg frequency of interactions ####
+###########################
+total <- species_counts$count
+
+wt_pres <- pred_pres / total[col(pred_pres)]
+
+wt_pres %>%
+  gather(species, frequency, "Euborellia annulipes":"Smeringopus pallidus") %>%
+  filter(frequency > 0) %>%
+  ggplot(aes(x = frequency, fill = species)) +
+  geom_histogram() + theme_bw() +
+  facet_wrap(~species)
+  
 ##########################
 #SUPPLEMENT: vegan, by species and clunky####
 ###########################
