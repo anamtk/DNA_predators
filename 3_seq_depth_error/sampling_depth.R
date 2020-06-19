@@ -21,10 +21,14 @@ library(iNEXT)
 ###########################
 
 #Dada2 combined runs ASVs, read counts by sample
-comm <- read.csv(here("data", "outputs", "2_error_corrected", "all_runs.csv"))
+comm <- read.csv(here("data", "denoised_data", "dada_may", "combined", "ASVs_counts_all.tsv"), sep = "\t")
 
-#set row names to ASV labels
-rownames(comm) <- comm$ASV
+#rename columns for simplicity
+colnames(comm) <- sapply(str_split(colnames(comm), "_"), function(x){return(x[[1]])})
+colnames(comm) <- str_remove(colnames(comm), "\\.")
+
+comm <- comm %>%
+  rename("ASV" = "X")
 
 ###########################
 #Subset data for sequencing depth ####
@@ -32,7 +36,7 @@ rownames(comm) <- comm$ASV
 
 #select samples minus controls and the ASV column
 depth <- comm %>%
-  dplyr::select(-X, -ASV, -CL12a, -CL12b, -CL12c, -CL12d, -CL42a, -CL42b, -CL42c,
+  dplyr::select(-ASV, -CL12a, -CL12b, -CL12c, -CL12d, -CL42a, -CL42b, -CL42c,
                 -CL42d, -NEGa, -NEGb, -NEGc, -SMEb, -QC1a, -QC1b, -QC1c,
                 -QC1d)
 
