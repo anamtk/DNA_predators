@@ -54,13 +54,6 @@ taxa_comm <- comm_long %>%
 #subset by species to sort ####
 ###########################
 
-#For each predator, may need to revisit some of the high-read things that
-#DON'T match to family or lower, as these are most likely predator DNA
-#My thought for correcting for this is to create a master predator DNA
-#DF, and then fit a distribution to these data, then use  this (ala Jerde)
-#to predict if ASV reads above a certain amount should be subset as predator
-#if they match to order or Class of the predator species in question
-
 ###########################
 ##HEV ####
 ###########################
@@ -223,10 +216,8 @@ ggplot(pred_reads, aes(x = number, y = reads)) +
 #in question, that it would likely ALSO be predator DNA. OR
 #anything *below 3554 that matched to the predator higher taxonomy is 
 #likely prey.
-
-###########################
-#Revisit predator-subset DF to remove these high abundances ####
-###########################
+#from looking at this, though - it doesn't seem to be that relevant
+#as we will be deleting those higher level taxonomies from our analysis anyway
 
 ###########################
 #Bind them all back together ####
@@ -240,6 +231,10 @@ prey_fam <- other_DNA %>%
 prey_ord <- other_DNA %>%
   filter(Order != "")
 
+###########################
+#Export ####
+###########################
+
 write.csv(known_pred, here("data", "outputs", "5_rarefied_taxonomic_sort", "predator_DNA.csv"))
 
 write.csv(other_DNA, here("data", "outputs", "5_rarefied_taxonomic_sort", "all_prey_DNA.csv"))
@@ -247,7 +242,3 @@ write.csv(other_DNA, here("data", "outputs", "5_rarefied_taxonomic_sort", "all_p
 write.csv(prey_fam, here("data", "outputs", "5_rarefied_taxonomic_sort", "fam_prey_DNA.csv"))
 
 write.csv(prey_ord, here("data", "outputs", "5_rarefied_taxonomic_sort", "ord_prey_DNA.csv"))
-
-
-
-
