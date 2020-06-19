@@ -36,7 +36,8 @@ comm <- comm %>%
 
 #select samples minus controls and the ASV column
 depth <- comm %>%
-  dplyr::select(-ASV, -CL12a, -CL12b, -CL12c, -CL12d, -CL42a, -CL42b, -CL42c,
+  column_to_rownames(var = "ASV") %>%
+  dplyr::select(-CL12a, -CL12b, -CL12c, -CL12d, -CL42a, -CL42b, -CL42c,
                 -CL42d, -NEGa, -NEGb, -NEGc, -SMEb, -QC1a, -QC1b, -QC1c,
                 -QC1d)
 
