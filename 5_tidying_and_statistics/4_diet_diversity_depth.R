@@ -23,7 +23,7 @@ library(iNEXT)
 ###########################
 #data from the taxonomic sort, which is already concatenated
 #by unique ID within a predator individual
-dna <- read.csv(here("data", "outputs", "5_rarefied_taxonomic_sort", "prey_DNA.csv"))
+dna_fam <- read.csv(here("data", "outputs", "5_rarefied_taxonomic_sort", "fam_prey_DNA.csv"))
 
 #sample metadata for sample sizes
 meta <- read.csv(here("data", "Sample_metadata.csv"))
@@ -32,7 +32,7 @@ meta <- read.csv(here("data", "Sample_metadata.csv"))
 #Tidy data for analyses####
 ###########################
 #Per predator diet for visualization
-indivs <- dna %>%
+indivs <- dna_fam %>%
   filter(reads > 0) %>% #remove zero reads 
   group_by(sample, pred_ID) %>% #group by sample and keep predator species
   tally(name = "species") %>% #count the number of diet items by species
@@ -48,23 +48,26 @@ indivs <- indivs %>%
            Year, Date.Collected, No..Individuals) #keep only distinct values
 
 #Presence of DNA of each type in each predator species
-dna$sample <- str_sub(dna$sample, start = 1, end =-2) #remove "a" at end
+dna_fam$sample <- str_sub(dna_fam$sample, start = 1, end =-2) #remove "a" at end
 
 #create a DF that summarises the population-level incidience data for 
 #each diet item in each predator species
-pred_pres <- dna %>%
-  group_by(pred_ID, unique_ID) %>% #group each predator's diet by species
+
+pred_pres <- dna_fam %>%
+  group_by(sample, pred_ID, Family) %>% #group each predator's diet by species
+  summarise(reads = sum(reads)) %>%
+  group_by(pred_ID, Family) %>%
   summarise(presence = sum(reads > 0)) %>% #summarize the total number of non-zero reads for each species in pred population
   pivot_wider(names_from = pred_ID, #make wide for iNext making pred_ID the columns and diet species rows
               values_from = presence) %>%
-  column_to_rownames(var = "unique_ID") #set the column to rownames for analysis
+  column_to_rownames(var = "Family") %>% #set the column to rownames for analysis
+  replace(., is.na(.), 0)
 
-pred_pres[is.na(pred_pres)] <- 0 #set NA to zero
-pred_pres <- pred_pres[rowSums(pred_pres) != 0,] #remove zero sum diet species, removed 16
+pred_pres <- pred_pres[rowSums(pred_pres) != 0,] #remove zero sum diet families, removed 4
 
 #create a df that counts the number of individuals of each species, needed
 #as first column of the DF for iNEXT with incidence data
-species_counts <- dna %>%
+species_counts <- dna_fam %>%
   left_join(meta, by = c("sample" = "Extraction.ID")) %>% #join metadata
   distinct(ID, sample, No..Individuals) %>% #select only the distinct samples
   group_by(ID) %>%
@@ -81,12 +84,14 @@ row.names(sp_count) <- "total" #set the rowname to "total"
 pres <- sp_count %>%
   bind_rows(mutate_all(pred_pres, as.character))  #had to convert to character
 
-rows <- c("total", rownames(pred_pres)) #rownames disappeared, so add them back in
-rownames(pres) <- rows #add row names back in
-
 #convert characters back to numeric for iNEXT
 pres <- pres %>%
   mutate_if(is.character, as.numeric)
+
+rows <- c("total", rownames(pred_pres)) #rownames disappeared, so add them back in
+rownames(pres) <- rows #add row names back in
+
+
 ##########################
 #Per individual diet by species####
 ###########################
@@ -97,10 +102,11 @@ indivs %>%
 
 #plot per individual diet richness by species
 ggplot(indivs, aes(x = pred_ID, y = species/No..Individuals)) +
-  geom_hline(yintercept = 3.84, linetype = "dashed") +
-  geom_hline(yintercept = 3.84 -0.139, color = "grey") +
-  geom_hline(yintercept = 3.84  +0.139, color = "grey") +
-  geom_boxplot() +theme_bw() 
+  geom_hline(yintercept = 4.21, linetype = "dashed") +
+  geom_hline(yintercept = 4.21 -0.195, color = "grey") +
+  geom_hline(yintercept = 4.21  +0.195, color = "grey") +
+  geom_boxplot() +theme_bw() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ##########################
 #iNEXT####
