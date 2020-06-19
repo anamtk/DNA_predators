@@ -357,5 +357,68 @@ asv_tax %>% #total by category as well as proportion of total
   group_by(taxonomy) %>%
   summarise(value = n(), proportion = value/1738)
 
+#####################
+#Output File ####
+#####################
 #Write these total ASV assignments by category to a DF for later 
 write.csv(asv_tax, here("data", "outputs", "1_taxonomic_assignment", "all_ASV_tax.csv"))
+
+#####################
+#Post-individual BLAST subsetting ####
+#####################
+#The goal here is to take everything from that matched list
+#and either take the BOLD or NCBI IDentifier for everything
+#Family and above, as these are the most likely
+#places in which I'm goign to be able to do analyses (Family and Order)
+
+#need to update ID level as well... 
+#two outputs at end of this: 1. order-level taxa, 2. family-level taxa
+
+taxa <- read.csv(here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies_wIndiv.csv"))
+
+taxa <- taxa %>%
+  filter(unique_ID !="non-diet")
+
+#108 additional taxonomies to the family level from the sorting done 
+#at individual level
+taxa %>%
+  filter(BLAST_unique_ID != "") %>%
+  tally()
+
+taxa_sort <- taxa %>%
+  dplyr::select(ASV, Domain, Phylum, Class, Order, Family, Class_bold, Order_bold,
+                Family_bold) %>%
+  mutate(Class = ifelse(Class != "", Class, Class_bold),
+         Order = ifelse(Order != "", Order, Order_bold),
+         Family = ifelse(Family != "", Family, Family_bold)) %>%
+  dplyr::select(ASV, Domain, Phylum, Class, Order, Family)
+
+taxa_sort$ID_level <- ifelse(taxa_sort$Family != "", "Family",
+                             ifelse(taxa_sort$Order != "", "Order",
+                                    ifelse(taxa_sort$Class != "", "Class",
+                                           ifelse(taxa_sort$Phylum != "", "Phylum", "Domain"))))
+
+taxa_sort %>%
+  tally()
+
+taxa_sort %>%
+  group_by(ID_level) %>%
+  summarise(proportion = n()/781)
+
+#####################
+#Family and Order Level Subsets ####
+#####################
+
+taxa_order <- taxa_sort %>%
+  filter(Order != "")
+
+write.csv(taxa_order, here("data", "outputs", "1_taxonomic_assignment", "order_level_taxa.csv"))
+
+taxa_family <- taxa_sort %>%
+  filter(Family != "")
+
+write.csv(taxa_family, here("data", "outputs", "1_taxonomic_assignment", "family_level_taxa.csv"))
+
+write.csv(taxa_sort, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies_summed_wIndiv.csv"))
+
+
