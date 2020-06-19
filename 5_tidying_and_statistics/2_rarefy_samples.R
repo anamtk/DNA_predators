@@ -23,25 +23,27 @@ library(vegan)
 cross <- read.csv(here("data", "outputs", "3_depth_corrected",
                        "cross_run_samples.csv"))
 cross <- cross %>%
-  column_to_rownames(var = "ASV")
+  column_to_rownames(var = "ASV") %>%
+  dplyr::select(-X)
 
 #Community dataset
 community <- read.csv(here("data", "outputs", "3_depth_corrected",
                            "depth_subset_samples.csv"))
 
 community <- community %>%
-  column_to_rownames(var = "ASV")
+  column_to_rownames(var = "ASV") %>%
+  dplyr::select(-X)
 
 ###########################
 #Assess sequencing depth variation
 ###########################
-min(colSums(cross)) #22764
-max(colSums(cross)) #158055
+min(colSums(cross)) #22786
+max(colSums(cross)) #158356
 hist(colSums(cross)) #wow, pretty normal!
 
 
-min(colSums(community)) #15933
-max(colSums(community)) #1109305
+min(colSums(community)) #15954
+max(colSums(community)) #236393
 hist(colSums(community))
 
 ###########################
