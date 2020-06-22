@@ -33,6 +33,12 @@ meta <- read.csv(here("data", "Sample_metadata.csv"))
 ###########################
 dna$sample <- str_sub(dna$sample, start = 1, end =-2) #remove "a" at end
 
+
+meta %>%
+  group_by(Island, Habitat, Microhabitat) %>%
+  filter(Year == "2017") %>%
+  summarise(samples = n())
+
 test <- dna %>%
   left_join(meta, by = c("sample" = "Extraction.ID")) %>%
   filter(Year == "2017") %>%
@@ -54,6 +60,9 @@ test2 <- meta %>%
 comm_samples <- test %>%
   left_join(test2, by =c("Island", "Habitat", "Microhabitat"))
 
+meta %>%
+  group_by(Habitat, Microhabitat, ID) %>%
+  summarise(indivs = sum(No..Individuals))
 
 test3 <- dna %>%
   left_join(meta, by = c("sample" = "Extraction.ID")) %>%
