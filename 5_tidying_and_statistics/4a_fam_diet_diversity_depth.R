@@ -161,7 +161,7 @@ wt_pres %>%
   gather(species, frequency, "Euborellia annulipes":"Smeringopus pallidus") %>%
   filter(frequency > 0) %>%
   ggplot(aes(x = frequency, fill = species)) +
-  geom_histogram() + theme_bw() +
+  geom_histogram(bins=100) + theme_bw() +
   facet_wrap(~species)
   
 ##########################
