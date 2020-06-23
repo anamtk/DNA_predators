@@ -386,12 +386,14 @@ taxa %>%
   tally()
 
 taxa_sort <- taxa %>%
-  dplyr::select(ASV, Domain, Phylum, Class, Order, Family, Class_bold, Order_bold,
-                Family_bold) %>%
+  dplyr::select(ASV, Domain, Phylum, Class, Order, Family, Genus, Species, 
+                Class_bold, Order_bold, Family_bold, Genus_bold, Species_bold) %>%
   mutate(Class = ifelse(Class != "", Class, Class_bold),
          Order = ifelse(Order != "", Order, Order_bold),
-         Family = ifelse(Family != "", Family, Family_bold)) %>%
-  dplyr::select(ASV, Domain, Phylum, Class, Order, Family)
+         Family = ifelse(Family != "", Family, Family_bold),
+         Genus = ifelse(Genus != "", Genus, Genus_bold),
+         Species = ifelse(Species != "", Species, Species_bold)) %>%
+  dplyr::select(ASV, Domain, Phylum, Class, Order, Family, Genus, Species)
 
 taxa_sort$ID_level <- ifelse(taxa_sort$Family != "", "Family",
                              ifelse(taxa_sort$Order != "", "Order",
