@@ -9,6 +9,15 @@
 #so that I can filter out the ASVs where these match from any diet 
 #analysis
 
+#A thought I've explored here, but haven't taken further:
+#After going through some other data explorations, I think a more
+#conservative approach will be to delete dna from ALL predators
+#run on each run, since I am worried about predator jumping?
+#could be worth subsetting 1. predator DNA from predators on
+#shared run and 2. predator DNA from predators across runs
+#to see if these distributions are different. If they are different
+#probably a good idea to delete on-run predator DNA?
+
 ###########################
 #Load Packages ####
 ###########################
@@ -48,11 +57,19 @@ comm_long <- comm_long %>%
 ###########################
 taxa_comm <- comm_long %>%
   left_join(taxa, by = "ASV") %>%
-  filter(Domain == "Eukaryota") #remove NA taxonomies from this community
+  filter(Domain == "Eukaryota") %>% #remove NA taxonomies from this community
+  mutate(run = substr(sample, nchar(sample)-1+1, nchar(sample))) #indicates the 
+#run it was run on
+  
 
 ###########################
 #subset by species to sort ####
 ###########################
+
+#a: HEVa, NEO, SCY
+#b: CEN, PHH, SME, HEVb
+#c: EUB, ISO, LRS, PAN, HEVc
+#d: HEVd
 
 ###########################
 ##HEV ####
@@ -68,6 +85,14 @@ HEV_pred <- HEV %>%
   filter(Order == "Araneae") %>% #only order for spiders
   filter(Family %in% c("Sparassidae", "")) #either matched to the family or no family (being conservative)
 
+#a: HEVa, NEO, SCY
+HEVa_other_pred <- HEV %>%
+  filter(run == "a") %>%
+  ungroup() %>%
+  filter(Order == "Araneae") %>%
+  filter(Family %in% c("Araneidae", "Scytodidae"))
+
+
 ###########################
 ##NEO ####
 ###########################
@@ -79,6 +104,12 @@ NEO_pred <- NEO %>%
   ungroup() %>%
   filter(Order == "Araneae") %>% #only order for spiders
   filter(Family %in% c("Araneidae", "", "Theridiidae")) #either matched to the family or no family (being conservative)
+
+#a: HEVa, NEO, SCY
+NEO_other_pred <- NEO %>%
+  ungroup() %>%
+  filter(Order == "Araneae") %>% #only order for spiders
+  filter(Family %in% c("Scytodidae", "Sparassidae")) #either matched to the family or no family (being conservative)
 
 ###########################
 ##SCY ####
@@ -92,6 +123,12 @@ SCY_pred <- SCY %>%
   filter(Order == "Araneae") %>% #only order for spiders
   filter(Family %in% c("Scytodidae", "")) #either matched to the family or no family (being conservative)
 
+#a: HEVa, NEO, SCY
+SCY_other_pred <- SCY %>%
+  ungroup() %>%
+  filter(Order == "Araneae") %>% #only order for spiders
+  filter(Family %in% c("Sparassidae", "Araneidae")) #either matched to the family or no family (being conservative)
+
 ###########################
 ##CEN ####
 ###########################
@@ -103,6 +140,13 @@ CEN <- taxa_comm %>%
 CEN_pred <- CEN %>%
   ungroup() %>%
   filter(Class == "Chilopoda") #only class of centipedes
+
+#b: CEN, PHH, SME, HEVb
+CEN_other_pred <- CEN %>%
+  ungroup() %>%
+  filter(Order %in% c("Orthoptera", "Araneae")) %>%
+  filter(Family %in% c("Sparassidae", "Tettigoniidae", "Pholcidae"))
+
 
 ###########################
 ##PHH ####
@@ -117,6 +161,12 @@ PHH_pred <- PHH %>%
   filter(Order == "Orthoptera") %>% #only order for katydids
   filter(Family %in% c("Tettigoniidae", "")) #either matched to the family or no family (being conservative)
 
+#b: CEN, PHH, SME, HEVb
+PHH_other_pred <- PHH %>%
+  ungroup() %>%
+  filter(Order %in% c("Geophilomorpha", "Araneae")) %>%
+  filter(Family %in% c("", "Sparassidae", "Pholcidae"))
+
 ###########################
 ##SME ####
 ###########################
@@ -130,6 +180,12 @@ SME_pred <- SME %>%
   filter(Order == "Araneae") %>% #only order for spiders
   filter(Family %in% c("Pholcidae", "")) #either matched to the family or no family (being conservative)
 
+#b: CEN, PHH, SME, HEVb
+SME_other_pred <- SME %>%
+  ungroup() %>%
+  filter(Order %in% c("Geophilomorpha", "Araneae")) %>%
+  filter(Family %in% c("", "Sparassidae", "Tettigoniidae"))
+
 ###########################
 ##EUB ####
 ###########################
@@ -141,6 +197,12 @@ EUB_pred <- EUB %>%
   ungroup() %>%
   filter(Order == "Dermaptera") %>% #only order for earwigs
   filter(Family %in% c("Anisolabididae", "")) #either matched to the family or no family (being conservative)
+
+#c: EUB, ISO, LRS, PAN, HEVc
+EUB_other_pred <- EUB %>%
+  ungroup() %>%
+  filter(Order %in% c("Odonata", "Scorpiones", "Araneae")) %>%
+  filter(Family %in% c("Libellulidae", "Buthidae", "Theridiidae", "Sparassidae"))
 
 ###########################
 ##LRS ####
@@ -155,6 +217,12 @@ LRS_pred <- LRS %>%
   filter(Order == "Araneae") %>% #only order for spiders
   filter(Family %in% c("Theridiidae", "")) #either matched to the family or no family (being conservative)
 
+#c: EUB, ISO, LRS, PAN, HEVc
+LRS_other_pred <- LRS %>%
+  ungroup() %>%
+  filter(Order %in% c("Odonata", "Scorpiones", "Dermaptera", "Araneae")) %>%
+  filter(Family %in% c("Libellulidae", "Buthidae", "Anisolabididae", "Sparassidae"))
+
 ###########################
 ##PAN ####
 ###########################
@@ -166,6 +234,12 @@ PAN_pred <- PAN %>%
   ungroup() %>%
   filter(Order == "Odonata") %>% #only order for dragonflies
   filter(Family %in% c("Libellulidae", "")) #either matched to the family or no family (being conservative)
+
+#c: EUB, ISO, LRS, PAN, HEVc
+PAN_other_pred <- PAN %>%
+  ungroup() %>%
+  filter(Order %in% c("Scorpiones", "Dermaptera", "Araneae")) %>%
+  filter(Family %in% c("Theridiidae", "Buthidae", "Anisolabididae", "Sparassidae"))
 
 ###########################
 #Bind them all together and only take the unique ones ####
@@ -179,6 +253,18 @@ known_pred <- CEN_pred%>%
   bind_rows(PHH_pred) %>%
   bind_rows(SCY_pred) %>%
   bind_rows(SME_pred)
+
+other_pred <- CEN_other_pred %>%
+  bind_rows(EUB_other_pred) %>%
+  bind_rows(HEVa_other_pred) %>%
+  bind_rows(LRS_other_pred) %>%
+  bind_rows(NEO_other_pred) %>%
+  bind_rows(PAN_other_pred) %>%
+  bind_rows(PHH_other_pred) %>%
+  bind_rows(SCY_other_pred) %>%
+  bind_rows(SME_other_pred) %>%
+  filter(reads > 0)
+  
 
 ###########################
 #Use abundances to inform unknowns####

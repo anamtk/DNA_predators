@@ -109,6 +109,16 @@ ggplot(indivs, aes(x = pred_ID, y = species/No..Individuals)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ##########################
+#Per species diet diversity####
+###########################
+dna_fam %>% 
+  group_by(pred_ID, Family) %>%
+  summarise(reads = sum(reads)) %>%
+  filter(reads > 0) %>%
+  group_by(pred_ID) %>%
+  summarise(total = n())
+
+##########################
 #iNEXT####
 ###########################
 #sampling depth based on incidence data at population level
