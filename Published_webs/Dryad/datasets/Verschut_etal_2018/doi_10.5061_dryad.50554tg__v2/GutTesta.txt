@@ -1,0 +1,505 @@
+Spider no	Site	Date	Month	Identity	Sex	Age	Predation events	Pepred	Weight	Aqua	Terr	Chir	Aqu	Det	Pred	Herb	Leps	Cole	Hete	Coll	Anthomyidae	Bibionidae	Ceratopogonidae	Chironomidae	Chloropidae	Coelopidae	Culicidae	Dolichopodidae	Drosophilidae	Empididae	Ephydridae	Lonchopteridae	Muscidae	Opomyzidae	Phoridae	Scathophagidae	Scatopsidae	Sphaeroceridae	Collembola	Heteroptera	Coleoptera	Lepidoptera
+Spindel_1	Rohalla	151004	10	Pardosa sp	f	subad	5	4	0.4	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_2	Rohalla	151004	10	Pardosa sp	f	subad	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_3	Rohalla	151004	10	Pardosa sp	m	subad	5	5	0.5	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_4	Rohalla	151004	10	Pardosa sp	f	subad	5	5	0.5	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	1
+Spindel_5	Rohalla	151004	10	Pardosa sp	m	subad	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_6	Rohalla	151004	10	Pardosa sp	m	subad	2	2	0.6	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_7	Rohalla	151004	10	Pardosa sp	m	subad	6	6	0.6	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_8	S om Byxelkrok	151004	10	Pardosa prativaga	f	ad	1	1	1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_9	S om Byxelkrok	151004	10	Pardosa sp	m	subad	2	2	0.6	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_10	Borga hage	151004	10	Pardosa sp	m	subad	2	2	0.8	1	0	1	1	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_11	Borga hage	151004	10	Pardosa sp	m	subad	1	1	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_12	Borga hage	151004	10	Pardosa sp	f	subad	2	2	0.4	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0
+Spindel_13	Borga hage	151004	10	Pardosa sp	f	subad	1	1	0.4	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_14	Skarlov	151003	10	Pardosa sp	f	subad	3	3	0.8	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_15	Skarlov	151003	10	Pardosa sp	f	subad	1	1	1.1	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_16	Skarlov	151003	10	Pardosa sp	m	subad	0	0	0.9	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_17	Skarlov	151003	10	Pardosa sp	m	subad	4	4	1	1	1	1	1	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1
+Spindel_18	Hogby fyr	151004	10	Pardosa sp	f	subad	3	2	1	0	1	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0
+Spindel_19	Hogby fyr	151004	10	Pardosa sp	m	subad	3	3	0.7	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0
+Spindel_20	Hogby fyr	151004	10	Pardosa sp	f	subad	3	3	0.8	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_21	Hogby fyr	151004	10	Pardosa sp	f	subad	4	4	0.9	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+Spindel_22	Hogby fyr	151004	10	Pardosa sp	m	subad	3	3	0.9	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0
+Spindel_23	Hogby fyr	151004	10	Pardosa sp	x	juv	5	5	0.9	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_24	Hogby fyr	151004	10	Pardosa sp	m	subad	3	3	0.7	1	1	1	1	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0
+Spindel_25	Hogby fyr	151004	10	Pardosa sp	m	subad	2	2	0.9	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_26	Fagerror	151004	10	Pardosa sp	f	subad	2	2	1.8	1	1	1	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_27	Fagerror	151004	10	Pardosa sp	m	subad	2	2	0.8	1	1	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0
+Spindel_28	Fagerror	151004	10	Pardosa sp	m	subad	1	1	0.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_29	Fagerror	151004	10	Pardosa sp	m	subad	6	6	1.1	1	1	1	0	1	0	0	0	0	1	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	1	0	0
+Spindel_30	Fagerror	151004	10	Pardosa sp	f	subad	3	3	0.8	1	1	1	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_31	Fagerror	151004	10	Pardosa sp	f	subad	4	4	1.1	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_32	Fagerror	151004	10	Pardosa sp	m	subad	3	3	2.3	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_33	Fagerror	151004	10	Pardosa sp	x	juv	2	2	0.8	1	1	1	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_34	Fagerror	151004	10	Pardosa sp	f	subad	1	1	1.1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_35	Fagerror	151004	10	Pardosa sp	f	subad	3	3	1	1	1	0	1	0	0	1	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1
+Spindel_36	Fagerror	151004	10	Pardosa sp	m	subad	4	4	1.2	1	1	1	1	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1
+Spindel_37	Fagerror	151004	10	Pardosa sp	m	subad	2	2	0.6	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_38	ventlinge	151004	10	Pardosa sp	m	subad	3	2	1	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_39	ventlinge	151004	10	Pardosa agricola	f	ad	2	2	1.7	1	1	1	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0
+Spindel_40	ventlinge	151004	10	Pardosa sp	f	subad	2	2	1.4	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0
+Spindel_41	ventlinge	151004	10	Pardosa sp	m	subad	1	1	1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_42	ventlinge	151004	10	Pardosa sp	f	subad	1	1	0.8	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_43	ventlinge	151004	10	Pardosa sp	m	subad	3	3	1.2	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_44	ventlinge	151004	10	Pardosa sp	f	subad	2	2	0.9	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0
+Spindel_45	ventlinge	151004	10	Pardosa sp	f	subad	2	2	0.8	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_46	ventlinge	151004	10	Pardosa sp	x	juv	2	2		1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_47	Hogby fyr	150506	5	Pardosa sp	m	subad	1	1	0.9	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
+Spindel_48	Hogby fyr	150506	5	Pardosa agricola	m	ad	0	0	1.2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_49	Hogby fyr	150506	5	Pardosa sp	m	subad	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0
+Spindel_50	Hogby fyr	150506	5	Pardosa sp	f	subad	2	2	1.8	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_51	Hogby fyr	150506	5	Pardosa sp	f	subad	1	1	0.7	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_52	Hogby fyr	150506	5	Pardosa sp	m	subad	1	1	0.7	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_53	Hogby fyr	150506	5	Pardosa sp	f	subad	5	4	1.4	0	1	0	0	1	1	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	0	0	1
+Spindel_54	Hogby fyr	150506	5	Pardosa sp	f	subad	10	10	1	1	1	0	1	1	0	1	1	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	1	0	0	0	1
+Spindel_55	Hogby fyr	150506	5	Pardosa sp	m	subad	2	2	0.8	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_56	Hogby fyr	150506	5	Pardosa sp	m	subad	1	1	1.2	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_57	Hogby fyr	150506	5	Pardosa sp	f	subad	1	1	0.9	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_58	Borga hage	150507	5	Pardosa sp	f	subad	1	1	1.4	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_59	Borga hage	150507	5	Pardosa sp	f	subad	1	1	0.9	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_60	Borga hage	150507	5	Pardosa sp	f	subad	2	2	1.1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_61	Borga hage	150507	5	Pardosa prativaga	f	ad	2	2	1.2	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_62	Borga hage	150507	5	Pardosa sp	m	subad	4	4	0.9	1	1	0	1	1	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_63	Borga hage	150507	5	Pardosa sp	m	subad	1	1	0.7	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_64	Borga hage	150507	5	Pardosa sp	m	subad	4	4	0.9	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_65	Borga hage	150507	5	Pardosa sp	f	subad	1	1	0.6	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_66	Borga hage	150507	5	Pardosa sp	m	subad	2	2	0.9	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_67	Borga hage	150507	5	Pardosa sp	m	subad	2	2	1.1	0	1	0	0	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_68	Skarlov	150506	5	Pardosa sp	f	subad	1	1	1.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_69	Skarlov	150506	5	Pardosa sp	f	subad	5	5	0.9	1	1	1	1	0	0	1	0	0	0	0	0	1	0	1	0	0	1	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_70	Skarlov	150506	5	Pardosa sp	f	subad	4	4	1	1	1	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1
+Spindel_71	Skarlov	150506	5	Pardosa sp	f	subad	4	3	1.5	1	1	0	1	0	1	1	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	1
+Spindel_72	Skarlov	150506	5	Pardosa sp	m	subad	3	3	1.4	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	1	0	0	0	0
+Spindel_73	Skarlov	150506	5	Pardosa agricola	m	ad	7	7	1.1	1	1	1	1	1	0	1	0	0	0	0	0	1	0	1	0	1	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0
+Spindel_74	Skarlov	150506	5	Pardosa sp	m	subad	5	4	1.2	1	1	0	1	1	1	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+Spindel_75	Skarlov	150506	5	Pardosa sp	m	subad	3	3	0.8	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+Spindel_76	Skarlov	150506	5	Pardosa sp	m	subad	1	1	1.2	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_77	Fagerror	150506	5	Pardosa sp	f	subad	5	5		1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_78	Fagerror	150506	5	Pardosa sp	f	subad	3	3	0.9	1	1	0	1	1	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_79	Fagerror	150506	5	Pardosa sp	f	subad	1	1	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_80	Fagerror	150506	5	Pardosa sp	f	subad	2	2	1.5	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_81	Fagerror	150506	5	Pardosa sp	f	subad	3	3	1.7	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_82	Fagerror	150506	5	Pardosa agricola	m	ad	1	1	0.6	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_83	Fagerror	150506	5	Pardosa sp	f	subad	1	1	0.2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_84	Fagerror	150506	5	Pardosa sp	f	subad	3	3	0.7	1	1	1	1	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0
+Spindel_85	Fagerror	150506	5	Pardosa sp	f	subad	2	2	0.7	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_86	Bodudden	150506	5	Pardosa sp	x	juv	4	4	1	1	1	0	1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_87	Bodudden	150506	5	Pardosa sp	m	subad	7	7	0.8	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	1
+Spindel_88	Bodudden	150506	5	Pardosa sp	f	subad	5	4	0.9	1	1	1	0	1	1	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	1	0	0	1	0	0	0	1
+Spindel_89	Bodudden	150506	5	Pardosa sp	m	subad	8	6	0.9	1	1	1	0	1	1	1	1	0	0	0	1	0	0	1	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	1
+Spindel_90	Bodudden	150506	5	Pardosa sp	m	subad	2	2	0.7	1	1	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1
+Spindel_91	Bodudden	150506	5	Pardosa sp	x	juv	6	6	0.8	1	1	1	1	1	0	1	1	0	0	0	1	1	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	1
+Spindel_92	Bodudden	150506	5	Pardosa sp	f	subad	5	5	1.4	1	1	1	0	1	0	1	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0
+Spindel_93	Bodudden	150506	5	Pardosa sp	f	subad	1	1	1.4	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_94	Bodudden	150506	5	Pardosa sp	m	subad	8	8	1.3	1	1	1	1	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	1	1	0	0	0	0	1	1
+Spindel_95	Bodudden	150506	5	Pardosa sp	m	subad	5	5	1	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_96	Bodudden	150506	5	Pardosa sp	f	subad	1	1	0.7	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_97	Bodudden	150506	5	Pardosa sp	f	subad	5	5	1.3	1	1	1	1	1	0	1	0	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_98	Bodudden	150506	5	Pardosa sp	m	subad	3	3	1.1	1	1	1	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1
+Spindel_99	Bodudden	150506	5	Pardosa sp	f	subad	1	1	0.8	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_100	Bodudden	150506	5	Pardosa sp	m	subad	6	6	1.6	1	1	1	0	0	0	1	1	0	0	0	1	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_101	S om Byxelkrok	150506	5	Pardosa sp	m	subad	2	1	0.6	1	0	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_102	S om Byxelkrok	150506	5	Pardosa sp	f	subad	2	2	0.6	1	1	1	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+Spindel_103	S om Byxelkrok	150506	5	Pardosa prativaga	m	ad	4	4	1.2	1	1	1	0	1	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0
+Spindel_104	S om Byxelkrok	150506	5	Pardosa sp	m	subad	3	3	1	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_105	S om Byxelkrok	150506	5	Pardosa sp	f	subad	5	4	0.9	1	1	1	1	1	1	1	0	0	0	0	0	0	0	1	1	0	0	0	0	1	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_106	S om Byxelkrok	150506	5	Pardosa sp	m	subad	4	4	0.8	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_107	S om Byxelkrok	150506	5	Pardosa sp	f	subad	2	2	1.1	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_108	S om Byxelkrok	150506	5	Pardosa sp	f	subad	5	5	0.7	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_109	S om Byxelkrok	150506	5	Pardosa sp	m	subad	4	3	1	1	1	1	0	1	1	1	0	0	0	0	0	1	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_110	S om Byxelkrok	150506	5	Pardosa sp	f	subad	4	4	0.9	1	1	1	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+Spindel_111	S om Byxelkrok	150506	5	Pardosa sp	m	subad	4	3	1.2	1	1	1	0	1	1	0	0	0	0	1	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0
+Spindel_112	S om Byxelkrok	150506	5	Pardosa sp	m	subad	4	4	1.3	1	1	1	0	1	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0
+Spindel_113	S om Byxelkrok	150506	5	Pardosa sp	m	subad	4	3	1.3	1	1	0	1	1	1	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	1	0	0	0
+Spindel_114	S om Byxelkrok	150506	5	Pardosa sp	f	subad	10	9	1.3	1	1	1	1	1	1	1	0	1	0	0	0	1	1	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	1	0
+Spindel_115	S om Byxelkrok	150506	5	Pardosa sp	f	subad	1	1	0.6	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_116	S om Byxelkrok	150506	5	Pardosa sp	f	subad	8	7	1.2	1	1	1	1	1	1	0	0	1	0	1	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	1	1	0	1	0
+Spindel_117	S om Byxelkrok	150506	5	Pardosa sp	f	subad	1	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_118	S om Byxelkrok	150506	5	Pardosa sp	m	subad	5	5	0.8	1	1	1	1	1	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	1	0	0	0
+Spindel_119	S om Byxelkrok	150506	5	Pardosa sp	m	subad	8	7	0.6	1	1	1	1	1	1	1	0	0	0	0	0	0	0	1	1	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_120	S om Byxelkrok	150506	5	Pardosa sp	f	subad	2	2	0.7	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_121	Rohalla	150505	5	Pardosa sp	m	subad	1	1	1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_122	Rohalla	150505	5	Pardosa sp	m	subad	4	4	0.7	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_123	Rohalla	150505	5	Pardosa sp	f	subad	5	5	1.3	1	1	1	0	1	0	1	0	0	0	1	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0
+Spindel_124	Rohalla	150505	5	Pardosa sp	f	subad	4	4	0.9	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_125	Rohalla	150505	5	Pardosa sp	m	subad	1	1	1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_126	Rohalla	150505	5	Pardosa agricola	m	ad	3	3	0.9	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_127	Rohalla	150505	5	Pardosa sp	f	subad	5	5	0.8	1	1	1	1	1	0	1	0	0	0	0	1	1	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_128	Rohalla	150505	5	Pardosa sp	f	subad	6	6	0.8	1	1	1	0	1	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_129	Rohalla	150505	5	Pardosa sp	m	subad	3	3	1.1	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_130	Rohalla	150505	5	Pardosa sp	f	subad	3	3	1.4	0	1	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_131	Rohalla	150505	5	Pardosa sp	f	subad	7	7	1.6	1	1	1	1	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	1	0	0	0	0	1	0	0	0	1
+Spindel_132	Rohalla	150505	5	Pardosa sp	f	subad	3	3	0.9	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_133	Rohalla	150505	5	Pardosa sp	f	subad	6	6	1	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_134	Bodudden	150608	6	Pardosa agricola	f	ad	3	3	1.5	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_135	Bodudden	150608	6	Pardosa agricola	m	ad	4	4	1.1	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_136	Bodudden	150608	6	Pardosa agricola	m	ad	6	6	1	1	1	1	1	1	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0
+Spindel_137	Bodudden	150608	6	Pardosa sp	x	juv	5	3	0.4	1	1	1	1	1	1	0	0	0	0	0	1	0	0	1	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_138	Bodudden	150608	6	Pardosa prativaga	f	ad	6	6	1.2	1	1	1	1	1	0	1	0	0	0	0	0	0	1	1	0	0	0	0	0	0	1	0	0	1	0	0	1	1	0	0	0	0
+Spindel_139	Bodudden	150608	6	Pardosa prativaga	m	ad	2	2	0.9	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0
+Spindel_140	S om Byxelkrok	150608	6	Pardosa prativaga	m	ad	5	5	1	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_141	S om Byxelkrok	150608	6	Pardosa prativaga	f	ad	4	4	1.1	1	1	1	1	0	0	1	0	0	0	0	0	0	1	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_142	S om Byxelkrok	150608	6	Pardosa prativaga	m	ad	3	3	0.9	1	1	1	0	1	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0
+Spindel_143	S om Byxelkrok	150608	6	Pardosa prativaga	m	ad	1	1	0.8	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_144	S om Byxelkrok	150608	6	Pardosa prativaga	m	ad	5	5	0.7	1	1	1	1	0	0	1	0	1	0	0	0	0	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0
+Spindel_145	S om Byxelkrok	150608	6	Pardosa prativaga	f	ad	8	7	1.7	1	1	1	1	1	1	0	0	1	0	0	0	0	1	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	1	0
+Spindel_146	S om Byxelkrok	150608	6	Pardosa prativaga	m	ad	6	4	0.9	1	1	1	1	1	1	0	0	0	0	0	1	0	0	1	0	0	0	0	1	0	1	0	1	0	0	0	0	0	0	0	0	0
+Spindel_147	Rohalla	150608	6	Pardosa agricola	f	ad	4	3	1.6	0	1	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_148	Rohalla	150608	6	Pardosa agricola	f	ad	4	3	1.2	1	1	0	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	1
+Spindel_149	Rohalla	150608	6	Pardosa agricola	f	ad	3	3	1.5	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_150	Rohalla	150608	6	Pardosa agricola	m	ad	2	2	1.2	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_151	Rohalla	150608	6	Pardosa agricola	f	ad	5	3	1.2	1	1	0	1	1	1	1	0	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_152	Rohalla	150608	6	Pardosa agricola	m	ad	2	0	0.7	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+Spindel_153	Rohalla	150608	6	Pardosa agricola	f	ad	1	0	1.1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+Spindel_154	Rohalla	150608	6	Pardosa agricola	m	ad	3	3	1.3	1	1	1	1	1	0	0	0	0	0	0	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_155	Rohalla	150608	6	Pardosa agricola	f	ad	2	1	1.6	0	1	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+Spindel_156	Borga hage	150608	6	Pardosa prativaga	m	ad	2	2	0.8	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_157	Borga hage	150608	6	Pardosa prativaga	m	ad	3	2	0.8	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_158	Borga hage	150608	6	Pardosa prativaga	m	ad	3	2	0.8	0	1	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0
+Spindel_159	Borga hage	150608	6	Pardosa agricola	m	ad	5	4	2	1	1	0	1	1	1	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_160	Borga hage	150608	6	Pardosa prativaga	f	ad	2	2	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_161	Borga hage	150608	6	Pardosa prativaga	f	ad	5	4	1.5	1	1	1	1	1	1	0	0	0	0	0	1	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0
+Spindel_162	Borga hage	150608	6	Pardosa prativaga	m	ad	4	4	1.3	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_163	Borga hage	150608	6	Pardosa prativaga	f	ad	3	3	3	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0
+Spindel_164	Hogby fyr	150608	6	Pardosa agricola	m	ad	1	1	1.3	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_165	Hogby fyr	150608	6	Pardosa agricola	f	ad	2	2	1.4	1	1	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_166	Hogby fyr	150608	6	Pardosa agricola	f	ad	7	6	1.4	1	1	1	1	1	1	0	0	0	0	1	0	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	1	0	0	0
+Spindel_167	Hogby fyr	150608	6	Pardosa agricola	f	ad	2	2	1.2	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_168	Hogby fyr	150608	6	Pardosa agricola	f	ad	3	3	1.9	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_169	Hogby fyr	150608	6	Pardosa prativaga	f	ad	2	2	1.5	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_170	Hogby fyr	150608	6	Pardosa agricola	f	ad	2	2	1.9	1	1	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_171	Hogby fyr	150608	6	Pardosa agricola	m	ad	1	1	1.1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_172	Hogby fyr	150608	6	Pardosa agricola	f	ad	2	2	1.4	1	1	0	1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_173	Hogby fyr	150608	6	Pardosa agricola	m	ad	2	1	0.9	1	1	0	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_174	Fagerror	150608	6	Pardosa agricola	m	ad	4	4	1.2	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_175	Fagerror	150608	6	Pardosa sp	f	subad	2	2	1.1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_176	Fagerror	150608	6	Pardosa agricola	f	ad	7	7	1.4	1	1	1	1	1	0	0	0	0	0	0	1	0	1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_177	Fagerror	150608	6	Pardosa sp	x	juv	6	6	0.7	1	1	1	0	1	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0
+Spindel_178	Fagerror	150608	6	Pardosa agricola	f	ad	1	1	2.1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_179	Fagerror	150608	6	Pardosa agricola	m	ad	3	3	1.4	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_180	Fagerror	150608	6	Pardosa agricola	m	ad	5	5	1.3	1	1	1	1	1	0	0	0	0	0	0	1	0	1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_181	Fagerror	150608	6	Pardosa agricola	f	ad	1	1	1.8	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_182	Fagerror	150608	6	Pardosa agricola	m	ad	4	4	1.2	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_183	Fagerror	150608	6	Pardosa sp	f	subad	4	4	0.7	1	1	1	0	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_184	Fagerror	150608	6	Pardosa agricola	f	ad	1	1	2.8	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_185	Fagerror	150608	6	Pardosa agricola	m	ad	1	1	1.2	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_186	Fagerror	150608	6	Pardosa agricola	m	ad	6	6	1.4	1	1	1	1	1	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0
+Spindel_187	Fagerror	150608	6	Pardosa agricola	m	ad	4	4	1.1	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_188	Fagerror	150608	6	Pardosa sp	f	subad	2	2	0.8	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_189	Fagerror	150608	6	Pardosa agricola	f	ad	3	3	1.1	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_190	ventlinge	150609	6	Pardosa agricola	f	ad	3	3	1.2	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_191	ventlinge	150609	6	Pardosa agricola	f	ad	3	3	2.7	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_192	ventlinge	150609	6	Pardosa agricola	f	ad	1	1	1.8	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_193	ventlinge	150609	6	Pardosa agricola	f	ad	3	3	3.1	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_194	ventlinge	150609	6	Pardosa agricola	f	ad	1	1	2.8	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_195	ventlinge	150609	6	Pardosa agricola	f	ad	3	3	1.7	1	1	0	1	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_196	Fagerror	150709	7	Pardosa agricola	f	ad	2	2	1.7	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_197	ventlinge	150609	6	Pardosa agricola	f	ad	1	1	3	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_198	Fagerror	150709	7	Pardosa agricola	f	ad	3	3	1.6	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_199	ventlinge	150609	6	Pardosa agricola	m	ad	2	1	1.1	0	1	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_200	ventlinge	150609	6	Pardosa agricola	m	ad	5	5	1.3	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_201	ventlinge	150609	6	Pardosa sp	x	juv	3	3	0.7	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_202	Skarlov	150609	6	Pardosa agricola	f	ad	3	3	1.3	1	1	1	0	0	0	1	1	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_203	Skarlov	150609	6	Pardosa agricola	f	ad	1	0	1.9	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_204	Skarlov	150609	6	Pardosa agricola	f	ad	6	5	1.8	1	1	0	1	1	1	0	0	0	0	0	0	0	0	0	0	1	1	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_205	Skarlov	150609	6	Pardosa agricola	m	ad	4	3	1.1	1	1	1	1	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_206	Skarlov	150609	6	Pardosa prativaga	f	ad	6	5	1.6	1	1	1	1	1	1	0	0	0	0	0	1	0	0	1	0	0	0	0	1	0	1	0	1	0	0	0	0	1	0	0	0	0
+Spindel_207	Skarlov	150609	6	Pardosa agricola	f	ad	4	3	1.2	1	1	1	1	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_208	Skarlov	150609	6	Pardosa agricola	f	ad	4	3	2	1	1	1	1	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+Spindel_209	Skarlov	150609	6	Pardosa agricola	f	ad	1	1	1.2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_210	Skarlov	150609	6	Pardosa agricola	f	ad	0	0	3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_211	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	3	3	0.7	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_212	S om Byxelkrok	150709	7	Pardosa sp	f	subad	5	5	0.5	1	1	1	1	1	0	1	0	0	0	0	1	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_213	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	1	1	1.2	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+Spindel_214	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	8	7	0.6	1	1	1	1	1	1	0	1	0	1	0	0	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	1
+Spindel_215	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	3	2	1.9	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0
+Spindel_216	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	3	3	1.8	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_217	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	10	9	1.6	1	1	1	0	1	1	0	1	0	1	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0	1	0	1
+Spindel_218	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	7	7	2.5	1	1	1	1	1	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	1
+Spindel_219	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	3	3	1.6	1	1	1	0	1	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0
+Spindel_220	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	9	8	2.4	1	1	1	1	1	1	0	0	0	0	1	0	0	1	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	1	0	0	0
+Spindel_221	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	6	6	1.3	1	1	1	1	1	0	1	1	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	1
+Spindel_222	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	12	10	1.5	1	1	1	1	1	1	1	1	0	0	0	0	0	1	1	1	0	0	1	1	0	0	0	1	0	0	0	1	1	0	0	0	1
+Spindel_223	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	3	3	1.1	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_224	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	3	3	1.5	1	1	1	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1
+Spindel_225	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	4	3	1.6	1	1	1	0	1	1	0	0	0	0	1	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	1	1	0	0	0
+Spindel_226	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	7	5	1	1	1	1	0	1	1	1	0	0	0	0	1	0	0	1	0	0	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0
+Spindel_227	S om Byxelkrok	150709	7	Pardosa prativaga	f	ad	2	1	0.6	0	1	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_228	Skarlov	150711	7	Pardosa agricola	f	ad	7	5	2.7	1	1	1	0	1	1	0	0	0	0	0	1	0	0	1	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_229	Skarlov	150711	7	Pardosa prativaga	f	ad	3	1	1.8	1	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_230	Skarlov	150711	7	Pardosa prativaga	f	ad	3	3	0.9	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_231	Skarlov	150711	7	Pardosa prativaga	f	ad	1	1	1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_232	Skarlov	150711	7	Pardosa prativaga	f	ad	3	2	1.1	1	1	0	1	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_233	Skarlov	150711	7	Pardosa agricola	f	ad	1	1	1	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_234	Skarlov	150711	7	Pardosa prativaga	f	ad	1	1	1	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_235	Skarlov	150711	7	Pardosa prativaga	f	ad	1	0	1.7	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_236	Skarlov	150711	7	Pardosa prativaga	f	ad	3	2	1.5	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_237	Skarlov	150711	7	Pardosa prativaga	f	ad	4	4	1.4	1	1	1	1	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_238	Skarlov	150711	7	Pardosa prativaga	f	ad	3	1	1.4	1	0	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_239	Skarlov	150711	7	Pardosa prativaga	f	ad	6	1	2.3	1	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_240	Skarlov	150711	7	Pardosa prativaga	f	ad	1	0	0.8	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_241	Skarlov	150711	7	Pardosa prativaga	f	ad	4	2	1.1	1	1	0	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_242	Skarlov	150711	7	Pardosa prativaga	f	ad	4	2	1.3	1	0	1	1	0	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_243	Skarlov	150711	7	Pardosa prativaga	f	ad	5	3	1.9	1	1	0	1	1	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_244	Skarlov	150711	7	Pardosa prativaga	f	ad	2	2	0.9	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_245	Borga hage	150712	7	Pardosa prativaga	f	ad	17	15	1.1	1	1	1	1	1	1	1	1	0	1	1	1	0	0	1	1	0	0	1	0	0	1	0	1	0	0	0	0	1	1	1	0	1
+Spindel_246	Borga hage	150712	7	Pardosa prativaga	f	ad	7	6	1.1	1	1	1	0	1	1	1	1	0	0	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_247	Borga hage	150712	7	Pardosa agricola	f	ad	1	1	1.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_248	Borga hage	150712	7	Pardosa sp	f	subad	9	9	0.7	1	1	1	1	1	0	0	1	1	1	1	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	1	1	1	1
+Spindel_249	Borga hage	150712	7	Pardosa sp	f	subad	2	2	0.7	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_250	Borga hage	150712	7	Pardosa prativaga	f	ad	5	4	1.2	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_251	Borga hage	150712	7	Pardosa prativaga	f	ad	4	3	1.3	1	1	1	1	0	1	0	0	0	1	0	0	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0
+Spindel_252	Rohalla	150712	7	Pardosa agricola	f	ad	1	1	1.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_253	Rohalla	150712	7	Pardosa agricola	f	ad	4	3	1.2	1	1	1	0	1	1	0	0	0	0	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_254	Rohalla	150712	7	Pardosa agricola	f	ad	2	2	1.4	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_255	Rohalla	150712	7	Pardosa agricola	f	ad	2	2	1.1	0	1	0	0	0	0	1	1	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_256	Rohalla	150712	7	Pardosa agricola	f	ad	6	5	0.7	1	1	1	1	1	1	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	1	0	0	0	1	1	0	0	0	1
+Spindel_257	Skarlov	150803	8	Pardosa sp	x	juv	2	2	0.05	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_258	Skarlov	150803	8	Pardosa sp	x	juv	2	2	0.05	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_259	Skarlov	150803	8	Pardosa sp	x	juv	7	7	0.05	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	1	1	0	0	0	0
+Spindel_260	Skarlov	150803	8	Pardosa sp	x	juv	3	3	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_261	Skarlov	150803	8	Pardosa sp	x	juv	5	5	0.05	1	1	1	1	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	1
+Spindel_262	Skarlov	150803	8	Pardosa sp	x	juv	5	5	0.05	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0
+Spindel_263	Skarlov	150803	8	Pardosa sp	x	juv	4	4	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_264	Skarlov	150803	8	Pardosa sp	x	juv	2	2	0.05	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_265	Skarlov	150803	8	Pardosa sp	x	juv	2	2	0.05	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_266	Skarlov	150803	8	Pardosa sp	x	juv	2	2	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
+Spindel_267	Skarlov	150803	8	Pardosa sp	x	juv	8	8	0.05	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	1	0	0	0	1	0	1	1	0	0	0	0
+Spindel_268	Skarlov	150803	8	Pardosa sp	x	juv	4	4	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	1	1	0	0	0	0
+Spindel_269	Skarlov	150803	8	Pardosa sp	f	subad	2	2	0.3	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_270	Skarlov	150803	8	Pardosa sp	x	juv	2	2	0.05	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_271	Skarlov	150803	8	Pardosa sp	x	juv	3	3	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0
+Spindel_272	Skarlov	150803	8	Pardosa sp	x	juv	1	1	0.05	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_273	Skarlov	150803	8	Pardosa sp	x	juv	7	6	0.1	1	1	1	1	1	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	1	0	1	0	0	1	0	0	0	0
+Spindel_274	Skarlov	150803	8	Pardosa sp	x	juv	2	2	0.05	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+Spindel_275	Skarlov	150803	8	Pardosa sp	x	juv	6	6	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	1	1	0	0	0	0
+Spindel_276	Skarlov	150803	8	Pardosa sp	x	juv	3	3	0.05	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_277	ventlinge	150803	8	Pardosa sp	x	juv	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_278	ventlinge	150803	8	Pardosa sp	x	juv	1	1	0.6	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_279	ventlinge	150803	8	Pardosa sp	x	juv	1	1	0.2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_280	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.1	1	1	1	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_281	ventlinge	150803	8	Pardosa sp	x	juv	0	0	0.2	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_282	ventlinge	150803	8	Pardosa sp	x	juv	5	5	0.3	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_283	ventlinge	150803	8	Pardosa sp	x	juv	4	4	0.05	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_284	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_285	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.05	0	1	0	0	0	0	1	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_286	ventlinge	150803	8	Pardosa sp	x	juv	3	3	0.4	1	1	1	1	1	0	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_287	ventlinge	150803	8	Pardosa sp	x	juv	3	3	0.2	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_288	ventlinge	150803	8	Pardosa sp	x	juv	1	1	0.3	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_289	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.3	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_290	ventlinge	150803	8	Pardosa sp	x	juv	1	1	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_291	ventlinge	150803	8	Pardosa sp	x	juv	0	0	0.3	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_292	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_293	ventlinge	150803	8	Pardosa sp	x	juv	1	1	0.05	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_294	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.05	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_295	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.05	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_296	ventlinge	150803	8	Pardosa sp	x	juv	1	1	0.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_297	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.05	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_298	ventlinge	150803	8	Pardosa sp	x	juv	2	2	0.05	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_299	S om Byxelkrok	150804	8	Pardosa sp	x	juv	1	0	0.3	0	1	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_300	Hogby fyr	150804	8	Pardosa sp	x	juv	2	2	0.05	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_301	Hogby fyr	150804	8	Pardosa sp	x	juv	4	4	0.05	0	1	0	0	1	0	1	0	0	0	1	0	0	0	0	1	0	0	0	1	0	0	0	0	0	1	0	0	0	1	0	0	0
+Spindel_302	Hogby fyr	150804	8	Pardosa sp	x	juv	1	1	0.2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_303	Hogby fyr	150804	8	Pardosa sp	x	juv	1	1	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_304	Hogby fyr	150804	8	Pardosa sp	m	subad	1	1	0.3	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_305	Hogby fyr	150804	8	Pardosa sp	m	subad	3	2	0.6	1	1	0	1	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_306	Hogby fyr	150804	8	Pardosa sp	x	juv	2	2	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_307	Hogby fyr	150804	8	Pardosa sp	x	juv	4	4	0.3	1	1	0	1	1	0	0	0	0	0	0	1	0	0	0	0	0	1	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_308	Hogby fyr	150804	8	Pardosa sp	x	juv	1	1	0.4	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_309	S om Byxelkrok	150804	8	Pardosa sp	x	juv	1	1	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_310	Hogby fyr	150804	8	Pardosa sp	x	juv	1	1	0.05	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_311	S om Byxelkrok	150804	8	Pardosa prativaga	f	ad	1	1	0.9	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_312	S om Byxelkrok	150804	8	Pardosa prativaga	f	ad	1	1	1.3	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_313	Hogby fyr	150804	8	Pardosa sp	x	juv	2	2	0.05	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_314	Fagerror	150804	8	Pardosa sp	x	juv	2	2	0.1	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_315	Fagerror	150804	8	Pardosa sp	x	juv	3	3	0.3	1	1	1	1	0	0	0	0	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0
+Spindel_316	Fagerror	150804	8	Pardosa sp	f	subad	4	4	0.4	1	1	1	0	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_317	Fagerror	150804	8	Pardosa sp	x	juv	3	3	0.05	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_318	Fagerror	150804	8	Pardosa sp	x	juv	1	1	0.1	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_319	Fagerror	150804	8	Pardosa sp	x	juv	2	2	0.05	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_320	Fagerror	150804	8	Pardosa sp	x	juv	2	2	0.05	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_321	Fagerror	150804	8	Pardosa sp	x	juv	2	2	0.05	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_322	Fagerror	150804	8	Pardosa sp	x	juv	3	3	0.1	1	1	1	0	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_323	Fagerror	150804	8	Pardosa sp	f	subad	1	1	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_324	Fagerror	150804	8	Pardosa sp	f	subad	7	7	0.9	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_325	Fagerror	150804	8	Pardosa sp	f	subad	8	8	1.1	1	1	1	1	1	0	0	0	0	0	0	1	0	1	1	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_326	Fagerror	150804	8	Pardosa sp	x	juv	2	2	0.05	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_327	Fagerror	150804	8	Pardosa sp	x	juv	5	5	0.05	1	1	1	0	1	0	0	1	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	1
+Spindel_328	Fagerror	150804	8	Pardosa sp	x	juv	3	3	0.6	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_329	Fagerror	150804	8	Pardosa sp	x	juv	4	4	0.05	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_330	Fagerror	150804	8	Pardosa sp	x	juv	3	3	0.05	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_331	Fagerror	150804	8	Pardosa sp	x	juv	3	3	0.05	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_332	Hogby fyr	150904	9	Pardosa sp	f	subad	1	1	0.4	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_333	Hogby fyr	150904	9	Pardosa sp	f	subad	4	3	0.6	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_334	Hogby fyr	150904	9	Pardosa sp	m	subad	6	6	0.6	1	1	1	1	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	1
+Spindel_335	Hogby fyr	150904	9	Pardosa sp	m	subad	3	2	0.4	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_336	Hogby fyr	150904	9	Pardosa sp	f	subad	3	3	0.5	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_337	Hogby fyr	150904	9	Pardosa sp	f	subad	2	2	0.4	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_338	Hogby fyr	150904	9	Pardosa sp	m	subad	3	3	0.3	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_339	Hogby fyr	150904	9	Pardosa sp	f	subad	3	2	0.4	1	0	1	1	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0
+Spindel_340	Hogby fyr	150904	9	Pardosa sp	m	subad	2	2	0.5	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_341	Hogby fyr	150904	9	Pardosa sp	m	subad	5	5	0.6	1	1	1	1	1	0	1	0	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_342	Hogby fyr	150904	9	Pardosa sp	x	juv	5	5	0.7	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_343	Hogby fyr	150904	9	Pardosa sp	x	juv	3	3	0.4	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_344	Hogby fyr	150904	9	Pardosa sp	m	subad	2	2	0.6	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_345	Hogby fyr	150904	9	Pardosa sp	x	juv	4	4	0.1	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_346	Hogby fyr	150904	9	Pardosa sp	m	subad	2	2	0.3	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_347	Hogby fyr	150904	9	Pardosa sp	x	juv	3	3	0.5	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_348	Hogby fyr	150904	9	Pardosa sp	m	subad	5	5	0.5	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_349	Hogby fyr	150904	9	Pardosa sp	x	juv	5	4	0.5	1	1	1	0	1	1	0	0	1	0	0	0	0	0	1	0	0	0	0	1	0	0	0	1	0	0	0	0	1	0	0	1	0
+Spindel_350	Hogby fyr	150904	9	Pardosa sp	m	subad	4	4	0.9	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_351	Hogby fyr	150904	9	Pardosa sp	m	subad	6	6	0.7	1	1	1	1	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_352	Hogby fyr	150904	9	Pardosa sp	f	subad	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_353	Hogby fyr	150904	9	Pardosa sp	m	subad	3	2	0.5	1	1	1	0	1	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+Spindel_354	Hogby fyr	150904	9	Pardosa sp	f	subad	5	5	0.7	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_355	Hogby fyr	150904	9	Pardosa sp	f	subad	4	4	0.9	1	1	1	1	1	0	0	1	0	0	0	0	0	0	1	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_356	Rohalla	150904	9	Pardosa sp	f	subad	4	4	0.5	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_357	Rohalla	150904	9	Pardosa sp	f	subad	2	2	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_358	Rohalla	150904	9	Pardosa sp	f	subad	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_359	Rohalla	150904	9	Pardosa sp	f	subad	1	1	1	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_360	Rohalla	150904	9	Pardosa sp	f	subad	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_361	Rohalla	150904	9	Pardosa sp	m	subad	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_362	Rohalla	150904	9	Pardosa sp	m	subad	2	1	0.4	1	0	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_363	Rohalla	150904	9	Pardosa sp	f	subad	2	2	0.9	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_364	Rohalla	150904	9	Pardosa sp	x	juv	2	2	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_365	Rohalla	150904	9	Pardosa agricola	f	ad	1	1	1.2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_366	Rohalla	150904	9	Pardosa agricola	f	ad	2	2	1.1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_367	Rohalla	150904	9	Pardosa sp	f	subad	2	2	0.5	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_368	Rohalla	150904	9	Pardosa sp	m	subad	2	2	0.8	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_369	Rohalla	150904	9	Pardosa sp	x	juv	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_370	Rohalla	150904	9	Pardosa sp	f	subad	1	1	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_371	Rohalla	150904	9	Pardosa sp	f	subad	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_372	Rohalla	150904	9	Pardosa sp	m	subad	3	3	0.5	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_373	Rohalla	150904	9	Pardosa sp	f	subad	2	2	0.9	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_374	Rohalla	150904	9	Pardosa sp	x	juv	3	3	0.6	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_375	Rohalla	150904	9	Pardosa sp	x	juv	3	3	0.9	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_376	Rohalla	150904	9	Pardosa sp	m	subad	2	2	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_377	Rohalla	150904	9	Pardosa sp	f	subad	2	2	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_378	Rohalla	150904	9	Pardosa sp	x	juv	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_379	Rohalla	150904	9	Pardosa sp	x	juv	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_380	Rohalla	150904	9	Pardosa sp	m	subad	2	2	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_381	Borga hage	151003	10	Pardosa sp	x	juv	2	2	0.05	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_382	Borga hage	151003	10	Pardosa sp	x	juv	1	1	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_383	Rohalla	150803	8	Pardosa sp	f	subad	2	2	0.3	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_384	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.4	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_385	Rohalla	150803	8	Pardosa sp	m	subad	2	2	0.3	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_386	Rohalla	150803	8	Pardosa sp	f	subad	2	2	0.3	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_387	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.6	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_388	Rohalla	150803	8	Pardosa sp	m	subad	1	1	0.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_389	Rohalla	150803	8	Pardosa sp	f	subad	2	2	0.05	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_390	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.4	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_391	Rohalla	150803	8	Pardosa sp	m	subad	3	3	0.3	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_392	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_393	Rohalla	150803	8	Pardosa sp	x	juv	4	4	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	1	0	0	0	0
+Spindel_394	Rohalla	150803	8	Pardosa sp	x	juv	3	3	0.5	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_395	Rohalla	150803	8	Pardosa sp	f	subad	2	2	0.05	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_396	Rohalla	150803	8	Pardosa sp	x	juv	2	2	0.4	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_397	Rohalla	150803	8	Pardosa sp	x	juv	2	2	0.3	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_398	Rohalla	150803	8	Pardosa sp	f	subad	3	3	0.8	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_399	Rohalla	150803	8	Pardosa sp	x	juv	1	1	0.2	0	1	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_400	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.2	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_401	Rohalla	150803	8	Pardosa sp	f	subad	4	4	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	1	1	0	0	0	0
+Spindel_402	Rohalla	150803	8	Pardosa sp	f	subad	2	2	0.4	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0
+Spindel_403	Rohalla	150803	8	Pardosa sp	x	juv	3	3	0.4	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_404	Rohalla	150803	8	Pardosa sp	f	subad	2	2	0.1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_405	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.6	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_406	Rohalla	150803	8	Pardosa sp	x	juv	3	3	0.3	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_407	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.5	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_408	Rohalla	150803	8	Pardosa sp	x	juv	2	2	0.2	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_409	Rohalla	150803	8	Pardosa sp	x	juv	1	1	0.3	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_410	Rohalla	150803	8	Pardosa sp	f	subad	1	1	0.5	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_411	S om Byxelkrok	150904	9	Pardosa sp	m	subad	3	3	1	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_412	S om Byxelkrok	150904	9	Pardosa sp	m	subad	7	6	0.4	1	1	1	0	1	1	0	1	0	0	0	1	0	0	1	0	0	0	0	0	1	0	1	0	0	0	0	0	1	0	0	0	1
+Spindel_413	S om Byxelkrok	150904	9	Pardosa sp	x	juv	5	5	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_414	S om Byxelkrok	150904	9	Pardosa sp	x	juv	2	2	0.2	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_415	S om Byxelkrok	150904	9	Pardosa sp	x	juv	3	3	0.4	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_416	S om Byxelkrok	150904	9	Pardosa prativaga	f	ad	2	2	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_417	S om Byxelkrok	150904	9	Pardosa sp	m	subad	4	3	0.05	1	1	1	0	1	1	0	1	0	0	0	1	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_418	S om Byxelkrok	150904	9	Pardosa prativaga	f	ad	5	5	1.5	1	1	1	1	1	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0
+Spindel_419	S om Byxelkrok	150904	9	Pardosa sp	x	juv	2	2	1.9	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_420	S om Byxelkrok	150904	9	Pardosa sp	x	juv	2	2	0.6	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_421	S om Byxelkrok	150904	9	Pardosa sp	m	subad	1	1	0.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_422	S om Byxelkrok	150904	9	Pardosa sp	x	juv	4	4	0.05	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_423	S om Byxelkrok	150904	9	Pardosa prativaga	f	ad	5	4	1.1	1	1	1	1	1	1	0	0	0	0	0	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_424	Borga hage	150904	9	Pardosa sp	f	subad	4	4	0.5	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_425	Borga hage	150904	9	Pardosa sp	f	subad	4	4	0.4	1	1	1	0	1	0	0	0	0	0	1	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	1	0	0	0
+Spindel_426	Borga hage	150904	9	Pardosa sp	m	subad	3	3	0.4	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_427	Borga hage	150904	9	Pardosa sp	f	subad	4	4	0.4	1	1	1	1	0	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0
+Spindel_428	Borga hage	150904	9	Pardosa sp	x	juv	1	1	0.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_429	Borga hage	150904	9	Pardosa sp	m	subad	3	3	0.4	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_430	Borga hage	150904	9	Pardosa prativaga	f	ad	2	1	1.2	1	0	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0
+Spindel_431	Borga hage	150904	9	Pardosa prativaga	f	ad	2	2	1.1	1	1	1	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_432	Borga hage	150904	9	Pardosa sp	f	subad	2	2	0.3	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_433	Borga hage	150904	9	Pardosa sp	f	subad	2	2	0.05	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_434	Borga hage	150904	9	Pardosa sp	f	subad	1	1	0.05	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_435	Borga hage	150904	9	Pardosa sp	m	subad	2	2	0.5	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_436	Borga hage	150904	9	Pardosa sp	x	juv	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_437	Borga hage	150904	9	Pardosa sp	f	subad	1	1	0.3	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_438	Borga hage	150904	9	Pardosa sp	m	subad	2	2	0.5	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_439	Borga hage	150904	9	Pardosa sp	m	subad	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_440	Borga hage	150904	9	Pardosa sp	m	subad	1	1	0.4	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_441	Borga hage	150904	9	Pardosa sp	x	juv	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_442	Borga hage	150904	9	Pardosa sp	x	juv	5	4	0.3	1	1	1	1	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_443	Borga hage	150904	9	Pardosa sp	f	subad	3	3	0.4	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_444	Borga hage	150904	9	Pardosa sp	m	subad	2	2	0.4	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_445	Borga hage	150904	9	Pardosa prativaga	f	ad	3	3	0.7	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_446	Borga hage	150904	9	Pardosa sp	f	subad	4	4	0.6	1	1	1	1	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_447	Borga hage	150904	9	Pardosa sp	x	juv	4	4	0.3	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_448	Borga hage	150904	9	Pardosa sp	m	subad	3	3	0.2	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_449	Fagerror	150904	9	Pardosa sp	f	subad	1	1	0.8	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_450	Fagerror	150904	9	Pardosa sp	m	subad	1	1	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_451	Fagerror	150904	9	Pardosa sp	m	subad	2	1	0.5	1	0	1	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_452	Fagerror	150904	9	Pardosa sp	f	subad	3	3	0.7	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_453	Fagerror	150904	9	Pardosa sp	f	subad	1	1	0.6	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_454	Fagerror	150904	9	Pardosa sp	x	juv	2	2	0.5	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_455	Fagerror	150904	9	Pardosa sp	f	subad	4	4	0.9	1	1	1	0	1	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0
+Spindel_456	Fagerror	150904	9	Pardosa sp	f	subad	2	2	0.9	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_457	Fagerror	150904	9	Pardosa sp	f	subad	4	3	0.3	1	1	1	0	1	1	0	0	0	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_458	Fagerror	150904	9	Pardosa sp	x	juv	4	4	0.4	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_459	Fagerror	150904	9	Pardosa sp	x	juv	1	1	0.4	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_460	Fagerror	150904	9	Pardosa sp	x	juv	2	2	0.05	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_461	Fagerror	150904	9	Pardosa sp	m	subad	4	4	0.5	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_462	Fagerror	150904	9	Pardosa sp	m	subad	3	3	0.7	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_463	Fagerror	150904	9	Pardosa sp	m	subad	1	1	0.8	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_464	Fagerror	150904	9	Pardosa sp	f	subad	2	2	0.8	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_465	Fagerror	150904	9	Pardosa sp	m	subad	5	5	0.3	1	1	1	1	0	0	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	1
+Spindel_466	Fagerror	150904	9	Pardosa sp	m	subad	4	4	0.6	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_467	Fagerror	150904	9	Pardosa sp	x	juv	1	1	0.4	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_468	Fagerror	150904	9	Pardosa sp	x	juv	4	4	0.5	1	1	1	0	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_469	Fagerror	150904	9	Pardosa sp	m	subad	1	1	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_470	Fagerror	150904	9	Pardosa sp	m	subad	3	3	0.5	1	1	1	0	1	0	1	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_471	Fagerror	150904	9	Pardosa sp	m	subad	3	3	0.2	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_472	ventlinge	150904	9	Pardosa sp	m	subad	3	3	0.8	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_473	ventlinge	150904	9	Pardosa sp	m	subad	2	2	0.9	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_474	ventlinge	150904	9	Pardosa sp	m	subad	1	1	1.1	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_475	ventlinge	150904	9	Pardosa sp	f	subad	1	1	0.8	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_476	ventlinge	150904	9	Pardosa sp	x	juv	2	2	1.2	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_477	ventlinge	150904	9	Pardosa sp	f	subad	4	4	0.3	1	1	1	1	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_478	ventlinge	150904	9	Pardosa sp	f	subad	2	2	0.8	1	1	1	0	1	0	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_479	ventlinge	150904	9	Pardosa sp	m	subad	2	2	1.1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_480	ventlinge	150904	9	Pardosa sp	f	subad	4	4	1.1	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0
+Spindel_481	ventlinge	150904	9	Pardosa sp	f	subad	3	3	0.8	1	1	1	0	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_482	ventlinge	150904	9	Pardosa sp	f	subad	1	1	0.5	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_483	Skarlov	150904	9	Pardosa sp	x	juv	2	2	0.6	1	1	1	0	0	0	0	0	1	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0
+Spindel_484	Skarlov	150904	9	Pardosa sp	f	subad	2	2	0.4	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_485	Skarlov	150904	9	Pardosa sp	m	subad	2	2	0.5	1	1	1	0	0	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_486	Skarlov	150904	9	Pardosa sp	f	subad	4	4	0.8	1	1	1	0	1	0	0	1	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_487	Skarlov	150904	9	Pardosa sp	f	subad	5	5	1	1	1	1	1	1	0	0	1	0	0	0	0	0	0	1	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_488	Skarlov	150904	9	Pardosa sp	f	subad	4	3	0.5	1	1	1	0	1	1	0	0	0	0	0	0	0	0	1	0	0	0	1	1	0	0	1	0	0	0	0	0	0	0	0	0	0
+Spindel_489	Skarlov	150904	9	Pardosa sp	f	subad	2	2	0.7	1	1	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	1	0	0	0	0	0	0	0	0	0	0	0
+Spindel_490	Skarlov	150904	9	Pardosa sp	f	subad	1	1	0.7	1	0	1	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_491	Skarlov	150904	9	Pardosa sp	m	subad	2	2	0.05	1	1	1	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_492	Skarlov	150904	9	Pardosa sp	f	subad	4	4	0.7	1	1	1	0	1	0	1	0	0	0	0	0	0	0	1	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_493	Skarlov	150904	9	Pardosa sp	x	juv	3	3	0.3	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	0	0	0	0	0	1	0	0	0	0	1	0	0	0	0	0
+Spindel_494	Skarlov	150904	9	Pardosa sp	f	subad	5	5	0.7	1	1	1	1	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0
+Spindel_495	Skarlov	150904	9	Pardosa sp	m	subad	2	2	0.4	1	1	1	0	0	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0	0
+Spindel_496	Skarlov	150904	9	Pardosa sp	f	subad	5	4	0.6	1	1	0	1	1	1	1	0	0	0	0	1	1	0	0	0	0	0	1	0	0	1	0	0	1	0	0	0	0	0	0	0	0
+Spindel_497	Skarlov	150904	9	Pardosa sp	m	subad	5	5	0.8	1	1	1	1	1	0	1	0	0	0	0	0	1	0	1	0	0	0	0	0	0	1	0	0	0	0	0	1	1	0	0	0	0
+Spindel_498	Skarlov	150904	9	Pardosa sp	m	subad	3	3	0.6	0	1	0	0	1	0	1	0	0	0	0	0	1	0	0	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_499	Skarlov	150904	9	Pardosa sp	m	subad	6	6	0.6	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	0	0	0	0	0	0	1	1	0	0	0	0
+Spindel_500	Skarlov	150904	9	Pardosa sp	f	subad	4	4	0.6	1	1	1	0	1	0	1	1	0	0	0	0	0	0	1	1	0	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	1
+Spindel_501	Skarlov	150904	9	Pardosa sp	f	subad	6	6	0.7	1	1	1	0	1	0	1	0	0	0	0	1	1	0	1	0	0	0	0	1	0	0	0	0	0	1	0	0	1	0	0	0	0
+Spindel_502	Skarlov	150904	9	Pardosa sp	m	subad	4	4	0.3	1	1	1	1	1	0	0	0	0	0	0	0	0	0	1	0	0	1	0	1	0	0	0	0	0	0	0	0	1	0	0	0	0
+Spindel_503	Skarlov	150904	9	Pardosa sp	x	juv	5	5	0.6	1	1	1	0	1	0	0	1	0	0	0	1	0	0	1	0	0	0	0	1	0	0	0	0	0	0	0	0	1	0	0	0	1
+Spindel_504	Skarlov	150904	9	Pardosa sp	f	subad	4	4	1	1	1	1	0	1	0	1	0	0	0	0	1	0	0	1	0	0	0	0	0	0	0	0	0	0	0	0	0	1	0	0	0	0

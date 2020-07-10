@@ -1,0 +1,14 @@
+Site	Period	Visit	Sciaridae	Sepsidae	Lepidoptera	Dolichopodidae	Chloropidae	Anthomyidae	Empididae	Coelopidae	Coleoptera	Phoridae	Drosophilidae	Ephydridae	Scatopsidae	Sphaeroceridae	Chironomidae
+Bodudden	1	Bodudden_1	15	0	4	3	0	63	7	0	3	0	0	1	0	0	94
+Borgehage	1	Borgehage_1	9	0	1	1	1	8	1	0	56	2	0	0	0	0	324
+Borgehage	2	Borgehage_2	0	0	17	3	2	11	32	0	17	1	1	1	1	0	1533
+Byxelkrok	1	Byxelkrok_1	3	3	3	0	0	8	7	0	3	5	0	0	0	0	458
+Byxelkrok	2	Byxelkrok_2	12	0	1	6	3	4	5	0	7	3	0	25	1	5	171
+Hogby fyr	1	Hogbyfyr_1	92	0	2	3	2	42	15	8	13	9	0	0	0	2	101
+Hogby fyr	2	Hogbyfyr_2	97	2	1	11	1	35	30	0	1	2	3	0	0	0	18
+Rohalla	1	Rohalla_1	4	0	0	4	0	1	2	0	20	2	0	0	0	0	546
+Rohalla	2	Rohalla_2	18	2	12	14	1	5	55	0	14	21	1	1	1	3	168
+Skarlov	1	Skarlov_1	110	0	0	0	1	9	9	133	15	6	0	0	0	2	19
+Skarlov	2	Skarlov_2	111	478	15	74	5	79	8	23	18	64	25	22	2	11	65
+Ventlinge	1	Ventlinge_1	33	0	0	0	1	20	2	0	82	4	0	1	1	2	408
+Ventlinge	2	Ventlinge_2	11	4	5	18	3	0	12	2	7	5	3	0	0	11	81
