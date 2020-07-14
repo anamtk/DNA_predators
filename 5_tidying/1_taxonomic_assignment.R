@@ -118,7 +118,7 @@ all_bold <- bold1 %>%
 
 #I exported these and assigned taxonomic levels to everything via internet searches
 #export so I can add taxonomic levels to this database
-write.csv(all_bold, here("2_taxonomic_assignment", "taxonomies", "bold.csv"))
+#write.csv(all_bold, here("2_taxonomic_assignment", "taxonomies", "bold.csv"))
 
 #I created a new CSV that includes all the taxonomic levels I compiled from internet
 #searches
@@ -304,9 +304,35 @@ all_IDs %>%
   group_by(ID_level) %>%
   tally()
 
-write.csv(all_IDs, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
+#write.csv(all_IDs, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
 
-#####################
+species_IDs <- all_IDs %>%
+  filter(ID_level == "Species" & Species_bold == "") %>% #133
+  dplyr::select(ASV, Domain, Phylum, Class, Order, Family, Genus, Species) %>%
+  filter(Phylum != "Chordata") #117
+  
+bold_sp <- all_IDs %>%
+  filter(Species == "" & Species_bold != "") %>% #119
+  dplyr::select(ASV, Domain, Phylum, Class, Order, Family_bold, Genus_bold, Species_bold) %>%
+  rename("Family" = "Family_bold",
+         "Genus" = "Genus_bold", 
+         "Species" = "Species_bold") %>%
+  filter(Class != "Mammalia") #100
+
+species_IDs <- species_IDs %>%
+  bind_rows(bold_sp)
+
+write.csv(species_IDs, here("data", "outputs", "1_taxonomic_assignment", "species_taxonomies.csv"))  
+
+
+species_IDs %>%
+  group_by(Species) %>%
+  tally() %>%
+  distinct(Species) %>%
+  tally() #66 species?
+
+  
+####################
 #See how many ASVs are assigned target taxonomies####
 #####################
 
@@ -361,7 +387,7 @@ asv_tax %>% #total by category as well as proportion of total
 #Output File ####
 #####################
 #Write these total ASV assignments by category to a DF for later 
-write.csv(asv_tax, here("data", "outputs", "1_taxonomic_assignment", "all_ASV_tax.csv"))
+#write.csv(asv_tax, here("data", "outputs", "1_taxonomic_assignment", "all_ASV_tax.csv"))
 
 #####################
 #Post-individual BLAST subsetting ####
@@ -414,13 +440,13 @@ taxa_sort %>%
 taxa_order <- taxa_sort %>%
   filter(Order != "")
 
-write.csv(taxa_order, here("data", "outputs", "1_taxonomic_assignment", "order_level_taxa.csv"))
+#write.csv(taxa_order, here("data", "outputs", "1_taxonomic_assignment", "order_level_taxa.csv"))
 
 taxa_family <- taxa_sort %>%
   filter(Family != "")
 
-write.csv(taxa_family, here("data", "outputs", "1_taxonomic_assignment", "family_level_taxa.csv"))
+#write.csv(taxa_family, here("data", "outputs", "1_taxonomic_assignment", "family_level_taxa.csv"))
 
-write.csv(taxa_sort, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies_summed_wIndiv.csv"))
+#write.csv(taxa_sort, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies_summed_wIndiv.csv"))
 
 
