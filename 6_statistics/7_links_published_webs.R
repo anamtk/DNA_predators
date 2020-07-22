@@ -21,34 +21,19 @@ library(emmeans)
 ###########################
 
 ###########################
-# Load and tidy family data
+# Load data
 ###########################
 pal <- read.csv(here("data", "outputs",
                      "5_rarefied_taxonomic_sort",
                      "fam_prey_DNA.csv"))
 
-pal_fam <- pal %>%
-  distinct(Family) %>%
-  tally(name = "fam_richness")
+pub_webs <- read.csv(here("data", "outputs", "6_pub_webs", "pub_webs_per_pred.csv"))
 
-hines_fam <- read.csv(here("data", "outputs",
-                           "6_pub_webs", 
-                           "hines_predation.csv"))
-
-hines_fam <- hines_fam %>%
-  distinct(taxon_Family) %>%
-  tally(name = "fam_richness")
-
-laigle_fam <- read.csv(here("data", "outputs",
-                            "6_pub_webs", 
-                            "laigle_predation.csv"))
-
-laigle_fam <- laigle_fam %>%
-  distinct(Family) %>%
-  tally(name = "fam_richness")
+pub_webs <- pub_webs %>%
+  dplyr::select(-X)
 
 ###########################
-# Load and tidy predation link data
+# Make Palmyra  link data
 ###########################
 
 pal <- pal %>%
@@ -58,104 +43,86 @@ pal <- pal %>%
   group_by(pred_ID) %>%
   tally(name = "links") %>%
   mutate(web = "Palmyra",
-         fam_richness = 69)
-
-hines <- read.csv(here("data", "outputs",
-                       "6_pub_webs", 
-                       "hines_per_pred.csv"))
-
-hines <- hines %>%
-  dplyr::select(-X) %>%
-  rename("pred_ID" = "node_from") %>%
-  mutate(web = "Hines",
-         fam_richness = 84)
-hines$pred_ID <- as.character(hines$pred_ID)
-
-laigle <- read.csv(here("data", "outputs",
-                        "6_pub_webs", 
-                        "laigle_per_pred.csv"))
-
-laigle <- laigle %>%
-  dplyr::select(-X) %>%
-  rename("pred_ID" = "consumer") %>%
-  mutate(web = "Laigle",
-         fam_richness = 22)
-laigle$pred_ID <- as.character(laigle$pred_ID)
+         species_richness = 409,
+         coll_method = "HTS molecular",
+         pub_year = 2020) %>%
+  rename("consumer" = "pred_ID")
 
 ###########################
 # Combine and visualize data
 ###########################
-links <- pal %>%
-  bind_rows(hines) %>%
-  bind_rows(laigle)
-links$web <- as.factor(links$web)
-ggplot(links, aes(x = web, y = links/fam_richness)) +
-  geom_boxplot() + theme_bw()
 
-ggplot(links, aes(x = web, y = links)) +
-  geom_boxplot() + theme_bw() +
-  geom_segment(aes(x = 0.5, xend = 1.5,
-                   y = 84, yend = 84)) +
-  geom_segment(aes(x = 1.5, xend = 2.5,
-                   y = 22, yend = 22)) +
-  geom_segment(aes(x = 2.5, xend = 3.5,
-                   y = 69, yend = 69))
+per_pred <- bind_rows(pal, pub_webs) 
 
-ggplot(links, aes(x = web, y = fam_richness)) +
-  geom_point() + theme_bw()
+per_pred$web <- as.factor(per_pred$web)
+per_pred$coll_method <- as.factor(per_pred$coll_method)
+per_pred$fct_yr <- as.factor(per_pred$pub_year)
+
+###########################
+# links per species by collection type
+###########################
+
+ggplot(per_pred, aes(x = coll_method, y = links)) +
+  geom_boxplot() +
+  theme_bw()
+
+ggplot(per_pred, aes(x = coll_method, y = links/species_richness)) +
+  geom_boxplot() +
+  theme_bw()
+
+ggplot(per_pred, aes(x = pub_year, y = species_richness)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = F) +
+  theme_bw()
+
+ggplot(per_pred, aes(x = pub_year, y = links)) +
+  geom_point() +
+  geom_smooth(method = 'lm', se = F) +
+  theme_bw()
+
+hist(per_pred$links)
+
+pred_sp <- per_pred %>%
+  group_by(web) %>%
+  summarise(predators = n())
+
+per_pred <- per_pred %>%
+  left_join(pred_sp, by = "web")
+
+#these stats are saying - correcting for web size
+#what is the relationship between the number of links
+#and the way in which links were assigned
+
+m1 <- glmmTMB(links ~ coll_method + (1|species_richness),
+              data = per_pred,
+              family = "genpois")
+
+summary(m1)
+plot(allEffects(m1))
+
+em <- emmeans(m1, "coll_method")
+pairs(em)
+
+fit <- simulateResiduals(m1, plot = T)
+testDispersion(fit)
+
 
 ###########################
 # stats with offset
 ###########################
 
-m1 <- glmmTMB(links ~ web,
-              data = links,
-              offset = fam_richness,
-              family = "poisson",
-              REML = FALSE)
+m2 <- glmmTMB(links ~ coll_method + (1|species_richness),
+              data = per_pred,
+              offset = predators,
+              family = "truncated_nbinom2")
 
-m2 <- glmmTMB(links ~ 1,
-              data = links,
-              family = "poisson",
-              offset = fam_richness,
-              REML = FALSE)
 
-AICc(m1, m2)
+summary(m2)
+plot(allEffects(m2))
 
-m1 <- glmmTMB(links ~ web,
-              data = links,
-              offset = fam_richness,
-              family = "poisson")
-
-summary(m1)
-plot(allEffects(m1))
-
-em <- emmeans(m1, "web")
+em <- emmeans(m2, "coll_method")
 pairs(em)
 
-###########################
-# stats without offset
-###########################
-
-m3 <- glmmTMB(links ~ web,
-              data = links,
-              family = "poisson",
-              REML = FALSE)
-
-m4 <- glmmTMB(links ~ 1,
-              data = links,
-              family = "poisson",
-              REML = FALSE)
-
-AICc(m3, m4)
-
-m3 <- glmmTMB(links ~ web,
-              data = links,
-              family = "poisson")
-
-summary(m3)
-plot(allEffects(m3))
-
-em <- emmeans(m3, "web")
-pairs(em)
-
+fit <- simulateResiduals(m2, plot = T)
+testDispersion(fit)
+testUniformity(fit)
