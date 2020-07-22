@@ -8,7 +8,7 @@
 #and extract only predation links from it, attached to the ID for
 #each prey node
 
-#then it needs to summarise those predatin link by predator species
+#then it needs to summarise those predation link by predator species
 
 ###########################
 # Load packages
@@ -17,14 +17,9 @@ library(tidyverse)
 library(ggplot2)
 ###########################
 
-##per_pred_func <- function(predation) {
-#  per_pred <- predation %>%
-#    group_by(node_from, taxon_Family) %>%
-#    tally(name = "links") %>%
-#    group_by(node_from) %>%
-#    summarise(links = n())
-#  return(per_pred)
-#}
+###########################
+# All predation links
+###########################
 
     # path to folder that holds multiple .csv files
 folder <- here("Published_webs", "rmangal")
@@ -58,14 +53,23 @@ for(i in 1:length(nodes)){
   }
 }
 
+###########################
+# Per predator links
+###########################
+
+per_pred <- outTbl %>%
+  group_by(node_from, taxon_Family, species_richness, web) %>%
+  tally(name = "links") %>%
+  group_by(node_from, species_richness, web) %>%
+  summarise(links = n())
 
 ###########################
 # Export data
 ###########################
-write.csv(predation, here("data", "outputs", 
-                          "6_pub_webs", "hines_predation.csv"))
+write.csv(outTbl, here("data", "outputs", 
+                          "6_pub_webs", "pub_webs_predation.csv"))
 
 write.csv(per_pred, here("data", "outputs", 
-                         "6_pub_webs", "hines_per_pred.csv"))
+                         "6_pub_webs", "pub_webs_per_pred.csv"))
 
 
