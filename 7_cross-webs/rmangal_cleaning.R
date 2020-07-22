@@ -39,7 +39,7 @@ for(i in 1:length(nodes)){
   predation <- interaction %>%
      dplyr::select(node_from, node_to, type, method) %>%
      filter(type == "predation") %>%
-     left_join(node, by = c("node_to" = "node_id"))
+     left_join(node, by = c("node_from" = "node_id"))
   
   ## Get web ID
   underscores <- str_locate_all(nodes[i], "s_")[[1]]
@@ -53,23 +53,17 @@ for(i in 1:length(nodes)){
   }
 }
 
-###########################
-# Per predator links
-###########################
-
-per_pred <- outTbl %>%
-  group_by(node_from, taxon_Family, species_richness, web) %>%
-  tally(name = "links") %>%
-  group_by(node_from, species_richness, web) %>%
-  summarise(links = n())
+outTbl <- outTbl %>%
+  dplyr::select(node_from, node_to, type, method, original_name,
+                taxon_Kingdom, taxon_Class, taxon_Order, taxon_Family, 
+                taxonomy.name, species_richness, web) %>%
+  rename("consumer" = "node_to",
+         "resource" = "node_from")
 
 ###########################
 # Export data
 ###########################
 write.csv(outTbl, here("data", "outputs", 
-                          "6_pub_webs", "pub_webs_predation.csv"))
-
-write.csv(per_pred, here("data", "outputs", 
-                         "6_pub_webs", "pub_webs_per_pred.csv"))
+                          "6_pub_webs", "rmangal_webs_predation.csv"))
 
 
