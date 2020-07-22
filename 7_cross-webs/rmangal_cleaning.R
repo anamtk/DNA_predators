@@ -17,48 +17,48 @@ library(tidyverse)
 library(ggplot2)
 ###########################
 
-#need to break this into two for the lapply
+##per_pred_func <- function(predation) {
+#  per_pred <- predation %>%
+#    group_by(node_from, taxon_Family) %>%
+#    tally(name = "links") %>%
+#    group_by(node_from) %>%
+#    summarise(links = n())
+#  return(per_pred)
+#}
 
-#function 1. subset predation interactions
+    # path to folder that holds multiple .csv files
+folder <- here("Published_webs", "rmangal")
+nodes <- list.files(path=folder, pattern="nodes*", recursive = T, full.names = T) # create list of all .csv files in folder
+interactions <- list.files(path=folder, pattern="interactions*", recursive = T, full.names = T)
+#webs <- list(ints, nodes)
 
-#Function 2. bind to the nodes file
+for(i in 1:length(nodes)){
+  ## Get only the relevant .csvs in each pair
+  node <- read.csv(nodes[i])
+  interaction <- read.csv(interactions[i])
+  
+  ## Manipulate and merge
+  node <- node %>%
+    add_tally(name = "species_richness")
+  
+  predation <- interaction %>%
+     dplyr::select(node_from, node_to, type, method) %>%
+     filter(type == "predation") %>%
+     left_join(node, by = c("node_to" = "node_id"))
+  
+  ## Get web ID
+  underscores <- str_locate_all(nodes[i], "s_")[[1]]
+  predation$web <- as.character(str_sub(nodes[i], start = underscores[nrow(underscores),2]+1, end = -5))
 
-#Function 3. compute per predator species links
-
-pred_func <- function(interactions, nodes) {
-  predation <- interactions %>%
-    dplyr::select(node_from, node_to, type, method) %>%
-    filter(type == "predation") %>%
-    left_join(nodes, by = c("node_to" = "node_id"))
-  return(predation)
+  ## Add to output tbl
+  if(i == 1){
+    outTbl <- predation
+  }else{
+    outTbl <- bind_rows(outTbl, predation)
+  }
 }
 
-per_pred_func <- function(predation) {
-  per_pred <- predation %>%
-    group_by(node_from, taxon_Family) %>%
-    tally(name = "links") %>%
-    group_by(node_from) %>%
-    summarise(links = n())
-  return(per_pred)
-}
 
-
-files <- list.files(path="path/to/dir", pattern="*.txt", full.names=TRUE, recursive=FALSE)
-lapply(files, function(x) {
-  t <- read.table(x, header=TRUE) # load file
-  # apply function
-  out <- function(t)
-    # write to file
-    write.table(out, "path/to/output", sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
-})
-
-hines_int <- read.csv(here("Published_webs", "final_cut", "hines_2019", "interactions_hines.csv"))
-
-hines_node <- read.csv(here("Published_webs", "final_cut", "hines_2019", "nodes_hines.csv"))
-
-hines_pred <- pred_func(hines_int, hines_node)
-
-hines_per_pred <- per_pred_func(hines_pred)
 ###########################
 # Export data
 ###########################
