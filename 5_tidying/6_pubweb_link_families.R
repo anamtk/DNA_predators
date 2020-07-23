@@ -88,28 +88,30 @@ all_fam <- bind_rows(pal, pub) %>%
 all_fam$tp <- factor(all_fam$tp, levels = c("herbivore", "detritovore", "omnivoreno",
                                             "omnivoreyes", "parasite", "parasitoid", "predator"))
 
-all_fam$tl <- ifelse(all_fam$tp == "herbivore", 1,
-                     ifelse(all_fam$tp == "detritovore", 1,
-                            ifelse(all_fam$tp == "omnivoreno", 1,
-                                   ifelse(all_fam$tp == "omnivoreyes", 2,
-                                          ifelse(all_fam$tp == "parasite", 3, 4)))))
+all_fam$tl <- ifelse(all_fam$tp == "herbivore", 2,
+                     ifelse(all_fam$tp == "detritovore", 2,
+                            ifelse(all_fam$tp == "omnivoreno", 2,
+                                   ifelse(all_fam$tp == "omnivoreyes", 3,
+                                          ifelse(all_fam$tp == "parasite", 4, 5)))))
 
-all_fam$broad_tl <- ifelse(all_fam$broad_tp == "basal", 1,
-                           ifelse(all_fam$broad_tp == "omnivorous", 2, 
-                                  ifelse(all_fam$broad_tp =="", NA, 3)))
+all_fam$broad_tl <- ifelse(all_fam$broad_tp == "basal", 2,
+                           ifelse(all_fam$broad_tp == "omnivorous", 3, 
+                                  ifelse(all_fam$broad_tp =="", NA, 4)))
 ###########################
 # Quick Vis
 ###########################
 
-all_fam %>%
+all_1 <- all_fam %>%
   group_by(coll_method) %>%
-  summarise(mean = mean(tl, na.rm=T), 
+  summarise(mean_tl = mean(tl, na.rm=T), 
             total = n(), 
-            sd = sd(tl, na.rm=T), 
-            se = sd/sqrt(total)) #%>%
-  ggplot(aes(x = coll_method, y = mean)) +
+            sd = sd(tl, na.rm =T), 
+            se = sd/sqrt(total))
+  
+ggplot(all_1, aes(x = coll_method, y = mean_tl)) +
   geom_point() +
-  geom_errorbar(ymin = mean - se, ymax = mean + se) +
+  geom_errorbar(aes(ymin = mean_tl - se, ymax = mean_tl + se), width = 0.2) +
+  labs(x = "Diet assignment method", y = "Literature Trophic Position") +
   theme_bw()
 
 ggplot(all_fam, aes(x = coll_method, y = broad_tl)) +
