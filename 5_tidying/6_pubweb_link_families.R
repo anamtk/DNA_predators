@@ -62,12 +62,17 @@ pub <- pub %>%
   dplyr::select(-X, -type, -taxonomy.name, -taxon_Kingdom,
                 -taxon_Class, -taxon_Order, )
 
+pal %>%
+  distinct(Family) %>%
+  tally(name = "family_richness")
+
 pal <- pal %>%
   group_by(pred_ID, Family) %>%
   summarise(reads = sum(reads)) %>%
   filter(reads > 0) %>%
   mutate(web = "Palmyra",
          species_richness = 409,
+         family_richness = 69,
          coll_method = "HTS molecular",
          pub_year = 2020,
          original_name = Family,
@@ -80,6 +85,13 @@ all_fam <- bind_rows(pal, pub) %>%
   left_join(all_fams, by = "taxon_Family") %>%
   dplyr::select(-X) %>%
   unite(tp, trophic_group, predatory_omnivory, sep = "", remove = FALSE)
+
+all_fam %>%
+  distinct(web, species_richness, family_richness) %>%
+ggplot(aes(x = species_richness, y = family_richness)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se =F) +
+  theme_bw()
 
 ###########################
 # Create trophic position variables
@@ -132,22 +144,7 @@ all_fam %>%
   scale_y_log10()
 
 ###########################
-# Quick stats
+# Export
 ###########################
 
-tp_df <- all_fam %>%
-  group_by(consumer, web, coll_method, species_richness, broad_tp) %>%
-  summarise(count = n()) %>%
-  mutate(log_sp_rich = log(species_richness))
-
-m1 <- glmmTMB(count ~ broad_tp + offset(log_sp_rich) + (1|coll_method),
-              data = tp_df,
-              family = "genpois")
-
-summary(m1)
-plot(allEffects(m1))
-
-library(ggeffects)
-
-me <- ggpredict(m1, terms = c("broad_tp", "coll_method"), type = "re")
-plot(me)
+write.csv(all_fam, here("data", "outputs", "7_all_webs", "all_interactions_and_tp.csv"))
