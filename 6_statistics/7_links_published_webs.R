@@ -167,3 +167,32 @@ plot(me) +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1))
 
+
+###########################
+# stats: links for HTS vs published methods with log transformed family richness
+###########################
+#what is the relationship between web collection method
+#on the number of links per predator species if we take
+#into account that these come from webs of different sizes?
+per_pred <- per_pred %>%
+  mutate(log_fam_rich = log(family_richness))
+
+m3 <- glmmTMB(links ~ coll_method + log_fam_rich + (1|web),
+              data = per_pred,
+              family = "genpois")
+
+summary(m3)
+plot(allEffects(m3))
+
+em <- emmeans(m3, "coll_method")
+pairs(em)
+
+fit <- simulateResiduals(m3, plot = T)
+testDispersion(fit)
+
+me <- ggpredict(m3, terms = c("coll_method"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
