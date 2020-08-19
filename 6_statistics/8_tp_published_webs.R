@@ -11,17 +11,17 @@
 #predation in food web ecology
 
 #############################
-#Load packages
-library(here)
-library(tidyverse)
-library(ggplot2)
-library(glmmTMB)
-library(DHARMa)
-library(MuMIn)
-library(effects)
-library(emmeans)
-library(ggeffects)
-library(vegan)
+## Bring in Necessary Packages
+package.list <- c("here", "tidyverse", "ggplot2", "glmmTMB", "DHARMa", 
+                  "MuMIn", "effects", "emmeans", "ggeffects")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
+
 #############################
 
 #note, it may be important to break this analysis up
@@ -106,7 +106,7 @@ bt_pred <- links_btp %>%
 bt_basal <- bt_basal %>%
   mutate(log_basal = log(basal))
 
-m1 <- glmmTMB(link_number ~ coll_method + log_basal + (1|web),
+m1 <- glmmTMB(link_number ~ coll_method + offset(log(basal)) + (1|web),
               data = bt_basal,
               family = "nbinom2")
 
@@ -126,4 +126,65 @@ plot(me) +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1))
 
+###########################
+# omni TP analysis
+###########################
+bt_omni <- bt_omni %>%
+  mutate(log_omni = log(omnivorous))
+
+m1 <- glmmTMB(link_number ~ coll_method  + (1|web),
+              data = bt_omni,
+              offset = log(omnivorous),
+              family = "genpois")
+
+summary(m1)
+plot(allEffects(m1))
+
+em <- emmeans(m1, "coll_method")
+pairs(em)
+
+fit <- simulateResiduals(m1, plot = T) 
+testUniformity(fit)
+testDispersion(fit)
+
+m1 <- glmmTMB(link_number ~ coll_method + offset(log(omnivorous)) + (1|web),
+              data = bt_omni,
+              family = "genpois")
+
+me <- ggpredict(m1, terms = c("coll_method"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted omnivore links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+###########################
+# pred TP analysis
+###########################
+bt_pred <- bt_pred %>%
+  mutate(log_pred = log(predatory))
+
+m1 <- glmmTMB(link_number ~ coll_method  + (1|web),
+              data = bt_pred,
+              offset = log(predatory),
+              family = "nbinom2")
+
+summary(m1)
+plot(allEffects(m1))
+
+em <- emmeans(m1, "coll_method")
+pairs(em)
+
+fit <- simulateResiduals(m1, plot = T) 
+testUniformity(fit)
+testDispersion(fit)
+
+m1 <- glmmTMB(link_number ~ coll_method + offset(log(predatory)) + (1|web),
+              data = bt_pred,
+              family = "genpois")
+
+me <- ggpredict(m1, terms = c("coll_method"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted predatory links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
