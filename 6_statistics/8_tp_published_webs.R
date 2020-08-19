@@ -58,7 +58,7 @@ links_btp <- links %>%
   tally(name = "link_number") 
 
 ###########################
-# other vis
+# total link by broad TP, and total number of each tidying
 ###########################
 links_btp <- links_btp %>%
   filter(broad_tp != "")
@@ -87,3 +87,43 @@ links_btp <- links_btp %>%
 
 ggplot(links_btp, aes(x = coll_method, y = link_number/total_link_number, fill = broad_tp)) +
   geom_boxplot() + theme_bw()
+
+###########################
+# subset different TP for analyses
+###########################
+bt_basal <- links_btp %>%
+  filter(broad_tp == "basal")
+
+bt_omni <- links_btp %>%
+  filter(broad_tp == "omnivorous")
+
+bt_pred <- links_btp %>%
+  filter(broad_tp == "predatory")
+
+###########################
+# basal TP analysis
+###########################
+bt_basal <- bt_basal %>%
+  mutate(log_basal = log(basal))
+
+m1 <- glmmTMB(link_number ~ coll_method + log_basal + (1|web),
+              data = bt_basal,
+              family = "nbinom2")
+
+summary(m1)
+plot(allEffects(m1))
+
+em <- emmeans(m1, "coll_method")
+pairs(em)
+
+fit <- simulateResiduals(m1, plot = T) 
+testUniformity(fit)
+testDispersion(fit)
+
+me <- ggpredict(m1, terms = c("coll_method"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted basal links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+
