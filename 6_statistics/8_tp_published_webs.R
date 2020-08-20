@@ -104,11 +104,14 @@ bt_pred <- links_btp %>%
 # basal TP analysis
 ###########################
 bt_basal <- bt_basal %>%
-  mutate(log_basal = log(basal))
+  mutate(log_basal = log(basal),
+         proportion = link_number/total_link_number)
 
-m1 <- glmmTMB(link_number ~ coll_method + offset(log(basal)) + (1|web),
+m1 <- glmmTMB(link_number ~ coll_method + log_basal + (1|web),
               data = bt_basal,
+              offset= log(total_link_number),
               family = "nbinom2")
+
 
 summary(m1)
 plot(allEffects(m1))
@@ -120,7 +123,30 @@ fit <- simulateResiduals(m1, plot = T)
 testUniformity(fit)
 testDispersion(fit)
 
+m1 <- glmmTMB(link_number ~ coll_method + log_basal + offset(log(total_link_number))+ (1|web),
+              data = bt_basal,
+              family = "nbinom2")
+
 me <- ggpredict(m1, terms = c("coll_method"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted basal links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+#proportional model
+
+m2 <- glmmTMB(proportion ~ coll_method + (1|web),
+              data = bt_basal,
+              weights = total_link_number,
+              family = "binomial")
+
+summary(m2)
+plot(allEffects(m2))
+em <- emmeans(m2, "coll_method")
+pairs(em)
+fit <- simulateResiduals(m2, plot = T) 
+
+me <- ggpredict(m2, terms = c("coll_method"))
 plot(me) +
   labs(x = "Link assignment method", y = "Predicted basal links per predator species") +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
@@ -130,7 +156,8 @@ plot(me) +
 # omni TP analysis
 ###########################
 bt_omni <- bt_omni %>%
-  mutate(log_omni = log(omnivorous))
+  mutate(log_omni = log(omnivorous),
+         proportion = link_number/total_link_number)
 
 m1 <- glmmTMB(link_number ~ coll_method  + (1|web),
               data = bt_omni,
@@ -157,13 +184,34 @@ plot(me) +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1))
 
+#binomial propprtion model
+m2 <- glmmTMB(proportion ~ coll_method + (1|web),
+              data = bt_omni,
+              weights = total_link_number,
+              family = "binomial")
+
+summary(m2)
+plot(allEffects(m2))
+em <- emmeans(m2, "coll_method")
+pairs(em)
+fit <- simulateResiduals(m2, plot = T) 
+
+me <- ggpredict(m2, terms = c("coll_method"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted basal links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+
 ###########################
 # pred TP analysis
 ###########################
 bt_pred <- bt_pred %>%
-  mutate(log_pred = log(predatory))
+  mutate(log_pred = log(predatory),
+         proportion = link_number/total_link_number,
+         web_type = ifelse(coll_method == "HTS molecular", "HTS", "literature")) 
 
-m1 <- glmmTMB(link_number ~ coll_method  + (1|web),
+m1 <- glmmTMB(link_number ~ web_type  + (1|web),
               data = bt_pred,
               offset = log(predatory),
               family = "nbinom2")
@@ -171,7 +219,7 @@ m1 <- glmmTMB(link_number ~ coll_method  + (1|web),
 summary(m1)
 plot(allEffects(m1))
 
-em <- emmeans(m1, "coll_method")
+em <- emmeans(m1, "web_type")
 pairs(em)
 
 fit <- simulateResiduals(m1, plot = T) 
@@ -187,4 +235,53 @@ plot(me) +
   labs(x = "Link assignment method", y = "Predicted predatory links per predator species") +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1))
+
+#binomial propprtion model
+m2 <- glmmTMB(proportion ~ web_type + (1|web) + (1|coll_method),
+              data = bt_pred,
+              weights = total_link_number,
+              family = "betabinomial")
+
+summary(m2)
+plot(allEffects(m2))
+em <- emmeans(m2, "coll_method")
+pairs(em)
+fit <- simulateResiduals(m2, plot = T) 
+
+me <- ggpredict(m2, terms = c("web_type"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted basal links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(bt_pred, aes(x = web_type, y = proportion)) +
+  geom_boxplot() +theme_bw()
+
+
+###########################
+# bayesian explorations
+###########################
+install.packages("MCMCglmm")
+library(MCMCglmm)
+
+m1 <- glmmTMB(link_number ~ coll_method + offset(log(predatory)) + (1|web),
+              data = bt_pred,
+              family = "genpois")
+
+mod = MCMCglmm(log(Species+1) ~ log(Area) + log(Elev+1) + Temp +
+                 log(number.islands) + log(distance) + log(age), random = ~Archipelago,
+               data = islands.sub)
+
+mb <- MCMCglmm(link_number ~ coll_method + log(total_link_number), 
+               random = ~web,
+               data = bt_pred)
+
+plot(mb$Sol[,1])
+
+acfplot(mb$VCV)
+
+summary(mb)
+
+?MCMCglmm
+
 
