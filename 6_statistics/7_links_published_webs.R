@@ -10,16 +10,17 @@
 
 ###########################
 # Load packages
-library(here)
-library(tidyverse)
-library(ggplot2)
-library(glmmTMB)
-library(DHARMa)
-library(MuMIn)
-library(effects)
-library(emmeans)
-library(ggeffects)
-###########################
+package.list <- c("here", "tidyverse", "ggplot2", "glmmTMB", "DHARMa", 
+                  "MuMIn", "effects", "emmeans", "ggeffects")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
+#############################
+
 
 ###########################
 # Load data
@@ -95,6 +96,11 @@ ggplot(per_pred, aes(x = web_type, y = links, fill = coll_method)) +
   geom_vline(xintercept = 1.5, color = "grey") +
   theme_bw()
 
+ggplot(per_pred, aes(x = web_type, y = links/family_richness, fill = coll_method)) +
+  geom_boxplot() +
+  geom_vline(xintercept = 1.5, color = "grey") +
+  theme_bw()
+
 ggplot(per_pred, aes(x = web_type, y = links)) +
   geom_boxplot() +
   theme_bw()
@@ -112,10 +118,12 @@ hist(per_pred$links)
 #what is the relationship between web collection method
 #on the number of links per predator species if we take
 #into account that these come from webs of different sizes?
+hist(log(per_pred$links))
 
-m2 <- glmmTMB(links ~ coll_method + web_sz_fam + (1|web),
+m2 <- glmmTMB(links ~ coll_method  + (1|web),
               data = per_pred,
-              family = "genpois")
+              offset = log(family_richness),
+              family = "nbinom2")
 
 summary(m2)
 plot(allEffects(m2))
@@ -123,11 +131,13 @@ plot(allEffects(m2))
 em <- emmeans(m2, "coll_method")
 pairs(em)
 
-em <- emmeans(m2, "web_sz_fam")
-pairs(em)
-
 fit <- simulateResiduals(m2, plot = T) #KS test significant
 testUniformity(fit) 
+testDispersion(fit)
+
+m2 <- glmmTMB(links ~ coll_method  + offset(log(family_richness)) + (1|web),
+              data = per_pred,
+              family = "nbinom2")
 
 me <- ggpredict(m2, terms = c("coll_method"))
 plot(me) +
@@ -135,36 +145,27 @@ plot(me) +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1))
 
-
 ###########################
-# stats: links for HTS vs published methods with log transformed family richness
+# stats: links for HTS vs published methods without family_richness
 ###########################
-#what is the relationship between web collection method
-#on the number of links per predator species if we take
-#into account that these come from webs of different sizes?
-#correcting for the weird KS test by log transforming family
-#richness
 
-per_pred <- per_pred %>%
-  mutate(log_fam_rich = log(family_richness))
-
-m3 <- glmmTMB(links ~ coll_method + log_fam_rich + (1|web),
+m2 <- glmmTMB(links ~ coll_method  + (1|web),
               data = per_pred,
               family = "genpois")
 
-summary(m3)
-plot(allEffects(m3))
 
-em <- emmeans(m3, "coll_method")
+summary(m2)
+plot(allEffects(m2))
+
+em <- emmeans(m2, "coll_method")
 pairs(em)
 
-fit <- simulateResiduals(m3, plot = T) #better but still outlier test, do I care?
-testUniformity(fit)
+fit <- simulateResiduals(m2, plot = T) #KS test significant
+testUniformity(fit) 
+testDispersion(fit)
 
-me <- ggpredict(m3, terms = c("coll_method"))
+me <- ggpredict(m2, terms = c("coll_method"))
 plot(me) +
   labs(x = "Link assignment method", y = "Predicted links per predator species") +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1))
-
-
