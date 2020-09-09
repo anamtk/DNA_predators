@@ -151,7 +151,7 @@ plot(me) +
 
 m2 <- glmmTMB(links ~ coll_method  + (1|web),
               data = per_pred,
-              family = "genpois")
+              family = "truncated_nbinom2")
 
 
 summary(m2)
@@ -159,6 +159,7 @@ plot(allEffects(m2))
 
 em <- emmeans(m2, "coll_method")
 pairs(em)
+
 
 fit <- simulateResiduals(m2, plot = T) #KS test significant
 testUniformity(fit) 
@@ -169,3 +170,31 @@ plot(me) +
   labs(x = "Link assignment method", y = "Predicted links per predator species") +
   theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
         axis.text.x = element_text(angle = 45, hjust = 1))
+
+###########################
+# stats: links for HTS vs published methods new webs only
+###########################
+new_pre_pred <- per_pred %>%
+  filter(pub_year > 2000)
+
+m2 <- glmmTMB(links ~ web_type + (1|web),
+              data = new_per_pred,
+              family = "truncated_genpois")
+
+
+summary(m2)
+plot(allEffects(m2))
+
+fit <- simulateResiduals(m2, plot = T) #KS test significant
+testUniformity(fit) 
+testDispersion(fit)
+
+me <- ggpredict(m2, terms = c("web_type"))
+plot(me) +
+  labs(x = "Link assignment method", y = "Predicted links per predator species") +
+  theme(axis.title = element_text(size = 15), axis.text = element_text(size = 10),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+ggplot(new_per_pred, aes(x = web_type, y = links)) +
+  geom_boxplot() +
+  theme_bw()
