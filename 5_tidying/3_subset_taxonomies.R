@@ -311,7 +311,14 @@ ggplot(pred_reads, aes(x = number, y = reads)) +
 other_DNA <- taxa_comm %>%
   anti_join(known_pred, by = c("sample", "ASV"))
 
+other_DNA_conservative <- taxa_comm %>%
+  anti_join(known_pred, by = c("sample", "ASV")) %>%
+  anti_join(other_pred, by = c("sample", "ASV"))
+
 prey_fam <- other_DNA %>%
+  filter(Family != "")
+
+prey_fam_conservative <- other_DNA_conservative %>%
   filter(Family != "")
 
 prey_ord <- other_DNA %>%
@@ -326,5 +333,7 @@ write.csv(known_pred, here("data", "outputs", "5_rarefied_taxonomic_sort", "pred
 write.csv(other_DNA, here("data", "outputs", "5_rarefied_taxonomic_sort", "all_prey_DNA.csv"))
 
 write.csv(prey_fam, here("data", "outputs", "5_rarefied_taxonomic_sort", "fam_prey_DNA.csv"))
+
+write.csv(prey_fam_conservative, here("data", "outputs", "5_rarefied_taxonomic_sort", "fam_prey_DNA_conservative.csv"))
 
 write.csv(prey_ord, here("data", "outputs", "5_rarefied_taxonomic_sort", "ord_prey_DNA.csv"))
