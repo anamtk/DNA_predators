@@ -129,24 +129,7 @@ m1 <- glmmTMB(ratio ~ Feeding_mode + (1|pred_ID),
               data=pred_prey)
 summary(m1)
 
-ggplot(pred_prey, aes(x = Pred_Length, y = Prey_Length, color = pred_ID)) +
-  geom_abline(intercept = 0, slope = 1) +
-  geom_point(size = 2) +
-  scale_color_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a", 
-                                "#33a02c", "#fb9a99", "#e31a1c", 
-                                "#fdbf6f", "#ff7f00")) +
-  theme_bw()
-
-ggplot(pred_prey, aes(x = Pred_Length, y = Prey_Length, color = pred_ID)) +
-  geom_abline(intercept = 0, slope = 1) +
-  geom_point(size = 2) +
-  geom_smooth(method = "lm", se = F) +
-  scale_color_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a", 
-                                "#33a02c", "#fb9a99", "#e31a1c", 
-                                "#fdbf6f", "#ff7f00")) +
-  theme_bw()
-
-ggplot(pred_prey, aes(x = log(Pred_Length), y = log(Prey_Length), color = pred_ID)) +
+ggplot(pred_prey, aes(x = log(Pred_Length), y = log(Prey_Length), color = Feeding_mode)) +
   geom_abline(intercept = 0, slope = 1) +
   geom_point(size = 2) +
   geom_smooth(method = "lm", se=F) +
@@ -170,16 +153,6 @@ ggplot(pred_prey, aes(x = log(Pred_Length), y = log(Prey_Length), color = Feedin
   geom_smooth(method = "lm", se =F) +
   theme_bw()
 
-ggplot(pred_prey, aes(x = Feeding_mode, y = Prey_Length, fill = Feeding_mode)) +
-  geom_boxplot() +
-  scale_fill_manual(values = c("#a6cee3", "#1f78b4")) +
-  theme_bw()
-
-ggplot(pred_prey, aes(x = Pred_Length, y = Prey_Length)) +
-  geom_point(size = 2) +
-  geom_smooth(method = "lm", se =F) +
-  theme_bw()
-
 ggplot(pred_prey, aes(x = Feeding_mode, y = Pred_Length/Prey_Length, fill = Feeding_mode)) +
   geom_boxplot() +
   geom_hline(yintercept = 1, linetype = "dashed") +
@@ -187,14 +160,6 @@ ggplot(pred_prey, aes(x = Feeding_mode, y = Pred_Length/Prey_Length, fill = Feed
   theme_bw() +
   scale_y_log10()
  
-ggplot(pred_prey, aes(x = pred_ID, y = Prey_Length/Pred_Length, color = Feeding_mode)) +
-  geom_point(size = 2) +
-  scale_color_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a", 
-                                "#33a02c", "#fb9a99", "#e31a1c", 
-                                "#fdbf6f", "#ff7f00", "#cab2d6")) +
-  geom_smooth(method = "lm", se=F) +
-  theme_bw()
-
 ggplot(pred_prey, aes(x = Pred_Length, fill = Feeding_mode)) +
   geom_histogram(position = "dodge", binwidth = 1) +theme_bw()
 
@@ -227,45 +192,16 @@ sp_pred_prey <- sp_pred %>%
   filter(pred_ID != "Euborellia annulipes") %>%
   filter(Prey_Length < 73)
 
-ggplot(sp_pred_prey, aes(x = Pred_Length, y = Prey_Length, color = pred_ID)) +
-  geom_point()
-
-sp_pred_prey %>%
-  group_by(pred_ID, Pred_Length) %>%
-  summarise(richness = n()) %>%
-  ggplot(aes(x = Pred_Length, y = richness)) +
-  geom_point()
-
 #interaction frequency
 freq <- sp_pred_prey %>%
   group_by(pred_ID, Family, Pred_Length, Prey_Length) %>%
   summarise(frequency = n()) %>%
   left_join(pred_mode, by = "pred_ID")
 
-ggplot(freq, aes(x = Pred_Length/Prey_Length, y = frequency)) +
-  geom_point(size = 2) +
-  geom_vline(xintercept = 1, linetype = "dashed") +
-  geom_vline(xintercept = 1.5, linetype = "dashed") +
-  geom_vline(xintercept = 0.5, linetype = "dashed") +
-  theme_bw()
-
 ggplot(freq, aes(x = Pred_Length/Prey_Length, y = frequency, color = Feeding_mode)) +
   geom_point(size = 2) +
   geom_vline(xintercept = 1, linetype = "dashed") +
-  theme_bw()
-
-ggplot(freq, aes(x = Pred_Length/Prey_Length, y = frequency, color = pred_ID)) +
-  geom_point(size = 2) +
-  geom_smooth(method = "lm", se = F) +
-  geom_vline(xintercept = 1, linetype = "dashed") +
-  theme_bw() +
-  scale_x_log10() +
-  facet_wrap(~pred_ID)
-
-ggplot(freq, aes(x = Pred_Length/Prey_Length, y = frequency, color = Feeding_mode)) +
-  geom_point(size = 2) +
-  geom_smooth(method = "lm", se = F) +
-  geom_vline(xintercept = 1, linetype = "dashed") +
+  scale_color_manual(values = c("#a6cee3", "#1f78b4")) +
   theme_bw() +
   scale_x_log10() +
   facet_wrap(~Feeding_mode)
@@ -276,101 +212,10 @@ freq_overlap <- freq %>%
 ggplot(freq_overlap, aes(x = Pred_Length/Prey_Length, y = frequency, color = Feeding_mode)) +
   geom_point(size = 2) +
   geom_vline(xintercept = 1, linetype = "dashed") +
-  theme_bw()
-
-#TP
-
-tp <- tp %>%
-  dplyr::select(taxon_Family, broad_tp)
-
-tp_ints <- pred_prey %>%
-  left_join(tp, by = c("Family" = "taxon_Family")) %>%
-  distinct(sample, pred_ID, Family, Pred_Length, Feeding_mode, Prey_Length, broad_tp)
-
-ggplot(tp_ints, aes(x = broad_tp, y = Pred_Length)) +
-  geom_boxplot() +theme_bw() +
-  scale_y_log10()
-
-ggplot(tp_ints, aes(x = broad_tp, y = Prey_Length)) +
-  geom_boxplot() +theme_bw() +
-  scale_y_log10()
-
-ggplot(tp_ints, aes(x = broad_tp, y = Pred_Length)) +
-  geom_boxplot() +theme_bw() +
-  facet_wrap(~ Feeding_mode)
-
-tp_ints_freq <- tp_ints %>%
-  filter(Pred_Length >= 2 & Pred_Length <= 12) %>%
-  group_by(pred_ID, Feeding_mode, broad_tp) %>%
-  summarise(frequency = n()) %>%
-  ungroup() %>%
-  add_row(pred_ID = "Keijia mneon", Feeding_mode = "web", 
-          broad_tp = "omnivorous", frequency = 0)
-
-tp_total <- tp_ints_freq %>%
-  group_by(pred_ID) %>%
-  summarise(total = sum(frequency))
-
-tp_ints_freq <- tp_ints_freq %>%
-  left_join(tp_total, by = "pred_ID")
-
-ggplot(tp_ints_freq, aes(x = broad_tp, y = frequency/total, fill = Feeding_mode)) +
-  geom_boxplot() +
-  theme_bw()
-
-a <- tp_ints %>%
-  ungroup() %>%
-  group_by(sample, Feeding_mode, Pred_Length, broad_tp) %>%
-  summarise(total_tp = n())
-
-a$broad_tp <- as.factor(a$broad_tp)
-
-a <- complete(a, sample, broad_tp, fill = list(total_tp=0)) 
-
-total <- a %>%
-  group_by(sample) %>%
-  summarise(total = sum(total_tp))
-
-a <- a %>%
-  left_join(total, by = "sample") %>%
-  mutate(proportion = total_tp/total)
-
-ggplot(a, aes(x = Pred_Length, y = proportion, color = Feeding_mode)) +
-  geom_point() +
+  scale_color_manual(values = c("#a6cee3", "#1f78b4")) +
   theme_bw() +
-  facet_wrap(~broad_tp)
-
-a_overlap <- a %>%
-  filter(Pred_Length >= 2 & Pred_Length <= 12)
-
-
-ggplot(a_overlap, aes(x = Pred_Length, y = proportion, color = Feeding_mode)) +
-  geom_point() +
-  theme_bw() +
-  facet_wrap(~broad_tp)
-
-#diet richness
-diet_richness <- pred_prey %>%
-  group_by(sample, pred_ID, Pred_Length, Feeding_mode) %>%
-  summarise(richness = n())
-
-ggplot(diet_richness, aes(x = Pred_Length, y = richness, color = pred_ID)) +
-  geom_point() +
-  geom_smooth(method = "lm", se=F) +
-  theme_bw()
-
-ggplot(diet_richness, aes(x = Pred_Length, y = richness, color = Feeding_mode)) +
-  geom_point() +
-  geom_smooth(method = "lm", se=F) +
-  theme_bw()
-
-rich_overlap <- diet_richness %>%
-  filter(Pred_Length >= 2 & Pred_Length <= 12)
-
-ggplot(rich_overlap, aes(x = Pred_Length, y = richness, color = Feeding_mode)) +
-  geom_point() +
-  geom_smooth(method = "lm", se=F) +
-  theme_bw()
+  scale_x_log10() +
+  facet_wrap(~Feeding_mode)
 
 
 
