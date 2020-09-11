@@ -132,7 +132,6 @@ summary(m1)
 ggplot(pred_prey, aes(x = log(Pred_Length), y = log(Prey_Length), color = Feeding_mode)) +
   geom_abline(intercept = 0, slope = 1) +
   geom_point(size = 2) +
-  geom_smooth(method = "lm", se=F) +
   scale_color_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a", 
                                 "#33a02c", "#fb9a99", "#e31a1c", 
                                 "#fdbf6f", "#ff7f00")) +
