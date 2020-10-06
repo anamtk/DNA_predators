@@ -43,7 +43,7 @@ tp <- read.csv(here("data", "outputs", "7_all_webs",
 #############################
 
 #prey size data from FW project subset with important factors
-prey <- prey %>%
+prey1 <- prey %>%
   dplyr::select(Morphospecies, Stage_Name,
                 Order.1, Family,
                 Body_Length_Mean_mm) %>%
@@ -59,9 +59,23 @@ ana_prey1 <- ana_prey %>%
   mutate(Stage_Name = "unknown")
 
 #combine the two
-all_prey <- prey %>%
+all_prey <- prey1 %>%
   bind_rows(ana_prey1)
 
+ana2 <- ana_prey1 %>%
+  mutate(ID = str_replace(ID, " ", "_"))
+
+no_sz <- prey %>%
+  dplyr::select(Morphospecies,
+                Order.1, Family,
+                Body_Length_Mean_mm) %>%
+  filter(is.na(Body_Length_Mean_mm)) %>%
+  rename("ID" = "Morphospecies", 
+         "Order" = "Order.1") %>%
+  distinct(ID, Order, Family, Body_Length_Mean_mm) %>%
+  anti_join(ana2, by = "ID") 
+
+write.csv(no_sz, here("data", "outputs", "8_prey_sizes", "Palmyra_species_no_size.csv"))
 #get the distinct prey families from palmyra DNA data
 pal_fams <- pal %>%
   distinct(Family)
@@ -138,11 +152,13 @@ ggplot(pred_prey, aes(x = log(Pred_Length), y = log(Prey_Length), color = Feedin
   theme_bw() +
   facet_wrap(~pred_ID)
 
-ggplot(pred_prey, aes(x = log(Pred_Length), y = log(Prey_Length), color = Feeding_mode)) +
+ggplot(pred_prey, aes(x = Pred_Length, y = Prey_Length, color = Feeding_mode)) +
   geom_abline(intercept = 0, slope = 1) +
   geom_point(size = 2) +
   scale_color_manual(values = c("#a6cee3", "#1f78b4")) +
   theme_bw() +
+  scale_x_log10() +
+  scale_y_log10() +
   facet_wrap(~Feeding_mode)
 
 ggplot(pred_prey, aes(x = log(Pred_Length), y = log(Prey_Length), color = Feeding_mode)) +
@@ -204,6 +220,14 @@ ggplot(freq, aes(x = Pred_Length/Prey_Length, y = frequency, color = Feeding_mod
   theme_bw() +
   scale_x_log10() +
   facet_wrap(~Feeding_mode)
+
+sp_pred_prey %>%
+  mutate(ratio = Pred_Length/Prey_Length) %>%
+  ggplot(aes(x = ratio, fill = Feeding_mode)) +
+  geom_density(alpha = 0.6) +
+  theme_bw() +
+  scale_x_log10()
+  
 
 freq_overlap <- freq %>%
   filter(Pred_Length >= 2 & Pred_Length <= 12)
