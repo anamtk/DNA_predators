@@ -10,7 +10,7 @@
 ###########################
 #Load Packages ####
 ###########################
-library(here)
+library(here) 
 library(tidyverse)
 library(fuzzyjoin) #fuzzy inner join for string detection join
 
@@ -68,9 +68,6 @@ pred3 <- taxa_comm %>%
   filter(sample_str == "HEV" & Family == "Sparassidae")
 
 pred4 <- taxa_comm %>%
-  filter(sample_str == "LRS" & Family == "Theridiidae")
-
-pred5 <- taxa_comm %>%
   filter(sample_str == "NEO" & Family == "Theridiidae")
 
 #bind them all together
@@ -78,8 +75,7 @@ pred <- pred0 %>%
   bind_rows(pred1) %>%
   bind_rows(pred2) %>%
   bind_rows(pred3) %>%
-  bind_rows(pred4) %>%
-  bind_rows(pred5)
+  bind_rows(pred4) 
   
 #anti-join for all the prey
 not_pred <- taxa_comm %>%
