@@ -26,11 +26,7 @@ meta <- meta %>%
   group_by(ID, Extraction.ID) %>%
   summarise(Length_mm = mean(Length_mm))
 
-prey <- read.csv(here("data", "prey_sizes_pal_fw.csv"))
-
-ana_prey <- read.csv(here("data", "pred_prey_sizes_ana_fw.csv"))
-
-nodes <- read.csv(here("data", "Palmyra_Terrestrial_Node_List_19_June.csv"))
+prey <- read.csv(here("data", "outputs", "8_prey_sizes", "prey_mass_length.csv"))
 
 pred_mode <- read.csv(here("data", "Predator_IDs.csv"))
 
