@@ -26,7 +26,7 @@ for(i in package.list){library(i, character.only = T)}
 # Load and combine datasets --------
 #############################
 
-pred_size <- read.csv(here("data", "outputs", "8_prey_sizes", "pred_mass_length.csv"))
+pred_size <- read.csv(here("data", "outputs", "6_prey_sizes", "pred_mass_length.csv"))
 
 pred_size <- pred_size %>%
   mutate(Family = ifelse(Order == "Orthoptera", "Tettigonidae", Family)) %>%
@@ -95,7 +95,7 @@ ggplot(predators, aes(x = log_length, y = log_mass, color = sample_str)) +
 # Export for later --------
 #############################
   
-write.csv(predators, here("data", "outputs", "8_prey_sizes", "DNA_pred_mass_length.csv"))
+write.csv(predators, here("data", "outputs", "6_prey_sizes", "DNA_pred_mass_length.csv"))
 
 #############################
 # Vis by species of body size (maybe needed later?) --------

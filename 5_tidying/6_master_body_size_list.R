@@ -153,6 +153,6 @@ bs_prey <- all_bs %>%
 # Export --------
 #############################
 
-write.csv(bs_pred, here("data", "outputs", "8_prey_sizes", "pred_mass_length.csv"))
-write.csv(bs_prey, here("data", "outputs", "8_prey_sizes", "prey_mass_length.csv"))
+write.csv(bs_pred, here("data", "outputs", "6_prey_sizes", "pred_mass_length.csv"))
+write.csv(bs_prey, here("data", "outputs", "6_prey_sizes", "prey_mass_length.csv"))
 

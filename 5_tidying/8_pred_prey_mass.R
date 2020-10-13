@@ -26,12 +26,12 @@ for(i in package.list){library(i, character.only = T)}
 #############################
 #prey size references
 prey_ref <- read.csv(here("data", "outputs", 
-                          "8_prey_sizes", 
+                          "6_prey_sizes", 
                           "prey_mass_length.csv"))
 
 #individual predator sizes
 preds <- read.csv(here("data", "outputs", 
-                       "8_prey_sizes", 
+                       "6_prey_sizes", 
                        "DNA_pred_mass_length.csv"))
 
 #interactions for each predator
@@ -150,7 +150,7 @@ ggplot(p_p_sizes, aes(x = pred_log_mass_mg, y = min_prey_log_mass_mg, color = To
 #Export for analyses ---------
 #############################
 
-write.csv(p_p_sizes, here("data", "outputs", "8_prey_sizes", "DNA_interaction_pred_prey_sz.csv"))
+write.csv(p_p_sizes, here("data", "outputs", "6_prey_sizes", "DNA_interaction_pred_prey_sz.csv"))
 
 
 
