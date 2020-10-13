@@ -1,1 +1,11 @@
-pred_Class,pred_Order,pred_Family,pred_Genus,pred_Species,pred_ID,sample_str,Feeding_mode,NotesArachnida,Araneae,Sparassidae,Heteropoda,Heteropoda venatoria,Heteropoda venatoria,HEV,active,activeArachnida,Araneae,Araneidae,Neoscona,Neoscona theisi,Neoscona theisi,NEO,web,webArachnida,Araneae,Scytodidae,Scytodes,Scytodes longipes,Scytodes longipes,SCY,web,spitChilopoda,Geophilomorpha,,,,Geophilomorpha,CEN,active,venomInsecta,Orthoptera,Tettigoniidae,Phisis,Phisis holdhausi,Phisis holdhausi,PHH,active,activeArachnida,Araneae,Pholcidae,Smeringopus,Smeringopus pallidus,Smeringopus pallidus,SME,web,webInsecta,Dermaptera,Anisolabididae,Euborellia,Euborellia annulipes,Euborellia annulipes,EUB,active,activeInsecta,Odonata,Libellulidae,Pantala,Pantala flavescens,Pantala flavescens,PAN,active,activeArachnida,Araneae,Oonopidae,,,Oonopidae,LRS,web,unknownArachnida,Scorpiones,Buthidae,Isometrus,Isometrus maculatus,Isometrus maculatus,ISO,active,venom
+pred_Class,pred_Order,pred_Family,pred_Genus,pred_Species,pred_ID,sample_str,Feeding_mode,Tools
+Arachnida,Araneae,Sparassidae,Heteropoda,Heteropoda venatoria,Heteropoda venatoria,HEV,active,venom
+Arachnida,Araneae,Araneidae,Neoscona,Neoscona theisi,Neoscona theisi,NEO,web,web_venom
+Arachnida,Araneae,Scytodidae,Scytodes,Scytodes longipes,Scytodes longipes,SCY,web,web_venom
+Chilopoda,Geophilomorpha,,,,Geophilomorpha,CEN,active,venom
+Insecta,Orthoptera,Tettigoniidae,Phisis,Phisis holdhausi,Phisis holdhausi,PHH,active,none
+Arachnida,Araneae,Pholcidae,Smeringopus,Smeringopus pallidus,Smeringopus pallidus,SME,web,web_venom
+Insecta,Dermaptera,Anisolabididae,Euborellia,Euborellia annulipes,Euborellia annulipes,EUB,active,none
+Insecta,Odonata,Libellulidae,Pantala,Pantala flavescens,Pantala flavescens,PAN,active,none
+Arachnida,Araneae,Oonopidae,,,Oonopidae,LRS,active,venom
+Arachnida,Scorpiones,Buthidae,Isometrus,Isometrus maculatus,Isometrus maculatus,ISO,active,venom
