@@ -60,7 +60,8 @@ pal_nodes <- pal_nodes %>%
          "Length_mm" = "Body_Length_Mean_mm",
          "Mass_mg" = "Body_Mass_Mean_mg") %>%
   filter(!is.na(Mass_mg)) %>%
-  mutate(Source = "Pal_nodes")
+  mutate(Source = "Pal_nodes") 
+  
 
 #subset and organize individual level data from palmyra
 #for this i prioritized individuals from predators since
@@ -139,11 +140,19 @@ prey_ids <- pal %>%
 bs_prey <- all_bs %>%
   filter(Family %in% prey_ids$Family |
            Order %in% c("Entomobryomorpha", "Poduromorpha", "Isopoda", "Psocoptera",
-                        "Geophilomorpha", "Thysanoptera", "Psocoptera")) 
+                        "Geophilomorpha", "Thysanoptera", "Psocoptera")) %>%
+  add_row(Order = "", Family= "", Genus = "", Species = "", Length_mm = NA,
+          Mass_mg = 0.000633, Source = "Yaninek 1993", Class = "Acari") %>%
+   add_row(Order = "", Family= "", Genus = "", Species = "", Length_mm = NA,
+          Mass_mg = 0.007035, Source = "Yaninek 1993", Class = "Acari")
 
+#From Yaninek 1993, wet weight for an Acari:
+#0.000633
+#0.007035
 #############################
 # Export --------
 #############################
 
 write.csv(bs_pred, here("data", "outputs", "8_prey_sizes", "pred_mass_length.csv"))
 write.csv(bs_prey, here("data", "outputs", "8_prey_sizes", "prey_mass_length.csv"))
+
