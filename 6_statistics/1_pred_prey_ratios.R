@@ -37,36 +37,14 @@ size <- data %>%
   dplyr::select(-X, -X.1, -X.x, -ASV, -ID_level, -X.y) %>%
   mutate(pred_mass_mg = exp(pred_log_mass_mg),
          mean_prey_pred_ratio = mean_prey_mass_mg/pred_mass_mg,
-         min_prey_pred_ratio = min_prey_mass_mg/pred_mass_mg) 
+         min_prey_pred_ratio = min_prey_mass_mg/pred_mass_mg,
+         log_min_ratio = log(min_prey_pred_ratio),
+         log_mean_ratio = log(mean_prey_pred_ratio)) 
 
 #############################
 #Data explorations of expected important variables -------
 #############################
-ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw() +
-  facet_wrap(~ Tools)
-
 ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg/pred_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw() +
-  facet_wrap(~ Feeding_mode)
-
-ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw() +
-  facet_wrap(~ Tools)
-
-ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed") +
   geom_point(size = 3) +
   scale_x_log10() +
@@ -83,33 +61,32 @@ ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg/pred_mass_mg, color = sa
   facet_wrap(~ Feeding_mode)
 
 #############################
-#Basic model of mean -------
+#mean size -------
 #############################
 
-m1 <- glmmTMB(mean_prey_pred_ratio ~ pred_log_mass_mg*Feeding_mode + (1|sample_str),
+m1 <- glmmTMB(log_mean_ratio ~ pred_log_mass_mg*Feeding_mode + (1|sample_str),
               data = size)
 
 summary(m1)
 
 dredge(m1)
 
-fit <- simulateResiduals(m1, plot = TRUE)
+m1.b <- glmmTMB(log_mean_ratio ~ pred_log_mass_mg + (1|sample_str),
+              data = size)
+
+fit <- simulateResiduals(m1.b, plot = TRUE)
 
 #############################
-#log transformed model -------
+#min model -------
 #############################
 
-m2 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg*sample_str,
+m2 <- glmmTMB(log_min_ratio ~ pred_log_mass_mg*Feeding_mode + (1|sample_str),
               data = size)
 summary(m2)
 dredge(m2)
 
-m3 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg + sample_str,
+m2 <- glmmTMB(log_min_ratio ~ pred_log_mass_mg + (1|sample_str),
               data = size)
 
-fit <- simulateResiduals(m3, plot = TRUE)
+fit <- simulateResiduals(m2, plot = TRUE)
 
-hist(log(size$mean_prey_pred_ratio))
-hist(log(size$min_prey_pred_ratio))
-hist(size$mean_prey_mass_mg)
-hist(size$min_prey_mass_mg)
