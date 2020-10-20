@@ -39,10 +39,16 @@ ints <- read.csv(here("data", "outputs",
                               "5_rarefied_taxonomic_sort",
                               "fam_prey_DNA_conservative.csv"))
 
+#remove run ID
 ints$sample <- str_sub(ints$sample, end=-2)
 
+#get rid of 0 reads, and then combine by sample, class, order, family
+#multiple ASVs with the same species assignemnt
 ints <- ints %>%
-  filter(reads > 0)
+  filter(reads > 0) %>%
+  group_by(sample, sample_str, Class, Order, Family) %>%
+  summarise(reads = sum(reads))
+  
 
 #############################
 #Average and min reference prey size by family, order, and class
@@ -133,18 +139,6 @@ p_p_sizes <- preds %>%
   filter(!is.na(mean_prey_mass_mg)) %>%
   mutate(mean_prey_log_mass_mg = log(mean_prey_mass_mg),
          min_prey_log_mass_mg = log(min_prey_mass_mg))
-
-ggplot(p_p_sizes, aes(x = pred_log_mass_mg, y = mean_prey_log_mass_mg, color = Tools)) +
-  geom_abline(slope = 1) +
-  geom_point(size = 3) +
-  theme_bw() +
-  facet_wrap(~sample_str)
- 
-ggplot(p_p_sizes, aes(x = pred_log_mass_mg, y = min_prey_log_mass_mg, color = Tools)) +
-  geom_abline(slope = 1) +
-  geom_point(size = 3) +
-  theme_bw() +
-  facet_wrap(~sample_str)
 
 #############################
 #Export for analyses ---------
