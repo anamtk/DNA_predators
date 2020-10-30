@@ -114,13 +114,12 @@ all_bs <- ana_ug %>%
 #############################
 # Subset only predators --------
 #############################
-
 bs_pred <- all_bs %>%
   filter(Genus %in% c("Phisis", "Heteropoda","Opopaea", "Scytodes",
                         "Neoscona", "Pantala") |
            Family %in% c("Oonopidae",  "Scytodidae", "Pholcidae", "Libellulidae", "Anisolabididae") |
   Species %in% c("Neoscona_theisi", "Phisis_holdhausi", "Heteropoda_venatoria") |
-  Order == "Geophilomorpha")
+  Order == "Geophilomorpha") 
 
 #############################
 # Subset only prey in DNA --------

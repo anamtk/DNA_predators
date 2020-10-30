@@ -131,7 +131,7 @@ ints_size <- ints_f %>%
 
 p_p_sizes <- preds %>%
   rename("sample" = "Extraction.ID") %>%
-  group_by(sample) %>%
+  group_by(sample, Feeding_mode, Tools, Locomotion) %>%
   summarise(pred_length_mm = mean(Length_mm, na.rm=T),
             pred_log_length_mm = mean(log_length, na.rm=T),
             pred_log_mass_mg = mean(log_mass, na.rm=T)) %>%

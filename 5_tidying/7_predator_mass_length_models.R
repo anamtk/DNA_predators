@@ -35,7 +35,7 @@ pred_size <- pred_size %>%
 pred_id <- read.csv(here("data", "Predator_IDs.csv"))
 
 pred_id <- pred_id %>%
-  dplyr::select(pred_Family, sample_str)
+  dplyr::select(pred_Family, sample_str, Feeding_mode, Tools, Locomotion)
 
 pred_size <- pred_size %>%
   left_join(pred_id, by = c("Family" = "pred_Family")) %>%
@@ -47,11 +47,17 @@ meta <- read.csv(here("data", "Sample_metadata.csv"))
 #############################
 #The model should have random intercepts by species and random slopes such that the relationship
 #is allowed to vary by species
-
+ggplot(pred_size, aes(x = Length_mm, y = Mass_mg, color = Source)) +
+  geom_point() +
+  facet_wrap(~sample_str, scale = "free")
 #mutate to log log relationship
 pred_size <- pred_size %>%
   mutate(log_mass = log(Mass_mg),
          log_length = log(Length_mm))
+
+ggplot(pred_size, aes(x = Length_mm, y = Mass_mg, color = sample_str)) +
+  geom_point() +
+  facet_wrap(~sample_str, scale = "free") 
 
 m1 <- glmmTMB(log_mass ~ log_length + (log_length|sample_str),
               data = pred_size)
@@ -75,7 +81,8 @@ plot(me, add.data = TRUE) +
 
 predators <- meta %>% 
   fuzzy_inner_join(pred_id, by = c("Extraction.ID" = "sample_str"), match_fun = str_detect) %>%
-  dplyr::select(Extraction.ID, Length_mm, sample_str) %>%
+  dplyr::select(Extraction.ID, Length_mm, sample_str, 
+                Feeding_mode, Tools, Locomotion) %>%
   mutate(log_length = log(Length_mm)) %>%
   filter(!sample_str == "ISO")
 
