@@ -5,13 +5,11 @@
 ###########################
 
 # this script analyzes predator-prey body size relationships,
-#asking the question, first:
-#1. do larger predator individuals across species eat larger prey?
-#(both with mean and min prey family sizes)
-#and then asking 
-#2. For predator species which we have large sample sizes,
-#do larger predator individuals within species eat larger prey?
-#(both with mean and min prey family sizes)
+#asking the question:
+#1. Does species identity, body size, or 
+#both determine prey size across 
+#all predator sizes?
+
 
 # Load packages -----------------------------------------------------------
 
@@ -37,30 +35,36 @@ size <- data %>%
   mutate(pred_mass_mg = exp(pred_log_mass_mg)) 
 
 
-# Size relationship visualizations -----------------------------------------------
+# Size relationship quick visualizations -----------------------------------------------
 
-size %>%
-  distinct(sample, sample_str) %>%
-  group_by(sample_str) %>%
-  summarise(sample_size = n())
-
-size %>%
-  distinct(sample_str, Family) %>%
-  group_by(sample_str) %>%
-  summarise(sample_size = n())
-
-#Do larger predators eat larger prey?
+#Does predator identity or size determine prey size?
 #mean of prey species
+ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_point(size = 3) +
+  #scale_x_log10() +
+  #scale_y_log10() +
+  theme_bw() +
+  facet_wrap(~sample_str, scale = "free")
+
 ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed") +
   geom_point(size = 3) +
   geom_smooth(method = "lm", se =F) +
   #scale_x_log10() +
   #scale_y_log10() +
-  theme_bw() +
-  facet_wrap(~sample_str, scale = "free")
+  theme_bw()# +
+# facet_wrap(~sample_str, scale = "free")
 
 #min of prey species
+ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se =F) +
+  #scale_x_log10() +
+  #scale_y_log10() +
+  theme_bw() 
+
 ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed") +
   geom_point(size = 3) +
@@ -70,77 +74,77 @@ ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
   theme_bw() +
   facet_wrap(~sample_str, scale = "free")
 
-# All species Body size model mean ---------------------------------------------------------
-hist(size$mean_prey_log_mass_mg)
-m1 <- glmmTMB(mean_prey_log_mass_mg ~ pred_mass_mg + (1|sample_str) + (1|sample),
-              data = size)
-summary(m1)
+# Body size model mean ---------------------------------------------------------
+
+#is the prey size determined by some combination of predator identity
+#and predator size?
+m1 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
+              data = size,
+              REML = FALSE)
+
+#interaction model: both slope and intercept vary by species
+#mass + species model: only intercept varies by species
+#mass model: only mass matters
+#species model: only species matters
 
 dredge(m1)
 
-plot(allEffects(m1))
-
-fit <- simulateResiduals(m1, plot = T)
-
-me <- ggpredict(m1, terms = c("pred_mass_mg", "sample_str"), type = "random")
-plot(me) 
-
-r.squaredGLMM(m1)
-
-# All species Body size model min ---------------------------------------------------------
-
-m2 <- glmmTMB(min_prey_log_mass_mg ~ pred_mass_mg + (1|sample_str) + (1|sample),
+#best is mass + species model
+m2 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
               data = size)
-summary(m2)
-dredge(m2)
-plot(allEffects(m2))
+
 fit <- simulateResiduals(m2, plot = T)
 
-me <- ggpredict(m2, terms = c("pred_mass_mg", "sample_str"), type = "random")
-plot(me) 
+me <- ggpredict(m2, terms = c("pred_log_mass_mg", "sample_str"), type = "random")
+plot(me, add.data = TRUE) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  facet_wrap(~group) 
 
+plot(me, add.data = TRUE, ci = FALSE) +
+  geom_abline(slope = 1, linetype = "dashed") 
+
+#in this summary,
+#intercept Estimate gives that base intercept for the model
+#the intercept for each species is the sum of that and the 
+#species intercept
+#the power law relationship is given by the estimate of 
+#pred_log_mass_mg, which is sublinear with a relationship of
+#y = a + x^0.41259
+summary(m2)
 r.squaredGLMM(m2)
 
+# Body size model min ---------------------------------------------------------
 
-# subset species Body size model mean ---------------------------------------------------------
-
-species <- size %>%
-  filter(sample_str %in% c("HEV", "PHH", "NEO"))
-
-hist(species$mean_prey_log_mass_mg)
-
-m3 <- glmmTMB(mean_prey_log_mass_mg ~ pred_mass_mg*sample_str + (1|sample),
-              data = species)
-summary(m3)
+m3 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
+              data = size,
+              REML = FALSE)
 
 dredge(m3)
 
-plot(allEffects(m3))
-
-fit <- simulateResiduals(m3, plot = T)
-
-me <- ggpredict(m3, terms = c("pred_mass_mg", "sample_str"), type = "random")
-plot(me) 
-
-r.squaredGLMM(m3)
-
-# subset species Body size model min ---------------------------------------------------------
-
-hist(species$min_prey_log_mass_mg)
-
-species %>%
-  group_by(sample_str) %>%
-  summarise(range = max(pred_mass_mg) - min(pred_mass_mg))
-
-m4 <- glmmTMB(min_prey_log_mass_mg ~ pred_mass_mg*sample_str + (1|sample),
-              data = species)
-summary(m4)
-
-dredge(m4)
-
-plot(allEffects(m4))
+m4 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
+              data = size)
 
 fit <- simulateResiduals(m4, plot = T)
 
+me2 <- ggpredict(m4, terms = c("pred_log_mass_mg", "sample_str"))
+plot(me2, add.data = TRUE) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  facet_wrap(~group) 
+
+plot(me2, add.data = TRUE, ci=FALSE) +
+  geom_abline(slope = 1, linetype = "dashed")
+
+#in this summary,
+#intercept Estimate gives that base intercept for the model
+#the intercept for each species is the sum of that and the 
+#species intercept
+#the power law relationship is given by the estimate of 
+#pred_log_mass_mg, which is sublinear with a relationship of
+#y = a + x^0.26466
+summary(m4)
 r.squaredGLMM(m4)
+
+
+
+
 
