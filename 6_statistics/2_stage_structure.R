@@ -18,7 +18,9 @@ package.list <- c("here", "tidyverse",
                   "glmmTMB", "emmeans",
                   "MuMIn", "DHARMa",
                   "effects", "ggeffects",
-                  "vegan")
+                  "vegan", "recluster",
+                  "phytools", "stats",
+                  "cluster", "data.tree")
 
 ## Installing them if they aren't already on the computer
 new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
@@ -32,173 +34,142 @@ for(i in package.list){library(i, character.only = T)}
 data <- read.csv(here("data", "outputs", "8_final_dataset",
                       "pred_prey_sizes_tp_DNAinteractions.csv"))
 
-size <- data %>%
+stage <- data %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%
-  mutate(pred_mass_mg = exp(pred_log_mass_mg))
+  mutate(pred_mass_mg = exp(pred_log_mass_mg)) %>%
+  filter(sample_str %in% c("HEV", "NEO", "PHH"))
 
-# Heteropoda venatoria ----------------------------------------------------
-#species: 
+# HEV ---------------------------------------------------------------------
+sppData <- split(stage, stage$sample_str)
 
-sppData <- split(size, size$sample_str)
+process <- function(x, df = sppData){
+#process <- function(df){
+    
+  mat <- df[[x]] %>% 
+  #mat <- df %>% 
+  dplyr::select(sample, Family) %>% #select sample and family
+  group_by(sample, Family) %>% #group by them
+  mutate(presence = 1) %>% #give presence value
+  mutate(Family = factor(Family)) %>% #factor family
+  mutate(presence = replace_na(presence, 0)) %>% #thus, allowing zeros to be set for NA
+    ungroup() %>%
+  pivot_wider(names_from = Family, #pivot to matrix where columns are diet
+              values_from = presence, #and rows are samples
+              values_fill = 0) %>% #fill any missing values with 0
+  column_to_rownames(var = "sample") #set the sample to rowname for matrix format
 
-process <- function(x, sppSplit = sppData){
-  species_ints <- sppSplit[[x]] %>%
-    #filter(sample_str == species) %>%
-    dplyr::select(sample, Family) %>%
-    group_by(sample, Family) %>%
-    mutate(presence = 1) %>%
-    mutate(Family = factor(Family)) %>%
-    mutate(presence = replace_na(presence, 0)) %>%
-    pivot_wider(names_from = Family,
-                values_from = presence,
-                values_fill = 0) %>%
-    column_to_rownames(var = "sample")
+  mat_cons <- mat[colSums(mat) > 1] #remove diet that only occurs once
+  mat_cons <- mat_cons[rowSums(mat_cons) > 0,] #remove any samples that sets to 0
   
-  maxClust <- min(ncol(species_ints), nrow(species_ints))
+  #jaccard distance for these individuals
+  dist <- recluster.dist(mat_cons, dist="jaccard")
   
-  cluster_model <- cascadeKM(species_ints, 1, maxClust, iter = 10000)
-  plot(cluster_model, sortg=T)
-  return(cluster_model$results)
+  #using the most standard clustering algorithm, 
+  #UPGMA = Unweighted Pair-Group Method Using Arithmetic Averages
+  clust<-hclust(dist, "average")
+  #plot(clust) #visualize that cluster
+  cut <- cutree(clust, h = 0.2) #cut this cluster at 0.2, meaning total similarity
+  dendro <- plot(clust, labels = as.character(cut)) #dendro plot
+  cut_big <- cutree(clust, h = 0.75) #less conservative, but at least one species shared
+  dendro_big <- plot(clust, labels = as.character(cut_big)) #dendro big plot
+  
+  cut_df <- as.data.frame(cutree(clust, h=0.2)) #makes conservative clusters a DF
+  big_cut_df <- as.data.frame(cutree(clust, h=0.75)) #makes bigger clusters a DF
+  
+  cut_df_cs <- cut_df %>%
+    rownames_to_column(var = "sample") %>% #make same a column again
+    rename("cluster_cons" = "cutree(clust, h = 0.2)") %>% #rename the cluster column
+    mutate(cluster_cons = as.factor(cluster_cons)) %>% #factor variable
+    group_by(cluster_cons) %>% #group by it
+    summarise(cluster_cons_n = n()) %>% #how many in cluster
+    filter(cluster_cons_n > 1) %>% #remove clusters of one sample
+    ungroup()
+  
+  cut_df <- cut_df %>%
+    rownames_to_column(var = "sample") %>% #make sammple a column again
+    rename("cluster_cons" = "cutree(clust, h = 0.2)") %>% #rename the cluster column
+    mutate(cluster_cons = as.factor(cluster_cons)) %>% #factor variable
+    left_join(cut_df_cs, by = "cluster_cons")
+    
+  big_cut_df_cs <- big_cut_df %>%
+    rownames_to_column(var = "sample") %>% #make same a column again
+    rename("cluster_big" = "cutree(clust, h = 0.75)") %>% #rename the cluster column
+    mutate(cluster_big = as.factor(cluster_big)) %>% #factor variable
+    group_by(cluster_big) %>% #group by it
+    summarise(cluster_big_n = n()) %>% #how many samples in cluster
+    filter(cluster_big_n > 1) %>% #remove clusters of one sample
+    ungroup()
+  
+  big_cut_df <- big_cut_df %>%
+    rownames_to_column(var = "sample") %>%
+    rename("cluster_big" = "cutree(clust, h = 0.75)") %>%
+    mutate(cluster_big = as.factor(cluster_big)) %>%
+    left_join(big_cut_df_cs, by = "cluster_big")
+  
+  clustered_DF <- stage %>%
+    left_join(cut_df, by = "sample") %>% #join back up with the full DF
+    left_join(big_cut_df, by = "sample") %>% #join back to full df
+    filter(!is.na(cluster_big))
+
+  return(clustered_DF)
 }
-lapply(1:length(sppData), FUN = process)
 
-species <- size %>%
-  dplyr::select(sample_str) %>%
-  distinct(sample_str) %>%
-  pull(sample_str)
+## Running on each data frame in the split list
+out <- lapply(1:length(sppData), FUN = process)
 
-for(i in length(species)){
-  plots <- cluster_stages()
-}
+stages_split <- bind_rows(out)
 
 
-?as.vector
-ints <- size %>%
-  filter(sample_str == species)
+# Visualize ---------------------------------------------------------------
 
-SCY <- size %>%
-  filter(sample_str == "SCY") %>%
-  dplyr::select(sample, Family) %>%
-  group_by(sample, Family) %>%
-  mutate(presence = 1) %>%
-  mutate(Family = factor(Family)) %>%
-  mutate(presence = replace_na(presence, 0)) %>%
-  pivot_wider(names_from = Family,
-              values_from = presence,
-              values_fill = 0) %>%
-  column_to_rownames(var = "sample")
+stages_split %>%
+  filter(cluster_cons_n > 1) %>%
+  ungroup() %>%
+  distinct(sample, cluster_cons, pred_mass_mg, sample_str) %>%
+  ggplot(aes(x = cluster_cons, y = pred_mass_mg)) +
+  geom_boxplot() +
+  facet_wrap(~sample_str, scale = "free") +
+  theme_classic() +
+  labs(x= "Cluster on 100% similarity", y = "Predator mass (mg)") +
+  theme(axis.text.x = element_blank(),
+        axis.title.y= element_text(size = 30),
+        axis.title.x= element_text(size = 30, vjust = -1),
+        axis.text.y = element_text(size = 25),
+        plot.margin = margin(1, 1, 1, 1, "cm"),
+        strip.text = element_text(size = 25))
 
-SCY_dist <- vegdist(SCY, method = "jaccard", binary = TRUE)
-model_SCY <- cascadeKM(SCY_dist, 1, 6, iter = 10000)
-plot(model_SCY, sortg=T)
-model_SCY
-SCY_clusts <- as.data.frame(model_SCY$partition)
+stages_split %>%
+  filter(cluster_big_n > 1) %>%
+  ungroup() %>%
+  distinct(sample, cluster_big, pred_mass_mg, sample_str) %>%
+  ggplot(aes(x = cluster_big, y = pred_mass_mg)) +
+  geom_boxplot() +
+  facet_wrap(~sample_str, scale = "free") +
+  theme_classic() +
+  labs(x= "Cluster on 25% similarity", y = "Predator mass (mg)") +
+  theme(axis.text.x = element_blank(),
+        axis.title.y= element_text(size = 30),
+        axis.title.x= element_text(size = 30, vjust = -1),
+        axis.text.y = element_text(size = 25),
+        plot.margin = margin(1, 1, 1, 1, "cm"),
+        strip.text = element_text(size = 25))
 
-SCY_clusts <- SCY_clusts %>%
-  dplyr::select("6 groups") %>%
-  rownames_to_column(var = "sample") %>%
-  rename("cluster" = "6 groups")
+stages_split %>%
+  distinct(sample, pred_mass_mg, sample_str) %>%
+  ggplot(aes(x = pred_mass_mg, fill = sample_str)) +
+  geom_histogram(position = "identity") + 
+  theme_classic() +
+  scale_x_log10() +
+  scale_y_continuous(breaks = c(2,4,6,8)) +
+  facet_grid(sample_str~.) +
+  theme(legend.position = "none",
+        axis.text = element_text(size = 25),
+        axis.title = element_text(size =30),
+        strip.text = element_text(size = 15)) +
+  labs(x = "Predator mass (mg)", y = "Count")
 
-SCY_size <- size %>%
-  filter(sample_str == "SCY") %>%
-  left_join(SCY_clusts, by = "sample") %>%
-  mutate(cluster = as.factor(cluster))
 
-ggplot(SCY_size, aes(x = cluster, y = pred_mass_mg)) +
-  geom_boxplot()
 
-SCY_size %>%
-  group_by(cluster, broad_tp) %>%
-  summarise(count = n()) %>%
-  pivot_wider(names_from = broad_tp,
-              values_from = count) %>%
-  mutate(total = sum(basal + omnivorous + predatory, na.rm=T),
-         intraguild = sum(omnivorous + predatory)) %>%
-  ggplot(aes(x = cluster, y = intraguild/total)) +
-  geom_bar(stat = "identity")
 
-# NEO ---------------------------------------------------------------------
 
-NEO <- size %>%
-  filter(sample_str == "NEO") %>%
-  dplyr::select(sample, Family) %>%
-  group_by(sample, Family) %>%
-  mutate(presence = 1) %>%
-  mutate(Family = factor(Family)) %>%
-  mutate(presence = replace_na(presence, 0)) %>%
-  pivot_wider(names_from = Family,
-              values_from = presence,
-              values_fill = 0) %>%
-  column_to_rownames(var = "sample")
 
-model_NEO <- cascadeKM(NEO, 1, 5, iter = 10000)
-plot(model_NEO, sortg=T)
-model_NEO$results
-NEO_clust <- as.data.frame(model_NEO$partition)
-
-NEO_clust <- NEO_clust %>%
-  dplyr::select("2 groups") %>%
-  rownames_to_column(var = "sample") %>%
-  rename("cluster" = "2 groups")
-
-NEO_size <- size %>%
-  filter(sample_str == "NEO") %>%
-  left_join(NEO_clust, by = "sample") %>%
-  mutate(cluster = as.factor(cluster)) 
-
-ggplot(NEO_size, aes(x = cluster, y = pred_mass_mg)) +
-  geom_boxplot()
-
-NEO_size %>%
-  group_by(cluster, broad_tp) %>%
-  summarise(count = n()) %>%
-  pivot_wider(names_from = broad_tp,
-              values_from = count) %>%
-  mutate(total = sum(basal + omnivorous + predatory),
-         intraguild = sum(omnivorous + predatory)) %>%
-  ggplot(aes(x = cluster, y = intraguild/total)) +
-  geom_bar(stat = "identity")
-
-# PHH ---------------------------------------------------------------------
-
-PHH <- size %>%
-  filter(sample_str == "PHH") %>%
-  dplyr::select(sample, Family) %>%
-  group_by(sample, Family) %>%
-  mutate(presence = 1) %>%
-  mutate(Family = factor(Family)) %>%
-  mutate(presence = replace_na(presence, 0)) %>%
-  pivot_wider(names_from = Family,
-              values_from = presence,
-              values_fill = 0) %>%
-  column_to_rownames(var = "sample")
-
-model_PHH <- cascadeKM(PHH, 1, 5, iter = 10000)
-plot(model_PHH, sortg=T)
-model_PHH$results
-PHH_clust <- as.data.frame(model_PHH$partition)
-
-PHH_clust <- PHH_clust %>%
-  dplyr::select("2 groups") %>%
-  rownames_to_column(var = "sample") %>%
-  rename("cluster" = "2 groups")
-
-PHH_size <- size %>%
-  filter(sample_str == "PHH") %>%
-  left_join(PHH_clust, by = "sample") %>%
-  mutate(cluster = as.factor(cluster))
-
-ggplot(PHH_size, aes(x = cluster, y = pred_mass_mg)) +
-  geom_boxplot()
-
-PHH_size %>%
-  group_by(cluster, broad_tp) %>%
-  summarise(count = n()) %>%
-  pivot_wider(names_from = broad_tp,
-              values_from = count) %>%
-  mutate(total = sum(basal + omnivorous + predatory)) %>%
-  pivot_longer(cols = basal:predatory,
-               names_to = "broad_tp",
-               values_to = "count") %>%
-  ggplot(aes(x = cluster, y = count/total, fill = broad_tp)) +
-  geom_bar(stat = "identity", position = "dodge")
