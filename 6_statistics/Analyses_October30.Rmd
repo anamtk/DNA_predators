@@ -1,0 +1,209 @@
+---
+title: "Analyses_October30"
+author: "Ana Miller-ter Kuile"
+date: "10/30/2020"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    toc_depth: 2
+    df_print: paged
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r, include = FALSE}
+package.list <- c("here", "tidyverse", 
+                  "glmmTMB", "emmeans",
+                  "MuMIn", "DHARMa",
+                  "effects", "ggeffects",
+                  "patchwork", "calecopal",
+                  "gt", "vegan", "remotes",
+                  "eulerr", "dummies")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
+```
+
+
+# Inter- and intraspecific body size patterns in individual predator-prey interactions from DNA metabarcoding
+
+The analyses for these projects have been inspired by ideas and approaches outlined in: [Brose et al. 2019](https://doi.org/10.1038/s41559-019-0899-x), [Rudolf et al. 2014](https://doi.org/10.1098/rspb.2013.3203), and [Woodward and Hildrew 2002](https://doi.org/10.1046/j.1365-2656.2002.00669.x). Specifically, these analyses explore the importance of body size (both within and across species) and species identity in shaping food web patterns. 
+
+```{r, out.width="20%", fig.align="right"}
+knitr::include_graphics(here("art", "png", "geophilomorpha.png"))
+```
+
+## Introduction
+
+Food webs are regularly built using "nodes" based on size, predator identity, or a combination of size and identity (i.e. "stage structure"). For food webs, nodes are created by a combination of predator species and size and the interactions (links) between predators and their prey items are determined using size-based rules related to gape limitation. Across species, sizes, and environments, there seem to be consistent patterns of size relationships in food webs - for example, variation in the relationships between predator and prey sizes can be explained by predator traits (e.g. locomotion, thermoregulation) across 290 food webs (Brose et al. 2019). While these patterns are promising for the efficient construction of food webs across many orders of magnitude of body size, they have still not been validated by real data for many species of smaller body sizes, including invertebrates in terrestrial environments. 
+
+In several aquatic field and mesocosm studies, it has been clear that both the body size and species identity of predators is important in determining both the identity and body size of prey items (e.g. Woodward and Hildrew 2002, Rudolf et al. 2014). However, for terrestrial predators, which comprise (%) of total species on the planet, determining these size rules of predation based on observed interactions has been challenging or impossible. These consumers, thus, constitute a data gap of predator-prey interactions built on observed interaction data.
+
+To aim to fill this gap in observed interactions for invertebrate terrestrial predators, in this study, we employed DNA metabarcoding of the COI gene region using general primers for all animals (following an adapted protocol from Krehenwinkel et al. 2016 and Miller-ter Kuile et al. *in review*) to determine the diets of nine species of invertebrate predators on Palmyra Atoll, Central Tropical Pacific. We determined interactions for 182 individuals total, encompassing 3.5 orders of magnitude of body size and including 341 distinct interactions. Using individual-level body size data for each predator individual and averaged body size data for prey items (similar to approaches in other food webs e.g. Brose et al. 2019), we asked three questions relating to body size in food webs. 1) Does predator size, species identity, or their combination determine prey size?, 2) Does predator size or identity determine prey identity for predator individuals from the same environment?, and 3) Within a predator species, do smaller individuals eat a subset of the prey of larger predator individuals (e.g. nestedness or a "nested hierarchy", Woodward and Hildrew 2002)? These three questions are key to building multi-species food web models that incorporate realistic body size and species dependent feeding habits both across and within predator species.
+
+```{r, out.width="20%", fig.align="right"}
+knitr::include_graphics(here("art", "png", "neoscona.png"))
+```
+
+## The data
+
+This dataset represents interactions between individual predators and their prey. The predators range in size from $2.3 x 10^{-1}$ to $9.3 x 10^2$ (3 orders of magnitude). Predators represent 9 species, including five species of spider (*Heteropoda venatoria*, *Neoscona theisi*, *Ooonopidae sp.*, *Scytodes longipes*, *Smeringopus pallidus*), one centipede (*Geophilomoropha sp.*), one earwig (*Euborellia annulipes*), a predatory katydid (*Phisis holdhausi*), and a dragonfly species (*Pantala flavescens*).
+
+```{r, include = FALSE}
+source(here("6_statistics", "1_pred_prey_size.R"))
+```
+
+```{r}
+pred_size2
+```
+
+```{r}
+size %>%
+  distinct(sample, sample_str, pred_log_mass_mg) %>%
+  ggplot(aes(x = pred_log_mass_mg, fill = sample_str)) +
+  geom_histogram(color = "black", alpha = 0.85) +
+  theme_bw() + 
+  labs(x = "Predator mass (log(mg))", y = "Individuals") +
+    theme(axis.text = element_text(size =20),
+          axis.title = element_text(size = 25)) +
+  facet_wrap(~sample_str) +
+  scale_fill_manual(values = pal_kelp)
+```
+
+I compiled prey DNA data at the family level because of resolution in online taxonomy databases. Concatenating prey at the family level is common for food webs of interactions with terrestrial invertebrates (e.g. Brose et al. 2019). The prey family range in size from $6.3 x 10^{-4}$ to $3.1 x 10^2$ (6 orders of magnitude). 
+ 
+```{r}
+prey_mean_size2
+```
+
+```{r}
+prey_min_size2
+```
+
+Prey comprise 57 different families of invertebrate organisms. 
+
+```{r}
+size %>%
+  distinct(Class, Order, Family) %>%
+  arrange(Class, Order, Family)
+```
+
+## Q1: Predator-prey size relationships
+
+### Does predator size, species identity, or their combination determine prey size?
+
+For this question, I used LMMs with log-transformed size values (due to data distribution) and performed model selection using AIC comparing models to a full model that included the interaction between predator body size and species identity. 
+
+The interpretation of each model structure is as follows:
+
+1. Interaction model (prey_size ~ predator_size x predator_species): Both predator size and species identity determine prey size and both the **slope** and **intercept** of this model vary by predator species.
+
+2. Size + species model (prey_size ~ predator_size + predator_species): Both predator size and species identity determine prey size and only the **intercept** of this model varies by predator species.
+
+3. Size model (prey_size ~ predator_size): There is a relationship between prey size and predator size and *predator species does not change this relationship*.
+
+4. Species model (prey_size ~ predator_species): *Regardless of predator size*, each predator species eats a distinct size range of prey. 
+
+I ran model selection both with the **mean size** and **minimum size** of each prey family as the response variable. In both cases, the best model based on AIC was the **Size + Species model**, which means that there is a significant (positive) relationship between prey size and predator size; the slope of this line does not change across predator species, but each species has a different intercept for this relationship. Not surprisingly, the slope of the relationship varied between the mean size and minimum size models, with the slope being shallower for minimum prey size. 
+
+### Mean prey size
+
+```{r}
+mean_predprey_plot
+```
+
+This graph shows a positive relationship between predator size and prey size with a slope of $y = x^{0.41}$. 
+
+### Minimum prey size
+
+```{r}
+min_predprey_plot
+```
+
+This graph shows a positive relationship between predator size and prey size with a slope of $y = x^{0.26}$. 
+
+While there is some shifting in the predators with the middle intercepts, the predators with the lowest and highest intercepts remained the same. From what I know of these predators' traits (e.g. locomotion, hunting strategy) there really doesn't seem to be any clear trait-based reason for these differences. Also, given that I did not collect these data specifically targeting predators of a variety of traits while correcting for others, I really don't know what we could say here at the trait level. That said, knowing that species identity is an important co-variate when building size-based food webs is an important finding (e.g. Rudolf et al. 2014). I also think a cool "next step" study could be to look at these relationships for a set of predators with shared size and different hunting strategies or locomotion (e.g. inspiration from Schmitz 2009).
+
+```{r, out.width="20%", fig.align="right"}
+knitr::include_graphics(here("art", "png", "goblin.png"))
+```
+
+## Q2: Predator-prey identity and size
+
+### Within a shared environment, does predator size or identity determine prey identity?
+
+Next, I wanted to know whether when there are predators in a shared environment, whether their prey item identity is determined by predator size or predator species identity. To do this, I subset just the predators I had collected from one shared environment and sampling period (a canopy fogging collection in *Pisonia grandis* on Sand Island in 2017). In this particular fogging event, I was able to collect 60 individuals from four predator species (*H. venatoria*, *P. holdhausi*, *N. theisi*, and *E. annulipes*).
+
+```{r, include = FALSE}
+source(here("6_statistics", "3_rda_sandpg_canopy.R"))
+```
+
+```{r}
+cols <-  c("EUB" = "#EA7700", "HEV" = "#EEB00C","NEO" = "#89742F", "PHH" = "#158D8E")
+
+size2 %>%
+  filter(Island == "Sand" & 
+           Habitat == "PG" & 
+           Microhabitat == "Canopy") %>%
+  distinct(sample, sample_str, pred_log_mass_mg) %>%
+  ggplot(aes(x = pred_log_mass_mg, fill = sample_str)) +
+  geom_histogram(color = "black", position = "identity", alpha = 0.8) +
+  theme_bw() +
+  scale_fill_manual(values = cols)
+```
+
+
+These predators have eaten 24 different prey families.
+
+```{r}
+size2 %>%
+  filter(Island == "Sand" & 
+           Habitat == "PG" & 
+           Microhabitat == "Canopy") %>%
+  distinct(Class, Order, Family) %>%
+  arrange(Class, Order, Family) 
+```
+
+To determine whether these predators were partitioning prey by size, species, or both, I ran an RDA analysis with both predator species identity and size as predictor variables. 
+
+EXPLAIN BRIEFLY WHAT RDA DOES
+
+The resulting RDA indicated that prey species composition is significantly determined by predator species and body size.
+
+```{r}
+#ANOVA of whole model
+anova(rda_pg, permutations=10000)
+
+#how much variation explained in this RDA
+RsquareAdj(rda_pg)
+```
+
+When examining the terms of this model, predator species is more important than predator size in determining prey species composition. 
+
+```{r}
+#ANOVA of model terms
+anova(rda_pg, by='margin', permutations=10000)
+```
+
+```{r}
+autoplot + euler + plot_annotation(tag_levels = "A")
+```
+
+Predator species explains the distribution of samples ('sites') along the main axes of the RDA (Figure A) and predator species explains 16% of the variation in data, while predator species + size explains 3% (Figure B).
+
+```{r, out.width="20%", fig.align="right"}
+knitr::include_graphics(here("art", "png", "phisis.png"))
+```
+
+## Q3: Within species prey identities
+
+### Within a species, do smaller individuals eat a subset of the prey of larger individuals (e.g. nestedness)?
