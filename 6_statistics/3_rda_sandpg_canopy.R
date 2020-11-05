@@ -27,10 +27,10 @@ for(i in package.list){library(i, character.only = T)}
 library(ggvegan)
 # Import data -------------------------------------------------------------
 
-data <- read.csv(here("data", "outputs", "8_final_dataset",
+data2 <- read.csv(here("data", "outputs", "8_final_dataset",
                       "pred_prey_sizes_tp_DNAinteractions.csv"))
 
-size <- data %>%
+size2 <- data %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%
   mutate(pred_mass_mg = exp(pred_log_mass_mg)) 
 
@@ -44,13 +44,25 @@ meta <- meta %>%
            Microhabitat, Year, Date.Collected,
            Extraction.ID, ID)
 
-size <- size %>%
+size2 <- size2 %>%
   left_join(meta, by = c("sample" = "Extraction.ID"))
+
+
+# Data explorations -------------------------------------------------------
+
+size2 %>%
+  filter(Island == "Sand" & 
+           Habitat == "PG" & 
+           Microhabitat == "Canopy") %>%
+  distinct(sample, sample_str, pred_log_mass_mg) %>%
+  ggplot(aes(x = pred_log_mass_mg, fill = sample_str)) +
+  geom_histogram(color = "black", position = "identity", alpha = 0.8) +
+  theme_bw()
 
 # Matrix for Sand PG Canopy -----------------------------------------------
 
 #matrix
-mat_pg <- size %>%
+mat_pg <- size2 %>%
   filter(Island == "Sand" & 
            Habitat == "PG" & 
            Microhabitat == "Canopy") %>%
@@ -62,7 +74,7 @@ mat_pg <- size %>%
   column_to_rownames(var = "sample")
 
 #metadata for RDA
-meta_pg <- size %>%
+meta_pg <- size2 %>%
   filter(Island == "Sand" & 
            Habitat == "PG" & 
            Microhabitat == "Canopy") %>%
@@ -91,7 +103,7 @@ anova(rda_pg, permutations=10000)
 anova(rda_pg, by='margin', permutations=10000)
 
 #pretty ggplot plot (need to play with this)
-autoplot(rda_pg, 
+autoplot <- autoplot(rda_pg, 
          layers = c("sites", "biplot", "centroids"),
          arrows = FALSE) +
   theme_bw() +
@@ -113,8 +125,9 @@ var_pg <-  c("species" = 16,
 
 #make a Euler and plot it
 fit3 <- euler(var_pg, shape = "ellipse")
-plot(fit3,
+euler <- plot(fit3,
      quantities = TRUE)
+
 
 
 
