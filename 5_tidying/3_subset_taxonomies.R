@@ -215,8 +215,7 @@ LRS <- taxa_comm %>%
 LRS_pred <- LRS %>%
   ungroup() %>%
   filter(Order == "Araneae") %>% #only order for spiders
-  filter(Family == "") #no oonopidae in these samples so...
-
+  filter(Family == "Oonopidae", "") 
 #c: EUB, ISO, LRS, PAN, HEVc
 LRS_other_pred <- LRS %>%
   ungroup() %>%
