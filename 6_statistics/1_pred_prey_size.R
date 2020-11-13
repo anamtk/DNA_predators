@@ -57,9 +57,16 @@ ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
 ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed") +
   geom_point(size = 3) +
-  geom_smooth(method = "lm", se =F) +
   #scale_x_log10() +
   #scale_y_log10() +
+  theme_bw()# +
+# facet_wrap(~sample_str, scale = "free")
+
+ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_point(size = 3) +
+  scale_x_log10() +
+  scale_y_log10() +
   theme_bw()# +
 # facet_wrap(~sample_str, scale = "free")
 
@@ -67,7 +74,6 @@ ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
 ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed") +
   geom_point(size = 3) +
-  geom_smooth(method = "lm", se =F) +
   #scale_x_log10() +
   #scale_y_log10() +
   theme_bw() 
@@ -75,11 +81,39 @@ ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
 ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed") +
   geom_point(size = 3) +
-  geom_smooth(method = "lm", se =F) +
   #scale_x_log10() +
   #scale_y_log10() +
   theme_bw() +
   facet_wrap(~sample_str, scale = "free")
+
+ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
+  geom_abline(slope = 1, linetype = "dashed") +
+  geom_point(size = 3) +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_bw() 
+
+ggplot(size, aes(x = sample_str, y = min_prey_mass_mg, color = sample_str)) +
+  geom_boxplot() + 
+  geom_point() +
+  theme_bw() +
+  scale_y_log10()
+
+size %>%
+  mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
+                                                    "SME", "EUB", "PHH", "PAN",
+                                                      "HEV"))) %>%
+ggplot(aes(x = sample_str, y = mean_prey_mass_mg, color = sample_str)) +
+  geom_boxplot() + 
+  geom_point() +
+  theme_bw()# +
+  #scale_y_log10()
+
+ggplot(size, aes(x = sample_str, y = pred_mass_mg, color = sample_str)) +
+  geom_boxplot() + 
+  geom_point() +
+  theme_bw() #+
+  #scale_y_log10()
 
 # Body size model mean ---------------------------------------------------------
 
@@ -89,23 +123,34 @@ m1 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
               data = size,
               REML = FALSE)
 
+#si there an invariant body size relationship across species
+m_r <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg + (1|sample_str),
+               data = size,
+               REML = FALSE)
+
 #interaction model: both slope and intercept vary by species
 #mass + species model: only intercept varies by species
 #mass model: only mass matters
 #species model: only species matters
 
 dredge(m1)
+dredge(m_r)
 
 #best is mass + species model
 m2 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
               data = size)
 
-fit <- simulateResiduals(m2, plot = T)
+fit <- simulateResiduals(m1, plot = T)
+fit <- simulateResiduals(m_r, plot = T)
 
 me <- ggpredict(m2, terms = c("pred_log_mass_mg", "sample_str"), type = "random")
+me_r <- ggpredict(m_r, terms = c("pred_log_mass_mg", "sample_str"), type = "random")
 plot(me, add.data = TRUE) +
   geom_abline(slope = 1, linetype = "dashed") +
   facet_wrap(~group) 
+
+plot(me_r, add.data = TRUE) +
+  geom_abline(slope = 1, linetype = "dashed") 
 
 pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
 
@@ -131,6 +176,8 @@ pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
 summary(m2)
 r.squaredGLMM(m2)
 
+summary(m1)
+summary(m_r)
 # Body size model min ---------------------------------------------------------
 
 m3 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
@@ -139,10 +186,17 @@ m3 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
 
 dredge(m3)
 
+m3_r <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg + (1|sample_str) + (1|sample),
+              data = size,
+              REML = FALSE)
+
+dredge(m3_r)
+
 m4 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
               data = size)
 
-fit <- simulateResiduals(m4, plot = T)
+fit <- simulateResiduals(m3, plot = T)
+fit <- simulateResiduals(m3_r, plot = T)
 
 me2 <- ggpredict(m4, terms = c("pred_log_mass_mg", "sample_str"))
 plot(me2, add.data = TRUE) +
