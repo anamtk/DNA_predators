@@ -175,39 +175,14 @@ knitr::include_graphics(here("art", "png", "goblin.png"))
 
 ### Does predator size or identity determine prey identity?
 
-Next, I wanted to know whether for predators in a shared environment, prey item identity is determined by predator size or predator species identity. To do this, I subset just the predators I had collected from one shared environment and sampling period (a canopy fogging collection in *Pisonia grandis* on Sand Island in 2017). In this particular fogging event, I was able to collect 60 individuals from four predator species (*H. venatoria*, *P. holdhausi*, *N. theisi*, and *E. annulipes*).
+Next, I wanted to know whether prey item identity is determined by predator size or predator species identity. For this analysis, since predators were sampled from different habitats on the island (e.g. soil and canopy, different forest types) I also included sampling environment as a covariate in this analysis. 
 
 ```{r, include = FALSE}
 source(here("6_statistics", "3_cca_sandpg_canopy.R"))
 ```
 
-### Size distribution of predators from Sand *Pisonia grandis*
-
-```{r}
-cols <-  c("EUB" = "#EA7700", "HEV" = "#EEB00C","NEO" = "#89742F", "PHH" = "#158D8E")
-
-size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
-  distinct(sample, sample_str, pred_log_mass_mg) %>%
-  ggplot(aes(x = pred_log_mass_mg, fill = sample_str)) +
-  geom_histogram(color = "black", position = "identity", alpha = 0.8) +
-  theme_bw() +
-  scale_fill_manual(values = cols)
-```
 
 
-These predators have eaten 24 different prey families.
-
-```{r}
-size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
-  distinct(Class, Order, Family) %>%
-  arrange(Class, Order, Family) 
-```
 
 To determine whether these predators were partitioning prey by size, species, or both, I ran a constrained canonical analysis (CCA) with both predator species identity and size as predictor variables. CCA is a multivariate method that tests for relationships between predictor variables and a set of multivariate data (e.g. a set of diet "communities" across individual predator samples). Unlike RDA, CCA does not assume a linear relationship and is more aimed at understanding how variables influence community composition. 
 
