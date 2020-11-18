@@ -44,6 +44,7 @@ size %>%
 size %>%
   distinct(sample) %>%
   summarise(total = n())
+
 #Does predator identity or size determine prey size?
 #mean of prey species
 ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
@@ -71,35 +72,6 @@ ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
   theme_bw()# +
 # facet_wrap(~sample_str, scale = "free")
 
-#min of prey species
-ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  #scale_x_log10() +
-  #scale_y_log10() +
-  theme_bw() 
-
-ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  #scale_x_log10() +
-  #scale_y_log10() +
-  theme_bw() +
-  facet_wrap(~sample_str, scale = "free")
-
-ggplot(size, aes(x = pred_mass_mg, y = min_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw() 
-
-ggplot(size, aes(x = sample_str, y = min_prey_mass_mg, color = sample_str)) +
-  geom_boxplot() + 
-  geom_point() +
-  theme_bw() +
-  scale_y_log10()
-
 size %>%
   mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
                                                     "SME", "EUB", "PHH", "PAN",
@@ -109,12 +81,6 @@ ggplot(aes(x = sample_str, y = mean_prey_mass_mg, color = sample_str)) +
   geom_point() +
   theme_bw() +
   scale_y_log10()
-
-ggplot(size, aes(x = sample_str, y = pred_mass_mg, color = sample_str)) +
-  geom_boxplot() + 
-  geom_point() +
-  theme_bw() #+
-  #scale_y_log10()
 
 # Body size model mean ---------------------------------------------------------
 
@@ -179,53 +145,6 @@ r.squaredGLMM(m2)
 
 summary(m1)
 summary(m_r)
-# Body size model min ---------------------------------------------------------
-
-m3 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
-              data = size,
-              REML = FALSE)
-
-dredge(m3)
-
-m3_r <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg + (1|sample_str) + (1|sample),
-              data = size,
-              REML = FALSE)
-
-dredge(m3_r)
-
-m4 <- glmmTMB(min_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
-              data = size)
-
-fit <- simulateResiduals(m3, plot = T)
-fit <- simulateResiduals(m3_r, plot = T)
-
-me2 <- ggpredict(m4, terms = c("pred_log_mass_mg", "sample_str"))
-plot(me2, add.data = TRUE) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  facet_wrap(~group) 
-
-min_predprey_plot <- plot(me2, ci = FALSE, line.size = 1) +
-  geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
-  annotate("text", x = 7, y = -3, label = expression(paste("y = ", x^0.26))) +
-  annotate("text", x = 7, y = -3.5, label = expression(paste(cR^2, " = 0.15"))) +
-  annotate("text", x = 7, y = -4, label = expression(paste(mR^2, " = 0.15"))) +
-  scale_color_manual(values = pal_kelp) +
-  labs(x = "Predator mass (log(mg))", y = "Prey mass (log(mg))") +
-  theme_bw() +
-  theme(axis.text = element_text(size = 20), 
-        axis.title = element_text(size = 25),
-        title = element_blank())
-
-#in this summary,
-#intercept Estimate gives that base intercept for the model
-#the intercept for each species is the sum of that and the 
-#species intercept
-#the power law relationship is given by the estimate of 
-#pred_log_mass_mg, which is sublinear with a relationship of
-#y = a + x^0.26466
-summary(m4)
-r.squaredGLMM(m4)
-
 
 # SD Predator size within an individual -----------------------------------
 
@@ -253,19 +172,6 @@ size %>%
   facet_wrap(~sample_str, 
              scales = "free",
              labeller = labeller(sample_str = pred_labels))
-
-size %>%
-  filter(sample_str %in% c("HEV", "NEO", "PHH", "SME")) %>%
-  group_by(sample, sample_str, pred_mass_mg) %>%
-  summarise(SD_min = sd(min_prey_mass_mg)) %>%
-  ggplot(aes(x = pred_mass_mg, y = SD_min, color = sample_str)) +
-  geom_point(size = 3) +
-  geom_smooth(method= "lm", se = F) +
-  theme_bw() +
-  facet_wrap(~sample_str, 
-             scales = "free",
-             labeller = labeller(sample_str = pred_labels))
-
 
 # Figures ------------------------------------------------------------------
 #predator size distribution
@@ -298,25 +204,8 @@ ggplot(aes(x = mean_prey_log_mass_mg)) +
         axis.title.y = element_blank()) +
   coord_flip()
 
-prey_min_sz <- size %>%
-  #distinct(Family, min_prey_log_mass_mg) %>%
-ggplot(aes(x = min_prey_mass_mg)) +
-  geom_histogram(alpha = 0.85, color = "black") +
-  #scale_y_log10() +
-  scale_x_log10() +
-  #geom_density(fill = "#114C54", alpha = 0.85) +
-  theme_bw() +
-  labs(x = "Prey mass (mg)", y = "Interactions") +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25)) +
-  coord_flip()
-
 mean_size_graphs <- (mean_predprey_plot + prey_mean_sz + pred_size + plot_spacer() +
   plot_layout(widths = c(3,1), heights = c(3,1)))
-
-min_size_graphs <- (min_predprey_plot + prey_min_sz + pred_size + plot_spacer() +
-                       plot_layout(widths = c(3,1), heights = c(3,1)))
-
 
 #pred size distribution on its own
 (pred_size2 <- size %>%
@@ -332,10 +221,6 @@ min_size_graphs <- (min_predprey_plot + prey_min_sz + pred_size + plot_spacer() 
     theme(axis.text = element_text(size =20),
           axis.title = element_text(size = 25)))
 
-#-1.469814
-#6.834101
-#-7.36504
-
 #prey size distribution on its own
 (prey_mean_size2 <- size %>%
     distinct(Family, mean_prey_mass_mg) %>%
@@ -347,16 +232,3 @@ min_size_graphs <- (min_predprey_plot + prey_min_sz + pred_size + plot_spacer() 
     labs(x = "Mean prey mass (mg)", y = "Prey families") +
     theme(axis.text = element_text(size =20),
           axis.title = element_text(size = 25)))
-
-(prey_min_size2 <- size %>%
-    distinct(Family, min_prey_mass_mg) %>%
-    ggplot(aes(x = min_prey_mass_mg)) +
-    geom_histogram(bins = 50, alpha = 0.85, color = "black") +
-    scale_x_log10() +
-    #geom_density(fill = "#BE8333", alpha = 0.85) +
-    theme_bw() +
-    labs(x = "Min prey mass (mg)", y = "Prey families") +
-    theme(axis.text = element_text(size =20),
-          axis.title = element_text(size = 25)))
-
-
