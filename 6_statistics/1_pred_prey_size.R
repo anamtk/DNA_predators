@@ -65,6 +65,7 @@ ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
 ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed") +
   geom_point(size = 3) +
+  geom_abline(slope = 0.41, size = 1) +
   scale_x_log10() +
   scale_y_log10() +
   theme_bw()# +
@@ -106,8 +107,8 @@ size %>%
 ggplot(aes(x = sample_str, y = mean_prey_mass_mg, color = sample_str)) +
   geom_boxplot() + 
   geom_point() +
-  theme_bw()# +
-  #scale_y_log10()
+  theme_bw() +
+  scale_y_log10()
 
 ggplot(size, aes(x = sample_str, y = pred_mass_mg, color = sample_str)) +
   geom_boxplot() + 
@@ -226,6 +227,46 @@ summary(m4)
 r.squaredGLMM(m4)
 
 
+# SD Predator size within an individual -----------------------------------
+
+size %>%
+  group_by(sample, sample_str, pred_mass_mg) %>%
+  summarise(SD_mean = sd(mean_prey_mass_mg)) %>%
+  ggplot(aes(x = pred_mass_mg, y = SD_mean, color = sample_str)) +
+  geom_point() +
+  theme_bw() 
+
+pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes", 
+                 "HEV" = "H. venatoria", "LRS" = "Oonopidae sp.", 
+                 "NEO" = "N. theisi", "PAN" = "P. flavescens",
+                 "PHH" = "P. holdhausi", "SCY" = "S. longipes",
+                 "SME" = "S. pallidus")
+
+size %>%
+  filter(sample_str %in% c("HEV", "NEO", "PHH", "SME")) %>%
+  group_by(sample, sample_str, pred_mass_mg) %>%
+  summarise(SD_mean = sd(mean_prey_mass_mg)) %>%
+  ggplot(aes(x = pred_mass_mg, y = SD_mean, color = sample_str)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = F) +
+  theme_bw() +
+  facet_wrap(~sample_str, 
+             scales = "free",
+             labeller = labeller(sample_str = pred_labels))
+
+size %>%
+  filter(sample_str %in% c("HEV", "NEO", "PHH", "SME")) %>%
+  group_by(sample, sample_str, pred_mass_mg) %>%
+  summarise(SD_min = sd(min_prey_mass_mg)) %>%
+  ggplot(aes(x = pred_mass_mg, y = SD_min, color = sample_str)) +
+  geom_point(size = 3) +
+  geom_smooth(method= "lm", se = F) +
+  theme_bw() +
+  facet_wrap(~sample_str, 
+             scales = "free",
+             labeller = labeller(sample_str = pred_labels))
+
+
 # Figures ------------------------------------------------------------------
 #predator size distribution
 (pred_size <- size %>%
@@ -279,14 +320,15 @@ min_size_graphs <- (min_predprey_plot + prey_min_sz + pred_size + plot_spacer() 
 
 #pred size distribution on its own
 (pred_size2 <- size %>%
-    distinct(sample, pred_log_mass_mg) %>%
-    ggplot(aes(x = pred_log_mass_mg)) +
+    distinct(sample, pred_mass_mg) %>%
+    ggplot(aes(x = pred_mass_mg)) +
     geom_histogram(bins = 50, alpha = 0.85, color = "black") +
     #scale_y_log10() +
     xlim(-8, 7) +
     #geom_density(fill = "#BE8333", alpha = 0.85) +
+    scale_x_log10() +
     theme_bw() +
-    labs(x = "Predator mass (log(mg))", y = "Individuals") +
+    labs(x = "Predator mass (mg)", y = "Individuals") +
     theme(axis.text = element_text(size =20),
           axis.title = element_text(size = 25)))
 
@@ -296,26 +338,24 @@ min_size_graphs <- (min_predprey_plot + prey_min_sz + pred_size + plot_spacer() 
 
 #prey size distribution on its own
 (prey_mean_size2 <- size %>%
-    distinct(Family, mean_prey_log_mass_mg) %>%
-    ggplot(aes(x = mean_prey_log_mass_mg)) +
+    distinct(Family, mean_prey_mass_mg) %>%
+    ggplot(aes(x = mean_prey_mass_mg)) +
     geom_histogram(bins = 50, alpha = 0.85, color = "black") +
-    #scale_y_log10() +
+    scale_x_log10() +
     #geom_density(fill = "#BE8333", alpha = 0.85) +
     theme_bw() +
-    xlim(-8, 7) +
-    labs(x = "Mean prey mass (log(mg))", y = "Prey families") +
+    labs(x = "Mean prey mass (mg)", y = "Prey families") +
     theme(axis.text = element_text(size =20),
           axis.title = element_text(size = 25)))
 
 (prey_min_size2 <- size %>%
-    distinct(Family, min_prey_log_mass_mg) %>%
-    ggplot(aes(x = min_prey_log_mass_mg)) +
+    distinct(Family, min_prey_mass_mg) %>%
+    ggplot(aes(x = min_prey_mass_mg)) +
     geom_histogram(bins = 50, alpha = 0.85, color = "black") +
-    #scale_y_log10() +
-    xlim(-8, 7) +
+    scale_x_log10() +
     #geom_density(fill = "#BE8333", alpha = 0.85) +
     theme_bw() +
-    labs(x = "Min prey mass (log(mg))", y = "Prey families") +
+    labs(x = "Min prey mass (mg)", y = "Prey families") +
     theme(axis.text = element_text(size =20),
           axis.title = element_text(size = 25)))
 
