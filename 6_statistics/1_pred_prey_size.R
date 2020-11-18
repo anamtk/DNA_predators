@@ -17,7 +17,8 @@ package.list <- c("here", "tidyverse",
                   "glmmTMB", "emmeans",
                   "MuMIn", "DHARMa",
                   "effects", "ggeffects",
-                  "calecopal", "patchwork")
+                  "calecopal", "patchwork",
+                  "emmeans")
 
 ## Installing them if they aren't already on the computer
 new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
@@ -36,53 +37,12 @@ size <- data %>%
   mutate(pred_mass_mg = exp(pred_log_mass_mg)) 
 
 
-# Size relationship quick visualizations -----------------------------------------------
-size %>%
-  summarise(min = min(pred_mass_mg),
-            max = max(pred_mass_mg))
-
+# How many preds? -----------------------------------------------
 size %>%
   distinct(sample) %>%
   summarise(total = n())
 
-#Does predator identity or size determine prey size?
-#mean of prey species
-ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  #scale_x_log10() +
-  #scale_y_log10() +
-  theme_bw() +
-  facet_wrap(~sample_str, scale = "free")
-
-ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  #scale_x_log10() +
-  #scale_y_log10() +
-  theme_bw()# +
-# facet_wrap(~sample_str, scale = "free")
-
-ggplot(size, aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3) +
-  geom_abline(slope = 0.41, size = 1) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw()# +
-# facet_wrap(~sample_str, scale = "free")
-
-size %>%
-  mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
-                                                    "SME", "EUB", "PHH", "PAN",
-                                                      "HEV"))) %>%
-ggplot(aes(x = sample_str, y = mean_prey_mass_mg, color = sample_str)) +
-  geom_boxplot() + 
-  geom_point() +
-  theme_bw() +
-  scale_y_log10()
-
-# Body size model mean ---------------------------------------------------------
+# Body size model selection ---------------------------------------------------------
 
 #is the prey size determined by some combination of predator identity
 #and predator size?
@@ -90,48 +50,18 @@ m1 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
               data = size,
               REML = FALSE)
 
-#si there an invariant body size relationship across species
-m_r <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg + (1|sample_str),
-               data = size,
-               REML = FALSE)
-
 #interaction model: both slope and intercept vary by species
-#mass + species model: only intercept varies by species
+#mass + species model: slope invariant, only intercept varies by species
 #mass model: only mass matters
 #species model: only species matters
 
 dredge(m1)
-dredge(m_r)
 
 #best is mass + species model
 m2 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
               data = size)
 
-fit <- simulateResiduals(m1, plot = T)
-fit <- simulateResiduals(m_r, plot = T)
-
-me <- ggpredict(m2, terms = c("pred_log_mass_mg", "sample_str"), type = "random")
-me_r <- ggpredict(m_r, terms = c("pred_log_mass_mg", "sample_str"), type = "random")
-plot(me, add.data = TRUE) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  facet_wrap(~group) 
-
-plot(me_r, add.data = TRUE) +
-  geom_abline(slope = 1, linetype = "dashed") 
-
-pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
-
-(mean_predprey_plot <- plot(me, ci = FALSE, line.size = 1) +
-  geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
-  annotate("text", x = 7, y = -3, label = expression(paste("y = ", x^0.41))) +
-  annotate("text", x = 7, y = -3.5, label = expression(paste(cR^2, " = 0.35"))) +
-  annotate("text", x = 7, y = -4, label = expression(paste(mR^2, " = 0.30"))) +
-  scale_color_manual(values = pal_kelp) +
-  labs(x = "Predator mass (log(mg))", y = "Prey mass (log(mg))") +
-  theme_bw() +
-  theme(axis.text = element_text(size = 20), 
-        axis.title = element_text(size = 25),
-        title = element_blank()))
+fit <- simulateResiduals(m2, plot = T)
 
 #in this summary,
 #intercept Estimate gives that base intercept for the model
@@ -140,72 +70,28 @@ pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
 #the power law relationship is given by the estimate of 
 #pred_log_mass_mg, which is sublinear with a relationship of
 #y = a + x^0.41259
+
+
+# Model diagnostics -------------------------------------------------------
+
 summary(m2)
 r.squaredGLMM(m2)
 
-summary(m1)
-summary(m_r)
+em <- emmeans(m2, "sample_str")
+tukey <- as.data.frame(pairs(em))
 
-# SD Predator size within an individual -----------------------------------
+tukey <- tukey %>%
+  mutate(sig = ifelse(p.value < 0.05, "sig", "non-sig"))
 
-size %>%
-  group_by(sample, sample_str, pred_mass_mg) %>%
-  summarise(SD_mean = sd(mean_prey_mass_mg)) %>%
-  ggplot(aes(x = pred_mass_mg, y = SD_mean, color = sample_str)) +
-  geom_point() +
-  theme_bw() 
+# Figures ------------------------------------------------------------------
+
+pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
 
 pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes", 
                  "HEV" = "H. venatoria", "LRS" = "Oonopidae sp.", 
                  "NEO" = "N. theisi", "PAN" = "P. flavescens",
                  "PHH" = "P. holdhausi", "SCY" = "S. longipes",
                  "SME" = "S. pallidus")
-
-size %>%
-  filter(sample_str %in% c("HEV", "NEO", "PHH", "SME")) %>%
-  group_by(sample, sample_str, pred_mass_mg) %>%
-  summarise(SD_mean = sd(mean_prey_mass_mg)) %>%
-  ggplot(aes(x = pred_mass_mg, y = SD_mean, color = sample_str)) +
-  geom_point(size = 3) +
-  geom_smooth(method = "lm", se = F) +
-  theme_bw() +
-  facet_wrap(~sample_str, 
-             scales = "free",
-             labeller = labeller(sample_str = pred_labels))
-
-# Figures ------------------------------------------------------------------
-#predator size distribution
-(pred_size <- size %>%
-  distinct(sample, pred_log_mass_mg) %>%
-ggplot(aes(x = pred_log_mass_mg)) +
-  geom_histogram(bins = 50, alpha = 0.85, color = "black") +
-  #scale_y_log10() +
-  #geom_density(fill = "#BE8333", alpha = 0.85) +
-  xlim(-2.5, 7.75) +
-  theme_bw() +
-  labs(y = "Individuals") +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25),
-        axis.title.x = element_blank()) +
-  scale_y_reverse())
-
-prey_mean_sz <- size %>%
-  #distinct(Family, mean_prey_log_mass_mg) %>%
-ggplot(aes(x = mean_prey_log_mass_mg)) +
-  geom_histogram(alpha = 0.85, color = "black") +
-  #geom_density(fill = "#114C54", alpha = 0.85) +
-  #scale_y_log10() +
-  scale_x_log10() +
-  xlim(-4, 6) +
-  theme_bw() +
-  labs(y = "Interactions") +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25),
-        axis.title.y = element_blank()) +
-  coord_flip()
-
-mean_size_graphs <- (mean_predprey_plot + prey_mean_sz + pred_size + plot_spacer() +
-  plot_layout(widths = c(3,1), heights = c(3,1)))
 
 #pred size distribution on its own
 (pred_size2 <- size %>%
@@ -231,4 +117,74 @@ mean_size_graphs <- (mean_predprey_plot + prey_mean_sz + pred_size + plot_spacer
     theme_bw() +
     labs(x = "Mean prey mass (mg)", y = "Prey families") +
     theme(axis.text = element_text(size =20),
+          axis.text.x = element_text(angle = 45, hjust = 1),
           axis.title = element_text(size = 25)))
+
+#Does predator identity or size determine prey size?
+size_graph_col <- size %>%
+  mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
+                                                    "SME", "EUB", "PHH", "PAN",
+                                                    "HEV"))) %>%
+  ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
+  geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
+  geom_point(size = 3) +
+  geom_abline(slope = 0.41, size = 1) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Predator mass (mg)", y = "Prey mass (mg)") +
+  scale_color_manual(values = pal_kelp,
+                     labels = pred_labels) +
+  theme_bw() +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25))
+
+#without colors:
+size_graph_ncol <- size %>%
+  mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
+                                                    "SME", "EUB", "PHH", "PAN",
+                                                    "HEV"))) %>%
+  ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
+  geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
+  geom_point(size = 3) +
+  geom_abline(slope = 0.41, size = 1) +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Predator mass (mg)", y = "Prey mass (mg)") +
+  theme_bw() +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25))
+
+#sorted by increased average predator size, then showing prey size
+species_graph <- size %>%
+  mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
+  ggplot(aes(x = reorder(sample_str, pred_mass_mg), y = mean_prey_mass_mg, color = sample_str)) +
+  geom_boxplot(size = 1) + 
+  geom_point() +
+  scale_color_manual(values = pal_kelp,
+                     labels = pred_labels) +
+  theme_bw() +
+  scale_y_log10() +
+  labs(x = "Predator species", y = "Prey mass (mg)") +
+  theme(axis.text.y = element_text(size =20),
+        axis.text.x = element_blank(),
+        axis.title = element_text(size = 25))
+
+#pairwise comparisons
+pairwise_sp <- tukey %>%
+  arrange(estimate, p.value) %>%
+  mutate(contrast = factor(contrast, levels = contrast)) %>%
+ggplot(aes(x = contrast, y = estimate, color = sig)) +
+  geom_hline(yintercept = 0, linetype = "dashed", size = 1) +
+  geom_point(size = 2) +
+  geom_linerange(aes(ymin = estimate - SE, 
+                     ymax = estimate + SE), 
+                 size = 1) +
+  scale_color_manual(values = c("sig" = "#229AAA",
+                                "non-sig" = "#878787")) +
+  theme_bw() +
+  coord_flip() +
+  labs(x = "Pairwise contrast", y = "Difference") +
+  theme(legend.position = "none",
+        axis.text = element_text(size =15),
+        axis.title = element_text(size = 25))
+
