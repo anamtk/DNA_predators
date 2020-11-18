@@ -15,7 +15,8 @@ package.list <- c("here", "tidyverse",
                   "MuMIn", "DHARMa",
                   "effects", "ggeffects",
                   "vegan", "remotes",
-                  "eulerr", "dummies")
+                  "eulerr", "dummies",
+                  "calecopal")
 
 ## Installing them if they aren't already on the computer
 new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
@@ -48,42 +49,20 @@ meta <- meta %>%
 
 #join to the interactions DF
 size2 <- size2 %>%
-  left_join(meta, by = c("sample" = "Extraction.ID"))
+  left_join(meta, by = c("sample" = "Extraction.ID")) %>%
+  unite(environment, c("Habitat", "Microhabitat"), sep = "_", remove = F) 
 
-
-# Data explorations -------------------------------------------------------
-
-size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
-  distinct(sample, sample_str, pred_log_mass_mg) %>%
-  ggplot(aes(x = pred_log_mass_mg, fill = sample_str)) +
-  geom_histogram(color = "black", position = "identity", alpha = 0.8) +
-  theme_bw()
-
-size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
-  filter(sample_str != "PHH") %>%
-  distinct(sample, sample_str, pred_log_mass_mg) %>%
-  ggplot(aes(x = pred_log_mass_mg, fill = sample_str)) +
-  geom_histogram(color = "black", position = "identity", alpha = 0.8) +
-  theme_bw()
+# Data summary -------------------------------------------------------
 
 size2 %>%
   distinct(sample, sample_str) %>%
   group_by(sample_str) %>%
   summarise(n = n())
 
-# Matrix for Sand PG Canopy -----------------------------------------------
+# Matrix for CCA -----------------------------------------------
 
-#matrix for RDA with diet as columns, samples as rows
-mat_pg <- size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
+#matrix with diet as columns, samples as rows
+mat <- size2 %>%
   dplyr::select(sample, Family) %>%
   mutate(presence = 1) %>%
   pivot_wider(names_from = Family,
@@ -91,62 +70,65 @@ mat_pg <- size2 %>%
               values_fill = 0) %>% #fill missing values with 0's
   column_to_rownames(var = "sample")
 
-#metadata for RDA
-meta_pg <- size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
-  dplyr::select(sample, sample_str, pred_log_mass_mg) %>%
-  distinct(sample, sample_str, pred_log_mass_mg) %>%
+#metadata
+meta <- size2 %>%
+  dplyr::select(sample, sample_str, Habitat, Microhabitat, pred_log_mass_mg) %>%
+  distinct(sample, sample_str, Habitat, Microhabitat, pred_log_mass_mg) %>%
   column_to_rownames(var = "sample")
 
 #check that rownames are the same:
-all.equal(rownames(mat_pg), rownames(meta_pg))
+all.equal(rownames(mat), rownames(meta))
 
-# CCA PG Canopy -----------------------------------------------------------
+# CCA -----------------------------------------------------------
 #working off this tutorial
 #http://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
 # vegan requires that we write out each term if we are not going to 
 # convert the factor to a dummy matrix 
 # alternatively we could use a shorthand approach
-cca_pg <-  cca(mat_pg ~ . , data=meta_pg)
+cca <-  cca(mat ~ . , data=meta)
 
-#view the RDA loadings
-cca_pg
+#view the CCA loadings
+cca
 #screeplot(cca_pg)
-summary(cca_pg)
+summary(cca)
 #how much variation explained in this RDA
-RsquareAdj(cca_pg)
+RsquareAdj(cca)
 #ANOVA of whole model
-anova(cca_pg, permutations=10000)
+anova(cca, permutations=10000)
 #ANOVA of model terms
-anova(cca_pg, by='margin', permutations=10000)
+anova(cca, by='margin', permutations=10000)
 
 #pretty ggplot plot 
 #site metadata
-sites <- meta_pg %>%
+sites <- meta %>%
   rownames_to_column("site")
 #get the site (sample) scores out and attach to site metadata
-CCAscores <- scores(cca_pg, display = "sites") %>% 
+CCAscores <- scores(cca, display = "sites") %>% 
   as.data.frame() %>% 
   rownames_to_column("site") %>%
   left_join(sites, by = "site")
 
 #get the vectors out representing the loadings by species
-CCAvect <- scores(cca_pg, display = c("cn")) %>% 
+CCAvect <- scores(cca, display = c("cn")) %>% 
   as.data.frame() %>%
   rownames_to_column(var = "ID") %>%
-  mutate(sample_str = str_sub(ID, -3))
+  mutate(sample_str = str_sub(ID, -3)) #fix this!!
 
 #get vector out representing the loading by body size
-CCAsizevect <- scores(cca_pg, display = "bp") %>% 
+CCAsizevect <- scores(cca, display = "bp") %>% 
   as.data.frame() %>%
   rownames_to_column(var = "ID") %>%
   filter(ID == "pred_log_mass_mg")
 
-cols <-  c("EUB" = "#EA7700", "HEV" = "#EEB00C","NEO" = "#89742F", "PHH" = "#158D8E")
+pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
 
-CCA_plot <- ggplot() +
+pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes", 
+                 "HEV" = "H. venatoria", "LRS" = "Oonopidae sp.", 
+                 "NEO" = "N. theisi", "PAN" = "P. flavescens",
+                 "PHH" = "P. holdhausi", "SCY" = "S. longipes",
+                 "SME" = "S. pallidus")
+
+ggplot() +
   geom_vline(xintercept = c(0), color = "grey70", linetype = 2) +
   geom_hline(yintercept = c(0), color = "grey70", linetype = 2) +
   geom_point(data = CCAscores, aes(x = CCA1, y = CCA2, color = sample_str), size = 3) +
@@ -158,14 +140,14 @@ CCA_plot <- ggplot() +
                aes(x = 0, y =0, xend = CCA1, yend = CCA2),
                arrow = arrow(length = unit(0.2, "cm")),
                size = 1) +
-  geom_text(data = CCAvect, aes(x = CCA1, y = CCA2, label = sample_str), 
+  geom_text(data = CCAvect, aes(x = CCA1, y = CCA2, label = ID), 
             nudge_x = -0.15, size = 5) +
   geom_text(data = CCAsizevect, aes(x = CCA1, y = CCA2), label = "Predator mass",
             size = 5, nudge_y = 0.2, nudge_x = 0.1) +
   theme_bw() +
-  scale_color_manual(values = cols) +
-  labs(x = "CCA1 (39.8%)",
-       y = "CCA2 (32.0%)") +
+  scale_color_manual(values = pal_kelp) +
+  labs(x = "CCA1 (%)",
+       y = "CCA2 (%)") +
   theme(axis.text = element_text(size = 20),
         axis.title = element_text(size = 25))
 
@@ -173,134 +155,38 @@ CCA_plot <- ggplot() +
 
 #get variance by variable for Euler graph
 #create environmental variables
-species <- dummy(meta_pg$sample_str)
-bs <- meta_pg$pred_log_mass_mg
+species <- dummy(meta$sample_str)
+hab <- dummy(meta$Habitat)
+micro <- dummy(meta$Microhabitat)
+bs <- meta$pred_log_mass_mg
+
 #get variation by each
-varpart(mat_pg, species, bs)
+plot(varpart(mat, species, bs, hab, micro))
+varpart(mat, species, bs, hab, micro)
 #create vector of these variations
-var_pg <-  c("Predator species" = 16.2, 
-             "Predator size" = 0.1,
-             "Predator size&Predator species" = 3.4)
 
-#make a Euler and plot it
+#Explanatory tables:
+#X1:  species
+#X2:  bs
+#X3:  hab
+#X4:  micro 
 
-fit3 <- euler(var_pg, shape = "ellipse")
-
-euler <- plot(fit3,
-              quantities = TRUE)
-
-# Matrix minus PHH -----------------------------------------------
-
-#matrix for RDA with diet as columns, samples as rows
-mat_sm <- size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
-  filter(sample_str != "PHH") %>%
-  dplyr::select(sample, Family) %>%
-  mutate(presence = 1) %>%
-  pivot_wider(names_from = Family,
-              values_from = presence,
-              values_fill = 0) %>% #fill missing values with 0's
-  column_to_rownames(var = "sample")
-
-#metadata for RDA
-meta_sm <- size2 %>%
-  filter(Island == "Sand" & 
-           Habitat == "PG" & 
-           Microhabitat == "Canopy") %>%
-  filter(sample_str != "PHH") %>%
-  dplyr::select(sample, sample_str, pred_log_mass_mg) %>%
-  distinct(sample, sample_str, pred_log_mass_mg) %>%
-  column_to_rownames(var = "sample")
-
-#check that rownames are the same:
-all.equal(rownames(mat_sm), rownames(meta_sm))
-
-# CCA PG Canopy w/o PHH -----------------------------------------------------------
-#working off this tutorial
-#http://dmcglinn.github.io/quant_methods/lessons/multivariate_models.html
-# vegan requires that we write out each term if we are not going to 
-# convert the factor to a dummy matrix 
-# alternatively we could use a shorthand approach
-cca_sm <-  cca(mat_sm ~ . , data=meta_sm)
-
-#view the RDA loadings
-cca_sm
-#screeplot(cca_sm)
-summary(cca_sm)
-#how much variation explained in this RDA
-RsquareAdj(cca_sm)
-#ANOVA of whole model
-anova(cca_sm, permutations=10000)
-#ANOVA of model terms
-anova(cca_sm, by='margin', permutations=10000)
-
-#pretty ggplot plot 
-#site metadata
-sites_sm <- meta_sm %>%
-  rownames_to_column("site")
-#get the site (sample) scores out and attach to site metadata
-CCAscores_sm <- scores(cca_sm, display = "sites") %>% 
-  as.data.frame() %>% 
-  rownames_to_column("site") %>%
-  left_join(sites, by = "site")
-
-#get the vectors out representing the loadings by species
-CCAvect_sm <- scores(cca_sm, display = c("cn")) %>% 
-  as.data.frame() %>%
-  rownames_to_column(var = "ID") %>%
-  mutate(sample_str = str_sub(ID, -3))
-
-#get vector out representing the loading by body size
-CCAsizevect_sm <- scores(cca_sm, display = "bp") %>% 
-  as.data.frame() %>%
-  rownames_to_column(var = "ID") %>%
-  filter(ID == "pred_log_mass_mg")
-
-cols_sm <-  c("EUB" = "#EA7700", "HEV" = "#EEB00C","NEO" = "#89742F")
-
-CCA_plot_sm <- ggplot() +
-  geom_vline(xintercept = c(0), color = "grey70", linetype = 2) +
-  geom_hline(yintercept = c(0), color = "grey70", linetype = 2) +
-  geom_point(data = CCAscores_sm, aes(x = CCA1, y = CCA2, color = sample_str), size = 3) +
-  geom_segment(data = CCAvect_sm, 
-               aes(x = 0, y = 0, xend = CCA1, yend = CCA2), 
-               arrow = arrow(length = unit(0.2, "cm")),
-               size = 1) +
-  geom_segment(data = CCAsizevect_sm,
-               aes(x = 0, y =0, xend = CCA1, yend = CCA2),
-               arrow = arrow(length = unit(0.2, "cm")),
-               size = 1) +
-  geom_text(data = CCAvect_sm, aes(x = CCA1, y = CCA2, label = sample_str), 
-            nudge_x = -0.15, size = 5) +
-  geom_text(data = CCAsizevect_sm, aes(x = CCA1, y = CCA2), label = "Predator mass",
-            size = 5, nudge_y = 0.2, nudge_x = 0.1) +
-  theme_bw() +
-  scale_color_manual(values = cols_sm) +
-  labs(x = "CCA1 (56.5%)",
-       y = "CCA2 (27.2%)") +
-  theme(axis.text = element_text(size = 20),
-        axis.title = element_text(size = 25))
-CCA_plot_sm
-
-# Euler plot w/o PHH--------------------------------------------------------------
-
-#get variance by variable for Euler graph
-#create environmental variables
-species <- dummy(meta_sm$sample_str)
-bs <- meta_sm$pred_log_mass_mg
-#get variation by each
-varpart(mat_sm, species, bs)
-#create vector of these variations
-var_sm <-  c("Predator species" = 28.1, 
-             "Predator size" = 0.7,
-             "Predator size&Predator species" = 0)
-
-#make a Euler and plot it
-
-fit <- euler(var_sm, shape = "ellipse")
-
-euler2 <- plot(fit,
-              quantities = TRUE)
-euler2
+var <-  c("Predator_species" = 12, 
+                    "Predator_mass" = 1, 
+                    "Habitat" = 4, 
+                    "Microhabitat" = 1, 
+                    "Predator_species&Predator_mass" = 1,
+                    "Predator_species&Habitat" = 1,
+                    "Predator_species&Microhabitat" = 6,
+                    "Predator_mass&Habitat" = 0,
+                    "Predator_mass&Microhabitat" = 0,
+                    "Habitat&Microhabitat" = 0,
+                    "Predator_species&Predator_mass&Habitat" = 1,
+                    "Predator_species&Predator_mass&Microhabitat" = 0,
+                    "Predator_species&Habitat&Microhabitat" = 0,
+                    "Predator_mass&Habitat&Microhabitat" = 0)
+fit3 <- euler(var, 
+              shape = "ellipse")
+euler <- plot(fit3, 
+     quantities = TRUE,
+     fills = c("#f0f0f0", "#d9d9d9", "#bdbdbd", "#969696"))
