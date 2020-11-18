@@ -230,13 +230,18 @@ I need the most help with Q1 above, but if you have thoughts about the following
   + Next steps: **Austen**: Would it be interesting to use variation in prey mass as a response variable to complement results from Q1/Q3? I think this could complement your nestedness analysis for Q3 where you found no nestedness related to prey species identity. Nestedness could occur by prey identity irrespective of prey size (NODF analysis) but nestedness (in a different sense) could also occur by prey size irrespective of prey identity, right? The same analysis you ran for Q1 with prey mass SD as the response variable could tell you this perhaps. In other words, larger H. venatoria spiders may have a wider prey mass SD bc they like to eat potato chips (small prey) and steaks (large prey; though they tend towards steaks - results from Q1), while smaller H. venatoria spiders still eat potato chips (small prey), but eat a different brand of potato chips than larger H. venatoria, hence, you would not see an effect of nestedness by prey identity with a NODF analysis but could see an effect with an LMM. Let's hope that made sense... 
   
   
+ + Notes from meeting with Dan: 11/17
 Scatterplot by size
 
 Boxplot by species
 
+  + CEN and PAN have proportionally smaller prey items in proportion to their body size, suggesting potentially greater gape limitation in these predator species
+  
+  + EUB has proportionally larger prey items in comparison to their body size, suggesting a life history strategy (their forceps, perhaps) that allow them to attack larger prey. Conversely, these predators are also well-known scavengers, so this large prey item detection could be evidence of scavenging as opposed to active predation.
+
 Generalists vs. specialists – how big you are vs. who you are as a species – at the species level (avg. size of the species and the species identity). 
 
-Dan things the hierarchical clustering is super interesting
+Dan thinks the hierarchical clustering is super interesting
 
 Indices of individual diet specialization (look on Google Scholar)
 
