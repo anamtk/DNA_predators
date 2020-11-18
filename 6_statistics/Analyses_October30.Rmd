@@ -1,7 +1,7 @@
 ---
 title: "Analyses_October30"
 author: "Ana Miller-ter Kuile"
-date: "10/30/2020"
+date: "`r Sys.Date()`"
 output: 
   html_document:
     toc: true
@@ -48,7 +48,7 @@ Food webs are regularly built using "nodes" based on size, predator identity, or
 
 In several aquatic field and mesocosm studies, it has been clear that both the body size and species identity of predators is important in determining both the identity and body size of prey items (e.g. Woodward and Hildrew 2002, Rudolf et al. 2014). However, for terrestrial predators, which comprise (%) of total species on the planet, determining these size rules of predation based on observed interactions has been challenging or impossible. These consumers, thus, constitute a data gap of predator-prey interactions built on observed interaction data.
 
-To aim to fill this gap in observed interactions for invertebrate terrestrial predators, in this study, we employed DNA metabarcoding of the COI gene region using general primers for all animals (following an adapted protocol from Krehenwinkel et al. 2016 and Miller-ter Kuile et al. *in review*) to determine the diets of nine species of invertebrate predators on Palmyra Atoll, Central Tropical Pacific. We determined interactions for 182 predator individuals, encompassing 3.5 orders of magnitude of body size and including 341 distinct interactions. Using individual-level body size data for each predator individual and averaged body size data for prey items (similar to approaches in other food webs e.g. Brose et al. 2019), we asked three questions relating to body size in food webs. 1) Does predator size, species identity, or their combination determine prey size?, 2) Does predator size or identity determine prey identity for predator individuals from the same environment?, and 3) Within a predator species, do smaller individuals eat a subset of the prey of larger predator individuals (e.g. nestedness or a "nested hierarchy", Woodward and Hildrew 2002)? These three questions are key to building multi-species food web models that incorporate realistic body size and species dependent feeding habits both across and within predator species.
+To aim to fill this gap in observed interactions for invertebrate terrestrial predators, in this study, we employed DNA metabarcoding of the COI gene region using general primers for all animals (following an adapted protocol from Krehenwinkel et al. 2016 and Miller-ter Kuile et al. *in review*) to determine the diets of nine species of invertebrate predators on Palmyra Atoll, Central Tropical Pacific. We determined interactions for 182 predator individuals, encompassing 3.5 orders of magnitude of body size and including 339 distinct interactions. Using individual-level body size data for each predator individual and averaged body size data for prey items (similar to resolution for prey in other food webs e.g. Brose et al. 2019), we asked three questions relating to body size in food webs. 1) Does predator size, species identity, or their combination determine prey size (level: interspecific)?, 2) Does predator size or identity determine prey identity for predator individuals from the same environment (level: interspecific)?, and 3) Within a predator species, do smaller individuals eat a subset of the prey of larger predator individuals (e.g. nestedness or a "nested hierarchy", Woodward and Hildrew 2002, level: intraspecific)? These three questions are key to building multi-species food web models that incorporate realistic body size and species dependent feeding habits both across and within predator species.
 
 ```{r, out.width="20%", fig.align="right"}
 knitr::include_graphics(here("art", "png", "neoscona.png"))
@@ -71,19 +71,26 @@ pred_size2
 ### Predator size distribution by species
 
 ```{r}
+pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes", 
+                 "HEV" = "H. venatoria", "LRS" = "Oonopidae sp.", 
+                 "NEO" = "N. theisi", "PAN" = "P. flavescens",
+                 "PHH" = "P. holdhausi", "SCY" = "S. longipes",
+                 "SME" = "S. pallidus")
+
 size %>%
-  distinct(sample, sample_str, pred_log_mass_mg) %>%
-  ggplot(aes(x = pred_log_mass_mg, fill = sample_str)) +
+  distinct(sample, sample_str, pred_mass_mg) %>%
+  ggplot(aes(x = pred_mass_mg, fill = sample_str)) +
   geom_histogram(color = "black", alpha = 0.85) +
   theme_bw() + 
-  labs(x = "Predator mass (log(mg))", y = "Individuals") +
+  scale_x_log10() +
+  labs(x = "Predator mass (mg)", y = "Individuals") +
     theme(axis.text = element_text(size =20),
           axis.title = element_text(size = 25)) +
-  facet_wrap(~sample_str) +
+  facet_wrap(~sample_str, labeller = labeller(sample_str = pred_labels)) +
   scale_fill_manual(values = pal_kelp)
 ```
 
-I compiled prey DNA data at the family level because of resolution in online taxonomy databases. Concatenating prey at the family level is common for food webs of interactions with terrestrial invertebrates (e.g. Brose et al. 2019). The prey family range in size from $6.3 x 10^{-4}$ to $3.1 x 10^2$ (6 orders of magnitude). 
+I compiled prey DNA data at the family level because of resolution in online taxonomy databases. Summarising prey at the family level is common for food webs of interactions with terrestrial invertebrates (e.g. Brose et al. 2019). The prey family range in size from $6.3 x 10^{-4}$ to $3.1 x 10^2$ (6 orders of magnitude). 
  
 ### Mean prey size distribution
 
@@ -107,9 +114,31 @@ size %>%
 
 ## Q1: Predator-prey size relationships
 
-### Does predator size, species identity, or their combination determine prey size?
+### Does predator size, species identity, or their combination determine prey size (level: intraspecific)?
 
-For this question, I used LMMs with log-transformed size values (due to data distribution) and performed model selection using AIC comparing models to a full model that included the interaction between predator body size and species identity. 
+For this question, I used LMMs with log-transformed size values (due to data distribution) and performed model selection using AIC comparing models to a full model that included the interaction between predator body size and species identity (prey_size ~ predator_size x predator_species).
+
+The outcome was that a model with predator_size + predator_species without the interaction was the best-fitting model. This would mean that larger individuals eat larger prey (with a log-log relationship in this case of $y = x^{0.41}$) and that the intercept of this model varies by species. However, I have a few questions moving forward with this analysis.
+
+#### Unaddressed challenges with this approach
+
+#### 1. Size and species are co-linear
+
+```{r}
+size %>%
+  distinct(sample, sample_str, pred_mass_mg) %>%
+  mutate(sample_str = factor(sample_str, 
+                             levels = c("LRS","NEO", "CEN", "EUB",
+                                        "SCY", "SME", "PHH", "PAN", "HEV"))) %>%
+  ggplot(aes(x = sample_str, y = pred_mass_mg)) +
+  geom_boxplot() +
+  scale_y_log10() +
+  labs(x = "Predator species", y = "Predator mass (mg)") +
+  theme_bw()
+```
+Hence, a model structure with an interaction (prey_size ~ predator_size x predator_species) seems easy-ish to interpret (e.g. predator species changes the *slope* and *intercept* of the predator-prey body size relationship) but a model structure with just predator species and predator size seems... less easy to interpret. This seems to suggest an cross-species relationship between predator-prey body size, but says less about within species. Would love any thoughts you have on this!
+
+#### 2. How to visualize results when raw data are... a  blob?
 
 The interpretation of each model structure is as follows:
 
@@ -305,5 +334,18 @@ Any other ways to think about intraspecific size? I played around with some hier
 ```{r, out.width="20%", fig.align="right"}
 knitr::include_graphics(here("art", "png", "pantala.png"))
 ```
+
+
+## Comments from co-authors/myself:
+
+1. How to visualize/interpret predator-prey body size data with and without a log-log scale?
+
+2. **Austen**: Is there a reason you need to control for the environment in Q2 but not Q1? It's probably obvious, but I still can't think of why. Couldn't you run with the CCA in Q2 with environment-type (canopy vs. non-canopy) as a covariate? Then you could include everything? Relatedly, is there a reason you only ran this analysis with canopy predators as a subset and not understory predators as another analysis? 
+
+3. **Austen**: Would it be interesting to use variation in prey mass as a response variable to complement results from Q1/Q3? I think this could complement your nestedness analysis for Q3 where you found no nestedness related to prey species identity. Nestedness could occur by prey identity irrespective of prey size (NODF analysis) but nestedness (in a different sense) could also occur by prey size irrespective of prey identity, right? The same analysis you ran for Q1 with prey mass SD as the response variable could tell you this perhaps. In other words, larger H. venatoria spiders may have a wider prey mass SD bc they like to eat potato chips (small prey) and steaks (large prey; though they tend towards steaks - results from Q1), while smaller H. venatoria spiders still eat potato chips (small prey), but eat a different brand of potato chips than larger H. venatoria, hence, you would not see an effect of nestedness by prey identity with a NODF analysis but could see an effect with an LMM. Let's hope that made sense... 
+
+4. (not really sure what is being to referred to here, **Austen**: To your point about using abundance-weighted data, I think it would make good sense to try it with abundance-weighted data.)
+
+5. Which predator codes are for Ooonopidae sp. and Geophilomoropha sp.? 
 
 
