@@ -103,7 +103,8 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
     #geom_density(fill = "#BE8333", alpha = 0.85) +
     scale_x_log10() +
     theme_bw() +
-    labs(x = "Predator mass (mg)", y = "Individuals") +
+    labs(x = "Predator mass (mg)", 
+         y = "Individuals") +
     theme(axis.text = element_text(size =20),
           axis.title = element_text(size = 25)))
 
@@ -115,7 +116,8 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
     scale_x_log10() +
     #geom_density(fill = "#BE8333", alpha = 0.85) +
     theme_bw() +
-    labs(x = "Mean prey mass (mg)", y = "Prey families") +
+    labs(x = "Mean prey mass (mg)", 
+         y = "Prey families") +
     theme(axis.text = element_text(size =20),
           axis.text.x = element_text(angle = 45, hjust = 1),
           axis.title = element_text(size = 25)))
@@ -131,13 +133,15 @@ size_graph_col <- size %>%
   geom_abline(slope = 0.41, size = 1) +
   scale_x_log10() +
   scale_y_log10() +
-  labs(x = "Predator mass (mg)", y = "Prey mass (mg)") +
+  labs(x = "Predator mass (mg)", 
+       y = "Prey mass (mg)",
+       color = "Predator species") +
   scale_color_manual(values = pal_kelp,
                      labels = pred_labels) +
   theme_bw() +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25))
-
+size_graph_col
 #without colors:
 size_graph_ncol <- size %>%
   mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
@@ -164,7 +168,9 @@ species_graph <- size %>%
                      labels = pred_labels) +
   theme_bw() +
   scale_y_log10() +
-  labs(x = "Predator species", y = "Prey mass (mg)") +
+  labs(x = "Predator species", 
+       y = "Prey mass (mg)",
+       color = "Predator species") +
   theme(axis.text.y = element_text(size =20),
         axis.text.x = element_blank(),
         axis.title = element_text(size = 25))
