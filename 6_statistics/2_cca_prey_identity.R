@@ -112,7 +112,13 @@ CCAscores <- scores(cca, display = "sites") %>%
 CCAvect <- scores(cca, display = c("cn")) %>% 
   as.data.frame() %>%
   rownames_to_column(var = "ID") %>%
-  mutate(sample_str = str_sub(ID, -3)) #fix this!!
+  filter(str_detect(ID, "sample_str")) %>%
+  mutate(sample_str = str_sub(ID, -3)) %>%
+  filter(sample_str %in% c("CEN", "HEV", "PAN", "PHH")) %>%
+  mutate(pred_sp = ifelse(sample_str == "CEN", "Geophilomorpha sp.",
+                          ifelse(sample_str == "HEV", "H. venatoria",
+                                 ifelse(sample_str == "PAN", "P. flavescens",
+                                        "P. holdhausi"))))
 
 #get vector out representing the loading by body size
 CCAsizevect <- scores(cca, display = "bp") %>% 
@@ -128,7 +134,7 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
                  "PHH" = "P. holdhausi", "SCY" = "S. longipes",
                  "SME" = "S. pallidus")
 
-ggplot() +
+CCA_plot <- ggplot() +
   geom_vline(xintercept = c(0), color = "grey70", linetype = 2) +
   geom_hline(yintercept = c(0), color = "grey70", linetype = 2) +
   geom_point(data = CCAscores, aes(x = CCA1, y = CCA2, color = sample_str), size = 3) +
@@ -136,18 +142,13 @@ ggplot() +
                aes(x = 0, y = 0, xend = CCA1, yend = CCA2), 
                arrow = arrow(length = unit(0.2, "cm")),
                size = 1) +
-  geom_segment(data = CCAsizevect,
-               aes(x = 0, y =0, xend = CCA1, yend = CCA2),
-               arrow = arrow(length = unit(0.2, "cm")),
-               size = 1) +
-  geom_text(data = CCAvect, aes(x = CCA1, y = CCA2, label = ID), 
-            nudge_x = -0.15, size = 5) +
-  geom_text(data = CCAsizevect, aes(x = CCA1, y = CCA2), label = "Predator mass",
-            size = 5, nudge_y = 0.2, nudge_x = 0.1) +
+  geom_text(data = CCAvect, aes(x = CCA1, y = CCA2, label = pred_sp), 
+            nudge_y = -0.1, nudge_x = -0.15, size = 5) +
   theme_bw() +
-  scale_color_manual(values = pal_kelp) +
-  labs(x = "CCA1 (%)",
-       y = "CCA2 (%)") +
+  scale_color_manual(values = pal_kelp,
+                     labels = pred_labels) +
+  labs(x = "CCA1 (14.4%)",
+       y = "CCA2 (12.9%)") +
   theme(axis.text = element_text(size = 20),
         axis.title = element_text(size = 25))
 
@@ -187,6 +188,7 @@ var <-  c("Predator_species" = 12,
                     "Predator_mass&Habitat&Microhabitat" = 0)
 fit3 <- euler(var, 
               shape = "ellipse")
+
 euler <- plot(fit3, 
      quantities = TRUE,
      fills = c("#f0f0f0", "#d9d9d9", "#bdbdbd", "#969696"))
