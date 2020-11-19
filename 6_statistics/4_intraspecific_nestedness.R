@@ -50,6 +50,18 @@ size3 <- size3 %>%
 
 
 # Species accumulation curves ---------------------------------------------
+#pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
+#pal_kelp
+#LRS: "#C70000" 
+# SCY: "#EA7700" 
+#NEO: "#EEB00C" 
+#CEN: "#C68A2C" 
+#SME: "#89742F" 
+#EUB: "#496C3C" 
+#PHH: "#158D8E"
+#PAN: "#067D8D" 
+#HEV: "#114C54"
+
 sample_sizes <- size3 %>%
   filter(sample_str %in% c("HEV", "PHH", "NEO")) %>%
   distinct(sample, sample_str) %>%
@@ -80,8 +92,8 @@ hev_acc <- ggiNEXT(out_hev, type=1, color.var="site") +
   theme(legend.position="none",
         axis.text = element_text(size = 20),
         axis.title = element_text(size = 25)) +
-  scale_color_manual(values = c("#EEB00C")) +
-  scale_fill_manual(values = c("#EEB00C")) +
+  scale_color_manual(values = c("#114C54")) +
+  scale_fill_manual(values = c("#114C54")) +
   geom_ribbon(aes(ymin=42-11, ymax=42+11), color = NA, alpha=0.1) +
   geom_hline(yintercept = 42, linetype = "dashed", size =1) 
 
@@ -103,8 +115,8 @@ neo_acc <- ggiNEXT(out_neo, type=1, color.var="site") +
   theme(legend.position="none",
         axis.text = element_text(size = 20),
         axis.title = element_text(size = 25)) +
-  scale_color_manual(values = c("#89742F")) +
-  scale_fill_manual(values = c("#89742F")) +
+  scale_color_manual(values = c("#EEB00C")) +
+  scale_fill_manual(values = c("#EEB00C")) +
   geom_ribbon(aes(ymin=44-11, ymax=44+11), color = NA, alpha=0.1) +
   geom_hline(yintercept = 44, linetype = "dashed", size =1) 
 
@@ -220,7 +232,7 @@ hev_matrix <- size3 %>%
   ggplot(aes(x = pred_mass_mg, y = Family, fill = total)) +
   geom_tile() +
   theme_bw() +
-  scale_fill_manual(values = c("#FFFFFF", "#EEB00C", "#EEB00C")) +
+  scale_fill_manual(values = c("#FFFFFF", "#114C54", "#114C54")) +
   theme(legend.position = "none",
         axis.text.x = element_blank(),
         axis.text.y = element_text(size = 20),
@@ -248,7 +260,7 @@ neo_matrix <- size3 %>%
   ggplot(aes(x = pred_mass_mg, y = Family, fill = total)) +
   geom_tile() +
   theme_bw() +
-  scale_fill_manual(values = c("#FFFFFF", "#89742F", "#89742F")) +
+  scale_fill_manual(values = c("#FFFFFF", "#EEB00C", "#EEB00C")) +
   theme(legend.position = "none",
         axis.text.x = element_blank(),
         axis.text.y = element_text(size = 20),
