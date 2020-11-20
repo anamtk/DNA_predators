@@ -20,7 +20,8 @@ package.list <- c("here", "tidyverse",
                   "effects", "ggeffects",
                   "vegan", "recluster",
                   "phytools", "stats",
-                  "cluster", "data.tree")
+                  "cluster", "data.tree",
+                  "ggbeeswarm", "ggdendro")
 
 ## Installing them if they aren't already on the computer
 new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
@@ -44,7 +45,7 @@ stage %>%
   group_by(sample_str) %>%
   summarise(n = n())
 
-# Conservative clusters ---------------------------------------------------------------------
+# 100% clusters ---------------------------------------------------------------------
 cons_clusters <- function(x, df = sppData){
 #process <- function(df){
     
@@ -70,6 +71,7 @@ cons_clusters <- function(x, df = sppData){
   #using the most standard clustering algorithm, 
   #UPGMA = Unweighted Pair-Group Method Using Arithmetic Averages
   clust<-hclust(dist, "average")
+
   #plot(clust) #visualize that cluster
   cut <- cutree(clust, h = 0.2) #cut this cluster at 0.2, meaning total similarity
   dendro <- plot(clust, labels = as.character(cut)) #dendro plot
@@ -103,7 +105,6 @@ cons_clusters <- function(x, df = sppData){
 
   return(clustered_DF)
 }
-
 
 # 50% clusters ------------------------------------------------------------
 
@@ -170,7 +171,6 @@ big_clusters <- function(x, df = sppData){
 # Run functions -----------------------------------------------------------
 #split data by species
 sppData <- split(stage, stage$sample_str)
-
 ## Running on each data frame in the split list
 cluster_cons <- lapply(1:length(sppData), FUN = cons_clusters)
 
@@ -274,7 +274,7 @@ big_stages %>%
   geom_boxplot() +
   facet_wrap(~sample_str, scale = "free") +
   theme_classic() +
-  labs(x= "Cluster on 25% similarity", y = "Predator mass (mg)") +
+  labs(x= "Cluster on 50% similarity", y = "Predator mass (mg)") +
   theme(axis.text.x = element_blank(),
         axis.title.y= element_text(size = 30),
         axis.title.x= element_text(size = 30, vjust = -1),
@@ -283,8 +283,26 @@ big_stages %>%
         strip.text = element_text(size = 25))
 
 
+prey_richness <- stage %>%
+  distinct(sample, sample_str, Family) %>%
+  group_by(sample, sample_str) %>%
+  summarise(richness = n()) 
 
 
+
+ggplot(aes(x = sample_str, y = richness)) +
+  geom_boxplot() +
+  geom_beeswarm() +
+  theme_bw() 
+
+plot(clust, labels = as.character(cut))
+ggdendrogram(clust) +
+  theme_void() +
+  labs(x = "Predator individual", y = "Jaccard similarity") +
+  theme(axis.text.y = element_text(size = 15),
+        axis.title = element_text(size = 20),
+        axis.title.y = element_text(angle = 90),
+        axis.text.x = element_text(size = 15, angle = 90))
 
 
 
