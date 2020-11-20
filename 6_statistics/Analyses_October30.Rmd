@@ -63,8 +63,6 @@ To aim to fill this gap in observed interactions for invertebrate terrestrial pr
 
 5. Intraspecific 3: Is there evidence of stage structure within predator species based on individual body size?
 
-  + add analysis, findings, and graphs
-
 These questions are key to building multi-species food web models that incorporate realistic body size and species dependent feeding habits both across and within predator species.
 
 ```{r, out.width="20%", fig.align="right"}
@@ -342,26 +340,123 @@ knitr::include_graphics(here("art", "png", "pantala.png"))
 ## Q5: Intraspecific stage structure based on size
 
 ```{r, include = FALSE}
-source(here("6_statistics", "5_stage_structure.R"))
+source(here("6_statistics", "5_stage_structure_cons.R"))
 ```
 
 ### Is there evidence of stage structure within predator species based on individual body size?
 
-Finally, and related to Q4 above, I explored whether, even without nestedness in its pattern, whether there was evidence of stage structure (e.g. niche differentiation) based on body size within these predator populations. 
+Finally, and related to Q4 above, I explored whether, even without nestedness in its pattern, whether there was evidence of stage structure (e.g. niche differentiation) based on body size within these predator populations. I approached this by performing a hierarchical clustering based on Jaccard similarity and using the Unweighted Pair-Group Method Using Arithmetic Means (UPGMA) algorithm, which clusters the most similar communities based on Jaccard similarity and then uses averaged between group differences to create a dendrogram (clustering tree) of increasingly less similar pairs of sites. It is commonly used in ecology to compare the species composition across sites (e.g. Pavao et al. 2019).
 
+I performed this analysis two ways: 1) based on 100% similarity and 2) based on 50% similarity. I performed the analyses both ways because the 100% similarity ended up clustering primarily individuals with diet richness of one species; whereas the 50% clustering was less biased toward low-richness samples. The results were a list of clusters at each similarity cut-off with which I performed GLMs with predator mass as a dependent variable and cluster identity as a predictor variable. 
+
+### *H. venatoria* 100% similarity clusters
+
+Twenty-nine of fifty-three (29/53, 55%) of *H. venatoria* individuals clustered with at least one other individual with 100% similarity. Based on model selection, a model with cluster ID was a better-fitting model than one without cluster ID ($\Delta$AIC = 21.75), however, post-hoc Tukey tests indicated no significant pairwise differences.
+
+```{r}
+(dendro_hev) / 
+  (clusters_HEV + rich_HEV + plot_layout(widths = c(3,1))) +
+  plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(size = 25))
+```
+
+A dendrogram (A) with dotted line indicating clusters with 100% similarity. Predator mass within each cluster (B), and the number of prey items in each of these clustered predators (C).
+
+### *N. theisi* 100% similarity clusters
+
+Five of twenty-four (5/24, 21%) of *N. theisi* individuals clustered with at least one other individual with 100% similarity. Predator size did not significantly differ between clusters. 
+
+```{r}
+(dendro_NEO) / 
+  (clusters_NEO + rich_NEO + plot_layout(widths = c(3,1))) +
+  plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(size = 25))
+```
+
+A dendrogram (A) with dotted line indicating clusters with 100% similarity. Predator mass within each cluster (B), and the number of prey items in each of these clustered predators (C).
+
+### *P. holdhausi* 100% similarity clusters
+
+Twenty-five of forty-two (25/42, 60%) of *P. holdhausi* individuals clustered with at least one other individual with 100% similarity. Predator size did not significantly differ between clusters. 
+
+```{r}
+(dendro_PHH) / 
+  (clusters_PHH + rich_PHH + plot_layout(widths = c(3,1))) +
+  plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(size = 25))
+```
+
+A dendrogram (A) with dotted line indicating clusters with 100% similarity. Predator mass within each cluster (B), and the number of prey items in each of these clustered predators (C).
+
+
+```{r, include = FALSE}
+source(here("6_statistics", "6_stage_structure_big.R"))
+```
+
+### *H. venatoria* 50% similarity clusters
+
+Forty-four of fifty-three (44/53, 83%) of *H. venatoria* individuals clustered with at least one other individual with 50% similarity. Predator size did not significantly differ between clusters. 
+
+```{r}
+(dendro_hev) / 
+  (clusters_HEV + rich_HEV + plot_layout(widths = c(3,1))) +
+  plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(size = 25))
+```
+
+A dendrogram (A) with dotted line indicating clusters with 50% similarity. Predator mass within each cluster (B), and the number of prey items in each of these clustered predators (C).
+
+### *N. theisi* 50% similarity clusters
+
+Fourteen of twenty-four (14/24, 58%) of *N. theisi* individuals clustered with at least one other individual with 50% similarity. Predator size did not significantly differ between clusters. 
+
+```{r}
+(dendro_NEO) / 
+  (clusters_NEO + rich_NEO + plot_layout(widths = c(3,1))) +
+  plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(size = 25))
+```
+
+A dendrogram (A) with dotted line indicating clusters with 50% similarity. Predator mass within each cluster (B), and the number of prey items in each of these clustered predators (C).
+
+### *P. holdhausi* 50% similarity clusters
+
+Thirty-eight of forty-two (38/42, 90%) of *P. holdhausi* individuals clustered with at least one other individual with 50% similarity. Predator size did not significantly differ between clusters.
+
+```{r}
+(dendro_PHH) / 
+  (clusters_PHH + rich_PHH + plot_layout(widths = c(3,1))) +
+  plot_annotation(tag_levels = 'A') &
+  theme(plot.tag = element_text(size = 25))
+```
+
+A dendrogram (A) with dotted line indicating clusters with 50% similarity. Predator mass within each cluster (B), and the number of prey items in each of these clustered predators (C).
+
+#### Stage structure interpretation
+
+There is no evidence of clear stage structuring by body size in any of these predator species. Thus, it does not appear that these species display clear, discrete "stages" like those of species that may go through complete metamorphosis. In this case, I think it is important to note the sparsity of interactions in our interaction matrix, with many predator individuals only having a few prey items in their diet during collection, suggesting that this may be an analysis worth revisiting with a larger sample size within predators with these sparse diet matrices. 
 
 ```{r, out.width="20%", fig.align="right"}
 knitr::include_graphics(here("art", "png", "heteropoda.png"))
 ```
 
+## Final summary
 
+#### Interspecific variation
 
+**Interspecific predator-prey body size relationships** follow a predictable relationship of prey_size = predator_size$^{0.41}$. This relationship is mediated by predator species, suggesting one or more life history traits that may mediate this relationship, including, in this case, the potential for tools or scavenging to increase prey size relative to predator size (*E. annulipes*, Dermaptera) or by decreasing prey size relative to predator size due to stronger gape limitation (*P. flavescens* and Geophilomorpha sp.). Future work in body size relationships could focus on determining these trait-mediated effects (e.g. Brose et al. 2019).
 
+**Interspecific prey identity** is determined primarily by predator identity, with some effect of the size of predators and habitat location. This means that predator species seem to partition prey by species, rather than size classes. 
 
+#### Intraspecific variation
 
+**Intraspecific range of prey size** increases for larger individuals of one predator species (*H. venatoria*), and not for two other species (*N. theisi* and *P. holdhausi*). *H.venatoria* has the largest range in minimum to maximum body size of the three species, which may indicate that whether larger individuals eat larger prey than smaller individuals is dependent on the difference in size between those subsets of the predator population. 
 
+**Intraspecific nestedness of prey identity** is not evident for the three predators in this analysis (*H. venatoria*, *N. theisi*, and *P. holdhausi*). Unlike results from e.g. Woodward and Hildrew 2002, it does not seem like a good assumption on building feeding interactions within species stages would be to assign a subset of prey to smaller individuals than larger individuals. We captured anywhere from 51 - 67% of total prey richness based on accumulation curves and I'm wondering if this is coming into play here.
 
+**Intraspecific stage structure based on size** does not seem to be evident in these predator species. Thus, it does not appear that these species display clear, discrete "stages" like those of species that may go through complete metamorphosis. In this case, I think it is important to note the sparsity of interactions in our interaction matrix, with many predator individuals only having a few prey items in their diet during collection, suggesting that this may be an analysis worth revisiting with a larger sample size within predators with these sparse diet matrices. 
 
+#### Next steps/caveats?
 
 
 
