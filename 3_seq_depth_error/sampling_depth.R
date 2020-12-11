@@ -127,7 +127,7 @@ cross <- depth %>%
 #our quantile cutoff
 deep <- sample_depth %>%
   filter(n > 11211) %>%
-  dplyr::select(site)
+  dplyr::select(site) #347 to 302
 
 deep <- as.vector(deep$site)
 

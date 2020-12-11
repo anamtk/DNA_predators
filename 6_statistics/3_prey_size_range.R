@@ -33,106 +33,47 @@ size <- data %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%
   mutate(pred_mass_mg = exp(pred_log_mass_mg)) 
 
-# SD Predator size within an individual -----------------------------------
-SD_prey <- size %>%
-  group_by(sample, sample_str, pred_log_mass_mg, pred_mass_mg) %>%
-  summarise(SD_mean = sd(mean_prey_mass_mg)) %>%
-  filter(!is.na(SD_mean)) %>%
-  filter(sample_str %in% c("HEV", "NEO", "PHH"))
-hist(SD_prey$SD_mean)
-hist(SD_prey$pred_mass_mg)
-
-sample_sizes <- SD_prey %>%
-  distinct(sample, sample_str) %>%
-  group_by(sample_str) %>%
-  summarise(n = n())
-
-SD_prey <- SD_prey %>%
-  left_join(sample_sizes, by = "sample_str")
-
+# Range Predator size within an individual -----------------------------------
 range_prey <- size %>%
   group_by(sample, sample_str, pred_log_mass_mg, pred_mass_mg) %>%
   summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
-  filter(range > 0) %>%
-  filter(sample_str %in% c("HEV", "NEO", "PHH"))
+  filter(range > 0) #%>%
+  #filter(sample_str %in% c("HEV", "NEO", "PHH"))
 hist(range_prey$range)
 #some species now have very few individuals, so we should remove
 #those here as well.
 size %>%
   group_by(sample, sample_str, pred_mass_mg) %>%
-  summarise(SD_mean = sd(mean_prey_mass_mg)) %>%
-  filter(sample_str %in% c("HEV", "NEO", "PHH")) %>%
-  ggplot(aes(x = pred_mass_mg, y = SD_mean, color = sample_str)) +
+  summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
+  filter(range > 0) %>%
+  #filter(sample_str %in% c("HEV", "NEO", "PHH")) %>%
+  ggplot(aes(x = pred_mass_mg, y = range, color = sample_str)) +
   geom_point(size = 2) +
   theme_bw() +
   facet_wrap(~sample_str, scales = "free")
 
-# SD size model -----------------------------------------------------------
-HEV <- range_prey %>%
-  filter(sample_str == "HEV") 
+# All species range prey -----------------------------------------------------
+range_prey <- range_prey %>%
+  filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
+  mutate(log_range = log(range))
 
-NEO <- range_prey %>%
-  filter(sample_str == "NEO")
-
-PHH <- range_prey %>%
-  filter(sample_str == "PHH")
-
-m_hev <- glm(range ~ pred_mass_mg,
-          data = HEV,
-          na.action = "na.fail")
-
-dredge(m_hev)
-
-fit <- simulateResiduals(m_hev, plot = T)
-
-plot(allEffects(m_hev))
-summary(m_hev)
-
-m_neo <- glm(range ~ pred_mass_mg,
-             data = NEO,
-             na.action = "na.fail")
-
-dredge(m_neo)
-
-fit <- simulateResiduals(m_neo, plot = T)
-
-plot(allEffects(m_neo))
-summary(m_neo)
-hist(log(PHH$range))
-m_phh <- glm(log(range) ~ pred_mass_mg,
-             data = PHH,
-             na.action = "na.fail")
-
-dredge(m_phh)
-
-m_phh2 <- glm(log(range) ~ 1,
-             data = PHH,
-             na.action = "na.fail")
-
-fit <- simulateResiduals(m_phh2, plot = T)
-
-plot(allEffects(m_phh))
-summary(m_phh)
-
-m <- glm(log(range) ~ pred_log_mass_mg*sample_str,
+m <- glmmTMB(log_range ~ pred_log_mass_mg*sample_str,
              data = range_prey,
              na.action = "na.fail")
 
 dredge(m)
 
-m_phh2 <- glm(log(range) ~ 1,
-              data = PHH,
-              na.action = "na.fail")
+m2 <- glmmTMB(log_range ~ pred_log_mass_mg + sample_str,
+             data = range_prey,
+             na.action = "na.fail")
 
-fit <- simulateResiduals(m, plot = T)
+fit <- simulateResiduals(m2, plot = T)
 
-plot(allEffects(m))
-summary(m)
-r.squaredGLMM(m)
+summary(m2)
 
 # Visualizations ----------------------------------------------------------
 x <- 1:100
-y <- x^(-.8511)
+y <- x^(0.35911)
 plot(y ~ x)
 
 pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
@@ -157,9 +98,9 @@ range_graph <- size %>%
   group_by(sample, sample_str, pred_mass_mg) %>%
   summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
   filter(range > 0) %>%
-  filter(sample_str %in% c("NEO", "PHH", "HEV")) %>%
-  mutate(sample_str = factor(sample_str, 
-                             levels = c("NEO", "PHH", "HEV"))) %>%
+  filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
+  #mutate(sample_str = factor(sample_str, 
+                             #levels = c("NEO", "PHH", "HEV"))) %>%
   ggplot(aes(x = pred_mass_mg, y = range, color = sample_str)) +
   geom_abline(slope =1, linetype = "dashed") +
   geom_smooth(method = "lm", se = F) +
@@ -170,11 +111,58 @@ range_graph <- size %>%
   labs(x = "Predator mass (mg)", 
        y = "Prey size range (mg)",
        color = "Predator species") +
-  scale_color_manual(values = c("#EEB00C", "#158D8E", "#114C54"),
-                     labels = pred_labels) +
+  #scale_color_manual(values = c("#EEB00C", "#158D8E", "#114C54"),
+  #                   labels = pred_labels) +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25),
         strip.background = element_rect(fill = "white"),
         strip.text = element_text(size = 15)) +
   facet_wrap(~sample_str, 
              labeller = labeller(.cols = pred_labels))
+range_graph
+
+size %>%
+  group_by(sample, sample_str, pred_mass_mg) %>%
+  summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
+  filter(range > 0) %>%
+  filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
+  #mutate(sample_str = factor(sample_str, 
+  #levels = c("NEO", "PHH", "HEV"))) %>%
+  ggplot(aes(x = pred_mass_mg, y = range, color = sample_str)) +
+  geom_abline(slope =1, linetype = "dashed") +
+  geom_abline(slope = 0.35911) +
+  geom_point(size = 2) + 
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_bw() +
+  labs(x = "Predator mass (mg)", 
+       y = "Prey size range (mg)",
+       color = "Predator species") +
+  #scale_color_manual(values = c("#EEB00C", "#158D8E", "#114C54"),
+  #                   labels = pred_labels) +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 15)) 
+
+size %>%
+  group_by(sample, sample_str, pred_mass_mg) %>%
+  summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
+  filter(range > 0) %>%
+  filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
+  #mutate(sample_str = factor(sample_str, 
+  #levels = c("NEO", "PHH", "HEV"))) %>%
+  ggplot(aes(x = sample_str, y = range, color = sample_str)) +
+  geom_boxplot() + 
+  theme_bw() +
+  scale_y_log10() +
+  labs(x = "Predator species", 
+       y = "Prey size range (mg)",
+       color = "Predator species") +
+  #scale_color_manual(values = c("#EEB00C", "#158D8E", "#114C54"),
+  #                   labels = pred_labels) +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        strip.background = element_rect(fill = "white"),
+        strip.text = element_text(size = 15)) 
+

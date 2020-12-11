@@ -37,7 +37,10 @@ library(performance)
 #rarefied cross-run samples
 cross <- read.csv(here("data", "outputs", "4_rarefied", "cross_run_rare.csv"))
 
-taxa <- read.csv(here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
+taxa <- read.csv(here("data", 
+                      "outputs", 
+                      "1_taxonomic_assignment", 
+                      "family_level_taxa.csv"))
 ###########################
 #Manipulate DF to long for analyses####
 ###########################
@@ -164,8 +167,12 @@ pairs(em) #A-B diff, A-D diff, B-C diff, B-D diff, C-D diff
 
 taxa_run <- all_run %>%
   left_join(taxa, by = "ASV") %>%
-  filter(!unique_ID %in% c("Sparassidae", "Homo sapiens", "Hominidae", NA)) %>%
-  group_by(run, sample, unique_ID) %>%
+  filter(!Family %in% c("Sparassidae", 
+                        "Hominidae", 
+                        "Muridae", 
+                        NA,
+                        "Salmonidae")) %>%
+  group_by(run, sample, Family) %>%
   summarise(reads = sum(reads))
 
 prey_count <- taxa_run %>%
@@ -182,11 +189,11 @@ taxa_run <- taxa_run %>%
 
 #going to do presence-absence composition analysis
 
-sp1 <- glmmTMB(presence ~ run + (1|sample) + (1|unique_ID),
+sp1 <- glmmTMB(presence ~ run + (1|sample) + (1|Family),
                 data = taxa_run,
                 family = 'binomial')
 
-sp_null <- glmmTMB(presence ~ 1 + (1|sample) + (1|unique_ID),
+sp_null <- glmmTMB(presence ~ 1 + (1|sample) + (1|Family),
                     data = taxa_run,
                     family = 'binomial')
 
@@ -198,7 +205,7 @@ fit <- plot(simulationOutput, asFactor=TRUE) #ok
 
 plot(allEffects(sp1)) #b is higher, C and D lower
 em <- emmeans(sp1, "run")
-pairs(em) #B-D different
+pairs(em) 
 
 ###########################
 #total species per sample by run####
@@ -220,15 +227,22 @@ spec_mod <- glmmTMB(species ~ run + (1|sample),
                    data=prey_count,
                    family = "genpois")
 
-simulationOutput <- simulateResiduals(fittedModel = spec_mod) #ok
-fit <- plot(simulationOutput, asFactor=TRUE) #ok
-zi <- testZeroInflation(simulationOutput)
-od <- testDispersion(simulationOutput)
+simulationOutput <- simulateResiduals(fittedModel = spec_mod, plot =T) #ok
+testZeroInflation(simulationOutput)
+testDispersion(simulationOutput)
 
 plot(allEffects(spec_mod)) 
 em <- emmeans(spec_mod, "run")
-pairs(em) #A-D diff, B-C diff, B-D diff, C-D diff
+em
+pairs(em) #A-D diff, B-C diff, B-D diff
 
+prey_count %>%
+  group_by(run) %>%
+  summarise(mean = mean(species),
+            sd = sd(species),
+            total = n(),
+            se = sd/sqrt(total))
+  
 
 ###########################
 #Visualization and summary####
@@ -253,8 +267,9 @@ num_ASV %>%
 #by sample ASV presence
 ggplot(all_run, aes(x = run, y = presence, fill = ASV)) +
   geom_bar(stat = "identity", position = "fill", color = "black") +
-  facet_wrap(~sample)
+  facet_wrap(~sample) +
+  theme(legend.position = "none")
 
-ggplot(taxa_run, aes(x = run, y = presence, fill = unique_ID)) +
+ggplot(taxa_run, aes(x = run, y = presence, fill = Family)) +
   geom_bar(stat = "identity", position = "fill", color = "black") +
   facet_wrap(~sample)

@@ -181,4 +181,42 @@ pairs(em)
 
 ggplot(stats, aes(x = run, y = n)) +
   geom_boxplot() + theme_bw()
+
+###########################
+#Sequencing depth specie scount mixed model####
+###########################
+
+stats$run <- factor(stats$run, levels = c("A", "B", "C", "D"))
+
+stats$site <- as.factor(stats$site)
+
+depth_mod <- glmmTMB(S.obs ~ run + (1|site),
+                     data=stats,
+                     family = "genpois",
+                     REML = FALSE)
+
+depth_null <- glmmTMB(S.obs ~ 1 + (1|site),
+                      data=stats,
+                      family = "genpois",
+                      REML = FALSE)
+
+AICc(depth_mod, depth_null)
+
+depth_mod <- glmmTMB(S.obs ~ run + (1|site),
+                     data=stats,
+                     family = "genpois")
+
+simulation <- simulateResiduals(fittedModel = depth_mod)
+fit <- plot(simulation, asFactor=TRUE)
+zi <- testZeroInflation(simulation)
+od <- testDispersion(simulation)
+
+plot(allEffects(depth_mod))
+
+em <- emmeans(depth_mod, "run")
+pairs(em)
+
+ggplot(stats, aes(x = run, y = S.obs)) +
+  geom_boxplot() + theme_bw()
+
   

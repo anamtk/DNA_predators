@@ -60,8 +60,24 @@ taxa_comm <- comm_long %>%
   filter(Domain == "Eukaryota") %>% #remove NA taxonomies from this community
   mutate(run = substr(sample, nchar(sample)-1+1, nchar(sample))) #indicates the 
 #run it was run on
-  
 
+taxa_comm %>%
+  filter(reads > 0) %>%
+  group_by(ASV) %>%
+  tally() %>%
+comm_long %>%
+  filter(reads > 0) %>%
+  group_by(ASV) %>%
+  tally() %>%
+  tally()
+
+comm_long %>%
+  filter(reads > 0) %>%
+  group_by(ASV) %>%
+  summarise(reads = sum(reads)) %>%
+  left_join(taxa, by = "ASV") %>%
+  filter(!is.na(ID_level)) %>%
+  tally()
 ###########################
 #subset by species to sort ####
 ###########################
@@ -215,7 +231,7 @@ LRS <- taxa_comm %>%
 LRS_pred <- LRS %>%
   ungroup() %>%
   filter(Order == "Araneae") %>% #only order for spiders
-  filter(Family == "Oonopidae", "") 
+  filter(Family %in% c("Oonopidae", "")) 
 #c: EUB, ISO, LRS, PAN, HEVc
 LRS_other_pred <- LRS %>%
   ungroup() %>%
@@ -314,11 +330,23 @@ other_DNA_conservative <- taxa_comm %>%
   anti_join(known_pred, by = c("sample", "ASV")) %>%
   anti_join(other_pred, by = c("sample", "ASV"))
 
+other_DNA_conservative %>%
+  filter(reads >0) %>%
+  group_by(ASV) %>%
+  tally() %>%
+  tally()
+
 prey_fam <- other_DNA %>%
   filter(Family != "")
 
 prey_fam_conservative <- other_DNA_conservative %>%
   filter(Family != "")
+
+prey_fam_conservative %>%
+  filter(reads >0) %>%
+  group_by(ASV) %>%
+  tally() %>%
+  tally()
 
 prey_ord <- other_DNA %>%
   filter(Order != "")

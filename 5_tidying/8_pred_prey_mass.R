@@ -65,6 +65,17 @@ ref_fam <- prey_ref %>%
             min_prey_length_mm = min(Length_mm, na.rm =T),
             min_prey_mass_mg = min(Mass_mg, na.rm = T))
 
+prey_ref %>%
+  group_by(Source) %>%
+  summarise(total = n())
+
+prey_ref %>%
+  summarise(total = n())
+
+family_n <- prey_ref %>%
+  group_by(Order, Family) %>%
+  summarise(total = n())
+
 ref_ord <- prey_ref %>%
   group_by(Order) %>%
   summarise(mean_prey_length_mm = mean(Length_mm, na.rm =T),

@@ -174,7 +174,7 @@ species_graph <- size %>%
   theme(axis.text.y = element_text(size =20),
         axis.text.x = element_blank(),
         axis.title = element_text(size = 25))
-
+species_graph
 #pairwise comparisons
 pairwise_sp <- tukey %>%
   arrange(estimate, p.value) %>%

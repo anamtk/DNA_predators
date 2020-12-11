@@ -55,7 +55,7 @@ pred_size <- pred_size %>%
   mutate(log_mass = log(Mass_mg),
          log_length = log(Length_mm))
 
-ggplot(pred_size, aes(x = Length_mm, y = Mass_mg, color = sample_str)) +
+ggplot(pred_size, aes(x = log_length, y = log_mass, color = sample_str)) +
   geom_point() +
   facet_wrap(~sample_str, scale = "free") 
 
@@ -94,9 +94,16 @@ predators <- predators %>%
   mutate(log_mass = log_mass)
 
 #now they are values matched to the lines of the length-mass relationship
-ggplot(predators, aes(x = log_length, y = log_mass, color = sample_str)) +
-  geom_point(size = 3) +
-  theme_bw() 
+ggplot() +
+  geom_point(data = pred_size, aes(x = log_length, y = log_mass), 
+             color = "grey", alpha = 0.6) +
+  geom_point(data = predators, aes(x = log_length, y = log_mass),
+             color = "black") +
+  geom_line(data = predators, aes(x = log_length, y = log_mass,
+                                  color = sample_str),
+            size = 1, alpha = 0.6) +
+  theme_bw() +
+  facet_wrap(~sample_str, scales="free")
 
 #############################
 # Export for later --------
@@ -122,5 +129,14 @@ ggplot(pred_size, aes(x = Length_mm, y = Mass_mg, color = sample_str)) +
   scale_x_log10() +
   scale_y_log10() 
 
+pred_size %>%
+  filter(!is.na(Mass_mg)) %>%
+  group_by(sample_str) %>%
+  summarise(total = n())
+
+pred_size %>%
+  filter(!is.na(Mass_mg)) %>%
+  summarise(total = n())
+  
 
 
