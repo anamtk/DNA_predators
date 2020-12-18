@@ -167,10 +167,14 @@ sp_range_graph <- size %>%
                      labels = pred_labels) +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25),
-        axis.text.x = element_blank())   +
-  annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
-  annotate(geom = "text", x = 5, y = 400, label = "-", size = 8) 
-sp_range_graph
+        axis.text.x = element_blank(),
+        legend.position = "none")   +
+  annotate(geom = "text", x = 4, y = 300, label = "-", size = 8) +
+  annotate(geom = "text", x = 5, y = 300, label = "-", size = 8) 
+
+
+range_graph / sp_range_graph +
+  plot_layout(guides = 'collect') 
 
 range_prey %>%
   filter(sample_str == "PHH") %>% 

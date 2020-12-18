@@ -203,7 +203,8 @@ species_graph <- size %>%
        color = "Predator species") +
   theme(axis.text.y = element_text(size =20),
         axis.text.x = element_blank(),
-        axis.title = element_text(size = 25)) +
+        axis.title = element_text(size = 25),
+        legend.position = "none") +
   annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
   annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
   annotate(geom = "text", x = 6, y = 400, label = "+", size = 8)
@@ -228,6 +229,8 @@ ggplot(aes(x = contrast, y = estimate, color = sig)) +
         axis.text = element_text(size =15),
         axis.title = element_text(size = 25))
 
+size_graph_col / species_graph +
+  plot_layout(guides = 'collect')
 # ratio of pred-prey size -------------------------------------------------
 size %>% 
   mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
