@@ -18,7 +18,7 @@ package.list <- c("here", "tidyverse",
                   "MuMIn", "DHARMa",
                   "effects", "ggeffects",
                   "calecopal", "patchwork",
-                  "emmeans")
+                  "emmeans", "gt")
 
 ## Installing them if they aren't already on the computer
 new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
@@ -42,6 +42,22 @@ size %>%
   distinct(sample) %>%
   summarise(total = n())
 
+size %>%
+  filter(sample_str == "HEV") %>%
+  distinct(sample) %>%
+  tally()
+
+size %>%
+  filter(sample_str == "HEV") %>% 
+  summarise(min = min(pred_mass_mg),
+            max = max(pred_mass_mg))
+
+size %>%
+  filter(sample_str == "PHH") %>% 
+  summarise(min = min(pred_mass_mg),
+            max = max(pred_mass_mg))
+
+
 # Body size model selection ---------------------------------------------------------
 
 #is the prey size determined by some combination of predator identity
@@ -54,8 +70,22 @@ m1 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg*sample_str + (1|sample),
 #mass + species model: slope invariant, only intercept varies by species
 #mass model: only mass matters
 #species model: only species matters
-
 dredge(m1)
+a <- dredge(m1)
+
+a1 <- a[,c(3:9)]
+
+a1 %>% 
+  rename("log10 Predator mass" = "cond(pred_log_mass_mg)",
+         "Predator species" = "cond(sample_str)",
+         "log10 Predator mass*Predator species" = "cond(pred_log_mass_mg:sample_str)") %>% 
+  gt() %>% 
+  fmt_number(
+    columns = vars("log10 Predator mass", "logLik", "AICc", "delta"),
+    decimals = 2) %>% 
+  tab_header(
+    title = "Model selection of predator-prey size linear model") 
+
 
 #best is mass + species model
 m2 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
@@ -76,7 +106,6 @@ fit <- simulateResiduals(m2, plot = T)
 
 summary(m2)
 r.squaredGLMM(m2)
-
 em <- emmeans(m2, "sample_str")
 tukey <- as.data.frame(pairs(em))
 
@@ -141,6 +170,7 @@ size_graph_col <- size %>%
   theme_bw() +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25))
+
 size_graph_col
 #without colors:
 size_graph_ncol <- size %>%
@@ -157,7 +187,7 @@ size_graph_ncol <- size %>%
   theme_bw() +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25))
-
+size_graph_ncol
 #sorted by increased average predator size, then showing prey size
 species_graph <- size %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
@@ -173,8 +203,12 @@ species_graph <- size %>%
        color = "Predator species") +
   theme(axis.text.y = element_text(size =20),
         axis.text.x = element_blank(),
-        axis.title = element_text(size = 25))
+        axis.title = element_text(size = 25)) +
+  annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
+  annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
+  annotate(geom = "text", x = 6, y = 400, label = "+", size = 8)
 species_graph
+ 
 #pairwise comparisons
 pairwise_sp <- tukey %>%
   arrange(estimate, p.value) %>%
@@ -193,4 +227,39 @@ ggplot(aes(x = contrast, y = estimate, color = sig)) +
   theme(legend.position = "none",
         axis.text = element_text(size =15),
         axis.title = element_text(size = 25))
+
+# ratio of pred-prey size -------------------------------------------------
+size %>% 
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  ggplot(aes(x = ratio)) +
+  geom_histogram() +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  theme_bw() +
+  scale_x_log10() +
+  labs(x = "Predator-prey mass ratio", y = "Number of interactions") +
+  facet_wrap(~sample_str)
+
+size %>% 
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  ggplot(aes(x = ratio)) +
+  geom_histogram() +
+  geom_vline(xintercept = 1, linetype = "dashed") +
+  theme_bw() +
+  labs(x = "Predator-prey mass ratio", y = "Number of interactions") +
+  scale_x_log10() 
+
+size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  filter(ratio <= 1) %>%
+  tally()
+
+size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  filter(ratio > 1) %>%
+  tally()
+
+86/(86+253)
+size %>% 
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  summarise(mean_ratio = mean(ratio))
 

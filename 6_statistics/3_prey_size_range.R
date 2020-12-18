@@ -15,7 +15,7 @@ package.list <- c("here", "tidyverse",
                   "MuMIn", "DHARMa",
                   "effects", "ggeffects",
                   "calecopal", "patchwork",
-                  "emmeans")
+                  "emmeans", "gt")
 
 ## Installing them if they aren't already on the computer
 new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
@@ -57,19 +57,46 @@ range_prey <- range_prey %>%
   filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
   mutate(log_range = log(range))
 
+range_prey %>%
+  ungroup() %>% 
+  tally()
+
 m <- glmmTMB(log_range ~ pred_log_mass_mg*sample_str,
              data = range_prey,
              na.action = "na.fail")
 
 dredge(m)
 
+a <- dredge(m)
+
+a1 <- a[,c(3:9)]
+
+a1 %>%  
+  rename("log10 Predator mass" = "cond(pred_log_mass_mg)",
+         "Predator species" = "cond(sample_str)",
+         "log10 Predator mass*Predator species" = "cond(pred_log_mass_mg:sample_str)") %>% 
+  gt() %>% 
+  fmt_number(
+    columns = vars("log10 Predator mass", "logLik", "AICc", "delta"),
+    decimals = 2) %>% 
+  tab_header(
+    title = "Model selection of prey size range by predator size") 
+
+
+
+
 m2 <- glmmTMB(log_range ~ pred_log_mass_mg + sample_str,
              data = range_prey,
              na.action = "na.fail")
 
+m2 <- lm(log_range ~ pred_log_mass_mg + sample_str,
+              data = range_prey,
+              na.action = "na.fail")
+
 fit <- simulateResiduals(m2, plot = T)
 
 summary(m2)
+
 
 # Visualizations ----------------------------------------------------------
 x <- 1:100
@@ -78,6 +105,7 @@ plot(y ~ x)
 
 pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
 pal_kelp
+pal_kelp2 <- c("#EA7700", "#EEB00C", "#89742F", "#158D8E", "#067D8D", "#114C54")
 #LRS: "#C70000" 
 # SCY: "#EA7700" 
 #NEO: "#EEB00C" 
@@ -98,71 +126,54 @@ range_graph <- size %>%
   group_by(sample, sample_str, pred_mass_mg) %>%
   summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
   filter(range > 0) %>%
-  filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
-  #mutate(sample_str = factor(sample_str, 
-                             #levels = c("NEO", "PHH", "HEV"))) %>%
+  mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
+                                                    "SME", "EUB", "PHH", "PAN",
+                                                    "HEV"))) %>%
+  filter(!sample_str %in% c("LRS", "CEN", "EUB")) %>% 
   ggplot(aes(x = pred_mass_mg, y = range, color = sample_str)) +
-  geom_abline(slope =1, linetype = "dashed") +
-  geom_smooth(method = "lm", se = F) +
-  geom_point(size = 2) + 
+  geom_abline(slope =1, linetype = "dashed", size = 0.75) +
+  geom_abline(slope = 0.35911, size = 1) + 
+  geom_point(size = 3) + 
   scale_x_log10() +
   scale_y_log10() +
   theme_bw() +
   labs(x = "Predator mass (mg)", 
        y = "Prey size range (mg)",
        color = "Predator species") +
-  #scale_color_manual(values = c("#EEB00C", "#158D8E", "#114C54"),
-  #                   labels = pred_labels) +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25),
-        strip.background = element_rect(fill = "white"),
-        strip.text = element_text(size = 15)) +
-  facet_wrap(~sample_str, 
-             labeller = labeller(.cols = pred_labels))
-range_graph
-
-size %>%
-  group_by(sample, sample_str, pred_mass_mg) %>%
-  summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
-  filter(range > 0) %>%
-  filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
-  #mutate(sample_str = factor(sample_str, 
-  #levels = c("NEO", "PHH", "HEV"))) %>%
-  ggplot(aes(x = pred_mass_mg, y = range, color = sample_str)) +
-  geom_abline(slope =1, linetype = "dashed") +
-  geom_abline(slope = 0.35911) +
-  geom_point(size = 2) + 
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw() +
-  labs(x = "Predator mass (mg)", 
-       y = "Prey size range (mg)",
-       color = "Predator species") +
-  #scale_color_manual(values = c("#EEB00C", "#158D8E", "#114C54"),
-  #                   labels = pred_labels) +
+  scale_color_manual(values = pal_kelp2,
+                     labels = pred_labels) +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25),
         strip.background = element_rect(fill = "white"),
         strip.text = element_text(size = 15)) 
+range_graph
 
-size %>%
+sp_range_graph <- size %>%
   group_by(sample, sample_str, pred_mass_mg) %>%
   summarise(range = max(mean_prey_mass_mg) - min(mean_prey_mass_mg)) %>%
   filter(range > 0) %>%
+  mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
+                                                    "SME", "EUB", "PHH", "PAN",
+                                                    "HEV"))) %>%
   filter(!sample_str %in% c("CEN", "EUB", "LRS")) %>%
-  #mutate(sample_str = factor(sample_str, 
-  #levels = c("NEO", "PHH", "HEV"))) %>%
   ggplot(aes(x = sample_str, y = range, color = sample_str)) +
-  geom_boxplot() + 
+  geom_boxplot(size = 1) + 
   theme_bw() +
   scale_y_log10() +
   labs(x = "Predator species", 
        y = "Prey size range (mg)",
        color = "Predator species") +
-  #scale_color_manual(values = c("#EEB00C", "#158D8E", "#114C54"),
-  #                   labels = pred_labels) +
+  scale_color_manual(values = pal_kelp2,
+                     labels = pred_labels) +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25),
-        strip.background = element_rect(fill = "white"),
-        strip.text = element_text(size = 15)) 
+        axis.text.x = element_blank())   +
+  annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
+  annotate(geom = "text", x = 5, y = 400, label = "-", size = 8) 
+sp_range_graph
 
+range_prey %>%
+  filter(sample_str == "PHH") %>% 
+  ungroup() %>% 
+  summarise(min = min(pred_mass_mg),
+            max = max(pred_mass_mg))
