@@ -73,6 +73,8 @@ me <- ggpredict(m1, terms = c("log_length", "sample_str"), type = "random")
 plot(me, add.data = TRUE) +
   facet_wrap(~group)
 
+plot(me, add.data = TRUE) 
+
 #############################
 # Predict for my predators using model --------
 #############################

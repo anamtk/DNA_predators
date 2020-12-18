@@ -61,7 +61,7 @@ ggiNEXT(seq_depth, type=1, facet.var="none", grey = T, se = F) +
   theme_bw() +
   labs(x = "Sequencing Depth", y = "ASV Richness", title = "DADA2 Sequencing Depth") +
   theme(legend.position = "none", axis.text = element_text(size = 20), 
-        axis.title = element_text(size = 25))
+        axis.title = element_text(size = 25)) 
 
 ###########################
 #Quantiles to find change point in data below which sample removal is needed####

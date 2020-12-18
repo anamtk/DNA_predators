@@ -111,6 +111,10 @@ all_bs <- ana_ug %>%
   bind_rows(pantala_lit) %>%
   bind_rows(sohlstrom)
 
+all_bs %>%
+  group_by(Source) %>%
+  tally() 
+
 #############################
 # Subset only predators --------
 #############################
@@ -121,6 +125,10 @@ bs_pred <- all_bs %>%
   Species %in% c("Neoscona_theisi", "Phisis_holdhausi", "Heteropoda_venatoria") |
   Order == "Geophilomorpha") 
 
+bs_pred %>%
+  distinct(Family, Source) %>%
+  group_by(Source) %>%
+  tally()
 #############################
 # Subset only prey in DNA --------
 #############################
@@ -148,6 +156,10 @@ bs_prey <- all_bs %>%
 #From Yaninek 1993, wet weight for an Acari:
 #0.000633
 #0.007035
+bs_prey %>%
+  distinct(Family, Source) %>% 
+  group_by(Source) %>%
+  tally()
 #############################
 # Export --------
 #############################
