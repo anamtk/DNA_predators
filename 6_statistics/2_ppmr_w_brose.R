@@ -76,9 +76,8 @@ brose_dat %>%
 
 # Size ratio visualizations -----------------------------------------------
 data <- data %>%
-  mutate(source_alpha = ifelse(source == "AMtK", 2, 1))
-alphas <- c("AMtK" = 1, "Cattin Blandenier (2004)" = 0.6, "Piechnik et al. (2008), Simberloff and Wilson (1969)" = 0.6)
-str(data)
+  mutate(type = ifelse(source == "AMtK", "DNA", "literature"))
+
 data %>%
   mutate(type = ifelse(source == "AMtK", "DNA", "literature")) %>%
   #mutate(source = factor(source, levels = c("AMtK",
@@ -98,18 +97,16 @@ data %>%
 ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
   geom_abline(slope = 1, linetype = "dashed", size =1) +
   geom_point(size = 3, color = "#d9d9d9", shape = 1) +
-  geom_smooth(method = "lm", se = F, color = "black", size =1) +
   geom_point(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), 
              color = "#252525", size = 3) +
-  geom_smooth(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), 
-              method = "lm", se = F, color= "black", size =1) +
+  geom_abline(aes(slope = ), color= "black", size =1) +
+  geom_abline(aes(slope = ), color = "black", size =1) +
   scale_x_log10() +
   scale_y_log10() +
   theme_classic() +
   theme(axis.text = element_text(size =25), axis.title = element_text(size =30)) +
   labs(x = "Predator mass (mg)", y = "Prey mass (mg)")
 
-a
 data %>%
   mutate(source = factor(source, levels = c("Cattin Blandenier (2004)",
                                             "Piechnik et al. (2008), Simberloff and Wilson (1969)",
@@ -123,27 +120,56 @@ data %>%
   theme_bw() +
   facet_wrap(~source)
 
-# ratio model -------------------------------------------------------------
-ratios <- data %>%
-  mutate(ratio= mean_prey_mass_mg/pred_mass_mg,
-         type = ifelse(source == "AMtK", "individual", "species"),
-         log_ratio = log(ratio),
+# model -------------------------------------------------------------
+data <- data %>%
+  mutate(log_prey_mass = log(mean_prey_mass_mg),
          log_pred_mass = log(pred_mass_mg))
 
-m1 <- glmmTMB(log_ratio ~ log_pred_mass*type + (1|source) + (1|foodweb.name),
-              data = ratios)
+m1 <- glmmTMB(log_prey_mass ~ log_pred_mass*type + (1|source) + (1|foodweb.name),
+              data = data)
 
 summary(m1)
 dredge(m1)
 
-m2 <- glmmTMB(log_ratio ~ log_pred_mass + (1|source) + (1|foodweb.name),
-              data = ratios)
+plot(allEffects(m1))
 
-plot(allEffects(m2))
+fit <- simulateResiduals(m1, plot = T)
 
-fit <- simulateResiduals(m2, plot = T)
-summary(m2)
+#get relationships
+DNA <- data %>%
+  filter(type == "DNA")
+m_dna <- glmmTMB(log_prey_mass ~ log_pred_mass,
+              data = DNA)
+summary(m_dna) #.2612
+lit <- data %>%
+  filter(type != "DNA")
+
+m_lit <- glmmTMB(log_prey_mass ~ log_pred_mass,
+                 data = lit)
+summary(m_lit) #0.7140
 
 
+ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
+  geom_abline(slope = 1, linetype = "dotted", size =1) +
+  geom_point(size = 3, color = "#bdbdbd", shape = 1, alpha = 0.6) +
+  geom_point(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), 
+             color = "#252525", size = 3, alpha = 0.6) +
+  geom_abline(aes(slope = 0.7140, intercept = 0), 
+              color= "black", 
+              size =1,
+              linetype = "longdash") +
+  geom_abline(aes(slope = 0.2612, intercept = 0), 
+              color = "black", 
+              size =1) +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_classic() +
+  theme(axis.text = element_text(size =25), axis.title = element_text(size =30)) +
+  labs(x = "Predator mass (mg)", y = "Prey mass (mg)")
 
+x <- c(1:100)
+y <- x^0.714
+y2 <- x^0.2612
 
+plot(y ~ x)
+plot(y2 ~ x)
