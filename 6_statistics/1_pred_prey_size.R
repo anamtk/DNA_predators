@@ -151,6 +151,8 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
           axis.text.x = element_text(angle = 45, hjust = 1),
           axis.title = element_text(size = 25)))
 
+max(size$mean_prey_mass_mg)
+min(size$mean_prey_mass_mg)
 #Does predator identity or size determine prey size?
 size_graph_col <- size %>%
   mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
@@ -231,38 +233,36 @@ ggplot(aes(x = contrast, y = estimate, color = sig)) +
 
 size_graph_col / species_graph +
   plot_layout(guides = 'collect')
-# ratio of pred-prey size -------------------------------------------------
-size %>% 
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  ggplot(aes(x = ratio)) +
-  geom_histogram() +
-  geom_vline(xintercept = 1, linetype = "dashed") +
-  theme_bw() +
+
+size %>%
+  distinct(sample, sample_str, pred_mass_mg) %>%
+  mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
+  ggplot(aes(x = pred_mass_mg, fill = sample_str)) +
+  geom_histogram(color = "black", alpha = 0.85) +
+  theme_bw() + 
   scale_x_log10() +
-  labs(x = "Predator-prey mass ratio", y = "Number of interactions") +
-  facet_wrap(~sample_str)
-
-size %>% 
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  ggplot(aes(x = ratio)) +
-  geom_histogram() +
-  geom_vline(xintercept = 1, linetype = "dashed") +
-  theme_bw() +
-  labs(x = "Predator-prey mass ratio", y = "Number of interactions") +
-  scale_x_log10() 
+  labs(x = "Predator mass (mg)", y = "Individuals") +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        axis.text.x = element_text(angle = 45, hjust =1)) +
+  facet_wrap(~sample_str, labeller = labeller(sample_str = pred_labels)) +
+  scale_fill_manual(values = pal_kelp,
+                    labels = pred_labels)
 
 size %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  filter(ratio <= 1) %>%
-  tally()
-
-size %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  filter(ratio > 1) %>%
-  tally()
-
-86/(86+253)
-size %>% 
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  summarise(mean_ratio = mean(ratio))
+  distinct(sample, sample_str, pred_mass_mg) %>%
+  mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
+  ggplot(aes(x = pred_mass_mg, fill = sample_str)) +
+  geom_histogram(color = "black", alpha = 0.85) +
+  theme_bw() + 
+  scale_x_log10() +
+  labs(x = "Predator mass (mg)", y = "Individuals",
+       colour = "Predator species") +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        axis.text.x = element_text(angle = 45, hjust =1)) +
+  facet_wrap(~sample_str, labeller = labeller(sample_str = pred_labels)) +
+  scale_fill_manual(values = pal_kelp,
+                    labels = pred_labels) +
+  theme(legend.position = "none")
 
