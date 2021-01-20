@@ -39,11 +39,14 @@ size <- pal %>%
          foodweb.name = "pal")
 
 brose <- read.csv(here("data", "brose_2019", "data.csv"))
-
+colnames(brose)
+#separate only terrestrial aboveground inverts within the 
+#sizes of the samples I have
 brose_dat <- brose %>%
-  filter(con.mass.mean.g. < 1 & con.mass.mean.g. > 0) %>%
+  filter(con.mass.mean.g. < 1 & con.mass.mean.g. > 0.0002299683) %>%
   filter(interaction.type %in% c("predacious")) %>%
-  filter(ecosystem.type == "terrestrial aboveground") %>%
+  filter(ecosystem.type %in% c("terrestrial aboveground", "terrestrial belowground")) %>%
+  filter(con.metabolic.type == "invertebrate") %>%
   filter(link.citation != "Lafferty et al. (2006)") %>%
   dplyr::select(con.taxonomy, 
                 link.citation,
@@ -66,31 +69,40 @@ brose_dat <- brose %>%
 data <- size %>%
   bind_rows(brose_dat)
 
+brose_dat %>%
+  group_by(source) %>%
+  distinct(sample_str) %>%
+  tally()
+
 # Size ratio visualizations -----------------------------------------------
 data <- data %>%
   mutate(source_alpha = ifelse(source == "AMtK", 2, 1))
 alphas <- c("AMtK" = 1, "Cattin Blandenier (2004)" = 0.6, "Piechnik et al. (2008), Simberloff and Wilson (1969)" = 0.6)
-
+str(data)
 data %>%
-  mutate(source = factor(source, levels = c("AMtK",
-                                            "Cattin Blandenier (2004)",
-                                            "Piechnik et al. (2008), Simberloff and Wilson (1969)"
-                                            ))) %>%
-  ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = source)) +
+  mutate(type = ifelse(source == "AMtK", "DNA", "literature")) %>%
+  #mutate(source = factor(source, levels = c("AMtK",
+  #                                          "Cattin Blandenier (2004)",
+  #                                          "Piechnik et al. (2008), Simberloff and Wilson (1969)"
+  #                                          ))) %>%
+  ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = type)) +
   geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(aes(shape = source), size = 3) +
+  geom_point(aes(shape = type), size = 3) +
   geom_smooth(method = "lm", se = F) +
-  scale_shape_manual(values = c(16, 1, 1)) +
-  scale_color_manual(values = c("#000000", "#d9d9d9", "#d9d9d9")) +
+  scale_shape_manual(values = c(16, 1)) +
+  scale_color_manual(values = c("#000000", "#d9d9d9")) +
   scale_x_log10() +
   scale_y_log10() +
   theme_bw() 
 
-
 ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
   geom_abline(slope = 1, linetype = "dashed", size =1) +
-  geom_point(size = 3, color = "#d9d9d9") +
-  geom_point(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), color = "#252525", size = 3) +
+  geom_point(size = 3, color = "#d9d9d9", shape = 1) +
+  geom_smooth(method = "lm", se = F, color = "black", size =1) +
+  geom_point(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), 
+             color = "#252525", size = 3) +
+  geom_smooth(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), 
+              method = "lm", se = F, color= "black", size =1) +
   scale_x_log10() +
   scale_y_log10() +
   theme_classic() +
