@@ -109,7 +109,7 @@ ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
   theme(axis.text = element_text(size =25), axis.title = element_text(size =30)) +
   labs(x = "Predator mass (mg)", y = "Prey mass (mg)")
 
-
+a
 data %>%
   mutate(source = factor(source, levels = c("Cattin Blandenier (2004)",
                                             "Piechnik et al. (2008), Simberloff and Wilson (1969)",
