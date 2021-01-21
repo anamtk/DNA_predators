@@ -56,6 +56,18 @@ size %>%
   summarise(min = min(pred_mass_mg),
             max = max(pred_mass_mg))
 
+size %>%
+  distinct(Class, Order, Family) %>%
+  arrange(Class, Order, Family) %>% 
+  gt() %>%
+  tab_header(
+    title = "Prey families from DNA diet data")
+
+prey_fams <- size %>%
+  distinct(Class, Order, Family) %>%
+  arrange(Class, Order, Family)
+
+write.csv(prey_fams, here("Drafts", "Figures", "Supp", "prey_families.csv"))
 
 # Body size model selection ---------------------------------------------------------
 
@@ -268,6 +280,13 @@ size %>%
 
 x3 <- c(1:100)
 y3 <- 0.41*(x)
+plot(y3 ~ x3)
+x4 <- 10^x3
+y4 <- 10^y3
+plot(y4 ~ x4)
+
+x3 <- c(1:100)
+y3 <- 1.2*(x)
 plot(y3 ~ x3)
 x4 <- 10^x3
 y4 <- 10^y3
