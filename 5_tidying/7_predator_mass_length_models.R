@@ -26,11 +26,16 @@ for(i in package.list){library(i, character.only = T)}
 # Load and combine datasets --------
 #############################
 
-pred_size <- read.csv(here("data", "outputs", "6_prey_sizes", "pred_mass_length.csv"))
+pred_size <- read.csv(here("data", 
+                           "outputs", 
+                           "6_prey_sizes", 
+                           "pred_mass_length.csv"))
 
 pred_size <- pred_size %>%
-  mutate(Family = ifelse(Order == "Orthoptera", "Tettigonidae", Family)) %>%
-  mutate(Family = ifelse(Family == "Tettigonidae", "Tettigoniidae", Family))
+  mutate(Family = ifelse(Order == "Orthoptera", 
+                         "Tettigonidae", Family)) %>%
+  mutate(Family = ifelse(Family == "Tettigonidae", 
+                         "Tettigoniidae", Family))
 
 pred_id <- read.csv(here("data", "Predator_IDs.csv"))
 
@@ -50,10 +55,10 @@ meta <- read.csv(here("data", "Sample_metadata.csv"))
 ggplot(pred_size, aes(x = Length_mm, y = Mass_mg, color = Source)) +
   geom_point() +
   facet_wrap(~sample_str, scale = "free")
-#mutate to log log relationship
+#mutate to log10- log10 relationship
 pred_size <- pred_size %>%
-  mutate(log_mass = log(Mass_mg),
-         log_length = log(Length_mm))
+  mutate(log_mass = log10(Mass_mg),
+         log_length = log10(Length_mm))
 
 ggplot(pred_size, aes(x = log_length, y = log_mass, color = sample_str)) +
   geom_point() +
@@ -82,12 +87,14 @@ plot(me, add.data = TRUE)
 #then convert log length and remove the scorpions
 
 predators <- meta %>% 
-  fuzzy_inner_join(pred_id, by = c("Extraction.ID" = "sample_str"), match_fun = str_detect) %>%
+  fuzzy_inner_join(pred_id, by = c("Extraction.ID" = "sample_str"), 
+                   match_fun = str_detect) %>%
   dplyr::select(Extraction.ID, Length_mm, sample_str, 
                 Feeding_mode, Tools, Locomotion) %>%
-  mutate(log_length = log(Length_mm)) %>%
+  mutate(log_length = log10(Length_mm)) %>%
   filter(!sample_str == "ISO")
-
+max(predators$log_length, na.rm = T)
+max(predators$Length_mm, na.rm= T)
 #now predict the masses of each of those predators based on model 1
 log_mass <- predict(m1, newdata = predators)
 

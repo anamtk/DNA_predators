@@ -33,7 +33,7 @@ data2 <- read.csv(here("data", "outputs", "8_final_dataset",
 #select variables to remove
 size2 <- data2 %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%
-  mutate(pred_mass_mg = exp(pred_log_mass_mg)) 
+  mutate(pred_mass_mg = 10^(pred_log_mass_mg)) 
 
 #metadata for samples
 meta <- read.csv(here("data", "Sample_metadata.csv"))
@@ -106,6 +106,9 @@ RsquareAdj(cca_pg)
 anova(cca_pg, permutations=10000)
 #ANOVA of model terms
 anova(cca_pg, by='margin', permutations=10000)
+
+cca_pg_simple <- update(cca_pg, . ~ . - pred_log_mass_mg)
+anova(cca_pg_simple, cca_pg)
 
 #pretty ggplot plot 
 #site metadata

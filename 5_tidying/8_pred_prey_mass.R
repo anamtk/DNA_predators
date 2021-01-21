@@ -148,14 +148,17 @@ p_p_sizes <- preds %>%
             pred_log_mass_mg = mean(log_mass, na.rm=T)) %>%
   left_join(ints_size, by = c("sample")) %>%
   filter(!is.na(mean_prey_mass_mg)) %>%
-  mutate(mean_prey_log_mass_mg = log(mean_prey_mass_mg),
-         min_prey_log_mass_mg = log(min_prey_mass_mg))
+  mutate(mean_prey_log_mass_mg = log10(mean_prey_mass_mg),
+         min_prey_log_mass_mg = log10(min_prey_mass_mg))
 
 #############################
 #Export for analyses ---------
 #############################
 
-write.csv(p_p_sizes, here("data", "outputs", "6_prey_sizes", "DNA_interaction_pred_prey_sz.csv"))
+write.csv(p_p_sizes, here("data", 
+                          "outputs", 
+                          "6_prey_sizes", 
+                          "DNA_interaction_pred_prey_sz.csv"))
 
 
 

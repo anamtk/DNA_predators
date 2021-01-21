@@ -34,8 +34,7 @@ data <- read.csv(here("data", "outputs", "8_final_dataset",
 
 size <- data %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%
-  mutate(pred_mass_mg = exp(pred_log_mass_mg)) 
-
+  mutate(pred_mass_mg = 10^(pred_log_mass_mg))
 
 # How many preds? -----------------------------------------------
 size %>%
@@ -265,4 +264,12 @@ size %>%
   scale_fill_manual(values = pal_kelp,
                     labels = pred_labels) +
   theme(legend.position = "none")
+
+
+x3 <- c(1:100)
+y3 <- 0.41*(x)
+plot(y3 ~ x3)
+x4 <- 10^x3
+y4 <- 10^y3
+plot(y4 ~ x4)
 

@@ -33,7 +33,7 @@ pal <- read.csv(here("data", "outputs", "8_final_dataset",
 
 size <- pal %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%
-  mutate(pred_mass_mg = exp(pred_log_mass_mg)) %>%
+  mutate(pred_mass_mg = 10^(pred_log_mass_mg)) %>%
   dplyr::select(sample_str, pred_mass_mg, mean_prey_mass_mg, min_prey_mass_mg) %>%
   mutate(source = "AMtK",
          foodweb.name = "pal")
@@ -122,8 +122,8 @@ data %>%
 
 # model -------------------------------------------------------------
 data <- data %>%
-  mutate(log_prey_mass = log(mean_prey_mass_mg),
-         log_pred_mass = log(pred_mass_mg))
+  mutate(log_prey_mass = log10(mean_prey_mass_mg),
+         log_pred_mass = log10(pred_mass_mg))
 
 m1 <- glmmTMB(log_prey_mass ~ log_pred_mass*type + (1|source) + (1|foodweb.name),
               data = data)
@@ -167,9 +167,20 @@ ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
   theme(axis.text = element_text(size =25), axis.title = element_text(size =30)) +
   labs(x = "Predator mass (mg)", y = "Prey mass (mg)")
 
-x <- c(1:100)
-y <- x^0.714
-y2 <- x^0.2612
 
+
+
+x <- c(1:100)
+y <- 0.26*(x)
 plot(y ~ x)
-plot(y2 ~ x)
+x2 <- 10^x
+y2 <- 10^y
+plot(y2 ~ x2)
+
+x3 <- c(1:100)
+y3 <- 0.71*(x)
+plot(y3 ~ x3)
+x4 <- 10^x3
+y4 <- 10^y3
+plot(y4 ~ x4)
+
