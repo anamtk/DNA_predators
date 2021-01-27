@@ -342,10 +342,12 @@ plot(allEffects(m))
 dredge(m)
 
 ggplot(ratios, aes(x = webs, y = ratio)) +
-  geom_boxplot() +
+  geom_boxplot(size = 0.75) +
   theme_bw() +
   scale_y_log10() +
-  labs(x = "Web-using", y = "Predator/prey size ratio") +
+  labs(x = "Web-using", y = "Predator:prey size ratio") +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25)) +
-  geom_hline(yintercept = 1, linetype = "dashed")
+  geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25))
