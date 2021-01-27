@@ -42,6 +42,12 @@ size %>%
   summarise(total = n())
 
 size %>%
+  group_by(sample) %>%
+  summarise(total = n()) %>%
+  summarise(mean = mean(total),
+            sd = sd(total))
+
+size %>%
   filter(sample_str == "HEV") %>%
   distinct(sample) %>%
   tally()
@@ -292,3 +298,54 @@ x4 <- 10^x3
 y4 <- 10^y3
 plot(y4 ~ x4)
 
+# Ratios by feeding interaction -------------------------------------------
+size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
+                       "no", "yes")) %>%
+  ggplot(aes(x = ratio, fill = webs)) +
+  geom_histogram() +
+  theme_bw() +
+  facet_wrap(~webs) +
+  scale_x_log10() +
+  geom_vline(xintercept = 1) 
+
+ratios <- size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
+                       "no", "yes")) %>%
+  mutate(log_ratio = log10(ratio),
+         log10_ratio = pred_log_mass_mg/mean_prey_log_mass_mg)
+
+ratios %>%
+  group_by(webs) %>%
+  tally()
+
+ratios %>%
+  distinct(sample, webs) %>%
+  group_by(webs) %>%
+  tally()
+
+hist(ratios$ratio)
+hist(ratios$log_ratio)
+hist(ratios$log10_ratio)
+
+m <- glmmTMB(log_ratio ~ webs + (1|sample_str),
+             data = ratios)
+
+summary(m)
+
+fit <- simulateResiduals(m, plot =T)
+
+plot(allEffects(m))
+
+dredge(m)
+
+ggplot(ratios, aes(x = webs, y = ratio)) +
+  geom_boxplot() +
+  theme_bw() +
+  scale_y_log10() +
+  labs(x = "Web-using", y = "Predator/prey size ratio") +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25)) +
+  geom_hline(yintercept = 1, linetype = "dashed")

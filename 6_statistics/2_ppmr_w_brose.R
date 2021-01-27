@@ -171,14 +171,14 @@ ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
 
 
 x <- c(1:100)
-y <- 0.26*(x)
+y <- 0.3*(x)
 plot(y ~ x)
 x2 <- 10^x
 y2 <- 10^y
 plot(y2 ~ x2)
 
 x3 <- c(1:100)
-y3 <- 0.71*(x)
+y3 <- 0.68*(x)
 plot(y3 ~ x3)
 x4 <- 10^x3
 y4 <- 10^y3
