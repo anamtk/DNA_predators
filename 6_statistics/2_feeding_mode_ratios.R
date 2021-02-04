@@ -14,10 +14,16 @@
 
 # Load packages -----------------------------------------------------------
 
+
+
+# Load packages -----------------------------------------------------------
+
 package.list <- c("here", "tidyverse", 
                   "glmmTMB", "emmeans",
                   "MuMIn", "DHARMa",
-                  "effects", "ggeffects")
+                  "effects", "ggeffects",
+                  "calecopal", "patchwork",
+                  "emmeans", "gt")
 
 ## Installing them if they aren't already on the computer
 new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
@@ -33,69 +39,59 @@ data <- read.csv(here("data", "outputs", "8_final_dataset",
 
 size <- data %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%
-  mutate(pred_mass_mg = exp(pred_log_mass_mg)) %>%
-  mutate(mean_ratio = mean_prey_mass_mg/pred_mass_mg,
-         min_ratio = min_prey_mass_mg/pred_mass_mg,
-         log_mean_ratio = log(mean_ratio),
-         log_min_ratio = (log(min_ratio)))
+  mutate(pred_mass_mg = 10^(pred_log_mass_mg))
 
-# Size relationship visualizations -----------------------------------------------
-#mean ratio
-ggplot(size, aes(x = sample_str, y = mean_ratio, fill = Feeding_mode)) +
-  geom_hline(yintercept  = 1, linetype = "dashed") +
-  geom_boxplot() +
+# Ratios by feeding interaction -------------------------------------------
+size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
+                       "no", "yes")) %>%
+  ggplot(aes(x = ratio, fill = webs)) +
+  geom_histogram() +
+  theme_bw() +
+  facet_wrap(~webs) +
+  scale_x_log10() +
+  geom_vline(xintercept = 1) 
+
+ratios <- size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
+                       "No web use", "Web use")) %>%
+  mutate(log_ratio = log10(ratio),
+         log10_ratio = pred_log_mass_mg/mean_prey_log_mass_mg)
+
+ratios %>%
+  group_by(webs) %>%
+  tally()
+
+ratios %>%
+  distinct(sample, webs) %>%
+  group_by(webs) %>%
+  tally()
+
+hist(ratios$ratio)
+hist(ratios$log_ratio)
+hist(ratios$log10_ratio)
+
+m <- glmmTMB(log_ratio ~ webs + (1|sample_str),
+             data = ratios)
+
+summary(m)
+
+fit <- simulateResiduals(m, plot =T)
+
+plot(allEffects(m))
+
+dredge(m)
+
+ggplot(ratios, aes(x = webs, y = ratio)) +
+  geom_boxplot(size = 0.75, fill = "#969696") +
+  theme_bw() +
   scale_y_log10() +
-  theme_bw()
-
-#min ratio
-ggplot(size, aes(x = sample_str, y = min_ratio, fill= Feeding_mode)) +
-  geom_hline(yintercept  = 1, linetype = "dashed") +
-  geom_boxplot() +
-  scale_y_log10() +
-  theme_bw()
-
-# Mean size ratio model -----------------------------------------------
-#does feeding mode or species influence influence the ratio of prey size to predator size?
-m5 <- glmmTMB(log_mean_ratio ~ sample_str + Feeding_mode + (1|sample),
-              data = size, 
-              REML = FALSE)
-
-#The full model asks if a combination of species
-#identity and feeding mode predict size relationships
-dredge(m5)
-
-#best model says that just species matters for this relationship
-#regardless of feeding mode
-m6 <- glmmTMB(log_mean_ratio ~ sample_str + (1|sample),
-              data = size)
-
-fit <- simulateResiduals(m6, plot = T)
-
-me <- ggpredict(m6, terms = c("sample_str"), type = "random")
-plot(me, add.data = TRUE) 
-
-summary(m6)
-r.squaredGLMM(m6)
-
-# Min size ratio model -----------------------------------------------
-#does feeding mode or species influence influence the ratio of prey size to predator size?
-m7 <- glmmTMB(log_min_ratio ~ Feeding_mode + sample_str + (1|sample),
-              data = size, 
-              REML = FALSE)
-
-#The full model asks if a combination of species
-#identity and feeding mode predict size relationships
-dredge(m7)
-
-#best model says that just species matters for this relationship
-#regardless of feeding mode
-m8 <- glmmTMB(log_min_ratio ~ sample_str + (1|sample),
-              data = size)
-
-fit <- simulateResiduals(m8, plot = T)
-
-me <- ggpredict(m8, terms = c("sample_str"), type = "random")
-plot(me, add.data = TRUE)
-
-summary(m8)
-r.squaredGLMM(m8)
+  labs(x = "Web-using", y = "Predator:prey mass ratio") +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25)) +
+  geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        axis.title.x = element_blank())

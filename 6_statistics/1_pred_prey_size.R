@@ -171,7 +171,7 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
 max(size$mean_prey_mass_mg)
 min(size$mean_prey_mass_mg)
 #Does predator identity or size determine prey size?
-size_graph_col <- size %>%
+(size_graph_col <- size %>%
   mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
                                                     "SME", "EUB", "PHH", "PAN",
                                                     "HEV"))) %>%
@@ -188,11 +188,13 @@ size_graph_col <- size %>%
                      labels = pred_labels) +
   theme_bw() +
   theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25))
+        axis.title = element_text(size = 25),
+        legend.position = "bottom",
+        legend.text = element_text(size = 15),
+        legend.title = element_text(size = 15)))
 
-size_graph_col
 #without colors:
-size_graph_ncol <- size %>%
+(size_graph_ncol <- size %>%
   mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
                                                     "SME", "EUB", "PHH", "PAN",
                                                     "HEV"))) %>%
@@ -205,10 +207,10 @@ size_graph_ncol <- size %>%
   labs(x = "Predator mass (mg)", y = "Prey mass (mg)") +
   theme_bw() +
   theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25))
-size_graph_ncol
+        axis.title = element_text(size = 25)))
+
 #sorted by increased average predator size, then showing prey size
-species_graph <- size %>%
+(species_graph <- size %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
   ggplot(aes(x = reorder(sample_str, pred_mass_mg), y = mean_prey_mass_mg, color = sample_str)) +
   geom_boxplot(size = 1) + 
@@ -226,8 +228,8 @@ species_graph <- size %>%
         legend.position = "none") +
   annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
   annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
-  annotate(geom = "text", x = 6, y = 400, label = "+", size = 8)
-species_graph
+  annotate(geom = "text", x = 6, y = 400, label = "+", size = 8))
+
  
 #pairwise comparisons
 pairwise_sp <- tukey %>%
@@ -250,6 +252,8 @@ ggplot(aes(x = contrast, y = estimate, color = sig)) +
 
 size_graph_col / species_graph +
   plot_layout(guides = 'collect')
+
+size_graph_col + species_graph
 
 size %>%
   distinct(sample, sample_str, pred_mass_mg) %>%
@@ -298,56 +302,3 @@ x4 <- 10^x3
 y4 <- 10^y3
 plot(y4 ~ x4)
 
-# Ratios by feeding interaction -------------------------------------------
-size %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
-                       "no", "yes")) %>%
-  ggplot(aes(x = ratio, fill = webs)) +
-  geom_histogram() +
-  theme_bw() +
-  facet_wrap(~webs) +
-  scale_x_log10() +
-  geom_vline(xintercept = 1) 
-
-ratios <- size %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
-                       "no", "yes")) %>%
-  mutate(log_ratio = log10(ratio),
-         log10_ratio = pred_log_mass_mg/mean_prey_log_mass_mg)
-
-ratios %>%
-  group_by(webs) %>%
-  tally()
-
-ratios %>%
-  distinct(sample, webs) %>%
-  group_by(webs) %>%
-  tally()
-
-hist(ratios$ratio)
-hist(ratios$log_ratio)
-hist(ratios$log10_ratio)
-
-m <- glmmTMB(log_ratio ~ webs + (1|sample_str),
-             data = ratios)
-
-summary(m)
-
-fit <- simulateResiduals(m, plot =T)
-
-plot(allEffects(m))
-
-dredge(m)
-
-ggplot(ratios, aes(x = webs, y = ratio)) +
-  geom_boxplot(size = 0.75) +
-  theme_bw() +
-  scale_y_log10() +
-  labs(x = "Web-using", y = "Predator:prey size ratio") +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25)) +
-  geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25))
