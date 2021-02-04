@@ -139,21 +139,6 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
                  "PHH" = "P. holdhausi", "SCY" = "S. longipes",
                  "SME" = "S. pallidus")
 
-#pred size distribution on its own
-(pred_size2 <- size %>%
-    distinct(sample, pred_mass_mg) %>%
-    ggplot(aes(x = pred_mass_mg)) +
-    geom_histogram(bins = 50, alpha = 0.85, color = "black") +
-    #scale_y_log10() +
-    xlim(-8, 7) +
-    #geom_density(fill = "#BE8333", alpha = 0.85) +
-    scale_x_log10() +
-    theme_bw() +
-    labs(x = "Predator mass (mg)", 
-         y = "Individuals") +
-    theme(axis.text = element_text(size =20),
-          axis.title = element_text(size = 25)))
-
 #prey size distribution on its own
 (prey_mean_size2 <- size %>%
     distinct(Family, mean_prey_mass_mg) %>%
@@ -168,8 +153,6 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
           axis.text.x = element_text(angle = 45, hjust = 1),
           axis.title = element_text(size = 25)))
 
-max(size$mean_prey_mass_mg)
-min(size$mean_prey_mass_mg)
 #Does predator identity or size determine prey size?
 (size_graph_col <- size %>%
   mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
@@ -193,22 +176,6 @@ min(size$mean_prey_mass_mg)
         legend.text = element_text(size = 15),
         legend.title = element_text(size = 15)))
 
-#without colors:
-(size_graph_ncol <- size %>%
-  mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
-                                                    "SME", "EUB", "PHH", "PAN",
-                                                    "HEV"))) %>%
-  ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
-  geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
-  geom_point(size = 3) +
-  geom_abline(slope = 0.41, size = 1) +
-  scale_x_log10() +
-  scale_y_log10() +
-  labs(x = "Predator mass (mg)", y = "Prey mass (mg)") +
-  theme_bw() +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25)))
-
 #sorted by increased average predator size, then showing prey size
 (species_graph <- size %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
@@ -230,45 +197,10 @@ min(size$mean_prey_mass_mg)
   annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
   annotate(geom = "text", x = 6, y = 400, label = "+", size = 8))
 
- 
-#pairwise comparisons
-pairwise_sp <- tukey %>%
-  arrange(estimate, p.value) %>%
-  mutate(contrast = factor(contrast, levels = contrast)) %>%
-ggplot(aes(x = contrast, y = estimate, color = sig)) +
-  geom_hline(yintercept = 0, linetype = "dashed", size = 1) +
-  geom_point(size = 2) +
-  geom_linerange(aes(ymin = estimate - SE, 
-                     ymax = estimate + SE), 
-                 size = 1) +
-  scale_color_manual(values = c("sig" = "#229AAA",
-                                "non-sig" = "#878787")) +
-  theme_bw() +
-  coord_flip() +
-  labs(x = "Pairwise contrast", y = "Difference") +
-  theme(legend.position = "none",
-        axis.text = element_text(size =15),
-        axis.title = element_text(size = 25))
-
 size_graph_col / species_graph +
   plot_layout(guides = 'collect')
 
 size_graph_col + species_graph
-
-size %>%
-  distinct(sample, sample_str, pred_mass_mg) %>%
-  mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
-  ggplot(aes(x = pred_mass_mg, fill = sample_str)) +
-  geom_histogram(color = "black", alpha = 0.85) +
-  theme_bw() + 
-  scale_x_log10() +
-  labs(x = "Predator mass (mg)", y = "Individuals") +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25),
-        axis.text.x = element_text(angle = 45, hjust =1)) +
-  facet_wrap(~sample_str, labeller = labeller(sample_str = pred_labels)) +
-  scale_fill_manual(values = pal_kelp,
-                    labels = pred_labels)
 
 size %>%
   distinct(sample, sample_str, pred_mass_mg) %>%
