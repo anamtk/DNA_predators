@@ -184,3 +184,61 @@ x4 <- 10^x3
 y4 <- 10^y3
 plot(y4 ~ x4)
 
+
+# by web model ------------------------------------------------------------
+
+m2 <- glmmTMB(log_prey_mass ~ log_pred_mass*source + (1|foodweb.name),
+              data = data)
+
+summary(m2)
+dredge(m2)
+
+plot(allEffects(m2))
+
+fit <- simulateResiduals(m2, plot = T)
+
+#get relationships
+DNA <- data %>%
+  filter(type == "DNA")
+m_dna <- glmmTMB(log_prey_mass ~ log_pred_mass,
+                 data = DNA)
+summary(m_dna) #.2612
+lit <- data %>%
+  filter(type != "DNA")
+
+m_lit <- glmmTMB(log_prey_mass ~ log_pred_mass,
+                 data = lit)
+summary(m_lit) #0.7140
+
+library(ggeffects)
+#predict for pretty graph
+me <- ggpredict(m2, terms = c("log_pred_mass", "source"), type = "random")
+
+#graph the predicted values
+plot(me, add.data = TRUE) +
+  facet_wrap(~group)
+
+plot(me, add.data = TRUE) 
+
+ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
+  geom_abline(slope = 1, linetype = "dotted", size =1) +
+  geom_point(size = 3, color = "#bdbdbd", shape = 1, alpha = 0.6) +
+  geom_point(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), 
+             color = "#252525", size = 3, alpha = 0.6) +
+  geom_abline(aes(slope = 0.7140, intercept = 0), 
+              color= "black", 
+              size =1,
+              linetype = "longdash") +
+  geom_abline(aes(slope = 0.2612, intercept = 0), 
+              color = "black", 
+              size =1) +
+  scale_x_log10() +
+  scale_y_log10() +
+  theme_classic() +
+  theme(axis.text = element_text(size =25), axis.title = element_text(size =30)) +
+  labs(x = "Predator mass (mg)", y = "Prey mass (mg)")
+
+
+
+
+
