@@ -176,6 +176,27 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
         legend.text = element_text(size = 15),
         legend.title = element_text(size = 15)))
 
+(size_graph_no_leg <- size %>%
+    mutate(sample_str = factor(sample_str, levels = c("LRS", "SCY", "NEO", "CEN",
+                                                      "SME", "EUB", "PHH", "PAN",
+                                                      "HEV"))) %>%
+    ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
+    geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
+    geom_point(size = 3) +
+    geom_abline(slope = 0.41, size = 1) +
+    scale_x_log10() +
+    scale_y_log10() +
+    labs(x = "Predator mass (mg)", 
+         y = "Prey mass (mg)",
+         color = "Predator species") +
+    scale_color_manual(values = pal_kelp,
+                       labels = pred_labels) +
+    theme_bw() +
+    theme(axis.text = element_text(size =20),
+          axis.title = element_text(size = 25),
+          legend.position = "none",
+          legend.text = element_text(size = 15),
+          legend.title = element_text(size = 15)))
 #sorted by increased average predator size, then showing prey size
 (species_graph <- size %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
@@ -197,12 +218,33 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
   annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
   annotate(geom = "text", x = 6, y = 400, label = "+", size = 8))
 
+(species_graph_nox <- size %>%
+    mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
+    ggplot(aes(x = reorder(sample_str, pred_mass_mg), y = mean_prey_mass_mg, color = sample_str)) +
+    geom_boxplot(size = 1) + 
+    geom_point() +
+    scale_color_manual(values = pal_kelp,
+                       labels = pred_labels) +
+    theme_bw() +
+    scale_y_log10() +
+    labs(x = "Predator species", 
+         y = "Prey mass (mg)",
+         color = "Predator species") +
+    theme(axis.text.y = element_blank(),
+          axis.text.x = element_blank(),
+          axis.title = element_text(size = 25),
+          axis.title.y = element_blank(),
+          legend.position = "none") +
+    annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
+    annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
+    annotate(geom = "text", x = 6, y = 400, label = "+", size = 8))
+
 size_graph_col / species_graph +
   plot_layout(guides = 'collect')
 
-size_graph_col + species_graph
+size_graph_no_leg + species_graph_nox
 
-size %>%
+(pred_size_hist <- size %>%
   distinct(sample, sample_str, pred_mass_mg) %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
   ggplot(aes(x = pred_mass_mg, fill = sample_str)) +
@@ -217,7 +259,7 @@ size %>%
   facet_wrap(~sample_str, labeller = labeller(sample_str = pred_labels)) +
   scale_fill_manual(values = pal_kelp,
                     labels = pred_labels) +
-  theme(legend.position = "none")
+  theme(legend.position = "none"))
 
 
 x3 <- c(1:100)
