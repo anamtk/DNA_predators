@@ -115,13 +115,13 @@ anova(cca_pg_simple, cca_pg)
 sites <- meta_pg %>%
   rownames_to_column("site")
 #get the site (sample) scores out and attach to site metadata
-CCAscores <- scores(cca_pg, display = "sites") %>% 
+CCAscores <- vegan::scores(cca_pg, display = "sites") %>% 
   as.data.frame() %>% 
   rownames_to_column("site") %>%
   left_join(sites, by = "site")
 
 #get the vectors out representing the loadings by species
-CCAvect <- scores(cca_pg, display = c("cn")) %>% 
+CCAvect <- vegan::scores(cca_pg, display = c("cn")) %>% 
   as.data.frame() %>%
   rownames_to_column(var = "ID") %>%
   filter(str_detect(ID, "sample_str")) %>%
@@ -133,7 +133,7 @@ CCAvect <- scores(cca_pg, display = c("cn")) %>%
                                         "P. holdhausi"))))
 
 #get vector out representing the loading by body size
-CCAsizevect <- scores(cca_pg, display = "bp") %>% 
+CCAsizevect <- vegan::scores(cca_pg, display = "bp") %>% 
   as.data.frame() %>%
   rownames_to_column(var = "ID") %>%
   filter(ID == "pred_log_mass_mg")
@@ -156,7 +156,7 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
 #PAN: "#067D8D" 
 #HEV: "#114C54"
 
-ggplot() +
+CCA_plot <- ggplot() +
   geom_vline(xintercept = c(0), color = "grey70", linetype = 2) +
   geom_hline(yintercept = c(0), color = "grey70", linetype = 2) +
   geom_point(data = CCAscores, aes(x = CCA1, y = CCA2, color = sample_str), size = 3) +
@@ -187,3 +187,4 @@ sand_pg %>%
        y = "Count", 
        fill = "Predator species") +
   theme_bw()
+
