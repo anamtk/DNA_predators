@@ -1,0 +1,115 @@
+---
+title: "Clustering and CCA"
+author: "Ana Miller-ter Kuile"
+date: "`r Sys.Date()`"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      collapsed: false
+    toc_depth: 2
+    df_print: paged
+    theme: readable
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r, include = FALSE}
+package.list <- c("here", "tidyverse", 
+                  "glmmTMB", "emmeans",
+                  "MuMIn", "DHARMa",
+                  "effects", "ggeffects",
+                  "patchwork", "calecopal",
+                  "gt", "vegan", "remotes",
+                  "eulerr", "dummies",
+                  "emmeans")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
+```
+
+```{r, include = FALSE}
+source(here("6_statistics", "2_cca_sand_pg.R"))
+```
+
+# A community matrix
+
+A community matrix consists of a set of sampling units (ponds, predator individuals, forest plots, etc) and then either the presence or abundance of different species in those sampling units.
+
+```{r}
+head(mat_pg)
+```
+In this example, the row names correspond to predator individuals (but could be sampling sites, ponds, etc) and the columns represent different species that are either present/absent in those predator individuals' diets. 
+
+# Cluster on similarity (Unconstrained/exploratory example)
+
+We could take a matrix like this and just ask a broad question of "are the communities (sets of columns) clustered in some way?" This is an **exploratory** (unconstrained) analysis because I'm not asking how some, say, environmental variable might be clustering the data; rather, I'm just asking whether the data are clustered. 
+
+There are various clustering methods, but the one demonstrated in this dendrogram is a hierarchical clustering method in which samples are grouped by increasing similarity (lots of different methods) but the general idea is that things that have a branch closer to the bottom of the graph are more similar, whereas something that branches near the top of the graph are relatively dissimilar or completely dissimilar.
+
+```{r, include = FALSE}
+source(here("6_statistics", "5_stage_structure_cons.R"))
+```
+
+```{r}
+dendro_hev
+```
+
+This dendrogram shows hierarchical clustering of a single predator species. I would use this method for this dataset because I might be curious whether there is some kind of size or age structure in this predator species such that individuals of different sizes/ages eat different prey communities. However, I would do this without lumping individuals into pre-defined groups based on age or size. For this predator, this is a good approach because it has continuous growth throughout its life and may be bigger or smaller at the same age, so assuming we know anything based on age or size a priori is not a good assumption. I would probably take an exploratory analysis like this one and then apply it to a statistical test, e.g. now that I have the data clustered, are different clusters associated with predators of statistically different body sizes? 
+
+```{r}
+clusters_HEV
+```
+
+Maybe!
+
+# CCA based on predator species (constrained/environmental interpretation example)
+
+On the other hand, I may have collected my community matrix (above matrix of sites by species) along with environmental variables and I may want to know which environmental variables predict variation in the data. This is a **constrained** ordination because I am asking a statistically-testable question with the data. For this analysis, I would combine the site by species matrix above with a dataset of a set of environmental parameters collected for each of those sites. (In this case "sites" are predator individuals, but they could be ponds, etc).
+
+```{r, include = FALSE}
+source(here("6_statistics", "2_cca_sand_pg.R"))
+```
+
+### Site metadata
+
+```{r}
+head(meta_pg)
+```
+
+The site data I have for this dataset include two variables, `sample_str` and `pred_log_mass_mg`, which correspond to the species identity for each site (predator individual) and that predator individual's body mass. However, environmental data could include the pH, size, type, etc. of pond where the data were collected, and so you would have sites that correspond to a measurement of each of these environmental variables. In my case, I'm interested in niche partitioning by species and body size, with the question "Do predator individuals partition resources based on species and body size?". For a pond dataset, we might want to know "How do pond environmental variables (pH, size, etc) drive shifts in community composition of benthic invertebrates?"
+
+Unlike the hierarchical clustering approach, the constrained approach provides an ability to test the importance of environmental variables and also compare, say, an analysis done with just pH as an environmental variable to one with both pH and pond size. In this way, these approaches are really similar to an ANOVA. In addition, I chose to use a CCA as opposed to an RDA because I don't know whether the relationships in this dataset are linear, which is made even harder by the fact that one of the predictors is categorical (species) and doesn't have an intrinsic logical ordering to it. However, I could see a linear relationship with a variable such as pond size - as pond size gets bigger you might see a linear increase in the amount of microhabitats available, thus shifting communities linearly along that gradient. 
+
+In my example, using an ANOVA call to look at the marginal effects of species and body size:
+
+```{r, echo = TRUE}
+anova(cca_pg, by='margin', permutations=10000)
+```
+
+The result of this ANOVA indicates that species identity drives much more of the variation in the data than does predator body size. However, when we remove body size we find that the model is (sometimes) significantly different, suggesting that despite its marginal effect, body size has some importance in this model. (only sometimes different because these results rely on random simulations).
+
+```{r, echo = TRUE}
+cca_pg_simple <- update(cca_pg, . ~ . - pred_log_mass_mg)
+anova(cca_pg_simple, cca_pg)
+```
+
+Below is a really scary plot of this analysis showing my sampling sites (predator individuals), the prey species that are shifting these samples in different directions, as well as the main predictors driving variation in this dataset:
+
+```{r}
+plot(cca_pg)
+```
+
+I simplified and prettified this graph, now with each point showing a sampling site (predator individual) and the direction each level of the most important predictor (predator species) is shifting community composition. 
+
+```{r}
+CCA_plot
+```
+
+Methods depend on questions and all of them have merit in different settings, even with the same dataset! Hope this helps!
