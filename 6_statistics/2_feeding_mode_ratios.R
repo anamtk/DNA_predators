@@ -14,10 +14,6 @@
 
 # Load packages -----------------------------------------------------------
 
-
-
-# Load packages -----------------------------------------------------------
-
 package.list <- c("here", "tidyverse", 
                   "glmmTMB", "emmeans",
                   "MuMIn", "DHARMa",
@@ -69,6 +65,14 @@ ratios %>%
   group_by(webs) %>%
   tally()
 
+ratios %>%
+  group_by(webs) %>%
+  summarise(mean_ratio = mean(log10_ratio),
+            median = median(ratio),
+            sd = sd(ratio),
+            total = n(),
+            se = sd/sqrt(total))
+
 hist(ratios$ratio)
 hist(ratios$log_ratio)
 hist(ratios$log10_ratio)
@@ -86,6 +90,7 @@ dredge(m)
 
 ggplot(ratios, aes(x = webs, y = ratio)) +
   geom_boxplot(size = 0.75, fill = "#969696") +
+  geom_jitter(width = 0.25, height = 0.25, shape = 1) +
   theme_bw() +
   scale_y_log10() +
   labs(x = "Web-using", y = "Predator:prey mass ratio") +
