@@ -68,6 +68,108 @@ sand_pg %>%
   distinct(sample) %>%
   tally()
 
+sand_pg %>%
+  dplyr::select(Family, sample_str) %>%
+  gather_set_data(1:2) %>%
+  ggplot(aes(x, id = id, split = y, value = 1))  +
+  geom_parallel_sets(aes(fill = sample_str), show.legend = FALSE, alpha = 0.3) +
+  geom_parallel_sets_axes(axis.width = 0.1, color = "lightgrey", fill = "white") +
+  geom_parallel_sets_labels(angle = 0) +
+  theme_no_axes() 
+
+?coord_flip
+prey <- sand_pg %>%
+  rename("pred_sp" = "sample_str",
+         "prey_fam" = "Family") %>%
+  mutate(pred_species = ifelse(pred_sp == "EUB", "Euborella_annulipes",
+                               ifelse(pred_sp == "HEV", "Heteropoda_venatoria",
+                                      ifelse(pred_sp == "PHH", "Phisis_holdhausi",
+                                      "Neoscona_theisi")))) %>%
+  dplyr::select(-pred_sp) %>%
+  group_by(pred_species, prey_fam, Order) %>%
+  tally(name = "frequency")
+
+prey <- prey %>%
+  arrange(Order) %>%
+  mutate(prey_fam = factor(prey_fam, levels = c(prey_fam)))
+
+prey_pres <- prey %>%
+  mutate(presence = ifelse(frequency > 0, 1, 0)) %>%
+  dplyr::select(-frequency) %>%
+  pivot_wider(names_from = pred_species,
+              values_from = presence,
+              values_fill = 0) %>%
+  column_to_rownames(var = "prey_fam") %>%
+  dplyr::select(-Order)
+
+library(bipartite)
+
+prey_mat <- prey %>%
+  pivot_wider(names_from = pred_species,
+              values_from = frequency,
+              values_fill = 0) %>%
+  column_to_rownames(var = "prey_fam") %>%
+  dplyr::select(-Order)
+
+plotweb(prey_mat)
+plotweb(prey_mat,
+        method = "cca", empty = TRUE, labsize = 1, ybig = 1,  y.width.low = 0.1, 
+        y.width.high = 0.1, low.spacing = 0.04, high.spacing = NULL,
+        arrow="no",  col.interaction="grey80", col.high = "grey10", 
+        col.low="grey10",  bor.col.interaction =NA, bor.col.high=NA, 
+        bor.col.low=NA, high.lablength = NULL, low.lablength = NULL,
+        sequence=NULL, low.abun=NULL, low.abun.col="green", 
+        bor.low.abun.col ="black", high.abun=NULL, high.abun.col="red", 
+        bor.high.abun.col="black", text.rot=0, text.high.col="black", 
+        text.low.col="black", adj.high=NULL, adj.low=NULL, plot.axes = FALSE,
+        low.y=1, high.y=1.5, add=FALSE, y.lim=NULL, x.lim=NULL, low.plot=TRUE, 
+        high.plot=TRUE, high.xoff = 0, low.xoff = 0, high.lab.dis = NULL, 
+        low.lab.dis = NULL, abuns.type="additional")
+
+plotweb(prey_pres,
+        method = "cca", empty = TRUE, labsize = 1, ybig = 1,  y.width.low = 0.1, 
+        y.width.high = 0.1, low.spacing = 0.04, high.spacing = NULL,
+        arrow="no",  col.interaction="grey80", col.high = "grey10", 
+        col.low="grey10",  bor.col.interaction =NA, bor.col.high=NA, 
+        bor.col.low=NA, high.lablength = NULL, low.lablength = NULL,
+        sequence=NULL, low.abun=NULL, low.abun.col="green", 
+        bor.low.abun.col ="black", high.abun=NULL, high.abun.col="red", 
+        bor.high.abun.col="black", text.rot=0, text.high.col="black", 
+        text.low.col="black", adj.high=NULL, adj.low=NULL, plot.axes = FALSE,
+        low.y=0.5, high.y=1.5, add=FALSE, y.lim=NULL, x.lim=NULL, low.plot=TRUE, 
+        high.plot=TRUE, high.xoff = 0, low.xoff = 0, high.lab.dis = NULL, 
+        low.lab.dis = NULL, abuns.type="additional")
+
+plotweb(prey_pres,
+        method = "normal", empty = TRUE, labsize = 1, ybig = 1,  y.width.low = 0.1, 
+        y.width.high = 0.1, low.spacing = 0.04, high.spacing = NULL,
+        arrow="no",  col.interaction="grey80", col.high = "grey10", 
+        col.low="grey10",  bor.col.interaction =NA, bor.col.high=NA, 
+        bor.col.low=NA, high.lablength = NULL, low.lablength = NULL,
+        sequence=NULL, low.abun=NULL, low.abun.col="green", 
+        bor.low.abun.col ="black", high.abun=NULL, high.abun.col="red", 
+        bor.high.abun.col="black", text.rot=0, text.high.col="black", 
+        text.low.col="black", adj.high=NULL, adj.low=NULL, plot.axes = FALSE,
+        low.y=0.5, high.y=1.5, add=FALSE, y.lim=NULL, x.lim=NULL, low.plot=TRUE, 
+        high.plot=TRUE, high.xoff = 0, low.xoff = 0, high.lab.dis = NULL, 
+        low.lab.dis = NULL, abuns.type="additional")
+
+
+plotweb(prey_mat,
+        method = "normal", empty = TRUE, labsize = 1, ybig = 1,  y.width.low = 0.1, 
+        y.width.high = 0.1, low.spacing = 0.04, high.spacing = NULL,
+        arrow="no",  col.interaction="grey80", col.high = "grey10", 
+        col.low="grey10",  bor.col.interaction =NA, bor.col.high=NA, 
+        bor.col.low=NA, high.lablength = NULL, low.lablength = NULL,
+        sequence=NULL, low.abun=NULL, low.abun.col="green", 
+        bor.low.abun.col ="black", high.abun=NULL, high.abun.col="red", 
+        bor.high.abun.col="black", text.rot=0, text.high.col="black", 
+        text.low.col="black", adj.high=NULL, adj.low=NULL, plot.axes = FALSE,
+        low.y=0.5, high.y=1.5, add=FALSE, y.lim=NULL, x.lim=NULL, low.plot=TRUE, 
+        high.plot=TRUE, high.xoff = 0, low.xoff = 0, high.lab.dis = NULL, 
+        low.lab.dis = NULL, abuns.type="additional")
+
+?plotweb
 # Sand PG CCA -----------------------------------------------------------------
 
 #matrix with diet as columns, samples as rows
@@ -108,7 +210,18 @@ anova(cca_pg, permutations=10000)
 anova(cca_pg, by='margin', permutations=10000)
 
 cca_pg_simple <- update(cca_pg, . ~ . - pred_log_mass_mg)
-anova(cca_pg_simple, cca_pg)
+cca_pg_simple2 <- update(cca_pg, . ~ . - sample_str)
+anova(cca_pg_simple,  cca_pg)
+anova(cca_pg_simple2, cca_pg)
+
+RsquareAdj(cca_pg_simple)
+#ANOVA of whole model
+anova(cca_pg_simple, permutations=10000)
+
+#view the CCA loadings
+cca_pg
+#screeplot(cca_pg)
+summary(cca_pg)
 
 #pretty ggplot plot 
 #site metadata
