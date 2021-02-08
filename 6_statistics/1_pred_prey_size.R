@@ -73,6 +73,19 @@ prey_fams <- size %>%
   distinct(Class, Order, Family) %>%
   arrange(Class, Order, Family)
 
+size %>%
+  distinct(sample, sample_str, Family, pred_mass_mg, mean_prey_mass_mg)
+
+size %>%
+  group_by(sample_str) %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  summarise(mean_ratio = mean(ratio),
+            max_ratio = max(ratio),
+            min_ratio = min(ratio),
+            sd = sd(ratio),
+            total = n(),
+            se = sd/sqrt(total))
+
 write.csv(prey_fams, here("Drafts", "Figures", "Supp", "prey_families.csv"))
 
 # Body size model selection ---------------------------------------------------------
