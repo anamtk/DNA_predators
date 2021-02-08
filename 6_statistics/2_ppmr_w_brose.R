@@ -74,51 +74,10 @@ brose_dat %>%
   distinct(sample_str) %>%
   tally()
 
+unique(brose_dat$foodweb.name)
 # Size ratio visualizations -----------------------------------------------
 data <- data %>%
   mutate(type = ifelse(source == "AMtK", "DNA", "literature"))
-
-data %>%
-  mutate(type = ifelse(source == "AMtK", "DNA", "literature")) %>%
-  #mutate(source = factor(source, levels = c("AMtK",
-  #                                          "Cattin Blandenier (2004)",
-  #                                          "Piechnik et al. (2008), Simberloff and Wilson (1969)"
-  #                                          ))) %>%
-  ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = type)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(aes(shape = type), size = 3) +
-  geom_smooth(method = "lm", se = F) +
-  scale_shape_manual(values = c(16, 1)) +
-  scale_color_manual(values = c("#000000", "#d9d9d9")) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw() 
-
-ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
-  geom_abline(slope = 1, linetype = "dashed", size =1) +
-  geom_point(size = 3, color = "#d9d9d9", shape = 1) +
-  geom_point(data = size, aes(x = pred_mass_mg, y = mean_prey_mass_mg), 
-             color = "#252525", size = 3) +
-  geom_abline(aes(slope = ), color= "black", size =1) +
-  geom_abline(aes(slope = ), color = "black", size =1) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_classic() +
-  theme(axis.text = element_text(size =25), axis.title = element_text(size =30)) +
-  labs(x = "Predator mass (mg)", y = "Prey mass (mg)")
-
-data %>%
-  mutate(source = factor(source, levels = c("Cattin Blandenier (2004)",
-                                            "Piechnik et al. (2008), Simberloff and Wilson (1969)",
-                                            "pal"))) %>%
-  ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg/pred_mass_mg, color = foodweb.name)) +
-  geom_abline(slope = 1, linetype = "dashed") +
-  geom_point(size = 3, alpha = 0.6) +
-  geom_smooth(method = "lm", se = F) +
-  scale_x_log10() +
-  scale_y_log10() +
-  theme_bw() +
-  facet_wrap(~source)
 
 # model -------------------------------------------------------------
 data <- data %>%
@@ -148,6 +107,11 @@ m_lit <- glmmTMB(log_prey_mass ~ log_pred_mass,
                  data = lit)
 summary(m_lit) #0.7140
 
+pwc2 <- data %>% 
+  emmeans_test(
+    log_prey_mass ~ type, covariate = log_pred_mass,
+    p.adjust.method = "bonferroni"
+  )
 
 ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
   geom_abline(slope = 1, linetype = "dotted", size =1) +
@@ -166,9 +130,6 @@ ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
   theme_classic() +
   theme(axis.text = element_text(size =25), axis.title = element_text(size =30)) +
   labs(x = "Predator mass (mg)", y = "Prey mass (mg)")
-
-
-
 
 x <- c(1:100)
 y <- 0.3*(x)
@@ -197,28 +158,61 @@ plot(allEffects(m2))
 
 fit <- simulateResiduals(m2, plot = T)
 
-#get relationships
-DNA <- data %>%
-  filter(type == "DNA")
-m_dna <- glmmTMB(log_prey_mass ~ log_pred_mass,
-                 data = DNA)
-summary(m_dna) #.2612
-lit <- data %>%
-  filter(type != "DNA")
-
-m_lit <- glmmTMB(log_prey_mass ~ log_pred_mass,
-                 data = lit)
-summary(m_lit) #0.7140
-
 library(ggeffects)
 #predict for pretty graph
 me <- ggpredict(m2, terms = c("log_pred_mass", "source"), type = "random")
 
+me %>%
+  mutate(x_un = 10^x,
+         y_un = 10^predicted) %>%
+  ggplot(aes(x = x_un, y = y_un, color = group)) +
+  geom_abline(slope = 1, color = "#d9d9d9", size =1, linetype = "dashed") +
+  geom_line(size = 1) +
+  theme_bw() +
+  scale_x_log10() +
+  scale_y_log10() +
+  labs(x = "Predator mass (mg)", y = "Prey mass (mg)") +
+  scale_color_manual(values = c("#DAA859", "#186D79", 
+                                "#1E8492", "#2296A6", "#27ADBF", "#34C2D6")) +
+  theme(axis.text = element_text(size = 20),
+        axis.title= element_text(size = 25),
+        legend.text = element_text(size = 15),
+        legend.title = element_text(size = 15))
+#DAA859 #mine
+#186D79
+#1E8492
+#2296A6
+#27ADBF
+#34C2D6
+
+ggplot(me, aes(x = x, y = predicted, color = group)) +
+  geom_abline(slope = 1, color = "#d9d9d9", size =1, linetype = "dashed") +
+  geom_line(size = 1) +
+  theme_bw() +
+  labs(x = "log10 predator mass", y = "log10 prey mass") +
+  scale_color_manual(values = c("#DAA859", "#186D79", 
+                                "#1E8492", "#2296A6", "#27ADBF", "#34C2D6")) +
+  theme(axis.text = element_text(size = 20),
+        axis.title= element_text(size = 25),
+        legend.text = element_text(size = 15),
+        legend.title = element_text(size = 15))
 #graph the predicted values
 plot(me, add.data = TRUE) +
   facet_wrap(~group)
 
+plot(me)
+
 plot(me, add.data = TRUE) 
+
+library(emmeans)
+library(rstatix)
+
+pwc <- data %>% 
+  emmeans_test(
+    log_prey_mass ~ source, covariate = log_pred_mass,
+    p.adjust.method = "bonferroni"
+  )
+pwc
 
 ggplot(brose_dat, aes(x = pred_mass_mg, y = mean_prey_mass_mg)) +
   geom_abline(slope = 1, linetype = "dotted", size =1) +
