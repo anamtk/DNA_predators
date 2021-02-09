@@ -100,3 +100,16 @@ ggplot(ratios, aes(x = webs, y = ratio)) +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25),
         axis.title.x = element_blank())
+
+a <- dredge(m)
+
+a1 <- a[,c(3:8)]
+
+a1 %>% 
+  rename("Web use" = "cond(webs)") %>% 
+  gt() %>% 
+  fmt_number(
+    columns = vars("df", "logLik", "AICc", "delta", "weight"),
+    decimals = 2) %>% 
+  tab_header(
+    title = "Model selection of web use linear model") 
