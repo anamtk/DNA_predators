@@ -4,13 +4,8 @@
 # October 29, 2020
 ###########################
 
-# this script analyzes whether predator feeding
-#mode (active vs. non-active) influences the
-#size of prey they eat beyond just a 
-#species-specific size mode. OR, maybe 
-#there is somethign that is varyign at the 
-#species level that matters instead, regardless
-#of hunting mode. 
+# this script analyzes whether a set of predator traits including 
+# hunting mode, web use and venom use, influence prey size
 
 # Load packages -----------------------------------------------------------
 
@@ -36,14 +31,12 @@ data <- read.csv(here("data",
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%
-  dplyr::select(-X, -X.x, -X.y, -reads) %>%
+  dplyr::select(-X, -reads) %>%
   mutate(pred_mass_mg = 10^(pred_log_mass_mg))
 
 # Ratios by feeding interaction -------------------------------------------
 size %>%
   mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
-                       "no", "yes")) %>%
   ggplot(aes(x = ratio, fill = webs)) +
   geom_histogram() +
   theme_bw() +
@@ -51,10 +44,26 @@ size %>%
   scale_x_log10() +
   geom_vline(xintercept = 1) 
 
+size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  ggplot(aes(x = ratio, fill = venom)) +
+  geom_histogram() +
+  theme_bw() +
+  facet_wrap(~venom) +
+  scale_x_log10() +
+  geom_vline(xintercept = 1) 
+
+size %>%
+  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
+  ggplot(aes(x = ratio, fill = hunting_mode)) +
+  geom_histogram() +
+  theme_bw() +
+  facet_wrap(~hunting_mode) +
+  scale_x_log10() +
+  geom_vline(xintercept = 1) 
+
 ratios <- size %>%
   mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  mutate(webs = ifelse(sample_str %in% c("CEN", "EUB", "PAN", "PHH"), 
-                       "No web use", "Web use")) %>%
   mutate(log_ratio = log10(ratio),
          log10_ratio = pred_log_mass_mg/mean_prey_log_mass_mg)
 
@@ -63,8 +72,26 @@ ratios %>%
   tally()
 
 ratios %>%
+  group_by(venom) %>%
+  tally()
+
+ratios %>%
+  group_by(hunting_mode) %>%
+  tally()
+
+ratios %>%
   distinct(sample, webs) %>%
   group_by(webs) %>%
+  tally()
+
+ratios %>%
+  distinct(sample, venom) %>%
+  group_by(venom) %>%
+  tally()
+
+ratios %>%
+  distinct(sample, hunting_mode) %>%
+  group_by(hunting_mode) %>%
   tally()
 
 ratios %>%
@@ -75,20 +102,42 @@ ratios %>%
             total = n(),
             se = sd/sqrt(total))
 
+ratios %>%
+  group_by(venom) %>%
+  summarise(mean_ratio = mean(log10_ratio),
+            median = median(ratio),
+            sd = sd(ratio),
+            total = n(),
+            se = sd/sqrt(total))
+
+ratios %>%
+  group_by(hunting_mode) %>%
+  summarise(mean_ratio = mean(log10_ratio),
+            median = median(ratio),
+            sd = sd(ratio),
+            total = n(),
+            se = sd/sqrt(total))
+
 hist(ratios$ratio)
 hist(ratios$log_ratio)
 hist(ratios$log10_ratio)
 
-m <- glmmTMB(log_ratio ~ webs + (1|sample_str),
+m_hunting_mode <- glmmTMB(log_ratio ~ hunting_mode + (1|sample_str),
              data = ratios)
 
-summary(m)
+m_webs <- glmmTMB(log_ratio ~ webs + (1|sample_str),
+                data = ratios)
 
-fit <- simulateResiduals(m, plot =T)
+m_venom <- glmmTMB(log_ratio ~ venom + (1|sample_str),
+               data = ratios)
 
-plot(allEffects(m))
+AICc(m_hunting_mode, m_webs, m_venom)
 
-dredge(m)
+summary(m_webs)
+
+fit <- simulateResiduals(m_webs, plot =T)
+
+plot(allEffects(m_webs))
 
 ggplot(ratios, aes(x = webs, y = ratio)) +
   geom_boxplot(size = 0.75, fill = "#969696") +
@@ -103,15 +152,15 @@ ggplot(ratios, aes(x = webs, y = ratio)) +
         axis.title = element_text(size = 25),
         axis.title.x = element_blank())
 
-a <- dredge(m)
 
-a1 <- a[,c(3:8)]
+a <- AICc(m_webs, m_hunting_mode, m_venom)
 
-a1 %>% 
-  rename("Web use" = "cond(webs)") %>% 
+a %>% 
+  mutate(delta = AICc - 943.5464) %>% 
+  rownames_to_column(var = "model") %>%
   gt() %>% 
   fmt_number(
-    columns = vars("df", "logLik", "AICc", "delta", "weight"),
+    columns = vars("df", "AICc", "delta"),
     decimals = 2) %>% 
   tab_header(
-    title = "Model selection of web use linear model") 
+    title = "Model selection of predator trait models") 
