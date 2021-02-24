@@ -236,6 +236,7 @@ size_graph_col / species_graph +
 
 size_graph_no_leg + species_graph_nox
 
+
 (pred_size_hist <- size %>%
   distinct(sample, sample_str, pred_mass_mg) %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
