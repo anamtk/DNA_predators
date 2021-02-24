@@ -35,35 +35,29 @@ data <- read.csv(here("data",
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%
-  dplyr::select(-X, -X.x, -X.y, -reads) %>%
+  dplyr::select(-X, -reads) %>%
   mutate(pred_mass_mg = 10^(pred_log_mass_mg))
 
 # How many preds? -----------------------------------------------
+#how many total preds
 size %>%
   distinct(sample) %>%
   summarise(total = n())
 
+#how many interactions per predator individual
 size %>%
   group_by(sample) %>%
   summarise(total = n()) %>%
   summarise(mean = mean(total),
             sd = sd(total))
 
+# min and max size per predator species
 size %>%
-  filter(sample_str == "HEV") %>%
-  distinct(sample) %>%
-  tally()
-
-size %>%
-  filter(sample_str == "HEV") %>% 
+  group_by(sample_str) %>% 
   summarise(min = min(pred_mass_mg),
             max = max(pred_mass_mg))
 
-size %>%
-  filter(sample_str == "PHH") %>% 
-  summarise(min = min(pred_mass_mg),
-            max = max(pred_mass_mg))
-
+#table of prey families
 size %>%
   distinct(Class, Order, Family) %>%
   arrange(Class, Order, Family) %>% 
@@ -71,24 +65,16 @@ size %>%
   tab_header(
     title = "Prey families from DNA diet data")
 
+#make a df of this data
 prey_fams <- size %>%
   distinct(Class, Order, Family) %>%
   arrange(Class, Order, Family)
 
-size %>%
-  distinct(sample, sample_str, Family, pred_mass_mg, mean_prey_mass_mg)
-
-size %>%
-  group_by(sample_str) %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  summarise(mean_ratio = mean(ratio),
-            max_ratio = max(ratio),
-            min_ratio = min(ratio),
-            sd = sd(ratio),
-            total = n(),
-            se = sd/sqrt(total))
-
-write.csv(prey_fams, here("Drafts", "Figures", "Supp", "prey_families.csv"))
+#export for supplementary table
+write.csv(prey_fams, here("Drafts", 
+                          "Figures", 
+                          "Supp", 
+                          "prey_families.csv"))
 
 # Body size model selection ---------------------------------------------------------
 
@@ -118,10 +104,11 @@ a1 %>%
   tab_header(
     title = "Model selection of predator-prey size linear model") 
 
-
 #best is mass + species model
 m2 <- glmmTMB(mean_prey_log_mass_mg ~ pred_log_mass_mg + sample_str + (1|sample),
               data = size)
+
+# Model Diagnostics -------------------------------------------------------
 
 fit <- simulateResiduals(m2, plot = T)
 
@@ -129,20 +116,10 @@ fit <- simulateResiduals(m2, plot = T)
 #intercept Estimate gives that base intercept for the model
 #the intercept for each species is the sum of that and the 
 #species intercept
+summary(m2)
 #the power law relationship is given by the estimate of 
 #pred_log_mass_mg, which is sublinear with a relationship of
-#y = a + x^0.41259
-
-
-# Model diagnostics -------------------------------------------------------
-
-summary(m2)
-r.squaredGLMM(m2)
-em <- emmeans(m2, "sample_str")
-tukey <- as.data.frame(pairs(em))
-
-tukey <- tukey %>%
-  mutate(sig = ifelse(p.value < 0.05, "sig", "non-sig"))
+#y = a + x^0.34336
 
 # Figures ------------------------------------------------------------------
 
@@ -176,7 +153,7 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
   ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
   geom_point(size = 3) +
-  geom_abline(slope = 0.41, size = 1) +
+  geom_abline(slope = 0.34, size = 1) +
   scale_x_log10() +
   scale_y_log10() +
   labs(x = "Predator mass (mg)", 
@@ -277,17 +254,10 @@ size_graph_no_leg + species_graph_nox
   theme(legend.position = "none"))
 
 
-x3 <- c(1:100)
-y3 <- 0.41*(x)
-plot(y3 ~ x3)
-x4 <- 10^x3
-y4 <- 10^y3
-plot(y4 ~ x4)
-
-x3 <- c(1:100)
-y3 <- 1.2*(x)
-plot(y3 ~ x3)
-x4 <- 10^x3
+x <- c(1:100)
+y3 <- 0.34*(x)
+plot(y3 ~ x)
+x4 <- 10^x
 y4 <- 10^y3
 plot(y4 ~ x4)
 
