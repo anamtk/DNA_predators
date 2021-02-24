@@ -131,7 +131,7 @@ ints_o <- ints_ord %>%
 ints_c <- ints_cls %>%
   filter(!is.na(mean_prey_mass_mg))
 
-#a total of 446 interactions given size assignements
+#a total of 335 interactions given size assignements
 ints_size <- ints_f %>%
   bind_rows(ints_o) %>%
   bind_rows(ints_c)
@@ -142,7 +142,7 @@ ints_size <- ints_f %>%
 
 p_p_sizes <- preds %>%
   rename("sample" = "Extraction.ID") %>%
-  group_by(sample, Feeding_mode, Tools, Locomotion) %>%
+  group_by(sample, hunting_mode, venom, webs) %>%
   summarise(pred_length_mm = mean(Length_mm, na.rm=T),
             pred_log_length_mm = mean(log_length, na.rm=T),
             pred_log_mass_mg = mean(log_mass, na.rm=T)) %>%
@@ -156,9 +156,9 @@ p_p_sizes <- preds %>%
 #############################
 
 write.csv(p_p_sizes, here("data", 
-                          "outputs", 
-                          "6_prey_sizes", 
-                          "DNA_interaction_pred_prey_sz.csv"))
+                          "outputs",  
+                          "8_final_dataset", 
+                          "pred_prey_sizes_DNAinteractions.csv"))
 
 
 

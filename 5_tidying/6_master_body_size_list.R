@@ -30,9 +30,32 @@ for(i in package.list){library(i, character.only = T)}
 #undergrad size data for two species
 ana_ug <- read.csv(here("data", "size_data", "Pal_UG_mass_length.csv"))
 
-#palmyra node and stage data from FW project
-pal_nodes <- read.csv(here("data", "size_data", "pal_nodes_mass_length.csv"))
-pal_stages <- read.csv(here("data", "size_data", "pal_stages_mass_length.csv"))
+#palmyra raw body size data
+pal <- read.csv(here("data", "size_data", "Palmyra_BS_Feb2021.csv"))
+
+pal <- pal %>%
+  dplyr::select(Species_Name,
+                Length_mm,
+                Total_Mass_mg) %>%
+  rename(Mass_mg = Total_Mass_mg) %>%
+  filter(!is.na(Mass_mg))
+
+pal_IDs <- read.csv(here("data", "size_data", "Palmyra_nodenames.csv"))
+
+pal_IDs <- pal_IDs %>%
+  filter(Stage_Name == "Adult") %>%
+  dplyr::select(Species_Stage_Name,
+                Phylum,
+                Class,
+                Order.1,
+                Family,
+                Genus,
+                specific_epithet) %>%
+  rename(Species_Name = Species_Stage_Name,
+         Order = Order.1)
+
+pal <- pal %>%
+  left_join(pal_IDs, by = "Species_Name")
 
 #literature
 pantala_lit <- read.csv(here("data", "size_data", "su_pantala_mass_length.csv"))
@@ -51,41 +74,9 @@ ana_ug <- ana_ug %>%
   mutate(Source = "Ana_UG",
          Class = ifelse(Order == "Orthoptera", "Insecta", "Arachnida"))
  
-#subset and organize node-level data from palmyra
-pal_nodes <- pal_nodes %>%
-  dplyr::select(Class, Order.1, Family, Genus, specific_epithet, 
-                Body_Length_Mean_mm, Body_Mass_Mean_mg) %>%
-  rename("Order" = "Order.1",
-         "Species" = "specific_epithet",
-         "Length_mm" = "Body_Length_Mean_mm",
-         "Mass_mg" = "Body_Mass_Mean_mg") %>%
-  filter(!is.na(Mass_mg)) %>%
-  mutate(Source = "Pal_nodes") 
-  
-
-#subset and organize individual level data from palmyra
-#for this i prioritized individuals from predators since
-#others are averaged for the nodes list above
-pal_stages <- pal_stages %>%
-  dplyr::select(Class, Family, Order, Species_Name, 
-                Length_mm, Mass_mg) %>%
-  rename("Species" = "Species_Name") %>%
-  filter(!is.na(Mass_mg)) %>%
-  filter(Species %in% c("Heteropoda_venatoria", 
-                             "Neoscona_theisi",
-                             "Scytodes_longipes",
-                             "Scytodes_sp_2",
-                             "Oonopidae_sp1",
-                             "Oonopidae_sp2",
-                             "Oonopidae_sp3",
-                             "Oonopidae_sp4",
-                             "Oonopidae_sp5",
-                             "Oonopidae_sp6",
-                             "Opopaea_deserticola",
-                             "Phisis_holdhausi")) %>%
-  mutate(Genus = "",
-         Source = "Pal_stages") %>%
-  mutate(Mass_mg = as.numeric(Mass_mg))
+#give source for Palmyra data
+pal <- pal %>%
+  mutate(Source = "Palmyra") 
 
 #organize and subset the literature data
 #Class, Order, Family, Genus, Species, Length_mm, Mass_mg, Source
@@ -106,8 +97,7 @@ sohlstrom <- sohlstrom %>%
 
 #final compilation of ALL         
 all_bs <- ana_ug %>%
-  bind_rows(pal_nodes) %>%
-  bind_rows(pal_stages) %>%
+  bind_rows(pal) %>%
   bind_rows(pantala_lit) %>%
   bind_rows(sohlstrom)
 
@@ -134,14 +124,14 @@ bs_pred %>%
 #############################
 
 #master prey family list
-pal <- read.csv(here("data", "outputs",
+pal_fams <- read.csv(here("data", "outputs",
                      "5_rarefied_taxonomic_sort",
                      "fam_prey_DNA_conservative.csv"))
 
 #remove the sequencing run from sample name
-pal$sample <- str_sub(pal$sample, end=-2)
+pal_fams$sample <- str_sub(pal_fams$sample, end=-2)
 
-prey_ids <- pal %>%
+prey_ids <- pal_fams %>%
   distinct(Class, Order, Family)
 
 bs_prey <- all_bs %>%

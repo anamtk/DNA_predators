@@ -32,8 +32,10 @@ for(i in package.list){library(i, character.only = T)}
 
 # Import data -------------------------------------------------------------
 
-data <- read.csv(here("data", "outputs", "8_final_dataset",
-                      "pred_prey_sizes_tp_DNAinteractions.csv"))
+data <- read.csv(here("data", 
+                      "outputs",  
+                      "8_final_dataset", 
+                      "pred_prey_sizes_DNAinteractions.csv"))
 
 stage <- data %>%
   dplyr::select(-X, -X.x, -X.y, -reads) %>%

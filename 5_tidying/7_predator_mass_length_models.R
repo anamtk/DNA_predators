@@ -40,7 +40,7 @@ pred_size <- pred_size %>%
 pred_id <- read.csv(here("data", "Predator_IDs.csv"))
 
 pred_id <- pred_id %>%
-  dplyr::select(pred_Family, sample_str, Feeding_mode, Tools, Locomotion)
+  dplyr::select(pred_Family, sample_str, hunting_mode, venom, webs)
 
 pred_size <- pred_size %>%
   left_join(pred_id, by = c("Family" = "pred_Family")) %>%
@@ -90,7 +90,7 @@ predators <- meta %>%
   fuzzy_inner_join(pred_id, by = c("Extraction.ID" = "sample_str"), 
                    match_fun = str_detect) %>%
   dplyr::select(Extraction.ID, Length_mm, sample_str, 
-                Feeding_mode, Tools, Locomotion) %>%
+                hunting_mode, venom, webs) %>%
   mutate(log_length = log10(Length_mm)) %>%
   filter(!sample_str == "ISO")
 max(predators$log_length, na.rm = T)
