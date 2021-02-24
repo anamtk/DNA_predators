@@ -1,11 +1,11 @@
-pred_Class,pred_Order,pred_Family,pred_Genus,pred_Species,pred_ID,sample_str,Feeding_mode,Tools,Locomotion
-Arachnida,Araneae,Sparassidae,Heteropoda,Heteropoda venatoria,Heteropoda venatoria,HEV,active,venom,walking
-Arachnida,Araneae,Araneidae,Neoscona,Neoscona theisi,Neoscona theisi,NEO,web,web_venom,walking
-Arachnida,Araneae,Scytodidae,Scytodes,Scytodes longipes,Scytodes longipes,SCY,web,web_venom,walking
-Chilopoda,Geophilomorpha,,,,Geophilomorpha,CEN,active,venom,walking
-Insecta,Orthoptera,Tettigoniidae,Phisis,Phisis holdhausi,Phisis holdhausi,PHH,active,none,walking
-Arachnida,Araneae,Pholcidae,Smeringopus,Smeringopus pallidus,Smeringopus pallidus,SME,web,web_venom,walking
-Insecta,Dermaptera,Anisolabididae,Euborellia,Euborellia annulipes,Euborellia annulipes,EUB,active,none,walking
-Insecta,Odonata,Libellulidae,Pantala,Pantala flavescens,Pantala flavescens,PAN,active,none,flying
-Arachnida,Araneae,Oonopidae,,,Oonopidae,LRS,active,venom,walking
-Arachnida,Scorpiones,Buthidae,Isometrus,Isometrus maculatus,Isometrus maculatus,ISO,active,venom,walking
+pred_Class,pred_Order,pred_Family,pred_Genus,pred_Species,pred_ID,sample_str,hunting_mode,venom,webs
+Arachnida,Araneae,Sparassidae,Heteropoda,Heteropoda venatoria,Heteropoda venatoria,HEV,active,yes,yes
+Arachnida,Araneae,Araneidae,Neoscona,Neoscona theisi,Neoscona theisi,NEO,not_active,yes,yes
+Arachnida,Araneae,Scytodidae,Scytodes,Scytodes longipes,Scytodes longipes,SCY,not_active,yes,yes
+Chilopoda,Geophilomorpha,,,,Geophilomorpha,CEN,active,yes,no
+Insecta,Orthoptera,Tettigoniidae,Phisis,Phisis holdhausi,Phisis holdhausi,PHH,active,no,no
+Arachnida,Araneae,Pholcidae,Smeringopus,Smeringopus pallidus,Smeringopus pallidus,SME,not_active,yes,yes
+Insecta,Dermaptera,Anisolabididae,Euborellia,Euborellia annulipes,Euborellia annulipes,EUB,active,no,no
+Insecta,Odonata,Libellulidae,Pantala,Pantala flavescens,Pantala flavescens,PAN,active,no,no
+Arachnida,Araneae,Oonopidae,,,Oonopidae,LRS,unknown,yes,yes
+Arachnida,Scorpiones,Buthidae,Isometrus,Isometrus maculatus,Isometrus maculatus,ISO,active,yes,no
