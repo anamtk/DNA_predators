@@ -64,7 +64,7 @@ taxa_comm <- comm_long %>%
 taxa_comm %>%
   filter(reads > 0) %>%
   group_by(ASV) %>%
-  tally() %>%
+  tally()
 comm_long %>%
   filter(reads > 0) %>%
   group_by(ASV) %>%
