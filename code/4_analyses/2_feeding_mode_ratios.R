@@ -69,30 +69,45 @@ ratios <- size %>%
 
 ratios %>%
   group_by(webs) %>%
-  tally()
+  tally(name = "interactions")
+
+ratios %>%
+  distinct(sample_str, webs) %>%
+  group_by(webs) %>%
+  tally(name = "species")
 
 ratios %>%
   group_by(venom) %>%
-  tally()
+  tally(name = "interactions")
+
+ratios %>%
+  distinct(sample_str, venom) %>%
+  group_by(venom) %>%
+  tally(name = "species")
 
 ratios %>%
   group_by(hunting_mode) %>%
-  tally()
+  tally(name = "interactions")
+
+ratios %>%
+  distinct(sample_str, hunting_mode) %>%
+  group_by(hunting_mode) %>%
+  tally(name = "species")
 
 ratios %>%
   distinct(sample, webs) %>%
   group_by(webs) %>%
-  tally()
+  tally(name = "individuals")
 
 ratios %>%
   distinct(sample, venom) %>%
   group_by(venom) %>%
-  tally()
+  tally(name = "individuals")
 
 ratios %>%
   distinct(sample, hunting_mode) %>%
   group_by(hunting_mode) %>%
-  tally()
+  tally(name = "individuals")
 
 ratios %>%
   group_by(webs) %>%
@@ -122,16 +137,69 @@ hist(ratios$ratio)
 hist(ratios$log_ratio)
 hist(ratios$log10_ratio)
 
-m_hunting_mode <- glmmTMB(log_ratio ~ hunting_mode + (1|sample_str),
+# traits
+# number of speices
+# number of individuals
+# number of interactions
+
+
+
+predator_traits <- ratios %>%
+  group_by(sample_str, hunting_mode, venom, webs) %>%
+  tally(name = "interactions") %>%
+  mutate(
+    species = case_when(
+      sample_str == "CEN" ~ "Geophilomorpha sp",
+      sample_str == "EUB" ~ "E. annulipes",
+      sample_str == "HEV" ~ "H. venatoria",
+      sample_str == "LRS" ~ "Oonopidae sp",
+      sample_str == "NEO" ~ "N. theisi",
+      sample_str == "PAN" ~ "P. flavescens",
+      sample_str == "PHH" ~ "P. holdhausi", 
+      sample_str == "SCY" ~ "S. longipes",
+      sample_str == "SME" ~ "S. pallidus"
+    )) %>%
+  ungroup() %>%
+  dplyr::select(species, interactions)
+
+ratios %>%
+  distinct(sample, sample_str, hunting_mode, venom, webs) %>%
+  group_by(sample_str, hunting_mode, venom, webs) %>%
+  tally(name = "individuals") %>%
+  mutate(
+    species = case_when(
+      sample_str == "CEN" ~ "Geophilomorpha sp",
+      sample_str == "EUB" ~ "E. annulipes",
+      sample_str == "HEV" ~ "H. venatoria",
+      sample_str == "LRS" ~ "Oonopidae sp",
+      sample_str == "NEO" ~ "N. theisi",
+      sample_str == "PAN" ~ "P. flavescens",
+      sample_str == "PHH" ~ "P. holdhausi", 
+      sample_str == "SCY" ~ "S. longipes",
+      sample_str == "SME" ~ "S. pallidus"
+    )) %>%
+  ungroup() %>%
+  dplyr::select(species, hunting_mode, venom, webs, individuals) %>%
+  left_join(predator_traits, by = "species") %>%
+  gt() %>%
+  tab_header(
+    title = "Number of predator individuals and interactions per species and traits") 
+
+# Models ------------------------------------------------------------------
+
+m_hunting_mode <- glmmTMB(log_ratio ~ hunting_mode + (1|sample) + (1|sample_str),
              data = ratios)
 
-m_webs <- glmmTMB(log_ratio ~ webs + (1|sample_str),
+m_webs <- glmmTMB(log_ratio ~ webs +  (1|sample) + (1|sample_str),
                 data = ratios)
 
-m_venom <- glmmTMB(log_ratio ~ venom + (1|sample_str),
+m_venom <- glmmTMB(log_ratio ~ venom + (1|sample) + (1|sample_str),
                data = ratios)
 
-AICc(m_hunting_mode, m_webs, m_venom)
+m_null <- glmmTMB(log_ratio ~ 1 + (1|sample) + (1|sample_str),
+                  data = ratios)
+
+AICc(m_hunting_mode, m_webs, m_venom, m_null)
 
 summary(m_webs)
 
@@ -153,10 +221,10 @@ ggplot(ratios, aes(x = webs, y = ratio)) +
         axis.title.x = element_blank())
 
 
-a <- AICc(m_webs, m_hunting_mode, m_venom)
+a <- AICc(m_webs, m_null, m_hunting_mode, m_venom)
 
 a %>% 
-  mutate(delta = AICc - 943.5464) %>% 
+  mutate(delta = AICc - 939.1664) %>% 
   rownames_to_column(var = "model") %>%
   gt() %>% 
   fmt_number(

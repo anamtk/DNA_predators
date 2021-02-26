@@ -54,6 +54,17 @@ pal_IDs <- pal_IDs %>%
   rename(Species_Name = Species_Stage_Name,
          Order = Order.1)
 
+#how many species per family on Palmyra (justification of family-level assignment):
+pal_IDs %>%
+  group_by(Family) %>%
+  tally(name= "total") %>%
+  filter(Family != "") %>%
+  summarise(mean= mean(total),
+            n = n(),
+            sd = sd(total),
+            se = sd/sqrt(n),
+            max = max(total))
+
 pal <- pal %>%
   left_join(pal_IDs, by = "Species_Name")
 
