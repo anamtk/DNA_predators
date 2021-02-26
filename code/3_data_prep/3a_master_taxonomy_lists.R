@@ -14,15 +14,25 @@
 #####################
 #Load Packages ####
 #####################
-library(here) #easy file paths
-library(tidyverse) #tidy data
+package.list <- c("here", "tidyverse")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
 
 #####################
 #Import and tidy NCBI Data####
 #####################
 
 #NCBI IDs
-IDs_ncbi <- read.csv(here("2_taxonomic_assignment", "taxonomies", "ncbi.csv"))
+IDs_ncbi <- read.csv(here("data",
+                          "raw_data",
+                          "3_taxonomies",
+                          "NCBI",
+                          "ncbi.csv"))
 
 #set all columns that are factors as characters so we can use 
 #the if-else statement below
@@ -75,24 +85,96 @@ IDs_ncbi <- IDs_ncbi %>%
 #####################
 
 #BOLD IDs from the IDEngine in batches
-bold1 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_0.csv"))
-bold2 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_1.csv"))
-bold3 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_2.csv"))
-bold4 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_3.csv"))
-bold5 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_4.csv"))
-bold6 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_5.csv"))
-bold7 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_6.csv"))
-bold8 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_7.csv"))
-bold9 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_8.csv"))
-bold10 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_9.csv"))
-bold11 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_10.csv"))
-bold12 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_11.csv"))
-bold13 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_12.csv"))
-bold14 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_13.csv"))
-bold15 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_14.csv"))
-bold16 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_15.csv"))
-bold17 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_16.csv"))
-bold18 <- read.csv(here("2_taxonomic_assignment", "taxonomies", "BOLD_17.csv"))
+bold1 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_0.csv"))
+bold2 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw", 
+                       "BOLD_1.csv"))
+bold3 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_2.csv"))
+bold4 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_3.csv"))
+bold5 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_4.csv"))
+bold6 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_5.csv"))
+bold7 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_6.csv"))
+bold8 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_7.csv"))
+bold9 <- read.csv(here("data",
+                       "raw_data",
+                       "3_taxonomies",
+                       "BOLD_raw",
+                       "BOLD_8.csv"))
+bold10 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_9.csv"))
+bold11 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_10.csv"))
+bold12 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_11.csv"))
+bold13 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_12.csv"))
+bold14 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_13.csv"))
+bold15 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_14.csv"))
+bold16 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_15.csv"))
+bold17 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_16.csv"))
+bold18 <- read.csv(here("data",
+                        "raw_data",
+                        "3_taxonomies",
+                        "BOLD_raw",
+                        "BOLD_17.csv"))
 
 #bind these all together
 all_bold <- bold1 %>%
@@ -122,7 +204,11 @@ all_bold <- bold1 %>%
 
 #I created a new CSV that includes all the taxonomic levels I compiled from internet
 #searches
-IDs_bold <- read.csv(here("2_taxonomic_assignment", "taxonomies", "bold_wID.csv"))
+IDs_bold <- read.csv(here("data",
+                          "raw_data",
+                          "3_taxonomies",
+                          "BOLD_combined",
+                          "bold_wID.csv"))
 
 #now I want to assign the level at which those IDs were made, as in the above DF
 #from NCBI
@@ -304,39 +390,22 @@ all_IDs %>%
   group_by(ID_level) %>%
   tally()
 
-#write.csv(all_IDs, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies.csv"))
+# Export taxonomic assignments --------------------------------------------
 
-species_IDs <- all_IDs %>%
-  filter(ID_level == "Species" & Species_bold == "") %>% #133
-  dplyr::select(ASV, Domain, Phylum, Class, Order, Family, Genus, Species) %>%
-  filter(Phylum != "Chordata") #117
-  
-bold_sp <- all_IDs %>%
-  filter(Species == "" & Species_bold != "") %>% #119
-  dplyr::select(ASV, Domain, Phylum, Class, Order, Family_bold, Genus_bold, Species_bold) %>%
-  rename("Family" = "Family_bold",
-         "Genus" = "Genus_bold", 
-         "Species" = "Species_bold") %>%
-  filter(Class != "Mammalia") #100
+write.csv(all_IDs, here("data", 
+                        "outputs", 
+                        "1_taxonomic_assignment", 
+                        "ASV_taxonomies.csv"))
 
-species_IDs <- species_IDs %>%
-  bind_rows(bold_sp)
-
-write.csv(species_IDs, here("data", "outputs", "1_taxonomic_assignment", "species_taxonomies.csv"))  
-
-
-species_IDs %>%
-  group_by(Species) %>%
-  tally() %>%
-  distinct(Species) %>%
-  tally() #66 species?
-
-  
 ####################
 #See how many ASVs are assigned target taxonomies####
 #####################
 
-all_ASVS <- read.csv(here("data", "denoised_data", "dada_may", "combined", "ASVs_counts_all.tsv"), sep = "\t")
+all_ASVS <- read.csv(here("data", 
+                          "denoised_data", 
+                          "dada_may", 
+                          "combined", 
+                          "ASVs_counts_all.tsv"), sep = "\t")
 
 all_ASVS <- all_ASVS %>%
   dplyr::select(X) %>%
