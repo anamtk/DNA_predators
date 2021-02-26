@@ -11,6 +11,10 @@
 #the output should include that taxonomy, and then data on 
 #species, genus, family, and order from either GenBank or BOLD
 
+#Following the initial outputs, I also BLASTed individual ASVs and took
+#corresponding family-level assignemnts for those that had consistent family-level
+# matches for the first 10+ genbank matches
+
 #####################
 #Load Packages ####
 #####################
@@ -200,7 +204,9 @@ all_bold <- bold1 %>%
 
 #I exported these and assigned taxonomic levels to everything via internet searches
 #export so I can add taxonomic levels to this database
-#write.csv(all_bold, here("2_taxonomic_assignment", "taxonomies", "bold.csv"))
+write.csv(all_bold, here("2_taxonomic_assignment", 
+                         "taxonomies", 
+                         "bold.csv"))
 
 #I created a new CSV that includes all the taxonomic levels I compiled from internet
 #searches
@@ -341,7 +347,7 @@ IDs_diff_level <- IDs_diff_level %>%
   mutate(unique_ID = ID_ncbi) #create a unique ID based on NCBI
 
 #####################
-#Combine all taxonomies and create a master taxonomic ID column####
+#Combine all consistent taxonomies and create a master taxonomic ID column####
 #####################
 
 #combine final taxonomic assignments
@@ -394,82 +400,20 @@ all_IDs %>%
 
 write.csv(all_IDs, here("data", 
                         "outputs", 
-                        "1_taxonomic_assignment", 
+                        "3a_taxonomic_assignment",
+                        "a_export_for_manual_entry",
                         "ASV_taxonomies.csv"))
-
-####################
-#See how many ASVs are assigned target taxonomies####
-#####################
-
-all_ASVS <- read.csv(here("data", 
-                          "denoised_data", 
-                          "dada_may", 
-                          "combined", 
-                          "ASVs_counts_all.tsv"), sep = "\t")
-
-all_ASVS <- all_ASVS %>%
-  dplyr::select(X) %>%
-  rename("ASV" = "X")
-
-all <- all_ASVS %>%
-  tally()
-
-assigned <- all_IDs %>%
-  tally()
-
-#Total assigned to potential prey:
-assigned/all #45% assigned to potential prey
-
-#####################
-#See how many ASVs are assigned all taxonomies####
-#####################
-target <- all_IDs %>% #just says that all the ones we already had were target DNA
-  mutate(taxonomy = "target") %>%
-  dplyr::select(ASV, taxonomy)
-
-#this is all assigned, including those that are def not diet items
-all_ncbi <- read.csv(here("2_taxonomic_assignment", "taxonomies", "ncbi_all.csv"))
-
-non_target <- all_ncbi %>%
-  anti_join(all_IDs, by = "ASV") %>% #removes those already in target
-  mutate(taxonomy = "non-target") %>% #gives category - non-target
-  dplyr::select(ASV, taxonomy)
-
-hits <- target %>% #combine these to each other
-  bind_rows(non_target)
-
-no_hit <- all_ASVS %>% 
-  anti_join(hits, by = "ASV") %>% #removes all ASVs with hits to include those that had no assignment
-  mutate(taxonomy = "no-hit")
-
-asv_tax <- hits %>% #combine them all
-  bind_rows(no_hit)
-
-asv_tax %>% #total number of ASVs
-  tally()
-
-asv_tax %>% #total by category as well as proportion of total
-  group_by(taxonomy) %>%
-  summarise(value = n(), proportion = value/1738)
-
-#####################
-#Output File ####
-#####################
-#Write these total ASV assignments by category to a DF for later 
-#write.csv(asv_tax, here("data", "outputs", "1_taxonomic_assignment", "all_ASV_tax.csv"))
 
 #####################
 #Post-individual BLAST subsetting ####
 #####################
-#The goal here is to take everything from that matched list
-#and either take the BOLD or NCBI IDentifier for everything
-#Family and above, as these are the most likely
-#places in which I'm goign to be able to do analyses (Family and Order)
+#I blasted individual unmatched sequences on BLAST and assigned to a family level
 
-#need to update ID level as well... 
-#two outputs at end of this: 1. order-level taxa, 2. family-level taxa
-
-taxa <- read.csv(here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies_wIndiv.csv"))
+taxa <- read.csv(here("data", 
+                      "outputs",
+                      "3a_taxonomic_assignment",
+                      "b_import_after_manual_entry",
+                      "ASV_taxonomies_wIndiv.csv"))
 
 taxa <- taxa %>%
   filter(unique_ID !="non-diet")
@@ -503,19 +447,37 @@ taxa_sort %>%
   summarise(proportion = n()/781)
 
 #####################
-#Family and Order Level Subsets ####
+#Export ####
 #####################
 
-taxa_order <- taxa_sort %>%
-  filter(Order != "")
+write.csv(taxa_sort, here("data", 
+                          "outputs",
+                          "3a_taxonomic_assignment",
+                          "c_final_dataset",
+                          "ASV_taxonomies_summed_wIndiv.csv"))
 
-#write.csv(taxa_order, here("data", "outputs", "1_taxonomic_assignment", "order_level_taxa.csv"))
+####################
+#See how many ASVs are assigned target taxonomies####
+#####################
 
-taxa_family <- taxa_sort %>%
-  filter(Family != "")
+all_ASVS <- read.csv(here("data", 
+                          "denoised_data", 
+                          "dada_may", 
+                          "combined", 
+                          "ASVs_counts_all.tsv"), sep = "\t")
 
-#write.csv(taxa_family, here("data", "outputs", "1_taxonomic_assignment", "family_level_taxa.csv"))
+all_ASVS <- all_ASVS %>%
+  dplyr::select(X) %>%
+  rename("ASV" = "X")
 
-#write.csv(taxa_sort, here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies_summed_wIndiv.csv"))
+all <- all_ASVS %>%
+  tally()
+
+assigned <- all_IDs %>%
+  tally()
+
+#Total assigned to potential prey:
+assigned/all #45% assigned to potential prey
+
 
 
