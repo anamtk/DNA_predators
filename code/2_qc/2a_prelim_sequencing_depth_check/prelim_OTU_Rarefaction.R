@@ -17,11 +17,14 @@ if(length(new.packages)) install.packages(new.packages)
 ## And loading them
 for(i in package.list){library(i, character.only = T)}
 
+# Load data ---------------------------------------------------------------
+
 #requires unlabeled rows that correspond to different samples, and columns that correspond to different species
 #in my case, rows are samples, and columns correspond to different OTUs
 data <- read.csv(here("data", 
-                      "prelim_validation",
-                      "all_raw_rarefaction.csv"), header = T)
+                      "raw_data",
+                      "2_qc",
+                      "prelim_seq_depth_check.csv"))
 str(data)
 #remove unnecessary columns in the dataframe
 data$OTU_ID <- NULL

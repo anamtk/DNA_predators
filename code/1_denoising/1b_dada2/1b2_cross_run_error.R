@@ -14,15 +14,17 @@ library(tidyverse)
 # Import data -------------------------------------------------------------
 
 error_f <- read.csv(here("data", 
-                         "denoised_data", 
-                         "dada_may", 
-                         "error_checking",
+                         "raw_data", 
+                         "1_denoised_data", 
+                         "dada2",
+                         "a_crossrun_error_checking",
                          "forward_errors.csv"))
 
 error_r <- read.csv(here("data", 
-                         "denoised_data", 
-                         "dada_may", 
-                         "error_checking",
+                         "raw_data", 
+                         "1_denoised_data", 
+                         "dada2",
+                         "a_crossrun_error_checking",
                          "reverse_errors.csv"))
 
 

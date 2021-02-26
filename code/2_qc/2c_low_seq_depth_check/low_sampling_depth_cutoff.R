@@ -11,17 +11,28 @@
 ###########################
 #Load Packages ####
 ###########################
-library(tidyverse)
-library(here)
-library(ggplot2)
-library(iNEXT)
+
+package.list <- c("here", "tidyverse", "iNEXT")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
 
 ###########################
 #Load data ####
 ###########################
 
 #Dada2 combined runs ASVs, read counts by sample
-comm <- read.csv(here("data", "denoised_data", "dada_may", "combined", "ASVs_counts_all.tsv"), sep = "\t")
+comm <- read.csv(here("data", 
+                      "raw_data",
+                      "1_denoised_data", 
+                      "dada2", 
+                      "b_combined_runs",
+                      "ASVs_counts_all.tsv"), 
+                 sep = "\t")
 
 #rename columns for simplicity
 colnames(comm) <- sapply(str_split(colnames(comm), "_"), function(x){return(x[[1]])})
@@ -194,7 +205,13 @@ all_data <- all_data %>%
 ###########################
 
 #export wide format for rarefying 
-write.csv(cross, here("data", "outputs", "3_depth_corrected", "cross_run_samples.csv"))
+write.csv(cross, here("data", 
+                      "outputs", 
+                      "2c_depth_corrected", 
+                      "cross_run_samples.csv"))
 
-write.csv(data, here("data", "outputs", "3_depth_corrected", "depth_subset_samples.csv"))
+write.csv(data, here("data", 
+                     "outputs", 
+                     "2c_depth_corrected", 
+                     "depth_subset_samples.csv"))
 
