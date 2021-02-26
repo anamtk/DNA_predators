@@ -196,7 +196,5 @@ all_data <- all_data %>%
 #export wide format for rarefying 
 write.csv(cross, here("data", "outputs", "3_depth_corrected", "cross_run_samples.csv"))
 
-write.csv(all_data, here("data", "outputs", "3_depth_corrected", "all_samples.csv"))
-
 write.csv(data, here("data", "outputs", "3_depth_corrected", "depth_subset_samples.csv"))
 
