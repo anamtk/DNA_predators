@@ -28,10 +28,16 @@ for(i in package.list){library(i, character.only = T)}
 #############################
 
 #undergrad size data for two species
-ana_ug <- read.csv(here("data", "size_data", "Pal_UG_mass_length.csv"))
+ana_ug <- read.csv(here("data",
+                        "raw_data",
+                        "4_body_size_data",
+                        "Pal_UG_mass_length.csv"))
 
 #palmyra raw body size data
-pal <- read.csv(here("data", "size_data", "Palmyra_BS_Feb2021.csv"))
+pal <- read.csv(here("data",
+                     "raw_data",
+                     "4_body_size_data", 
+                     "Palmyra_BS_Feb2021.csv"))
 
 pal <- pal %>%
   dplyr::select(Species_Name,
@@ -40,7 +46,10 @@ pal <- pal %>%
   rename(Mass_mg = Total_Mass_mg) %>%
   filter(!is.na(Mass_mg))
 
-pal_IDs <- read.csv(here("data", "size_data", "Palmyra_nodenames.csv"))
+pal_IDs <- read.csv(here("data",
+                         "raw_data",
+                         "4_body_size_data",
+                         "Palmyra_nodenames.csv"))
 
 pal_IDs <- pal_IDs %>%
   filter(Stage_Name == "Adult") %>%
@@ -69,8 +78,14 @@ pal <- pal %>%
   left_join(pal_IDs, by = "Species_Name")
 
 #literature
-pantala_lit <- read.csv(here("data", "size_data", "su_pantala_mass_length.csv"))
-sohlstrom <- read.csv(here("data", "size_data", "Sohlstroem_mass_length.csv"))
+pantala_lit <- read.csv(here("data",
+                             "raw_data",
+                             "4_body_size_data",
+                             "su_pantala_mass_length.csv"))
+sohlstrom <- read.csv(here("data",
+                           "raw_data",
+                           "4_body_size_data",
+                           "Sohlstroem_mass_length.csv"))
 
 #############################
 # Compile size data --------
@@ -135,9 +150,10 @@ bs_pred %>%
 #############################
 
 #master prey family list
-pal_fams <- read.csv(here("data", "outputs",
-                     "5_rarefied_taxonomic_sort",
-                     "fam_prey_DNA_conservative.csv"))
+pal_fams <- read.csv(here("data", 
+                          "outputs", 
+                          "3c_rarefied_taxonomic_sort", 
+                          "fam_prey_DNA_conservative.csv"))
 
 #remove the sequencing run from sample name
 pal_fams$sample <- str_sub(pal_fams$sample, end=-2)
@@ -165,6 +181,16 @@ bs_prey %>%
 # Export --------
 #############################
 
-write.csv(bs_pred, here("data", "outputs", "6_prey_sizes", "pred_mass_length.csv"))
-write.csv(bs_prey, here("data", "outputs", "6_prey_sizes", "prey_mass_length.csv"))
+write.csv(bs_pred, here("data", 
+                        "outputs", 
+                        "3d_master_body_size_lists", 
+                        "pred_mass_length.csv"))
+
+write.csv(bs_prey, here("data", 
+                        "outputs", 
+                        "3d_master_body_size_lists",  
+                        "prey_mass_length.csv"))
+
+
+
 

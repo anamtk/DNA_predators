@@ -4,38 +4,41 @@
 #June 8, 2020
 ###########################
 
-#Need to subset prey taxonomies per predator from the rarefied dataset. 
-#This will include giving the predators names that match the ASV ID, 
-#so that I can filter out the ASVs where these match from any diet 
-#analysis
+#this code subsets prey taxonomies per predator from the rarefied dataset. 
 
-#A thought I've explored here, but haven't taken further:
-#After going through some other data explorations, I think a more
-#conservative approach will be to delete dna from ALL predators
-#run on each run, since I am worried about predator jumping?
-#could be worth subsetting 1. predator DNA from predators on
-#shared run and 2. predator DNA from predators across runs
-#to see if these distributions are different. If they are different
-#probably a good idea to delete on-run predator DNA?
 
 ###########################
 #Load Packages ####
 ###########################
-library(here)
-library(tidyverse)
-library(fuzzyjoin) #fuzzy inner join for string detection join
+package.list <- c("here", "tidyverse", "fuzzyjoin")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
 
 ###########################
 #Load Data ####
 ###########################
 #Prey DNA taxonomies
-taxa <- read.csv(here("data", "outputs", "1_taxonomic_assignment", "ASV_taxonomies_summed_wIndiv.csv"))
+taxa <- read.csv(here("data", 
+                      "outputs", 
+                      "3a_taxonomic_assignment", 
+                      "c_final_dataset",
+                      "ASV_taxonomies_summed_wIndiv.csv"))
 taxa <- taxa %>%
   dplyr::select(-X)
 
-preds <- read.csv(here("data", "Predator_IDs.csv"))
+preds <- read.csv(here("data",
+                       "raw_data",
+                       "Predator_IDs.csv"))
 #load community data
-comm <- read.csv(here("data", "outputs", "4_rarefied", "community_rare.csv"))
+comm <- read.csv(here("data", 
+                      "outputs", 
+                      "3b_rarefied", 
+                      "community_rare.csv"))
 
 comm <- comm %>%
   rename("ASV" = "X")
@@ -348,19 +351,22 @@ prey_fam_conservative %>%
   tally() %>%
   tally()
 
-prey_ord <- other_DNA %>%
-  filter(Order != "")
-
 ###########################
 #Export ####
 ###########################
 
-write.csv(known_pred, here("data", "outputs", "5_rarefied_taxonomic_sort", "predator_DNA.csv"))
+write.csv(known_pred, here("data", 
+                           "outputs", 
+                           "3c_rarefied_taxonomic_sort", 
+                           "predator_DNA.csv"))
 
-write.csv(other_DNA, here("data", "outputs", "5_rarefied_taxonomic_sort", "all_prey_DNA.csv"))
+write.csv(other_DNA, here("data", 
+                          "outputs",
+                          "3c_rarefied_taxonomic_sort", 
+                          "all_prey_DNA.csv"))
 
-write.csv(prey_fam, here("data", "outputs", "5_rarefied_taxonomic_sort", "fam_prey_DNA.csv"))
+write.csv(prey_fam_conservative, here("data", 
+                                      "outputs", 
+                                      "3c_rarefied_taxonomic_sort", 
+                                      "fam_prey_DNA_conservative.csv"))
 
-write.csv(prey_fam_conservative, here("data", "outputs", "5_rarefied_taxonomic_sort", "fam_prey_DNA_conservative.csv"))
-
-write.csv(prey_ord, here("data", "outputs", "5_rarefied_taxonomic_sort", "ord_prey_DNA.csv"))

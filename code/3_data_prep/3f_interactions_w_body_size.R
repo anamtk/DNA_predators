@@ -25,19 +25,22 @@ for(i in package.list){library(i, character.only = T)}
 #Import Data -------
 #############################
 #prey size references
-prey_ref <- read.csv(here("data", "outputs", 
-                          "6_prey_sizes", 
+prey_ref <- read.csv(here("data", 
+                          "outputs", 
+                          "3d_master_body_size_lists", 
                           "prey_mass_length.csv"))
 
 #individual predator sizes
-preds <- read.csv(here("data", "outputs", 
-                       "6_prey_sizes", 
+preds <- read.csv(here("data", 
+                       "outputs", 
+                       "3e_pred_mass_length", 
                        "DNA_pred_mass_length.csv"))
 
 #interactions for each predator
-ints <- read.csv(here("data", "outputs",
-                              "5_rarefied_taxonomic_sort",
-                              "fam_prey_DNA_conservative.csv"))
+ints <- read.csv(here("data", 
+                      "outputs",
+                      "3c_rarefied_taxonomic_sort",
+                      "fam_prey_DNA_conservative.csv"))
 
 #remove run ID
 ints$sample <- str_sub(ints$sample, end=-2)
@@ -49,7 +52,6 @@ ints <- ints %>%
   group_by(sample, sample_str, Class, Order, Family) %>%
   summarise(reads = sum(reads))
   
-
 #############################
 #Average and min reference prey size by family, order, and class
 #############################
@@ -157,7 +159,7 @@ p_p_sizes <- preds %>%
 
 write.csv(p_p_sizes, here("data", 
                           "outputs",  
-                          "8_final_dataset", 
+                          "3f_final_dataset", 
                           "pred_prey_sizes_DNAinteractions.csv"))
 
 

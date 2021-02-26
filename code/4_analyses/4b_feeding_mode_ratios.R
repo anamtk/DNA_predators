@@ -27,7 +27,7 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs",  
-                      "8_final_dataset", 
+                      "3f_final_dataset", 
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%

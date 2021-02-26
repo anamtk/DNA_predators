@@ -28,7 +28,7 @@ for(i in package.list){library(i, character.only = T)}
 
 pred_size <- read.csv(here("data", 
                            "outputs", 
-                           "6_prey_sizes", 
+                           "3d_master_body_size_lists", 
                            "pred_mass_length.csv"))
 
 pred_size <- pred_size %>%
@@ -46,7 +46,10 @@ pred_size <- pred_size %>%
   left_join(pred_id, by = c("Family" = "pred_Family")) %>%
   mutate(sample_str = ifelse(Order == "Geophilomorpha", "CEN", sample_str))
 
-meta <- read.csv(here("data", "Sample_metadata.csv"))
+meta <- read.csv(here("data", 
+                      "raw_data",
+                      "Sample_metadata.csv"))
+
 #############################
 # Model of relationship --------
 #############################
@@ -118,7 +121,10 @@ ggplot() +
 # Export for later --------
 #############################
   
-write.csv(predators, here("data", "outputs", "6_prey_sizes", "DNA_pred_mass_length.csv"))
+write.csv(predators, here("data", 
+                          "outputs", 
+                          "3e_pred_mass_length", 
+                          "DNA_pred_mass_length.csv"))
 
 #############################
 # Vis by species of body size (maybe needed later?) --------

@@ -11,23 +11,32 @@
 ###########################
 #Load packages
 ###########################
-library(here)
-library(tidyverse)
-library(vegan)
+package.list <- c("here", "tidyverse", "vegan")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
 
 ###########################
 #Load data
 ###########################
 
 #Cross-run comparsion dataset
-cross <- read.csv(here("data", "outputs", "3_depth_corrected",
+cross <- read.csv(here("data", 
+                       "outputs", 
+                       "2c_depth_corrected",
                        "cross_run_samples.csv"))
 cross <- cross %>%
   column_to_rownames(var = "ASV") %>%
   dplyr::select(-X)
 
 #Community dataset
-community <- read.csv(here("data", "outputs", "3_depth_corrected",
+community <- read.csv(here("data", 
+                           "outputs", 
+                           "2c_depth_corrected",
                            "depth_subset_samples.csv"))
 
 community <- community %>%
@@ -63,7 +72,13 @@ comm_rare <- as.data.frame(t(rrarefy(t(community), sample = community_rare_low))
 ###########################
 #Export for Subsetting
 ###########################
-write.csv(cross_rare, here("data", "outputs", "4_rarefied", "cross_run_rare.csv"))
+write.csv(cross_rare, here("data", 
+                           "outputs", 
+                           "3b_rarefied", 
+                           "cross_run_rare.csv"))
 
-write.csv(comm_rare, here("data", "outputs", "4_rarefied", "community_rare.csv"))
+write.csv(comm_rare, here("data", 
+                          "outputs", 
+                          "3b_rarefied", 
+                          "community_rare.csv"))
 
