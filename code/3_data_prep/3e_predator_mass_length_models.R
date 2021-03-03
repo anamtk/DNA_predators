@@ -37,7 +37,9 @@ pred_size <- pred_size %>%
   mutate(Family = ifelse(Family == "Tettigonidae", 
                          "Tettigoniidae", Family))
 
-pred_id <- read.csv(here("data", "Predator_IDs.csv"))
+pred_id <- read.csv(here("data", 
+                         "raw_data", 
+                         "Predator_IDs.csv"))
 
 pred_id <- pred_id %>%
   dplyr::select(pred_Family, sample_str, hunting_mode, venom, webs)

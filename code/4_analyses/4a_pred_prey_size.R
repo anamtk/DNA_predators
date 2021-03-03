@@ -252,7 +252,9 @@ size_graph_no_leg + species_graph_nox
   facet_wrap(~sample_str, labeller = labeller(sample_str = pred_labels)) +
   scale_fill_manual(values = pal_kelp,
                     labels = pred_labels) +
-  theme(legend.position = "none"))
+  theme(legend.position = "none",
+        strip.background = element_rect(fill="white"),
+        strip.text = element_text(size = 15)))
 
 
 x <- c(1:100)
