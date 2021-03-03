@@ -142,8 +142,6 @@ hist(ratios$log10_ratio)
 # number of individuals
 # number of interactions
 
-
-
 predator_traits <- ratios %>%
   group_by(sample_str, hunting_mode, venom, webs) %>%
   tally(name = "interactions") %>%
@@ -165,7 +163,7 @@ predator_traits <- ratios %>%
 ratios %>%
   distinct(sample, sample_str, hunting_mode, venom, webs) %>%
   group_by(sample_str, hunting_mode, venom, webs) %>%
-  tally(name = "individuals") %>%
+  tally(name = "samples") %>%
   mutate(
     species = case_when(
       sample_str == "CEN" ~ "Geophilomorpha sp",
@@ -179,11 +177,11 @@ ratios %>%
       sample_str == "SME" ~ "S. pallidus"
     )) %>%
   ungroup() %>%
-  dplyr::select(species, hunting_mode, venom, webs, individuals) %>%
+  dplyr::select(species, hunting_mode, venom, webs, samples) %>%
   left_join(predator_traits, by = "species") %>%
   gt() %>%
   tab_header(
-    title = "Number of predator individuals and interactions per species and traits") 
+    title = "Number of samples and interactions per species and traits") 
 
 # Models ------------------------------------------------------------------
 

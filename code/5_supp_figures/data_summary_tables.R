@@ -13,12 +13,12 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs", 
-                      "8_final_dataset",
-                      "pred_prey_sizes_tp_DNAinteractions.csv"))
+                      "3f_final_dataset",
+                      "pred_prey_sizes_DNAinteractions.csv"))
 
 data2 <- read.csv(here("data", 
                       "outputs", 
-                      "5_rarefied_taxonomic_sort",
+                      "3c_rarefied_taxonomic_sort",
                       "fam_prey_DNA_conservative.csv"))
 
 data2$sample <- str_sub(data2$sample, end=-2)
@@ -41,12 +41,11 @@ stats <- data %>%
 data <- data %>%
   left_join(data2, by = c("sample", "sample_str"))
 
-run_table <- data %>%
+data %>%
   group_by(pred_ID, run) %>% 
   summarise("Sample Size" = n()) %>%
   dplyr::select(pred_ID, 'Sample Size', run) %>% 
   rename("Species" = "pred_ID",
-         "Individuals" = 'Sample Size',
          "Run" = "run") %>% 
   ungroup() %>%
   mutate(Run = as.factor(Run)) %>%  
@@ -57,9 +56,9 @@ run_table <- data %>%
   tab_style(
     style = cell_text(style = "italic"),
     locations = cells_body(
-      columns = vars("Species"))
-    )
-pred_sz_tab <- data2 %>%
+      columns = vars("Species")))
+    
+data2 %>%
   dplyr::select(sample_str, pred_ID) %>%
   distinct(sample_str, pred_ID) %>% 
   left_join(stats, by = "sample_str") %>%
@@ -79,8 +78,7 @@ pred_sz_tab <- data2 %>%
   tab_style(
     style = cell_text(style = "italic"),
     locations = cells_body(
-      columns = vars("Species"))
-  )
+      columns = vars("Species")))
 
 run_table
 pred_sz_tab
