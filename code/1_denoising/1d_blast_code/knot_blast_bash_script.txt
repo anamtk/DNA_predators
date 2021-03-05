@@ -1,0 +1,11 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=12
+#PBS -l walltime=10:00:00
+#PBS -V
+#PBS -m abe
+#PBS -M ana00@ucsb.edu
+
+cd $PBS_O_WORKDIR
+
+blastn -db [database name]/nt -query ASVs.fasta -outfmt 5 -out Predator_OTUs.xml -evalue 0.01 -num_threads 12
+ 
