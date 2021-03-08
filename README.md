@@ -4,15 +4,15 @@ This repository includes the data and code to reproduce the analyses in a manusc
 
 # TOC
 
-## [art](#art)
+## [Metadata for art](#art)
 
-## [code](#code)
+## [Metadata for code](#code)
 
-## [data](#data)
+## [Metadata for data](#data)
 
-## [drafts](#drafts)
+## [Metadata for drafts](#drafts)
 
-## [figures](#figures)
+## [Metadata for figures](#figures)
 
 # Explanation of folders and contents
 
