@@ -76,8 +76,6 @@ A subfolder including three sub-folders of the steps taken to perform the bioinf
 
 *3g_interactions_w_body_size.R*: R script that combines the predator-prey interactions to the body size dataset and produces the final dataset used in statstical analyses. 
 
-*3h_palmyra_missing_bs_data_feb21.R*: R script used to help determine future lab work priority for body size measurements.
-
 ### 4_analyses
 
 *4a_pred_prey_size.R*: R script used to run the predator prey mass linear mixed effects models and model selection process. Includes code for creating figures. 
@@ -182,10 +180,6 @@ This folder contains all the files created in data preparation steps in R script
   
   - **min_prey_log_mass_mg**: the log10 transformed minimum prey family mass
   
-#### 3h_palmyra_body_size_measurements
-
-*missing_palmyra_data_feb162021.csv*: working list of additional measurements needed from the Palmyra food web.
-
 ### raw_data
 
 This folder contains two raw data files along with subdirectories for other raw data used in various steps.
