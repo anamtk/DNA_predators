@@ -2,17 +2,9 @@
 
 This repository includes the data and code to reproduce the analyses in a manuscript by Miller-ter Kuile et al. examining the roles of predator body size and hunting strategy on prey size selection based on DNA metabarcoding data. 
 
-# TOC
+## [code metadata](#code)
 
-## [Metadata for art](#art)
-
-## [Metadata for code](#code)
-
-## [Metadata for data](#data)
-
-## [Metadata for drafts](#drafts)
-
-## [Metadata for figures](#figures)
+## [data metadata](#data)
 
 # Explanation of folders and contents
 
