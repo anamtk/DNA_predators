@@ -65,6 +65,10 @@ size %>%
   tab_header(
     title = "Prey families from DNA diet data")
 
+size %>%
+  distinct(Class, Order, Family) %>%
+  tally() 
+
 #make a df of this data
 prey_fams <- size %>%
   distinct(Class, Order, Family) %>%
