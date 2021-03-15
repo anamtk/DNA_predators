@@ -62,6 +62,20 @@ plotweb(prey_mat,
         high.plot=TRUE, high.xoff = 0, low.xoff = 0, high.lab.dis = NULL, 
         low.lab.dis = NULL, abuns.type="additional")
 
+plotweb(prey_mat,
+        method = "normal", empty = TRUE, labsize = 1, ybig = 1,  y.width.low = 0.1, 
+        y.width.high = 0.1, low.spacing = 0.02, high.spacing = 0.1,
+        arrow="no",  col.interaction="grey80", col.high = "grey10", 
+        col.low="grey10",  bor.col.interaction =NA, bor.col.high=NA, 
+        bor.col.low=NA, high.lablength = NULL, low.lablength = NULL,
+        sequence=NULL, low.abun=NULL, low.abun.col="green", 
+        bor.low.abun.col ="black", high.abun=NULL, high.abun.col="red", 
+        bor.high.abun.col="black", text.rot=90, text.high.col="black", 
+        text.low.col="black", adj.high=NULL, adj.low=NULL, plot.axes = FALSE,
+        low.y=1, high.y=1.5, add=FALSE, y.lim=NULL, x.lim=NULL, low.plot=TRUE, 
+        high.plot=TRUE, high.xoff = 0.15, low.xoff = 0, high.lab.dis = NULL, 
+        low.lab.dis = NULL, abuns.type="additional")
+
 
 
 
