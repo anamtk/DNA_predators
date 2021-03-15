@@ -76,6 +76,7 @@ pal_IDs %>%
             se = sd/sqrt(n),
             max = max(total))
 
+#here is where some data go away
 pal <- pal %>%
   left_join(pal_IDs, by = "Species_Name")
 
@@ -104,7 +105,8 @@ ana_ug <- ana_ug %>%
  
 #give source for Palmyra data
 pal <- pal %>%
-  mutate(Source = "Palmyra") 
+  mutate(Source = "Palmyra") %>%
+  rename("Species" = "Species_Name")
 
 #organize and subset the literature data
 #Class, Order, Family, Genus, Species, Length_mm, Mass_mg, Source

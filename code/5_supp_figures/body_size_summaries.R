@@ -16,13 +16,18 @@ data <- read.csv(here("data",
                       "3g_final_dataset",
                       "pred_prey_sizes_DNAinteractions.csv"))
 
-all <- read.csv(here("data",
+all_bs <- read.csv(here("data",
                      "outputs",
                      "3e_master_body_size_lists",
                      "all_mass_length.csv"))
 
-all_pal <- all %>%
+all_pal <- all_bs %>%
   filter(Source %in% c("Ana_UG", "Palmyra"))
+
+nodes <- read.csv(here("data", 
+                       "raw_data",
+                       "4_body_size_data",
+                       "palmyra_nodes.csv"))
 
 prey <- read.csv(here("data",
                       "outputs",
@@ -70,16 +75,14 @@ prey <- prey %>%
   filter(Family != "") %>%
   filter(!is.na(Mass_mg))
 
-prey %>%
-  distinct(Genus)
-
-
 prey_size_graph <- prey %>%
   filter(Family != "") %>%
   mutate(Family = as.factor(Family)) %>%
   mutate(Family = fct_reorder(Family, Mass_mg, .fun='sd')) %>%
   ggplot(aes(x = Family, y = Mass_mg)) +
-  geom_violin() +
+  geom_boxplot() +
+  geom_jitter(position=position_jitter(height=0, width=0.2),
+              alpha = 0.4) +
   scale_y_log10() +
   theme_bw() +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
@@ -97,17 +100,5 @@ prey_family_count <- prey %>%
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 prey_size_graph / prey_family_count
-
-
-
-
-
-
-
-
-
-
-
-
 
 

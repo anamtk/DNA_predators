@@ -54,8 +54,9 @@ pal_IDs <- read.csv(here("data",
                          "Palmyra_nodenames.csv"))
 
 #filter just adult so there is just one row per ID
+unique(pal_IDs$Stage_Name)
 pal_IDs <- pal_IDs %>%
-  filter(Stage_Name == "Adult") %>%
+  filter(Stage_Name %in% c("Adult", "Worker", "L_Adult")) %>%
   dplyr::select(!c("Body_Length_Mean_mm",
                    "Body_Mass_Mean_mg",    
                    "Body_Mass_SD_mg",
@@ -63,7 +64,8 @@ pal_IDs <- pal_IDs %>%
                    "Body_Mass_Source",
                    "Body_Mass_Proxy", 
                    "Body_Mass_Notes",
-                   "Stage_Name"))
+                   "Stage_Name")) 
+  
   
 # Export ------------------------------------------------------------------
 
