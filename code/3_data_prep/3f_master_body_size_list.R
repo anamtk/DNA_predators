@@ -33,11 +33,14 @@ ana_ug <- read.csv(here("data",
                         "4_body_size_data",
                         "Pal_UG_mass_length.csv"))
 
+ana_ug <- ana_ug %>%
+  filter(Species != "Heteropoda venatoria") #remove because part of palmyra dataset already
+
 #palmyra raw body size data
 pal <- read.csv(here("data",
                      "raw_data",
                      "4_body_size_data", 
-                     "Palmyra_BS_Feb2021.csv"))
+                     "palmyra_food_web_sizes.csv"))
 
 pal <- pal %>%
   dplyr::select(Species_Name,
@@ -49,10 +52,9 @@ pal <- pal %>%
 pal_IDs <- read.csv(here("data",
                          "raw_data",
                          "4_body_size_data",
-                         "Palmyra_nodenames.csv"))
+                         "palmyra_nodes.csv"))
 
 pal_IDs <- pal_IDs %>%
-  filter(Stage_Name == "Adult") %>%
   dplyr::select(Species_Stage_Name,
                 Phylum,
                 Class,
