@@ -27,7 +27,7 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs",  
-                      "3f_final_dataset", 
+                      "3g_final_dataset", 
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%
@@ -207,6 +207,20 @@ plot(allEffects(m_webs))
 
 ggplot(ratios, aes(x = webs, y = ratio)) +
   geom_boxplot(size = 0.75, fill = "#969696") +
+  geom_jitter(width = 0.25, height = 0.25, shape = 1) +
+  theme_bw() +
+  scale_y_log10() +
+  labs(x = "Web-using", y = "Predator:prey mass ratio") +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25)) +
+  geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        axis.title.x = element_blank())
+
+ratios %>%
+ggplot(aes(x = sample_str, y = ratio, fill = webs)) +
+  geom_boxplot(size = 0.75) +
   geom_jitter(width = 0.25, height = 0.25, shape = 1) +
   theme_bw() +
   scale_y_log10() +

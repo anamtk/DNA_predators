@@ -36,39 +36,61 @@ prey <- read.csv(here("data",
 
 # Body Size distributions -------------------------------------------------
 
-predator_sizes <- data %>%
-  mutate(pred_mass_mg = 10^pred_log_mass_mg) %>%
-  distinct(sample, pred_mass_mg) %>%
-  rename(mass = pred_mass_mg) %>%
-  mutate(type = "predator samples") %>%
-  dplyr::select(mass, type)
-  
+#Sizes of interactions observed:
 interaction_sizes <- data %>%
   rename(mass = mean_prey_mass_mg) %>%
-  mutate(type = "prey frequency")
+  mutate(type = "Consumed prey size distribution")
 
+#Sizes of prey species averaged
 prey_sizes <- data %>%
   distinct(Family, mean_prey_mass_mg) %>%
   rename(mass = mean_prey_mass_mg) %>%
-  mutate(type = "prey identity")
+  mutate(type = "Prey size range")
 
+#Sizes of all species averaged
 community_sizes <- all_pal %>%
   group_by(Family) %>%
   summarise(mass = mean(Mass_mg, na.rm = T)) %>%
-  mutate(type = "community") %>%
+  mutate(type = "Community size range") %>%
   filter(Family != "") %>%
   dplyr::select(-Family)
 
-sizes <- predator_sizes %>%
-  bind_rows(prey_sizes) %>%
-  bind_rows(interaction_sizes) %>%
+prey_dat <- prey_sizes %>%
+  #bind_rows(interaction_sizes) %>%
   bind_rows(community_sizes)
 
-ggplot(sizes, aes(x = mass, fill = type))  +
-  geom_density(alpha = 0.6, color = "black") +
+#f0f0f0
+#bdbdbd
+#636363
+ggplot(prey_dat, aes(x = mass, fill = type)) +
+  geom_histogram(color = "black") +
+  scale_fill_manual(values = c("#bdbdbd", "#bdbdbd")) +
   scale_x_log10() +
+  labs(x = "Mass (mg)", y = "Count") +
   theme_bw() +
-  facet_wrap(~type, nrow = 4)
+  facet_wrap(~type, nrow = 3) +
+  theme(strip.background = element_rect(fill="white"),
+        axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        strip.text = element_text(size = 20),
+        legend.position = "none")
+
+ggplot(prey_dat, aes(x = mass, fill = type)) +
+  geom_histogram(color = "black", 
+                 position = "identity", 
+                 alpha = 0.7,
+                 bins = 20) +
+  scale_fill_manual(values = c("#bdbdbd", "#636363")) +
+  scale_x_log10() +
+  labs(x = "Mass (mg)", y = "Count") +
+  theme_bw() +
+  theme(strip.background = element_rect(fill="white"),
+        axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        strip.text = element_text(size = 20),
+        legend.text = element_text(size = 20),
+        legend.position = "bottom",
+        legend.title = element_blank())
 
 # Prey Family Size Dists --------------------------------------------------
 prey <- prey %>%
