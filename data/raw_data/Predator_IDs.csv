@@ -2,10 +2,10 @@ pred_Class,pred_Order,pred_Family,pred_Genus,pred_Species,pred_ID,sample_str,hun
 Arachnida,Araneae,Sparassidae,Heteropoda,Heteropoda venatoria,Heteropoda venatoria,HEV,active,yes,yes
 Arachnida,Araneae,Araneidae,Neoscona,Neoscona theisi,Neoscona theisi,NEO,not_active,yes,yes
 Arachnida,Araneae,Scytodidae,Scytodes,Scytodes longipes,Scytodes longipes,SCY,not_active,yes,yes
-Chilopoda,Geophilomorpha,,,,Geophilomorpha,CEN,active,yes,no
+Chilopoda,Geophilomorpha,Mecistocephalidae,Mecistocephalus,,Mecistocephalus sp.,CEN,active,yes,no
 Insecta,Orthoptera,Tettigoniidae,Phisis,Phisis holdhausi,Phisis holdhausi,PHH,active,no,no
 Arachnida,Araneae,Pholcidae,Smeringopus,Smeringopus pallidus,Smeringopus pallidus,SME,not_active,yes,yes
 Insecta,Dermaptera,Anisolabididae,Euborellia,Euborellia annulipes,Euborellia annulipes,EUB,active,no,no
 Insecta,Odonata,Libellulidae,Pantala,Pantala flavescens,Pantala flavescens,PAN,active,no,no
-Arachnida,Araneae,Oonopidae,,,Oonopidae,LRS,active,yes,yes
+Arachnida,Araneae,Oonopidae,Opopaea,,Opopaea sp.,LRS,active,yes,yes
 Arachnida,Scorpiones,Buthidae,Isometrus,Isometrus maculatus,Isometrus maculatus,ISO,active,yes,no
