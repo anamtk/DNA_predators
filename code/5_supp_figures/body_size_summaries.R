@@ -41,12 +41,24 @@ interaction_sizes <- data %>%
   rename(mass = mean_prey_mass_mg) %>%
   mutate(type = "Consumed prey size distribution")
 
-#Sizes of prey species averaged
-prey_sizes <- data %>%
-  distinct(Family, mean_prey_mass_mg) %>%
-  rename(mass = mean_prey_mass_mg) %>%
-  mutate(type = "Prey size range")
+#average predator species sizes
+pred_sp <- data %>%
+  mutate(pred_mass = 10^pred_log_mass_mg) %>%
+  distinct(sample, sample_str, pred_mass) %>%
+  group_by(sample_str) %>%
+  summarise(mass = mean(pred_mass)) %>%
+  mutate(type = "Predator size range")
 
+#Sizes of prey species averaged
+prey_fams <- data %>%
+  distinct(Family)
+
+prey_sizes <- all_pal %>% 
+  semi_join(prey_fams, by = "Family") %>%
+  group_by(Family) %>%
+  summarise(mass = mean(Mass_mg)) %>%
+  mutate(type = "Prey size range")
+  
 #Sizes of all species averaged
 community_sizes <- all_pal %>%
   group_by(Family) %>%
@@ -57,30 +69,22 @@ community_sizes <- all_pal %>%
 
 prey_dat <- prey_sizes %>%
   #bind_rows(interaction_sizes) %>%
-  bind_rows(community_sizes)
+  bind_rows(community_sizes) %>%
+  bind_rows(pred_sp)
 
 #f0f0f0
 #bdbdbd
 #636363
-ggplot(prey_dat, aes(x = mass, fill = type)) +
-  geom_histogram(color = "black") +
-  scale_fill_manual(values = c("#bdbdbd", "#bdbdbd")) +
-  scale_x_log10() +
-  labs(x = "Mass (mg)", y = "Count") +
-  theme_bw() +
-  facet_wrap(~type, nrow = 3) +
-  theme(strip.background = element_rect(fill="white"),
-        axis.text = element_text(size =20),
-        axis.title = element_text(size = 25),
-        strip.text = element_text(size = 20),
-        legend.position = "none")
-
-ggplot(prey_dat, aes(x = mass, fill = type)) +
+prey_dat %>%
+  mutate(type = factor(type, levels = c("Community size range",
+                                        "Prey size range", 
+                                        "Predator size range"))) %>%
+ggplot(aes(x = mass, fill = type)) +
   geom_histogram(color = "black", 
                  position = "identity", 
                  alpha = 0.7,
                  bins = 20) +
-  scale_fill_manual(values = c("#bdbdbd", "#636363")) +
+  scale_fill_manual(values = c("#f0f0f0", "#bdbdbd", "#636363")) +
   scale_x_log10() +
   labs(x = "Mass (mg)", y = "Count") +
   theme_bw() +
@@ -123,4 +127,28 @@ prey_family_count <- prey %>%
 
 prey_size_graph / prey_family_count
 
+prey_fam_size <- prey %>%
+  filter(Family != "") %>%
+  group_by(Family) %>%
+  summarise(mean_mass = mean(Mass_mg, na.rm =T),
+            sd = sd(Mass_mg, na.rm=T),
+            total = n(),
+            se = sd/sqrt(total))
+
+prey_family_sp <- prey %>%
+  filter(Family != "") %>%
+  distinct(Genus, Family) %>%
+  group_by(Family) %>%
+  tally(name = "number_of_species") %>%
+  left_join(prey_fam_size, by = "Family")
+
+prey_family_sp %>%
+  mutate(number_of_species = as.factor(number_of_species)) %>%
+ggplot(aes(x = number_of_species,
+                           y = se)) +
+  geom_boxplot() +
+  scale_y_sqrt() +
+  labs(x = "Number of species", 
+       y = "Standard error of body mass within family") +
+  theme_bw() 
 
