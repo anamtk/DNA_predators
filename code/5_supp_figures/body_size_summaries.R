@@ -13,12 +13,12 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data",
                       "outputs",
-                      "3g_final_dataset",
+                      "3i_final_dataset",
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 all_bs <- read.csv(here("data",
                      "outputs",
-                     "3e_master_body_size_lists",
+                     "3g_master_body_size_lists",
                      "all_mass_length.csv"))
 
 all_pal <- all_bs %>%
@@ -31,7 +31,7 @@ nodes <- read.csv(here("data",
 
 prey <- read.csv(here("data",
                       "outputs",
-                      "3e_master_body_size_lists",
+                      "3g_master_body_size_lists",
                       "prey_mass_length.csv"))
 
 # Body Size distributions -------------------------------------------------

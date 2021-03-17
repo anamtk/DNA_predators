@@ -153,13 +153,16 @@ p_p_sizes <- preds %>%
   mutate(mean_prey_log_mass_mg = log10(mean_prey_mass_mg),
          min_prey_log_mass_mg = log10(min_prey_mass_mg))
 
+p_p_sizes <- p_p_sizes %>%
+  filter(sample != "EUB36")
+
 #############################
 #Export for analyses ---------
 #############################
 
 write.csv(p_p_sizes, here("data", 
                           "outputs",  
-                          "3g_final_dataset", 
+                          "3i_final_dataset", 
                           "pred_prey_sizes_DNAinteractions.csv"))
 
 

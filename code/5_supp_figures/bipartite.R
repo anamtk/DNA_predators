@@ -22,7 +22,7 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                        "outputs",  
-                       "3g_final_dataset", 
+                       "3i_final_dataset", 
                        "pred_prey_sizes_DNAinteractions.csv"))
 
 # Matrix for vis -----------------------------------------------

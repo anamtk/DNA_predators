@@ -13,12 +13,12 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs", 
-                      "3f_final_dataset",
+                      "3i_final_dataset",
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 data2 <- read.csv(here("data", 
                       "outputs", 
-                      "3c_rarefied_taxonomic_sort",
+                      "3e_rarefied_taxonomic_sort",
                       "fam_prey_DNA_conservative.csv"))
 
 data2$sample <- str_sub(data2$sample, end=-2)
@@ -43,8 +43,8 @@ data <- data %>%
 
 data %>%
   group_by(pred_ID, run) %>% 
-  summarise("Sample Size" = n()) %>%
-  dplyr::select(pred_ID, 'Sample Size', run) %>% 
+  summarise(Samples = n()) %>%
+  dplyr::select(pred_ID, Samples, run) %>% 
   rename("Species" = "pred_ID",
          "Run" = "run") %>% 
   ungroup() %>%
@@ -68,7 +68,7 @@ data2 %>%
   rename("Species" = "pred_ID",
          "Min Size (mg)" = "min_mg",
          "Max Size (mg)" = "max_mg",
-         "Mean Size (mg)" = "mean_mg") %>%
+         "Mean Size (mg)" = "mean_mg") #%>%
   gt() %>% 
   fmt_number(
     columns = vars("Min Size (mg)", "Max Size (mg)", "Mean Size (mg)"),
@@ -80,5 +80,3 @@ data2 %>%
     locations = cells_body(
       columns = vars("Species")))
 
-run_table
-pred_sz_tab

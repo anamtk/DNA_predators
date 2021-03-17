@@ -27,7 +27,7 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs",  
-                      "3g_final_dataset", 
+                      "3i_final_dataset", 
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%
@@ -35,32 +35,6 @@ size <- data %>%
   mutate(pred_mass_mg = 10^(pred_log_mass_mg))
 
 # Ratios by feeding interaction -------------------------------------------
-size %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  ggplot(aes(x = ratio, fill = webs)) +
-  geom_histogram() +
-  theme_bw() +
-  facet_wrap(~webs) +
-  scale_x_log10() +
-  geom_vline(xintercept = 1) 
-
-size %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  ggplot(aes(x = ratio, fill = venom)) +
-  geom_histogram() +
-  theme_bw() +
-  facet_wrap(~venom) +
-  scale_x_log10() +
-  geom_vline(xintercept = 1) 
-
-size %>%
-  mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
-  ggplot(aes(x = ratio, fill = hunting_mode)) +
-  geom_histogram() +
-  theme_bw() +
-  facet_wrap(~hunting_mode) +
-  scale_x_log10() +
-  geom_vline(xintercept = 1) 
 
 ratios <- size %>%
   mutate(ratio = pred_mass_mg/mean_prey_mass_mg) %>%
@@ -142,15 +116,23 @@ hist(ratios$log10_ratio)
 # number of individuals
 # number of interactions
 
+ratios %>%
+  mutate(pred_sz = 
+           case_when(ratio > 1  ~ "predator larger",
+                     ratio == 1 ~ "same size",
+                     ratio < 1 ~ "prey larger")) %>%
+  group_by(pred_sz) %>%
+  tally()
+
 predator_traits <- ratios %>%
   group_by(sample_str, hunting_mode, venom, webs) %>%
   tally(name = "interactions") %>%
   mutate(
     species = case_when(
-      sample_str == "CEN" ~ "Geophilomorpha sp",
+      sample_str == "CEN" ~ "Mecistocephalus sp.",
       sample_str == "EUB" ~ "E. annulipes",
       sample_str == "HEV" ~ "H. venatoria",
-      sample_str == "LRS" ~ "Oonopidae sp",
+      sample_str == "LRS" ~ "Opopaea sp.",
       sample_str == "NEO" ~ "N. theisi",
       sample_str == "PAN" ~ "P. flavescens",
       sample_str == "PHH" ~ "P. holdhausi", 
@@ -166,10 +148,10 @@ ratios %>%
   tally(name = "samples") %>%
   mutate(
     species = case_when(
-      sample_str == "CEN" ~ "Geophilomorpha sp",
+      sample_str == "CEN" ~ "Mecistocephalus sp.",
       sample_str == "EUB" ~ "E. annulipes",
       sample_str == "HEV" ~ "H. venatoria",
-      sample_str == "LRS" ~ "Oonopidae sp",
+      sample_str == "LRS" ~ "Opopaea sp.",
       sample_str == "NEO" ~ "N. theisi",
       sample_str == "PAN" ~ "P. flavescens",
       sample_str == "PHH" ~ "P. holdhausi", 
@@ -207,8 +189,6 @@ summary(m_webs)
 #bdbdbd
 #636363
 
-ratios %>%
-  summarise(max = min(ratio))
 ratios %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
   ggplot(aes(x = sample_str, y = ratio, fill = webs)) +

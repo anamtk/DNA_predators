@@ -31,15 +31,12 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs",  
-                      "3g_final_dataset", 
+                      "3i_final_dataset", 
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%
   dplyr::select(-X, -reads) %>%
   mutate(pred_mass_mg = 10^(pred_log_mass_mg))
-
-size <- size %>%
-  filter(sample != "EUB36")
 
 # How many preds? -----------------------------------------------
 #how many total preds
@@ -52,7 +49,8 @@ size %>%
   group_by(sample) %>%
   summarise(total = n()) %>%
   summarise(mean = mean(total),
-            sd = sd(total))
+            sd = sd(total),
+            max = max(total))
 
 # min and max size per predator species
 size %>%
@@ -136,8 +134,8 @@ plot(allEffects(m2))
 
 pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
 
-pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes", 
-                 "HEV" = "H. venatoria", "LRS" = "Oonopidae sp.", 
+pred_labels <- c("CEN" = "Mecistocephalus sp.", "EUB" = "E. annulipes", 
+                 "HEV" = "H. venatoria", "LRS" = "Opopaea sp.", 
                  "NEO" = "N. theisi", "PAN" = "P. flavescens",
                  "PHH" = "P. holdhausi", "SCY" = "S. longipes",
                  "SME" = "S. pallidus")
@@ -150,7 +148,7 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
   ggplot(aes(x = pred_mass_mg, y = mean_prey_mass_mg, color = sample_str)) +
   geom_abline(slope = 1, linetype = "dashed", size = 0.75) +
   geom_point(size = 3) +
-  geom_abline(slope = 0.34, size = 1) +
+  geom_abline(slope = 0.31, size = 1) +
   scale_x_log10() +
   scale_y_log10() +
   labs(x = "Predator mass (mg)", 
@@ -225,6 +223,7 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
           axis.title = element_text(size = 25),
           axis.title.y = element_blank(),
           legend.position = "none") +
+    annotate(geom = "text", x = 1, y = 400, label = "+", size = 8) +
     annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
     annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
     annotate(geom = "text", x = 6, y = 400, label = "+", size = 8))
@@ -233,7 +232,6 @@ size_graph_col / species_graph +
   plot_layout(guides = 'collect')
 
 size_graph_no_leg + species_graph_nox
-
 
 (pred_size_hist <- size %>%
   distinct(sample, sample_str, pred_mass_mg) %>%

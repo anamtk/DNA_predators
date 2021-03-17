@@ -21,8 +21,9 @@ for(i in package.list){library(i, character.only = T)}
 
 # Load data ---------------------------------------------------------------
 
-data <- read.csv(here("data", "outputs",
-                      "3f_final_dataset",
+data <- read.csv(here("data", 
+                      "outputs",
+                      "3i_final_dataset",
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 meta <- read.csv(here("data",
