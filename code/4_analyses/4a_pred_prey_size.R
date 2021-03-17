@@ -38,6 +38,9 @@ size <- data %>%
   dplyr::select(-X, -reads) %>%
   mutate(pred_mass_mg = 10^(pred_log_mass_mg))
 
+size <- size %>%
+  filter(sample != "EUB36")
+
 # How many preds? -----------------------------------------------
 #how many total preds
 size %>%
@@ -125,6 +128,10 @@ summary(m2)
 #pred_log_mass_mg, which is sublinear with a relationship of
 #y = a + x^0.34336
 
+pairs(emmeans(m2, ~sample_str))
+
+plot(allEffects(m2))
+
 # Figures ------------------------------------------------------------------
 
 pal_kelp <- cal_palette("kelp1", n = 9, type = "continuous")
@@ -134,20 +141,6 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
                  "NEO" = "N. theisi", "PAN" = "P. flavescens",
                  "PHH" = "P. holdhausi", "SCY" = "S. longipes",
                  "SME" = "S. pallidus")
-
-#prey size distribution on its own
-(prey_mean_size2 <- size %>%
-    distinct(Family, mean_prey_mass_mg) %>%
-    ggplot(aes(x = mean_prey_mass_mg)) +
-    geom_histogram(bins = 50, alpha = 0.85, color = "black") +
-    scale_x_log10() +
-    #geom_density(fill = "#BE8333", alpha = 0.85) +
-    theme_bw() +
-    labs(x = "Mean prey mass (mg)", 
-         y = "Prey families") +
-    theme(axis.text = element_text(size =20),
-          axis.text.x = element_text(angle = 45, hjust = 1),
-          axis.title = element_text(size = 25)))
 
 #Does predator identity or size determine prey size?
 (size_graph_col <- size %>%
@@ -210,6 +203,7 @@ pred_labels <- c("CEN" = "Geophilomorpha sp.", "EUB" = "E. annulipes",
         axis.text.x = element_blank(),
         axis.title = element_text(size = 25),
         legend.position = "none") +
+  annotate(geom = "text", x = 1, y = 400, label = "+", size = 8) +
   annotate(geom = "text", x = 4, y = 400, label = "-", size = 8) +
   annotate(geom = "text", x = 8, y = 400, label = "-", size = 8) +
   annotate(geom = "text", x = 6, y = 400, label = "+", size = 8))
@@ -259,7 +253,6 @@ size_graph_no_leg + species_graph_nox
   theme(legend.position = "none",
         strip.background = element_rect(fill="white"),
         strip.text = element_text(size = 15)))
-
 
 x <- c(1:100)
 y3 <- 0.34*(x)

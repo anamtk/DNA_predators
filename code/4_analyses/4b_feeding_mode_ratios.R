@@ -111,25 +111,25 @@ ratios %>%
 
 ratios %>%
   group_by(webs) %>%
-  summarise(mean_ratio = mean(log10_ratio),
-            median = median(ratio),
-            sd = sd(ratio),
+  summarise(mean_ratio = mean(log10_ratio, na.rm = T),
+            median = median(ratio, na.rm = T),
+            sd = sd(ratio, na.rm = T),
             total = n(),
             se = sd/sqrt(total))
 
 ratios %>%
   group_by(venom) %>%
-  summarise(mean_ratio = mean(log10_ratio),
-            median = median(ratio),
-            sd = sd(ratio),
+  summarise(mean_ratio = mean(log10_ratio, na.rm = T),
+            median = median(ratio, na.rm = T),
+            sd = sd(ratio, na.rm = T),
             total = n(),
             se = sd/sqrt(total))
 
 ratios %>%
   group_by(hunting_mode) %>%
-  summarise(mean_ratio = mean(log10_ratio),
-            median = median(ratio),
-            sd = sd(ratio),
+  summarise(mean_ratio = mean(log10_ratio, na.rm = T),
+            median = median(ratio, na.rm = T),
+            sd = sd(ratio, na.rm = T),
             total = n(),
             se = sd/sqrt(total))
 
@@ -199,39 +199,34 @@ m_null <- glmmTMB(log_ratio ~ 1 + (1|sample) + (1|sample_str),
 
 AICc(m_hunting_mode, m_webs, m_venom, m_null)
 
+simulateResiduals(m_webs, plot =T)
+
 summary(m_webs)
 
-fit <- simulateResiduals(m_webs, plot =T)
-
-plot(allEffects(m_webs))
-
-ggplot(ratios, aes(x = webs, y = ratio)) +
-  geom_boxplot(size = 0.75, fill = "#969696") +
-  geom_jitter(width = 0.25, height = 0.25, shape = 1) +
-  theme_bw() +
-  scale_y_log10() +
-  labs(x = "Web-using", y = "Predator:prey mass ratio") +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25)) +
-  geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25),
-        axis.title.x = element_blank())
+#f0f0f0
+#bdbdbd
+#636363
 
 ratios %>%
-ggplot(aes(x = sample_str, y = ratio, fill = webs)) +
+  summarise(max = min(ratio))
+ratios %>%
+  mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
+  ggplot(aes(x = sample_str, y = ratio, fill = webs)) +
   geom_boxplot(size = 0.75) +
-  geom_jitter(width = 0.25, height = 0.25, shape = 1) +
+  geom_jitter(width = 0.25, height = 0, shape = 1) +
   theme_bw() +
-  scale_y_log10() +
+  scale_fill_manual(labels = c("No web use", "Web use"), values = c("#f0f0f0", "#636363")) +
+  scale_y_log10(breaks = c(0.01, 1, 100, 10000)) +
   labs(x = "Web-using", y = "Predator:prey mass ratio") +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25)) +
   geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25),
-        axis.title.x = element_blank())
-
+        axis.title.x = element_blank(),
+        legend.position = "bottom",
+        legend.title = element_blank(),
+        legend.text = element_text(size = 20))
 
 a <- AICc(m_webs, m_null, m_hunting_mode, m_venom)
 

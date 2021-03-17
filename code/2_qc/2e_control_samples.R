@@ -65,7 +65,7 @@ negs %>%
   summarise(ASVs = n(),
             mean_reads = sum(reads),
             sd_reads = sd(reads)) %>%
-  add_row(sample = "NEGd", ASVs = 0, mean_reads = 0, sd_reads = NA)# %>%
+  add_row(sample = "NEGd", ASVs = 0, mean_reads = 0, sd_reads = NA) %>%
   ggplot(aes(x = sample, y = mean_reads)) +
   geom_bar(stat = "identity") +
   geom_errorbar(aes(ymin = mean_reads - sd_reads, ymax = mean_reads+sd_reads), 
@@ -77,6 +77,12 @@ negs %>%
               sd_reads = sd(reads),
               total = n(),
               se_reads=sd_reads/sqrt(total)) 
+
+negs %>%
+  summarise(mean_reads = sum(reads),
+            sd_reads = sd(reads),
+            total = n(),
+            se_reads=sd_reads/sqrt(total)) 
   
 pos <- controls %>%
   filter(!sample %in% c("NEGa", "NEGb", "NEGc", "SMEb"))
