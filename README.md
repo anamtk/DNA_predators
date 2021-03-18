@@ -44,19 +44,23 @@ A subfolder including three sub-folders of the steps taken to perform the bioinf
 
 ## 3_data_prep
 
-*3a_low_sampling_depth_cutoff.R*: R script used to determine the quantile cutoff for removing samples with insufficient sequencing depth to be compared to the rest of the samples.
+*3a_remove_negatives.R*: R script used to remove the ASV reads from negative controls to correct for cross-talk/sequence jumping
 
-*3b_master_taxonomy_list.R*: R script combining GenBank and BOLD taxonomic assignments and merging these into a master list. 
+*3b_low_sampling_depth_cutoff.R*: R script used to determine the quantile cutoff for removing samples with insufficient sequencing depth to be compared to the rest of the samples.
 
-*3c_rarefy_samples.R*: R script used to rarefy the samples for subsequent analyses.
+*3c_master_taxonomy_list.R*: R script combining GenBank and BOLD taxonomic assignments and merging these into a master list. 
 
-*3d_subset_diet_taxonomies.R*: R script for removing all ASVs either not assigned a taxonomic identification or which did not match to prey taxonomies (e.g. predator DNA, environmental DNA such as fungi, etc.).
+*3d_rarefy_samples.R*: R script used to rarefy the samples for subsequent analyses.
 
-*3e_master_body_size_list.R*: R script combining all sources of body size data for predators and prey
+*3e_subset_diet_taxonomies.R*: R script for removing all ASVs either not assigned a taxonomic identification or which did not match to prey taxonomies (e.g. predator DNA, environmental DNA such as fungi, etc.).
 
-*3f_predator_mass_length_models.R*: R script used to create mixed effects models of predator mass-length to give mass values to predators for which these data were not collected.
+*3f_palmrya_bs_cleaning.R*: an R script for tidying and summarising the raw Palmyra body size data, including subsetting and cleaning up species vs. stage nodes.
 
-*3g_interactions_w_body_size.R*: R script that combines the predator-prey interactions to the body size dataset and produces the final dataset used in statstical analyses. 
+*3g_master_body_size_list.R*: R script combining all sources of body size data for predators and prey
+
+*3h_predator_mass_length_models.R*: R script used to create mixed effects models of predator mass-length to give mass values to predators for which these data were not collected.
+
+*3i_interactions_w_body_size.R*: R script that combines the predator-prey interactions to the body size dataset and produces the final dataset used in statstical analyses. 
 
 ## 4_analyses
 
@@ -64,8 +68,12 @@ A subfolder including three sub-folders of the steps taken to perform the bioinf
 
 *4b_feeding_mode_ratios.R*: R Script of the feeding mode predator-prey size ratio statistical models and model selection process. Includes code for creating figures.
 
-## 5_supp_figures
+## 5_addnl_figures
 
-*data_summary_tables.R*: R script to produce summary tables of sample sizes by predator species
+*bipartite.R*: R script for creating the bipartite figure in the paper
 
-*prey_phylogeny.R*: R script to produce the supplementary prey phylogeny figure.
+*body_size_summaries.R*: R script for creating the body size summary graphs for prey included in both the main manuscript and supplementary figures. 
+
+*data_summary_tables.R*: R script to produce summary tables of samples and sequencing runs for supplementary figures.
+
+*prey_phylogeny.R*: R script to produce a prey phylogeny figure (not currently included in the supplement).
