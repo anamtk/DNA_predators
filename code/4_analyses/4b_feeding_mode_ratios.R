@@ -142,9 +142,15 @@ predator_traits <- ratios %>%
   ungroup() %>%
   dplyr::select(species, interactions)
 
+ratios <- ratios %>%
+  mutate(pred_class = 
+           case_when(sample_str %in% c("HEV", "LRS", "NEO", "SCY", "SME") ~ "Arachnida",
+                     sample_str %in% c("EUB", "PAN", "PHH") ~ "Insecta",
+                     sample_str == "CEN" ~ "Chilopoda"))
+
 ratios %>%
-  distinct(sample, sample_str, hunting_mode, venom, webs) %>%
-  group_by(sample_str, hunting_mode, venom, webs) %>%
+  distinct(sample, sample_str, hunting_mode, venom, webs, pred_class) %>%
+  group_by(sample_str, hunting_mode, venom, webs, pred_class) %>%
   tally(name = "samples") %>%
   mutate(
     species = case_when(
@@ -159,17 +165,14 @@ ratios %>%
       sample_str == "SME" ~ "S. pallidus"
     )) %>%
   ungroup() %>%
-  dplyr::select(species, hunting_mode, venom, webs, samples) %>%
+  dplyr::select(species, hunting_mode, venom, webs, pred_class, samples) %>%
+  rename(Class = pred_class) %>%
   left_join(predator_traits, by = "species") %>%
   gt() %>%
   tab_header(
     title = "Number of samples and interactions per species and traits") 
 
-ratios <- ratios %>%
-  mutate(pred_class = 
-           case_when(sample_str %in% c("HEV", "LRS", "NEO", "SCY", "SME") ~ "Arachnida",
-                     sample_str %in% c("EUB", "PAN", "PHH") ~ "Insecta",
-                     sample_str == "CEN" ~ "Chilopoda"))
+
 # Models ------------------------------------------------------------------
 
 m_hunting_mode <- glmmTMB(log_ratio ~ hunting_mode + (1|sample) + (1|sample_str),

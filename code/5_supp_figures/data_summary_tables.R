@@ -68,7 +68,7 @@ data2 %>%
   rename("Species" = "pred_ID",
          "Min Size (mg)" = "min_mg",
          "Max Size (mg)" = "max_mg",
-         "Mean Size (mg)" = "mean_mg") #%>%
+         "Mean Size (mg)" = "mean_mg") %>%
   gt() %>% 
   fmt_number(
     columns = vars("Min Size (mg)", "Max Size (mg)", "Mean Size (mg)"),

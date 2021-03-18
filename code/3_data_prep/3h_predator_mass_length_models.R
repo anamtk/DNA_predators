@@ -45,8 +45,7 @@ pred_id <- pred_id %>%
   dplyr::select(pred_Family, sample_str, hunting_mode, venom, webs)
 
 pred_size <- pred_size %>%
-  left_join(pred_id, by = c("Family" = "pred_Family")) %>%
-  mutate(sample_str = ifelse(Order == "Geophilomorpha", "CEN", sample_str))
+  left_join(pred_id, by = c("Family" = "pred_Family"))
 
 meta <- read.csv(here("data", 
                       "raw_data",

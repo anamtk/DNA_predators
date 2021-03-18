@@ -76,9 +76,9 @@ prey_fams <- size %>%
   arrange(Class, Order, Family)
 
 #export for supplementary table
-write.csv(prey_fams, here("Drafts", 
-                          "Figures", 
-                          "Supp", 
+write.csv(prey_fams, here("figures", 
+                          "supp", 
+                          "tables",
                           "prey_families.csv"))
 
 # Body size model selection ---------------------------------------------------------

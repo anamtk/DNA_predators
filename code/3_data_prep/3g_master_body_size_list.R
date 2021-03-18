@@ -33,9 +33,6 @@ ana_ug <- read.csv(here("data",
                         "4_body_size_data",
                         "Pal_UG_mass_length.csv"))
 
-ana_ug <- ana_ug %>%
-  filter(Species != "Heteropoda venatoria") #remove because part of palmyra dataset already
-
 #palmyra raw body size data
 pal <- read.csv(here("data",
                      "raw_data",
@@ -106,7 +103,8 @@ ana_ug <- ana_ug %>%
 #give source for Palmyra data
 pal <- pal %>%
   mutate(Source = "Palmyra") %>%
-  rename("Species" = "Species_Name")
+  rename("Species" = "Species_Name") %>%
+  filter(Species != "Heteropoda_venatoria")
 
 #organize and subset the literature data
 #Class, Order, Family, Genus, Species, Length_mm, Mass_mg, Source
@@ -141,9 +139,11 @@ all_bs %>%
 bs_pred <- all_bs %>%
   filter(Genus %in% c("Phisis", "Heteropoda","Opopaea", "Scytodes",
                         "Neoscona", "Pantala") |
-           Family %in% c("Oonopidae",  "Scytodidae", "Pholcidae", "Libellulidae", "Anisolabididae") |
-  Species %in% c("Neoscona_theisi", "Phisis_holdhausi", "Heteropoda_venatoria") |
-  Order == "Geophilomorpha") 
+           Family %in% c("Mecistocephalidae", "Sparassidae", "Oonopidae",  "Scytodidae", "Pholcidae", "Libellulidae", "Anisolabididae") |
+  Species %in% c("Neoscona_theisi", "Phisis_holdhausi", "Heteropoda_venatoria"))
+
+bs_pred %>%
+  distinct(Family)
 
 bs_pred %>%
   distinct(Family, Source) %>%
