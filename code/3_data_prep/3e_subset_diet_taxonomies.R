@@ -25,7 +25,7 @@ for(i in package.list){library(i, character.only = T)}
 #Prey DNA taxonomies
 taxa <- read.csv(here("data", 
                       "outputs", 
-                      "3b_taxonomic_assignment", 
+                      "3c_taxonomic_assignment", 
                       "c_final_dataset",
                       "ASV_taxonomies_summed_wIndiv.csv"))
 taxa <- taxa %>%
@@ -37,7 +37,7 @@ preds <- read.csv(here("data",
 #load community data
 comm <- read.csv(here("data", 
                       "outputs", 
-                      "3c_rarefied", 
+                      "3d_rarefied", 
                       "community_rare.csv"))
 
 comm <- comm %>%

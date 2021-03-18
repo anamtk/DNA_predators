@@ -27,19 +27,19 @@ for(i in package.list){library(i, character.only = T)}
 #prey size references
 prey_ref <- read.csv(here("data", 
                           "outputs", 
-                          "3e_master_body_size_lists", 
+                          "3g_master_body_size_lists", 
                           "prey_mass_length.csv"))
 
 #individual predator sizes
 preds <- read.csv(here("data", 
                        "outputs", 
-                       "3f_pred_mass_length", 
+                       "3h_pred_mass_length", 
                        "DNA_pred_mass_length.csv"))
 
 #interactions for each predator
 ints <- read.csv(here("data", 
                       "outputs",
-                      "3d_rarefied_taxonomic_sort",
+                      "3e_rarefied_taxonomic_sort",
                       "fam_prey_DNA_conservative.csv"))
 
 #remove run ID

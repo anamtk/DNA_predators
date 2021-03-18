@@ -165,6 +165,11 @@ ratios %>%
   tab_header(
     title = "Number of samples and interactions per species and traits") 
 
+ratios <- ratios %>%
+  mutate(pred_class = 
+           case_when(sample_str %in% c("HEV", "LRS", "NEO", "SCY", "SME") ~ "Arachnida",
+                     sample_str %in% c("EUB", "PAN", "PHH") ~ "Insecta",
+                     sample_str == "CEN" ~ "Chilopoda"))
 # Models ------------------------------------------------------------------
 
 m_hunting_mode <- glmmTMB(log_ratio ~ hunting_mode + (1|sample) + (1|sample_str),
@@ -176,14 +181,21 @@ m_webs <- glmmTMB(log_ratio ~ webs +  (1|sample) + (1|sample_str),
 m_venom <- glmmTMB(log_ratio ~ venom + (1|sample) + (1|sample_str),
                data = ratios)
 
+m_class <- glmmTMB(log_ratio ~ pred_class + (1|sample) + (1|sample_str),
+                   data = ratios)
+
 m_null <- glmmTMB(log_ratio ~ 1 + (1|sample) + (1|sample_str),
                   data = ratios)
 
-AICc(m_hunting_mode, m_webs, m_venom, m_null)
+AICc(m_hunting_mode, m_webs, m_class, m_venom, m_null)
 
-simulateResiduals(m_webs, plot =T)
+simulateResiduals(m_class, plot =T)
 
-summary(m_webs)
+summary(m_class)
+
+plot(allEffects(m_class))
+
+pairs(emmeans(m_class, "pred_class"))
 
 #f0f0f0
 #bdbdbd
@@ -191,13 +203,13 @@ summary(m_webs)
 
 ratios %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
-  ggplot(aes(x = sample_str, y = ratio, fill = webs)) +
+  ggplot(aes(x = sample_str, y = ratio, fill = pred_class)) +
   geom_boxplot(size = 0.75) +
   geom_jitter(width = 0.25, height = 0, shape = 1) +
   theme_bw() +
-  scale_fill_manual(labels = c("No web use", "Web use"), values = c("#f0f0f0", "#636363")) +
+  scale_fill_manual(values = c("#f0f0f0", "#bdbdbd", "#636363")) +
   scale_y_log10(breaks = c(0.01, 1, 100, 10000)) +
-  labs(x = "Web-using", y = "Predator:prey mass ratio") +
+  labs(x = "Predator class", y = "Predator:prey mass ratio") +
   theme(axis.text = element_text(size =20),
         axis.title = element_text(size = 25)) +
   geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
@@ -208,10 +220,31 @@ ratios %>%
         legend.title = element_blank(),
         legend.text = element_text(size = 20))
 
-a <- AICc(m_webs, m_null, m_hunting_mode, m_venom)
+ratios %>%
+  mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
+  ggplot(aes(x = sample_str, y = ratio, fill = pred_class)) +
+  geom_boxplot(size = 0.75) +
+  geom_jitter(width = 0.25, height = 0, shape = 1) +
+  theme_bw() +
+  scale_fill_manual(values = c("#f0f0f0", "#bdbdbd", "#636363")) +
+  scale_y_log10(breaks = c(0.01, 1, 100, 10000)) +
+  labs(x = "Predator class", y = "Predator:prey mass ratio") +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25)) +
+  geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
+  theme(axis.text = element_text(size =20),
+        axis.title = element_text(size = 25),
+        axis.title.x = element_blank(),
+        legend.position = "none",
+        strip.background = element_rect(fill="white"),
+        strip.text = element_text(size = 15)) +
+  facet_grid(.~pred_class, scales = "free_x", space = "free")
+
+a <- AICc(m_class, m_null, m_hunting_mode, m_webs, m_venom)
 
 a %>% 
-  mutate(delta = AICc - 939.1664) %>% 
+  mutate(delta = AICc - 850.5784) %>% 
+  arrange(delta) %>%
   rownames_to_column(var = "model") %>%
   gt() %>% 
   fmt_number(
