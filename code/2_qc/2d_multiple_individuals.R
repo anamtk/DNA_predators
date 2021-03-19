@@ -86,6 +86,19 @@ samples %>%
 
 # Model -------------------------------------------------------------------
 
+## AB note: not sure if the model code is supposed to throw these warnings, but this is what I got (may be worth making a note in the code?)
+## error message for the glmmTMB() lines:
+# Warning message:
+#   In (function (start, objective, gradient = NULL, hessian = NULL,  :
+#                   NA/NaN function evaluation
+## error message for the dredge() lines:
+# Warning messages:
+#   1: In (function (start, objective, gradient = NULL, hessian = NULL,  :
+#                      NA/NaN function evaluation
+#                    2: In (function (start, objective, gradient = NULL, hessian = NULL,  :
+#                                       NA/NaN function evaluation
+
+
 m <- glmmTMB(interactions ~ No..Individuals + (1|sample_str),
              data = counts, family = "genpois")
 
@@ -100,6 +113,11 @@ fit <- simulateResiduals(m2, plot = T)
 a <- dredge(m)
 
 a1 <- a[,c(3:8)]
+
+# another warning:
+# Warning message:
+#   In `[.model.selection`(a, , c(3:8)) :
+#   cannot recalculate "weights" on an incomplete object
 
 a1 %>% 
   rename("No..Individuals" = "cond(No..Individuals)",) %>% 
