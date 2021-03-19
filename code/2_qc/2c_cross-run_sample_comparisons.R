@@ -38,13 +38,13 @@ for(i in package.list){library(i, character.only = T)}
 #rarefied cross-run samples
 cross <- read.csv(here("data", 
                        "outputs", 
-                       "3b_rarefied", 
-                       "cross_run_rare.csv"))
+                       "3b_depth_corrected", 
+                       "cross_run_samples.csv"))
 
 taxa <- read.csv(here("data", 
                       "outputs", 
-                      "3a_taxonomic_assignment", 
-                      "family_level_taxa.csv"))
+                      "3a_remove_negatives", 
+                      "ASVs_counts_all.csv"))
 
 ###########################
 #Manipulate DF to long for analyses####
@@ -55,7 +55,6 @@ taxa <- read.csv(here("data",
 
 #Run A
 run_a <- cross %>%
-  rename("ASV" = "X") %>% #rename X to ASV
   dplyr::select(ASV, HEV07a:HEV29a) %>% #select run 1
   gather(sample, reads, HEV07a:HEV29a) %>% #make this long
   mutate(run = "A") #give a run specific ID
@@ -64,7 +63,6 @@ run_a$sample <- str_sub(run_a$sample, start = 1, end =-2) #remove "a" at end
 
 #Run B
 run_b <- cross %>%
-  rename("ASV" = "X") %>%
   dplyr::select(ASV, HEV07b:HEV29b) %>%
   gather(sample, reads, HEV07b:HEV29b) %>%
   mutate(run = "B")
@@ -73,7 +71,6 @@ run_b$sample <- str_sub(run_b$sample, start = 1, end =-2)
 
 #Run C
 run_c <- cross %>%
-  rename("ASV" = "X") %>%
   dplyr::select(ASV, HEV07c:HEV29c) %>%
   gather(sample, reads, HEV07c:HEV29c) %>%
   mutate(run = "C")
@@ -82,7 +79,6 @@ run_c$sample <- str_sub(run_c$sample, start = 1, end =-2)
 
 #Run D
 run_d <- cross %>%
-  rename("ASV" = "X") %>%
   dplyr::select(ASV, HEV07d:HEV29d) %>%
   gather(sample, reads, HEV07d:HEV29d) %>%
   mutate(run = "D")
@@ -99,7 +95,7 @@ all_run <- run_a %>%
   mutate(presence = ifelse(reads > 0,1,0))
 # from 15580 - 13452 = 2128, or 28 ASVs?
 
-#Factor varibles
+#Factor variables
 all_run$run <- factor(all_run$run, levels = c("A", "B", "C", "D"))
 all_run$ASV <- as.factor(all_run$ASV)
 all_run$sample <- as.factor(all_run$sample)
@@ -140,6 +136,15 @@ pairs(em) #A-B diff, A-D diff, B-C diff, B-D diff, C-D diff
 ###########################
 #Concatenate by family and subset just prey ASVs ####
 ###########################
+
+## AB note: lines 147-155 don't work for me
+## error message:
+# Error: Problem with `filter()` input `..1`.
+# x object 'Family' not found
+# ℹ Input `..1` is `!Family %in% c("Sparassidae", "Hominidae", "Muridae", NA, "Salmonidae")`.
+# ℹ The error occurred in group 1: ASV = "ASV_1".
+## I tried to look at `all_run` and `taxa` but neither of them have taxonomy
+## I also couldn't find the taxonomy file!
 
 taxa_run <- all_run %>%
   left_join(taxa, by = "ASV") %>%
