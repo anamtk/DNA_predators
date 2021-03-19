@@ -60,15 +60,6 @@ ratios %>%
   tally(name = "species")
 
 ratios %>%
-  group_by(hunting_mode) %>%
-  tally(name = "interactions")
-
-ratios %>%
-  distinct(sample_str, hunting_mode) %>%
-  group_by(hunting_mode) %>%
-  tally(name = "species")
-
-ratios %>%
   distinct(sample, webs) %>%
   group_by(webs) %>%
   tally(name = "individuals")
@@ -79,11 +70,6 @@ ratios %>%
   tally(name = "individuals")
 
 ratios %>%
-  distinct(sample, hunting_mode) %>%
-  group_by(hunting_mode) %>%
-  tally(name = "individuals")
-
-ratios %>%
   group_by(webs) %>%
   summarise(mean_ratio = mean(log10_ratio, na.rm = T),
             median = median(ratio, na.rm = T),
@@ -98,18 +84,6 @@ ratios %>%
             sd = sd(ratio, na.rm = T),
             total = n(),
             se = sd/sqrt(total))
-
-ratios %>%
-  group_by(hunting_mode) %>%
-  summarise(mean_ratio = mean(log10_ratio, na.rm = T),
-            median = median(ratio, na.rm = T),
-            sd = sd(ratio, na.rm = T),
-            total = n(),
-            se = sd/sqrt(total))
-
-hist(ratios$ratio)
-hist(ratios$log_ratio)
-hist(ratios$log10_ratio)
 
 # traits
 # number of speices
@@ -175,9 +149,6 @@ ratios %>%
 
 # Models ------------------------------------------------------------------
 
-m_hunting_mode <- glmmTMB(log_ratio ~ hunting_mode + (1|sample) + (1|sample_str),
-             data = ratios)
-
 m_webs <- glmmTMB(log_ratio ~ webs +  (1|sample) + (1|sample_str),
                 data = ratios)
 
@@ -187,41 +158,25 @@ m_venom <- glmmTMB(log_ratio ~ venom + (1|sample) + (1|sample_str),
 m_class <- glmmTMB(log_ratio ~ pred_class + (1|sample) + (1|sample_str),
                    data = ratios)
 
+m_species <- glmmTMB(log_ratio ~ sample_str + (1|sample),
+                     data = ratios)
+
 m_null <- glmmTMB(log_ratio ~ 1 + (1|sample) + (1|sample_str),
                   data = ratios)
 
-AICc(m_hunting_mode, m_webs, m_class, m_venom, m_null)
+AICc(m_webs, m_class, m_venom, m_species, m_null)
 
-simulateResiduals(m_class, plot =T)
+simulateResiduals(m_species, plot =T)
 
-summary(m_class)
+summary(m_species)
 
-plot(allEffects(m_class))
+plot(allEffects(m_species))
 
-pairs(emmeans(m_class, "pred_class"))
+pairs(emmeans(m_species, "sample_str"))
 
 #f0f0f0
 #bdbdbd
 #636363
-
-ratios %>%
-  mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
-  ggplot(aes(x = sample_str, y = ratio, fill = pred_class)) +
-  geom_boxplot(size = 0.75) +
-  geom_jitter(width = 0.25, height = 0, shape = 1) +
-  theme_bw() +
-  scale_fill_manual(values = c("#f0f0f0", "#bdbdbd", "#636363")) +
-  scale_y_log10(breaks = c(0.01, 1, 100, 10000)) +
-  labs(x = "Predator class", y = "Predator:prey mass ratio") +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25)) +
-  geom_hline(yintercept = 1, linetype = "dashed", size = 1) +
-  theme(axis.text = element_text(size =20),
-        axis.title = element_text(size = 25),
-        axis.title.x = element_blank(),
-        legend.position = "bottom",
-        legend.title = element_blank(),
-        legend.text = element_text(size = 20))
 
 ratios %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
@@ -243,10 +198,10 @@ ratios %>%
         strip.text = element_text(size = 15)) +
   facet_grid(.~pred_class, scales = "free_x", space = "free")
 
-a <- AICc(m_class, m_null, m_hunting_mode, m_webs, m_venom)
+a <- AICc(m_species, m_class, m_null, m_venom, m_webs)
 
 a %>% 
-  mutate(delta = AICc - 850.5784) %>% 
+  mutate(delta = AICc - 826.7851) %>% 
   arrange(delta) %>%
   rownames_to_column(var = "model") %>%
   gt() %>% 
