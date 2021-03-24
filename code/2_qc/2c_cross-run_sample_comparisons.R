@@ -38,13 +38,14 @@ for(i in package.list){library(i, character.only = T)}
 #rarefied cross-run samples
 cross <- read.csv(here("data", 
                        "outputs", 
-                       "3b_rarefied", 
+                       "3d_rarefied", 
                        "cross_run_rare.csv"))
 
 taxa <- read.csv(here("data", 
                       "outputs", 
-                      "3a_taxonomic_assignment", 
-                      "family_level_taxa.csv"))
+                      "3c_taxonomic_assignment", 
+                      "c_final_dataset",
+                      "ASV_taxonomies_summed_wIndiv.csv"))
 
 ###########################
 #Manipulate DF to long for analyses####
@@ -202,4 +203,32 @@ ggplot(num_ASV, aes(x = run, y = ASVs)) +
 ggplot(prey_count, aes(x = run, y = families)) +
   geom_boxplot() + theme_bw() +
   labs(x = "Sequencing run", y = "Prey families per sample")
+
+# Composition by run ------------------------------------------------------
+library(calecopal)
+pal <- cal_palette(name = "chaparral2", n = 17, type = "continuous")
+
+comp <- taxa_run %>%
+  filter(reads > 0) %>%
+  filter(Family != "")
+
+ggplot(comp, aes(x = run, y = reads, fill = Family))  +
+  geom_bar(position = "fill", stat = "identity") +
+  facet_wrap(~ sample) +
+  scale_fill_manual(values = pal) +
+  theme_bw() +
+  theme(axis.text = element_text(size = 15),
+        axis.title = element_text(size = 20))
+
+
+mod.season = glmer(presence ~ season + (1+season|species), data =
+                     channel, family = binomial)
+
+library(lme4)
+m <- glmmTMB(reads ~ run + (1+run|Family),
+             data = comp,
+             family = "genpois")
+summary(m)
+plot(allEffects(m))
+simulateResiduals(m, plot = T)
 

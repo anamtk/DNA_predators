@@ -177,14 +177,30 @@ pairs(emmeans(m_species, "sample_str"))
 #f0f0f0
 #bdbdbd
 #636363
+#"LRS", "SCY", "NEO", "CEN",
+#"SME", "EUB", "PHH", "PAN",
+#"HEV"
+
+#[1] "#C70000" "#EA7700" "#EEB00C" 
+#"#C68A2C" 
+#"#89742F" 
+#"#496C3C" "#158D8E" "#067D8D"
+#[9] "#114C54"
 
 ratios %>%
   mutate(sample_str = fct_reorder(sample_str, pred_mass_mg, .fun='mean')) %>%
-  ggplot(aes(x = sample_str, y = ratio, fill = pred_class)) +
-  geom_boxplot(size = 0.75) +
+  ggplot(aes(x = sample_str, y = ratio, color = sample_str, fill= sample_str)) +
+  geom_boxplot(size = 0.75, alpha = 0.6) +
   geom_jitter(width = 0.25, height = 0, shape = 1) +
   theme_bw() +
-  scale_fill_manual(values = c("#f0f0f0", "#bdbdbd", "#636363")) +
+  scale_color_manual(
+    values = c("#C70000", "#EA7700", "#EEB00C", "#89742F", "#114C54",
+               "#C68A2C",
+               "#496C3C", "#158D8E", "#067D8D")) +
+  scale_fill_manual(
+    values = c("#C70000", "#EA7700", "#EEB00C", "#89742F", "#114C54",
+               "#C68A2C",
+               "#496C3C", "#158D8E", "#067D8D")) +
   scale_y_log10(breaks = c(0.01, 1, 100, 10000)) +
   labs(x = "Predator class", y = "Predator:prey mass ratio") +
   theme(axis.text = element_text(size =20),

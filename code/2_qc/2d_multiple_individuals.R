@@ -121,6 +121,8 @@ ggplot(aes(x = No..Individuals, y = interactions)) +
 counts %>%
   ggplot(aes(x = No..Individuals)) +
   geom_histogram() +
-  theme_bw()
+  theme_bw() +
+  labs(x = "# Individuals in sample", 
+       y = "Number of samples with that many individuals")
 
 

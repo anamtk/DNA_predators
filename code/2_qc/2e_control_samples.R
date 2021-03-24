@@ -73,10 +73,14 @@ negs %>%
   theme_bw()
 
 negs %>%
-    summarise(mean_reads = sum(reads),
+    summarise(mean_reads = mean(reads),
               sd_reads = sd(reads),
               total = n(),
               se_reads=sd_reads/sqrt(total)) 
+
+negs %>%
+  group_by(sample) %>%
+  summarise(sum_reads = sum(reads))
 
 negs %>%
   summarise(mean_reads = sum(reads),
