@@ -1,0 +1,36 @@
+---
+title: "METADATA"
+author: "Ana Miller-ter Kuile"
+date: "3/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 
+
+# General Information
+
+#### Data Package
+
+**Title:** Palmyra Invertebrate Predator Diet DNA Metadata
+
+**Abstract:** 
+
+#### Time Period 
+
+**Begin:** 2015
+
+**End:** 2021
+
+#### People and Organizations
+
+**Contact:** Ana Miller-ter Kuile (ana.miller.ter.kuile@gmail.com)
+
+**Creator:** Ana Miller-ter Kuile
+
+#### Data entitites
+
+
