@@ -33,7 +33,7 @@ library(here)
 library(gridExtra)
 library(patchwork)
 
-#Checking Error of first run####
+#Checking Error####
 #from https://github.com/benjjneb/dada2/issues/257
 #Additionally, you will want to check that the error models 
 #from each run are giving basically the same result. 
@@ -90,6 +90,11 @@ reverse_reads_2 <- paste0(samples_b, "_sub_R2_trimmed.fq.gz")
 # filtered reads we're going to generate below
 filtered_forward_reads_2 <- paste0(samples_b, "_sub_R1_filtered.fq.gz")
 filtered_reverse_reads_2 <- paste0(samples_b, "_sub_R2_filtered.fq.gz")
+
+#filtered_out2 <- filterAndTrim(forward_reads_2, filtered_forward_reads_2,
+#                                  reverse_reads_2, filtered_reverse_reads_2, maxEE=c(1,1),
+#                                  rm.phix=TRUE, minLen = 100, multithread = TRUE,
+#                                  matchIDs = TRUE)
 
 filtered_out2 <- read.csv(here("data", "outputs", "filtered_out2.csv"))
 

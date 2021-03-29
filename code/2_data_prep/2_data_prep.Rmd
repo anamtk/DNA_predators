@@ -1,0 +1,153 @@
+---
+title: "3_data_prep"
+author: "Ana Miller-ter Kuile"
+date: "3/29/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+package.list <- c("here", "tidyverse")
+
+## Installing them if they aren't already on the computer
+new.packages <- package.list[!(package.list %in% installed.packages()[,"Package"])]
+if(length(new.packages)) install.packages(new.packages)
+
+## And loading them
+for(i in package.list){library(i, character.only = T)}
+```
+
+# Palmyra DNA diet data prep
+
+This markdown calls every data cleaning step required to take raw denoised (via DADA2) data generate a final diet dataset  with prey family taxonomies associated with each ASV and predator and prey body sizes linked to each interaction. This markdown will source nine source scripts also contained in this folder that each perform one step of the data cleaning process and export a dataset to be imported by the next step in the process. The user needs to run this R markdown to complete the entire data prep process. We will be explaining each step in the process here and more information on each step can be found in each source script.
+
+## 3a: Remove ASV reads from negative controls
+
+Sequencing data may contain sequence jumping, or sequences that jump from sample to sample at a low rate on sequencing runs, in addition to sequences that really are a part of each sample. To correct for this, we removed the sequence reads detected on negative control samples (empty samples processed through PCR with predator samples) across each of the four sequencing runs in this dataset. We did this separately for each negative on each sequencing run and then exported the final dataset for the next step of the process. 
+
+*Input file*: Sample by ASV matrix, where each sample is a column and each ASV produced by DADA2 is a row. Each cell is filled with an abundance of that ASV in that sample. 
+
+*Output file*: Sample by ASV matrix, similar to the one imported, with the negative control ASV sequence reads removed.
+
+```{r}
+source(here("code", 
+            "3_data_prep",
+            "source_code",
+            "3a_remove_negatives.R"))
+```
+
+## 3b: Remove samples with low sequencing depth
+
+A few of the samples in this dataset were sequenced quite a bit lower than the rest of the samples (10,000 total reads versus 100,000 total reads). While we are not certain the reason of this error, it occured primarily for one species (all samples of the scorpion *Isometrus maculatus*), suggesting inhibitors or an error that occurred in PCR with this sample set. We determined the 0.1 quantiles of sampling depth across all samples and found the inflection point where sequencing depth increased the most between quantiles and removed all samples below that depth. 
+
+*Input file*: Sample by ASV matrix, where each sample is a column and each ASV produced by DADA2 is a row. Each cell is filled with an abundance of that ASV in that sample that has been corrected based on negative control read counts.
+
+*Output files*: Two sample by ASV matrices, one where each sample that was run across all four sequencing runs to compare run-to-run variation is a column and the ASVs in those samples are rows, the other matrix of the samples used in final analyses as columns and the ASVs in those samples as rows. 
+
+```{r}
+source(here("code", 
+            "3_data_prep", 
+            "source_code",
+            "3b_low_sample_depth_cutoff.R"))
+```
+
+## 3c: Master taxonomy lists
+
+In order to determine the prey composition of each sample, we compared the list of sequences produced from the DADA2 denoising algorithm to two online DNA sequence databases: NCBI GenBank and BOLD. We compiled the taxonomic identifications of each of these databases into one master list with consistent column names across databases. After determining which ASVs had not gotten a taxonomic assignment, we exported the full combined list and individually BLASTed a few on GenBank and imported this file back into R. I then cleaned the column names up in this dataset up by removing columns that corresponded to each database so that the resulting taxonomic dataset included just these columns: ASV, Domain, Phylum, Class, Order, Family, Genus, Species
+
+*Input files*: Taxonomic assignment spreadsheets from both GenBank and BOLD. 
+
+*Output files*: Combined dataset of all BOLD searches, along with a combined dataset of all taxonomic assignments drawn from overall GenBank BLAST search, BOLD search, and individual GenBank BLAST search. 
+
+## 3d: Rarefy samples
+
+Sequencing data often have varying sequencing depths across samples. To ensure that comparing across individual samples compared similar sampling effort, we rarefied the samples to the lowest sampling depth for a sample prior to further analyses. 
+
+*Input files*: Both the sample by ASV matrix of the cross-run samples (for run-to-run comparison) and the sample by ASV matrix of the dataset used for diet analyses. 
+
+*Output files*: A rarfied version of both the sample by ASV matrix of the cross-run samples (for run-to-run comparison) and the sample by ASV matrix of the dataset used for diet analyses. 
+
+```{r}
+source(here("code", 
+            "3_data_prep", 
+            "source_code",
+            "3d_rarefy_samples.R"))
+```
+
+## 3e: Subset diet taxonomies
+
+Once we had a set of taxonomies for each ASV and the sequencing data per sample were corrected through the previous steps, we combined these two datasets and separated predator from prey DNA into separate datasets. 
+
+*Input files*: The taxonomic assignments of all ASVs from the taxonomy list step, the predator taxonomic identities for each sample, and the rarefied community sample by ASV matrix from the rarefying step. 
+
+*Output files*: Three separate dataframes: one with the ASV, sample, predator, and prey taxonomic assignments for all prey ASVs (family-level, above, and below), another with the same information, but including only the ASVS that corresponded to predator ASVs in each sample, and a final one used in subsequent analyses including only the ASVs assigned to family-level taxonomic assignments of prey DNA, excluding predator DNA. 
+
+```{r}
+source(here("code", 
+            "3_data_prep", 
+            "source_code",
+            "3e_subset_diet_taxonomies.R"))
+```
+
+## 3f: Palmyra body size cleaning
+
+The final analyses include examination of predator-prey size relationships, which bring in size databases from multiple sources, including a large effort on Palmyra Atoll to compile information on species composition, body size distributions, and density/biomass. Before using these size data in our analyses, and because they include, in addition to prey and predator size information, the full species list and body size distribution of the study system, we needed to tidy this dataset from a raw format with more data columns than we needed and with lack of data in some columns.
+
+*Input files*: Two dataframes, one with all the node names (mostly species) for all arthropod species on Palmyra Atoll and another with the body sizes of all specimens measured of all these species. 
+
+*Output files*: Cleaned dataframes with only the columns we care about in both the node list and the size list. 
+
+```{r}
+source(here("code", 
+            "3_data_prep", 
+            "source_code",
+            "3f_palmyra_bs_cleaning.R"))
+```
+
+## 3g: Master body size lists
+
+We compiled body size data from multiple sources for this study, including Palmyra Atoll and several published sources. This script combines all those sources into one dataframe and selects body size data for just the predators and for just the samples corresponding to prey families found in our DNA dataset.
+
+*Input files*: Dataframes of body size (both mass and length) from Palmyra Atoll and from the literature, along with the prey families detected in our DNA dataset. 
+
+*Output files*: Dataframes of the mass and length of prey families, predator species, and a dataset of all sizes combined. This dataframe includes: Order, Family, Genus, Species, Length_mm, Mass_mg, Source (data source), Class,	Phylum,	specific_epithet.
+
+```{r}
+source(here("code", 
+            "3_data_prep", 
+            "source_code",
+            "3g_master_body_size_list.R"))
+```
+
+## 3h: Predator mass-length models
+
+Because we only measured predator length and not mass for our predator samples, we needed to convert predator length to mass using standardized models. This script takes the masses and lengths from measured predators produced with the master body size list script and then uses these relationships to predict the mass of the predator samples in our study.
+
+*Input files*: The dataframe on predator masses and lengths from the master body size list, a list of the predator species IDs for our samples, and the sample collection data for each sample, including predator lengths. 
+
+*Output files*: A dataframe of the predator masses predicted from predator lengths models for our sample set. 
+
+```{r}
+source(here("code", 
+            "3_data_prep", 
+            "source_code",
+            "3h_predator_mass_length_models.R"))
+```
+
+## 3i Interactions and body sizes
+
+This script takes the prey sizes, predator sizes, and the sample by ASV dataframe with taxonomic assignments and combines them all together into an analyzable dataset. 
+
+*Input files*: The dataframes of prey sizes for all prey DNA, the predator sizes predicted from the models, and the family-level taxonomic assignment dataframe for all prey in each sample.
+
+*Output files*: A dataframe of each prey item observed in each predator sample, along with the sizes of each predator and the prey family observed in that predator. 
+
+```{r}
+source(here("code", 
+            "3_data_prep", 
+            "source_code",
+            "3i_interactions_w_body_size.R"))
+```
