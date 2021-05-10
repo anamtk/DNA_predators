@@ -27,7 +27,7 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs",  
-                      "3i_final_dataset", 
+                      "2i_final_dataset", 
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%
@@ -139,7 +139,7 @@ ratios %>%
       sample_str == "SME" ~ "S. pallidus"
     )) %>%
   ungroup() %>%
-  dplyr::select(species, hunting_mode, venom, webs, pred_class, samples) %>%
+  dplyr::select(species, venom, webs, pred_class, samples) %>%
   rename(Class = pred_class) %>%
   left_join(predator_traits, by = "species") %>%
   gt() %>%
@@ -149,7 +149,7 @@ ratios %>%
 
 # Models ------------------------------------------------------------------
 
-m_webs <- glmmTMB(log_ratio ~ webs +  (1|sample) + (1|sample_str),
+m_webs <- glmmTMB(log_ratio ~ webs + (1|sample) + (1|sample_str),
                 data = ratios)
 
 m_venom <- glmmTMB(log_ratio ~ venom + (1|sample) + (1|sample_str),
@@ -158,21 +158,18 @@ m_venom <- glmmTMB(log_ratio ~ venom + (1|sample) + (1|sample_str),
 m_class <- glmmTMB(log_ratio ~ pred_class + (1|sample) + (1|sample_str),
                    data = ratios)
 
-m_species <- glmmTMB(log_ratio ~ sample_str + (1|sample),
-                     data = ratios)
-
 m_null <- glmmTMB(log_ratio ~ 1 + (1|sample) + (1|sample_str),
                   data = ratios)
 
-AICc(m_webs, m_class, m_venom, m_species, m_null)
+AICc(m_webs, m_class, m_venom, m_null)
 
-simulateResiduals(m_species, plot =T)
+simulateResiduals(m_class, plot =T)
 
-summary(m_species)
+summary(m_class)
 
-plot(allEffects(m_species))
+plot(allEffects(m_class))
 
-pairs(emmeans(m_species, "sample_str"))
+pairs(emmeans(m_class, "pred_class"))
 
 #f0f0f0
 #bdbdbd
@@ -214,10 +211,10 @@ ratios %>%
         strip.text = element_text(size = 15)) +
   facet_grid(.~pred_class, scales = "free_x", space = "free")
 
-a <- AICc(m_species, m_class, m_null, m_venom, m_webs)
+a <- AICc(m_class, m_null, m_venom, m_webs)
 
 a %>% 
-  mutate(delta = AICc - 826.7851) %>% 
+  mutate(delta = AICc - 850.5784) %>% 
   arrange(delta) %>%
   rownames_to_column(var = "model") %>%
   gt() %>% 

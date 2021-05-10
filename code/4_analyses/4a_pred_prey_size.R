@@ -31,7 +31,7 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs",  
-                      "3i_final_dataset", 
+                      "2i_final_dataset", 
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 size <- data %>%
@@ -126,6 +126,10 @@ summary(m2)
 #pred_log_mass_mg, which is sublinear with a relationship of
 #y = a + x^0.34336
 
+?MuMIn
+r.squaredGLMM(m2)
+library(glmm)
+confint(m2) #from glmm package
 pairs(emmeans(m2, ~sample_str))
 
 plot(allEffects(m2))
