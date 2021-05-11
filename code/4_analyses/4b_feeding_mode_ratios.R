@@ -55,13 +55,14 @@ ratios %>%
   tally(name = "interactions")
 
 ratios %>%
-  group_by(pred_class) %>%
-  tally(name = "interactions")
-
-ratios %>%
   distinct(sample_str, venom) %>%
   group_by(venom) %>%
   tally(name = "species")
+
+ratios %>%
+  group_by(pred_class) %>%
+  tally(name = "interactions")
+
 
 ratios %>%
   distinct(sample, webs) %>%
