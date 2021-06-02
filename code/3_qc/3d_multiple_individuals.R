@@ -23,11 +23,12 @@ for(i in package.list){library(i, character.only = T)}
 
 data <- read.csv(here("data", 
                       "outputs",
-                      "3i_final_dataset",
+                      "2i_final_dataset",
                       "pred_prey_sizes_DNAinteractions.csv"))
 
 meta <- read.csv(here("data",
                       "raw_data",
+                      "sample_data",
                       "Sample_metadata.csv"))
 
 meta <- meta %>%
@@ -37,6 +38,7 @@ meta <- meta %>%
 
 samples <- read.csv(here("data",
                       "raw_data",
+                      "sample_data",
                       "Sample_metadata.csv"))
 
 # Manipulate datasets --------------------------------------------------------

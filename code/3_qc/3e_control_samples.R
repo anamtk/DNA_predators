@@ -28,7 +28,6 @@ comm <- read.csv(here("data",
                       "raw_data",
                       "1_denoised_data", 
                       "dada2", 
-                      "b_combined_runs",
                       "ASVs_counts_all.tsv"), 
                  sep = "\t")
 

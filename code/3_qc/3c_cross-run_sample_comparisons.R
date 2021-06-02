@@ -38,12 +38,12 @@ for(i in package.list){library(i, character.only = T)}
 #rarefied cross-run samples
 cross <- read.csv(here("data", 
                        "outputs", 
-                       "3d_rarefied", 
+                       "2d_rarefied", 
                        "cross_run_rare.csv"))
 
 taxa <- read.csv(here("data", 
                       "outputs", 
-                      "3c_taxonomic_assignment", 
+                      "2c_taxonomic_assignment", 
                       "c_final_dataset",
                       "ASV_taxonomies_summed_wIndiv.csv"))
 
