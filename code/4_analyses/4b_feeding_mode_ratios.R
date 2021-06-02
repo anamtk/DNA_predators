@@ -34,6 +34,12 @@ size <- data %>%
   dplyr::select(-X, -reads) %>%
   mutate(pred_mass_mg = 10^(pred_log_mass_mg))
 
+eaten <- size %>%
+  group_by(sample_str, Order, Family) %>%
+  summarise("Frequency (No. Individuals)" = n())
+
+write.csv(eaten, here("figures", "supp", "tables", "prey_frequency.csv"))
+
 # Ratios by feeding interaction -------------------------------------------
 
 ratios <- size %>%
