@@ -14,12 +14,12 @@ library(tidyverse)
 # Import data -------------------------------------------------------------
 
 error_f <- read.csv(here("data", 
-                         "ouputs", 
+                         "outputs", 
                          "3a_crossrun_error_checking",
                          "forward_errors.csv"))
 
 error_r <- read.csv(here("data", 
-                         "ouputs", 
+                         "outputs", 
                          "3a_crossrun_error_checking",
                          "reverse_errors.csv"))
 

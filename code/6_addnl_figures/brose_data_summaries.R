@@ -17,7 +17,10 @@ for(i in package.list){library(i, character.only = T)}
 # Load data ---------------------------------------------------------------
 
 
-data <- read.csv(here("brose_2019", "data.csv"))
+data <- read.csv(here("data",
+                      "raw_data",
+                      "5_brose_data",
+                      "data.csv"))
 
 
 # Tidy data ---------------------------------------------------------------

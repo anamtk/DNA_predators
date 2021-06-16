@@ -28,7 +28,7 @@ for(i in package.list){library(i, character.only = T)}
 #Dada2 combined runs ASVs, read counts by sample
 comm <- read.csv(here("data", 
                       "outputs", 
-                      "3a_remove_negatives", 
+                      "2a_remove_negatives", 
                       "ASVs_counts_all.csv"))
 
 comm <- comm %>%
@@ -201,11 +201,11 @@ all_data <- all_data %>%
 #export wide format for rarefying 
 write.csv(cross, here("data", 
                       "outputs", 
-                      "3a_depth_corrected", 
+                      "2b_depth_corrected", 
                       "cross_run_samples.csv"))
 
 write.csv(data, here("data", 
                      "outputs", 
-                     "3a_depth_corrected", 
+                     "2b_depth_corrected", 
                      "depth_subset_samples.csv"))
 

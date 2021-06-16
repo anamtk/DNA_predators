@@ -92,91 +92,109 @@ IDs_ncbi <- IDs_ncbi %>%
 bold1 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_0.csv"))
 bold2 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw", 
                        "BOLD_1.csv"))
 bold3 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_2.csv"))
 bold4 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_3.csv"))
 bold5 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_4.csv"))
 bold6 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_5.csv"))
 bold7 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_6.csv"))
 bold8 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_7.csv"))
 bold9 <- read.csv(here("data",
                        "raw_data",
                        "3_taxonomies",
+                       "BOLD",
                        "BOLD_raw",
                        "BOLD_8.csv"))
 bold10 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_9.csv"))
 bold11 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_10.csv"))
 bold12 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_11.csv"))
 bold13 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_12.csv"))
 bold14 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_13.csv"))
 bold15 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_14.csv"))
 bold16 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_15.csv"))
 bold17 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_16.csv"))
 bold18 <- read.csv(here("data",
                         "raw_data",
                         "3_taxonomies",
+                        "BOLD",
                         "BOLD_raw",
                         "BOLD_17.csv"))
 
@@ -204,8 +222,8 @@ all_bold <- bold1 %>%
 
 #I exported these and assigned taxonomic levels to everything via internet searches
 #export so I can add taxonomic levels to this database
-write.csv(all_bold, here("2_taxonomic_assignment", 
-                         "taxonomies", 
+write.csv(all_bold, here("2c_taxonomic_assignment", 
+                         "a_export_for_manual_entry",
                          "bold.csv"))
 
 #I created a new CSV that includes all the taxonomic levels I compiled from internet
@@ -213,7 +231,7 @@ write.csv(all_bold, here("2_taxonomic_assignment",
 IDs_bold <- read.csv(here("data",
                           "raw_data",
                           "3_taxonomies",
-                          "BOLD_combined",
+                          "BOLD",
                           "bold_wID.csv"))
 
 #now I want to assign the level at which those IDs were made, as in the above DF
@@ -400,7 +418,7 @@ all_IDs %>%
 
 write.csv(all_IDs, here("data", 
                         "outputs", 
-                        "3a_taxonomic_assignment",
+                        "2c_taxonomic_assignment",
                         "a_export_for_manual_entry",
                         "ASV_taxonomies.csv"))
 
@@ -411,7 +429,7 @@ write.csv(all_IDs, here("data",
 
 taxa <- read.csv(here("data", 
                       "outputs",
-                      "3a_taxonomic_assignment",
+                      "2c_taxonomic_assignment",
                       "b_import_after_manual_entry",
                       "ASV_taxonomies_wIndiv.csv"))
 
@@ -452,7 +470,7 @@ taxa_sort %>%
 
 write.csv(taxa_sort, here("data", 
                           "outputs",
-                          "3a_taxonomic_assignment",
+                          "2c_taxonomic_assignment",
                           "c_final_dataset",
                           "ASV_taxonomies_summed_wIndiv.csv"))
 
@@ -461,9 +479,9 @@ write.csv(taxa_sort, here("data",
 #####################
 
 all_ASVS <- read.csv(here("data", 
-                          "denoised_data", 
-                          "dada_may", 
-                          "combined", 
+                          "raw_data",
+                          "1_denoised_data", 
+                          "dada2",  
                           "ASVs_counts_all.tsv"), sep = "\t")
 
 all_ASVS <- all_ASVS %>%

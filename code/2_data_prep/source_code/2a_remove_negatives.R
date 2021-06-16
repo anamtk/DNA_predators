@@ -25,7 +25,6 @@ comm <- read.csv(here("data",
                       "raw_data",
                       "1_denoised_data", 
                       "dada2", 
-                      "b_combined_runs",
                       "ASVs_counts_all.tsv"), 
                  sep = "\t")
 
@@ -108,6 +107,6 @@ cleaned <- a %>%
 
 write.csv(cleaned, (here("data", 
                        "outputs", 
-                       "3a_remove_negatives", 
+                       "2a_remove_negatives", 
                        "ASVs_counts_all.csv")))
 

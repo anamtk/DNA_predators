@@ -28,7 +28,7 @@ data <- read.csv(here("data",
 
 meta <- read.csv(here("data",
                       "raw_data",
-                      "sample_data",
+                      "2_sample_data",
                       "Sample_metadata.csv"))
 
 meta <- meta %>%
@@ -38,7 +38,7 @@ meta <- meta %>%
 
 samples <- read.csv(here("data",
                       "raw_data",
-                      "sample_data",
+                      "1_sample_data",
                       "Sample_metadata.csv"))
 
 # Manipulate datasets --------------------------------------------------------

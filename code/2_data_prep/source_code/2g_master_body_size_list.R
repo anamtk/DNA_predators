@@ -156,7 +156,7 @@ bs_pred %>%
 #master prey family list
 pal_fams <- read.csv(here("data", 
                           "outputs", 
-                          "3e_rarefied_taxonomic_sort", 
+                          "2e_rarefied_taxonomic_sort", 
                           "fam_prey_DNA_conservative.csv"))
 
 #remove the sequencing run from sample name
@@ -187,17 +187,17 @@ bs_prey %>%
 
 write.csv(bs_pred, here("data", 
                         "outputs", 
-                        "3g_master_body_size_lists", 
+                        "2g_master_body_size_lists", 
                         "pred_mass_length.csv"))
 
 write.csv(bs_prey, here("data", 
                         "outputs", 
-                        "3g_master_body_size_lists",  
+                        "2g_master_body_size_lists",  
                         "prey_mass_length.csv"))
 
 write.csv(all_bs, here("data",
                        "outputs",
-                       "3g_master_body_size_lists",
+                       "2g_master_body_size_lists",
                        "all_mass_length.csv"))
 
 

@@ -13,7 +13,7 @@ source(here("code",
 
 all_bs <- read.csv(here("data",
                         "outputs",
-                        "3g_master_body_size_lists",
+                        "2g_master_body_size_lists",
                         "all_mass_length.csv"))
 
 all_pal <- all_bs %>%
@@ -26,7 +26,7 @@ nodes <- read.csv(here("data",
 
 prey <- read.csv(here("data",
                       "outputs",
-                      "3g_master_body_size_lists",
+                      "2g_master_body_size_lists",
                       "prey_mass_length.csv"))
 
 # Body Size distributions -------------------------------------------------

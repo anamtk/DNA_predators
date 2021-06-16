@@ -13,7 +13,7 @@ for(i in package.list){library(i, character.only = T)}
 
 prey <- read.csv(here("data",
                       "outputs",
-                      "3g_master_body_size_lists",
+                      "2g_master_body_size_lists",
                       "prey_mass_length.csv"))
 
 # Prey Family Size Dists --------------------------------------------------

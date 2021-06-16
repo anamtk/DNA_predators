@@ -27,7 +27,7 @@ for(i in package.list){library(i, character.only = T)}
 #Cross-run comparsion dataset
 cross <- read.csv(here("data", 
                        "outputs", 
-                       "3a_depth_corrected",
+                       "2b_depth_corrected",
                        "cross_run_samples.csv"))
 cross <- cross %>%
   column_to_rownames(var = "ASV") %>%
@@ -36,7 +36,7 @@ cross <- cross %>%
 #Community dataset
 community <- read.csv(here("data", 
                            "outputs", 
-                           "3a_depth_corrected",
+                           "2b_depth_corrected",
                            "depth_subset_samples.csv"))
 
 community <- community %>%
@@ -74,11 +74,11 @@ comm_rare <- as.data.frame(t(rrarefy(t(community), sample = community_rare_low))
 ###########################
 write.csv(cross_rare, here("data", 
                            "outputs", 
-                           "3c_rarefied", 
+                           "2d_rarefied", 
                            "cross_run_rare.csv"))
 
 write.csv(comm_rare, here("data", 
                           "outputs", 
-                          "3c_rarefied", 
+                          "2d_rarefied", 
                           "community_rare.csv"))
 

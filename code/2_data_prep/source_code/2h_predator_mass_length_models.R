@@ -28,7 +28,7 @@ for(i in package.list){library(i, character.only = T)}
 
 pred_size <- read.csv(here("data", 
                            "outputs", 
-                           "3g_master_body_size_lists", 
+                           "2g_master_body_size_lists", 
                            "pred_mass_length.csv"))
 
 pred_size <- pred_size %>%
@@ -39,6 +39,7 @@ pred_size <- pred_size %>%
 
 pred_id <- read.csv(here("data", 
                          "raw_data", 
+                         "2_sample_data",
                          "Predator_IDs.csv"))
 
 pred_id <- pred_id %>%
@@ -49,6 +50,7 @@ pred_size <- pred_size %>%
 
 meta <- read.csv(here("data", 
                       "raw_data",
+                      "2_sample_data",
                       "Sample_metadata.csv"))
 
 #############################
@@ -124,7 +126,7 @@ ggplot() +
   
 write.csv(predators, here("data", 
                           "outputs", 
-                          "3h_pred_mass_length", 
+                          "2h_pred_mass_length", 
                           "DNA_pred_mass_length.csv"))
 
 #############################

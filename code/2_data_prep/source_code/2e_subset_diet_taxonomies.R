@@ -25,7 +25,7 @@ for(i in package.list){library(i, character.only = T)}
 #Prey DNA taxonomies
 taxa <- read.csv(here("data", 
                       "outputs", 
-                      "3c_taxonomic_assignment", 
+                      "2c_taxonomic_assignment", 
                       "c_final_dataset",
                       "ASV_taxonomies_summed_wIndiv.csv"))
 taxa <- taxa %>%
@@ -33,11 +33,12 @@ taxa <- taxa %>%
 
 preds <- read.csv(here("data",
                        "raw_data",
+                       "2_sample_data",
                        "Predator_IDs.csv"))
 #load community data
 comm <- read.csv(here("data", 
                       "outputs", 
-                      "3d_rarefied", 
+                      "2d_rarefied", 
                       "community_rare.csv"))
 
 comm <- comm %>%
@@ -357,16 +358,16 @@ prey_fam_conservative %>%
 
 write.csv(known_pred, here("data", 
                            "outputs", 
-                           "3d_rarefied_taxonomic_sort", 
+                           "2e_rarefied_taxonomic_sort", 
                            "predator_DNA.csv"))
 
 write.csv(other_DNA, here("data", 
                           "outputs",
-                          "3d_rarefied_taxonomic_sort", 
+                          "2e_rarefied_taxonomic_sort", 
                           "all_prey_DNA.csv"))
 
 write.csv(prey_fam_conservative, here("data", 
                                       "outputs", 
-                                      "3d_rarefied_taxonomic_sort", 
+                                      "2e_rarefied_taxonomic_sort", 
                                       "fam_prey_DNA_conservative.csv"))
 
