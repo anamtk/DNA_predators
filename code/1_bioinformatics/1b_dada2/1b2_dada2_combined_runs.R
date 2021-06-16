@@ -36,7 +36,10 @@ library(patchwork)
 
 #All runs together ####
 
-setwd(here("data", "all_samples"))
+setwd(here("data",
+           "raw_data",
+           "0_raw_sequences",
+           "e_combined_runs"))
 
 samples_all <- scan("samples", what = "character")
 
@@ -49,19 +52,6 @@ reverse_reads_all <- paste0(samples_all, "_R2_trimmed.fq.gz")
 # filtered reads we're going to generate below
 filtered_forward_reads_all <- paste0(samples_all, "_R1_filtered.fq.gz")
 filtered_reverse_reads_all <- paste0(samples_all, "_R2_filtered.fq.gz")
-
-#plotQualityProfile(forward_reads)
-#plotQualityProfile(reverse_reads)
-# and just plotting the last 4 samples of the reverse reads
-#plotQualityProfile(reverse_reads_2[17:20])
-#plotQualityProfile(forward_reads_2[17:20])
-
-#Happy Belly uses the info above to use the truncLen argument
-#in the following filterAndTrim function. I am not going to do that just yet
-#the original code looked like:
-#filtered_out <- filterAndTrim(forward_reads, filtered_forward_reads,
-#                              reverse_reads, filtered_reverse_reads, maxEE=c(2,2),
-#                              rm.phix=TRUE, minLen=175, truncLen=c(250,200))
 
 #i'm going to do maxEE at 1, but may reconsider later 
 filtered_out_all <- filterAndTrim(forward_reads_all, filtered_forward_reads_all,
@@ -176,10 +166,16 @@ for (i in 1:dim(seqtab.nochim_all)[2]) {
 
 # making and writing out a fasta of our final ASV seqs:
 asv_fasta_all <- c(rbind(asv_headers_all, asv_seqs_all))
-write(asv_fasta_all, "ASVs_all.fa")
+write(asv_fasta_all, here("raw_data",
+                          "1_denoised_data",
+                          "dada2",
+                          "ASVs_all.fasta"))
 
 # count table:
 asv_tab_all <- t(seqtab.nochim_all)
 row.names(asv_tab_all) <- sub(">", "", asv_headers_all)
-write.table(asv_tab_all, "ASVs_counts_all.tsv", sep="\t", quote=F, col.names=NA)
+write.table(asv_tab_all, here("raw_data",
+                              "1_denoised_data",
+                              "dada2",
+                              "ASVs_counts_all.tsv"), sep="\t", quote=F, col.names=NA)
 
