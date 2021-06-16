@@ -1,6 +1,7 @@
 #Dada2 Error Rate Check Across Runs
 #Ana Miller-ter Kuile
 #February 3, 2020
+
 #This was drawn from both Happy Belly Informatics and the github issue about 
 #combining runs for dada2
 #https://astrobiomike.github.io/amplicon/dada2_workflow_ex
@@ -44,13 +45,17 @@ library(patchwork)
 
 # Run A errors ---------------------------------------------------
 
+#set the working directory for run A
+setwd(here("data",
+           "raw_data",
+           "0_raw_sequences",
+           "a_Jan_2019",
+           "trimmed"))
+
 #this is the samples object created by cutadapt - you may have to create a 
 #new one in 
 #terminal if you have moved folders
-samples_a <- scan(here("data", "a_January_2019", 
-                       "trimmed", "samples"), what = "character")
-
-setwd(here("data", "a_January_2019", "trimmed"))
+samples_a <- scan("samples", what = "character")
 
 # one holding the file names of all the forward reads
 forward_reads_1 <- paste0(samples_a, "_sub_R1_trimmed.fq.gz")
@@ -62,8 +67,10 @@ reverse_reads_1 <- paste0(samples_a, "_sub_R2_trimmed.fq.gz")
 filtered_forward_reads_1 <- paste0(samples_a, "_sub_R1_filtered.fq.gz")
 filtered_reverse_reads_1 <- paste0(samples_a, "_sub_R2_filtered.fq.gz")
 
-filtered_out1 <- read.csv(here("data", "outputs", "filtered_out1.csv"))
-filtered_out1
+filtered_out_1 <- filterAndTrim(forward_reads_1, filtered_forward_reads_1,
+                                  reverse_reads_1, filtered_reverse_reads_1, maxEE=c(1,1),
+                                  rm.phix=TRUE, minLen = 100, multithread = TRUE,
+                                  matchIDs = TRUE)
 
 #error model of forward and reverse reads
 #the truncate length above may alter this error structure, something to consider
@@ -77,7 +84,12 @@ error_1_r <- plotErrors(err_reverse_reads_1, nominalQ=TRUE)
 
 # Run B errors ---------------------------------------------------
 
-setwd(here("data", "b_April_2019", "trimmed"))
+#set directory for this dataset
+setwd(here("data", 
+           "raw_data",
+           "0_raw_sequences",
+           "b_Apr_2019", 
+           "trimmed"))
 
 samples_b <- scan("samples", what = "character")
 
@@ -91,14 +103,10 @@ reverse_reads_2 <- paste0(samples_b, "_sub_R2_trimmed.fq.gz")
 filtered_forward_reads_2 <- paste0(samples_b, "_sub_R1_filtered.fq.gz")
 filtered_reverse_reads_2 <- paste0(samples_b, "_sub_R2_filtered.fq.gz")
 
-#filtered_out2 <- filterAndTrim(forward_reads_2, filtered_forward_reads_2,
-#                                  reverse_reads_2, filtered_reverse_reads_2, maxEE=c(1,1),
-#                                  rm.phix=TRUE, minLen = 100, multithread = TRUE,
-#                                  matchIDs = TRUE)
-
-filtered_out2 <- read.csv(here("data", "outputs", "filtered_out2.csv"))
-
-filtered_out2
+filtered_out2 <- filterAndTrim(forward_reads_2, filtered_forward_reads_2,
+                                  reverse_reads_2, filtered_reverse_reads_2, maxEE=c(1,1),
+                                  rm.phix=TRUE, minLen = 100, multithread = TRUE,
+                                  matchIDs = TRUE)
 
 #error model of forward and reverse reads
 #the truncate length above may alter this error structure, something to consider
@@ -112,7 +120,12 @@ error_2_r <- plotErrors(err_reverse_reads_2, nominalQ=TRUE)
 
 # Run C errors ---------------------------------------------------
 
-setwd(here("data", "c_September_2019", "trimmed"))
+#set directory for this dataset
+setwd(here("data", 
+           "raw_data",
+           "0_raw_sequences",
+           "c_Sep_2019", 
+           "trimmed"))
 
 samples_c <- scan("samples", what = "character")
 
@@ -126,8 +139,10 @@ reverse_reads_3 <- paste0(samples_c, "_sub_R2_trimmed.fq.gz")
 filtered_forward_reads_3 <- paste0(samples_c, "_sub_R1_filtered.fq.gz")
 filtered_reverse_reads_3 <- paste0(samples_c, "_sub_R2_filtered.fq.gz")
 
-filtered_out3 <- read.csv(here("data", "outputs", "filtered_out3.csv"))
-filtered_out3
+filtered_out3 <- filterAndTrim(forward_reads_3, filtered_forward_reads_3,
+                               reverse_reads_3, filtered_reverse_reads_3, maxEE=c(1,1),
+                               rm.phix=TRUE, minLen = 100, multithread = TRUE,
+                               matchIDs = TRUE)
 
 #error model of forward and reverse reads
 #the truncate length above may alter this error structure, something to consider
@@ -141,7 +156,12 @@ error_3_r <- plotErrors(err_reverse_reads_3, nominalQ=TRUE)
 
 # Run D errors ---------------------------------------------------
 
-setwd(here("data", "d_December_2019", "trimmed"))
+#set directory for this dataset
+setwd(here("data", 
+           "raw_data",
+           "0_raw_sequences",
+           "d_Dec_2019", 
+           "trimmed"))
 
 samples_d <- scan("samples", what = "character")
 
@@ -155,19 +175,17 @@ reverse_reads_4 <- paste0(samples_d, "_sub_R2_trimmed.fq.gz")
 filtered_forward_reads_4 <- paste0(samples_d, "_sub_R1_filtered.fq.gz")
 filtered_reverse_reads_4 <- paste0(samples_d, "_sub_R2_filtered.fq.gz")
 
+filtered_out4 <- filterAndTrim(forward_reads_4, filtered_forward_reads_4,
+                               reverse_reads_4, filtered_reverse_reads_4, maxEE=c(1,1),
+                               rm.phix=TRUE, minLen = 100, multithread = TRUE,
+                               matchIDs = TRUE)
 
-filtered_out4 <- read.csv(here("data", "outputs", "filtered_out4.csv"))
-
-filtered_out4
 #one of my negatives got filtered to zero so I need to delete that for the next
 #step - it's throwing it off
 
 #delete negative for the sequence table below
 filtered_out4b <- filtered_out4 %>%
   filter(reads.out > 0) 
-
-#filtered_out %>%
-#  as_tibble(rownames = "sample")
 
 #need to find the samples with zero values in reads.out. This pipe does that:
 empty <- filtered_out4 %>%
@@ -262,7 +280,14 @@ errors_r <- er_1_r %>%
   bind_rows(er_3_r) %>%
   bind_rows(er_4_r)
 
-write.csv(errors_f, here("data", "outputs", "forward_errors.csv"))
-write.csv(errors_r, here("data", "outputs", "reverse_errors.csv"))
+write.csv(errors_f, here("data", 
+                         "outputs", 
+                         "3a_crossrun_error_checking",
+                         "forward_errors.csv"))
+
+write.csv(errors_r, here("data", 
+                         "outputs", 
+                         "3a_crossrun_error_checking",
+                         "reverse_errors.csv"))
 
 
