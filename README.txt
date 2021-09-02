@@ -21,8 +21,8 @@ End Date: May 2021
 
 Geographic location: 
 Verbal Description: Palmyra Atoll National Wildlife Refuge, Northern Line Islands
-North Bounding Coordinate: 5.883333
-South Bounding Coordinate: -162.08333
+Coordinate: 5.883333
+Coordinate: -162.08333
 
 Taxonomic species or groups
 Phylum: Arthropoda, Class: Arachnida, Order: Araneae;
@@ -71,7 +71,7 @@ Dudley, Robert, Pan, Tianyu, Zheng, Mengzong, Peng, Liansong, Li, Qiushi
 Maximum aerodynamic force production by the wandering glider dragonfly (Pantala flavescens, Libellulidae). https://doi.org/10.1242/jeb.218552
 
 Young, Hillary, McLaughlin, John, Miller-ter Kuile, Ana, Lafferty, Kevin
-Invertebrate morphometric data collected from Palmyra Atoll National Wildlife Refuge, Northern Islands: August 2009 - November 2016. NEED DOI
+Invertebrate morphometric data collected from Palmyra Atoll National Wildlife Refuge, Northern Islands: August 2009 - November 2016. (see additional metadata file in data -> raw_data -> 4_body_size_data -> uncleaned_palmyra
 
 Brose, Ulrich, Archambault, Phillippe, Barnes, Andrew D., Bersier, Louis Felix, Boy, Thomas, Canning-Clode, João, Conti, Erminia, Dias, Marta, Digel, Christoph, Dissanayake, Awantha, Flores, Augusto A.V., Fussmann, Katarina, Gauzens, Benoit, Gray, Clare, Häussler, Johanna, Hirt, Myriam, R., Jacob, Ute, Jochum, Malte, Kéfi, Sonia, McLaughlin, Orla, MacPherson, Muriel M., Latz, Ellen,
 Layer-Dobra, Katrin, Legagneux, Pierre, Li, Yuanheng, Madeira, Carolina, Martinez, Neo D., Mendonça, Vanessa, Mulder, Christian, Navarrete, Sergio A., O’Gorman, Eoin J., Ott, David, Paula, José, Perkins, Daniel, Piechnik, Denise, Pokrovsky, Ivan, Raffaelli, David, Rall, Björn C., Rosenbaum, Benjamin, Ryser, Remo, Silva, Ana, Sohlström, Esra H., Sokolova, Natalia, Thompson, Murray S.A., Thompson, Ross M., Vermandele, Fanny, Vinagre, Catarina, Wang, Shaopeng, Wefer, Jori M., Williams, Richard J., Wieters, Evie, Woodward, Guy, Iles, Alison C.
@@ -79,7 +79,7 @@ Predator traits determine food-web architecture across ecosystems. http://dx.doi
 
 ### 
 
-Data Tables
+Data Files
 
 *Note: We did not include summaries of data tables in the “outputs” folder of the data folder. These are all intermediate steps in the data preparation process and the steps to generate them are found in the scripts in the ‘2_data_prep’ folder and explained in more detail as they are processed in the ‘2_data_prep.Rmd’ file in that folder. 
 
@@ -87,7 +87,7 @@ Data Tables
 Table name: ASVs_all.fasta
 Table description: a list of all filtered and merged CO1 sequences from the DADA2 pipeline of all sequencing runs combined
 
-Column name |Description |Unit or Code explanation or date format |missing value code
+Column name | Description | Unit or Code explanation or date format | missing value code
 
 ASV |a CO1 sequence merged and filtered via DADA2 (matched to sequence in the ASVs_all.fasta file) |NA |NA
 

@@ -80,3 +80,16 @@ data2 %>%
     locations = cells_body(
       columns = vars("Species")))
 
+
+# Metadata ----------------------------------------------------------------
+
+
+meta <- read.csv(here("data", "raw_data", "2_sample_data",
+                      "Sample_metadata.csv"))
+
+data %>%
+  left_join(meta, by = c("sample" = "Extraction.ID")) %>%
+  group_by(Year) %>%
+  summarise(tally = n())
+
+

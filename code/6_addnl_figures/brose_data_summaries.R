@@ -25,7 +25,6 @@ data <- read.csv(here("data",
 
 # Tidy data ---------------------------------------------------------------
 
-
 # select predation only
 predate <- data %>%
   filter(interaction.type == "predacious") %>%

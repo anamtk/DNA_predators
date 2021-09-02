@@ -72,3 +72,17 @@ ggplot(aes(x = number_of_species,
        y = "Standard error of body mass within family") +
   theme_bw() 
 
+
+prey %>%
+  filter(Family != "") %>%
+  mutate(Family = as.factor(Family)) %>%
+  mutate(Family = fct_reorder(Family, Mass_mg, .fun = 'sd')) %>%
+  distinct(Genus, Family) %>%
+  group_by(Family) %>%
+  tally() %>%
+  summarise(mean = mean(n),
+            sd = sd(n),
+            total = n(),
+            se = sd/sqrt(total),
+            max = max(n))
+
