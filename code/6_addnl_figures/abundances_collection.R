@@ -75,5 +75,17 @@ ggplot(collection, (aes(x = reorder(ID, -total), y = total, fill = category, col
   theme(axis.text.x = element_text(angle = 90, hjust = 1),
         legend.position = "top") +
   labs(x = "Morphospecies ID", y = "Total samples")
+
+
+# Summary stats of collection ---------------------------------------------
+
+collection %>%
+  filter(studied == "yes") %>%
+  ungroup() %>%
+  summarise(mean = mean(total),
+            sd = sd(total),
+            n = n(),
+            se = sd/sqrt(n),
+            min = min(total))
   
   

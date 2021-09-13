@@ -25,7 +25,7 @@ data <- read.csv(here("data",
 
 # Tidy data ---------------------------------------------------------------
 
-# select predation only
+# select predation only of inverts
 predate <- data %>%
   filter(interaction.type == "predacious") %>%
   filter(con.metabolic.type == "invertebrate")
@@ -118,4 +118,28 @@ ggplot(aes(x = res.size.method)) +
 
 links /
   preds + prey
+
+# summary stats -----------------------------------------------------------
+
+predate_1 %>%
+  group_by(link.methodology) %>%
+  summarise(total = n())
+
+predate_1 %>%
+  tally()
+
+(15504+2089)/131025
+
+(2089)/131025
+
+predate_1 %>%
+  group_by(res.size.method) %>%
+  tally()
+
+(112622+352)/131025
+
+predate_1 %>%
+  group_by(con.size.method) %>%
+  tally()
+
 
