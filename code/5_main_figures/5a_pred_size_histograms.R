@@ -43,3 +43,4 @@ pred_labels <- c("CEN" = "Mecistocephalus sp.", "EUB" = "E. annulipes",
    theme(legend.position = "none",
          strip.background = element_rect(fill="white"),
          strip.text = element_text(size = 15)))
+
